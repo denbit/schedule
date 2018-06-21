@@ -11,11 +11,11 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class SEOInfo extends Model
+class TranslationsCommon extends Model
 {
 
     public function getSource()
     {
-        return 'seo_info';
+        return 'translations_common';
     }
 }

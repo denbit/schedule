@@ -11,11 +11,11 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class Pages extends Model
+class PagesTypes extends Model
 {
 
     public function getSource()
     {
-        return 'pages';
+        return 'page_types';
     }
 }

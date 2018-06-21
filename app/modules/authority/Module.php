@@ -1,5 +1,5 @@
 <?php
-namespace Schedule\Modules\Transporters;
+namespace Schedule\Modules\Authority;
 
 use Phalcon\DiInterface;
 use Phalcon\Loader;

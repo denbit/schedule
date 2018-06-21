@@ -11,11 +11,11 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class Languages extends Model
+class LanguageDescription extends Model
 {
 
     public function getSource()
     {
-        return 'site_langs';
+        return 'lang_desc';
     }
 }

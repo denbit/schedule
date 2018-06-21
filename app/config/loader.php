@@ -8,8 +8,8 @@ $loader = new Loader();
  * Register Namespaces
  */
 $loader->registerNamespaces([
-    'Schedule\Models' => APP_PATH . '/common/models/',
-    'Schedule'        => APP_PATH . '/common/library/',
+    'Schedule\Core\Models' => APP_PATH . '/corelibs/models/',
+    'Schedule\Core'        => APP_PATH . '/corelibs/libs/',
 ]);
 
 /**

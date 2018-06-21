@@ -11,11 +11,25 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class Cities extends Model
+class States extends Model
 {
+    public $id;
+    public $latin_name;
+    public $cyr_name;
+    public $national_name;
 
     public function getSource()
     {
-        return 'cities';
+        return 'states';
     }
+
+    public static function getIdByAnyName($name)
+    {
+        return self::find([
+            'conditions'=>"latin_name like ?0 or cyr_name like ?0 or national_name like ?0",
+            'bind'=>[$name."%"]
+            ]);
+
+    }
+
 }
