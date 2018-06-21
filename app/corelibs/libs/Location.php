@@ -33,7 +33,57 @@ class Location
      */
     private $station;
 
-    public static function findLocation($wildcard)
+    /**
+     * @return array
+     */
+    public function getState()
+    {
+        $info = [];
+        foreach ($this->state as $k => $item) {
+            $info[$k] = $item;
+        }
+        return $info;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCity()
+    {
+        $info = [];
+        foreach ($this->city as $k => $item) {
+            $info[$k] = $item;
+        }
+        return $info;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLocalReg()
+    {
+        $info = [];
+        foreach ($this->local_reg as $k => $item) {
+            $info[$k] = $item;
+        }
+        return $info;
+    }
+
+    /**
+     * @return array
+     */
+    public function getStation()
+    {
+        $info = [];
+        foreach ($this->station as $k => $item) {
+            $info[$k] = $item;
+        }
+        return $info;
+
+
+    }
+
+    public static function findAllLocation($wildcard)//accross stitions and cities
     {
         //search accross all fields
     }
@@ -53,17 +103,41 @@ class Location
                     return false;
                 } else {
                     $loc->city = $cities_ids[0];
-                    foreach ($cities_ids as $a => $b) {
-                        foreach ($b as $k => $item) {
-                            echo $k, ' ', $item;
-                        }
-                        echo "<br>";
+                    $station_ids = Stations::getStationByAnyName($loc->city->id, $station);
+
+                    if (count($station_ids) == 0 || count($station_ids) > 1) {
+                        return false;
+                    } else {
+                        $loc->station = $station_ids[0];
+                        return $loc;
                     }
+
+
                 }
             }
-
         }
 
+    }
+
+    public function __toString()
+    {
+        $info = "State info:<br>";
+        foreach ($this->state as $k => $item) {
+            $info .= $k . ' ' . $item . "<br>";
+        }
+        $info .= "City Info:<br>";
+        foreach ($this->city as $k => $item) {
+            $info .= $k . ' ' . $item . "<br>";
+        }
+        $info .= "Local Region Info:<br>";
+        foreach ($this->local_reg as $k => $item) {
+            $info .= $k . ' ' . $item . "<br>";
+        }
+        $info .= "Station Info:<br>";
+        foreach ($this->station as $k => $item) {
+            $info .= $k . ' ' . $item . "<br>";
+        }
+        return $info;
     }
 
     public function createLocation()
@@ -86,12 +160,12 @@ class Location
 
     }
 
-    public static function getLocalRegionByCity()
+    public static function getLocalRegionByCity($wildcard)
     {
 
     }
 
-    public static function getLocalRegionByStation()
+    public static function getLocalRegionByStation($wildcard)
     {
 
     }

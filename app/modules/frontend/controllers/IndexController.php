@@ -3,15 +3,21 @@
 namespace Schedule\Modules\Frontend\Controllers;
 
 use Schedule\Core\Location;
-use Schedule\Core\Models\Cities;
-use Schedule\Core\Models\States;
+
 
 class IndexController extends ControllerBase
 {
 
     public function indexAction()
     {
-        Location::getLocation('UA','',"Kha",'');
+       $l= Location::getLocation('UA','',"Днеп",'Днеп');
+       echo  $l;
+       var_dump($l->getCity());
+//        foreach ($l as $a => $b) {
+//            foreach ($b as $k => $item) {
+//                echo $k, ' ', $item;
+//            }
+//            echo "<br>";}
 //        foreach (States::getIdByAnyName('Ан') as $a=>$b){
 //            foreach ($b as $k=>$item) {
 //             echo $k,' ',$item;

@@ -13,6 +13,14 @@ use Phalcon\Mvc\Model;
 
 class Stations extends Model
 {
+    public static function getStationByAnyName($city_id,$name)
+    {
+        return self::find([
+            'conditions'=>"(latin_name like ?0 or cyr_name like ?0 or national_name like ?0) and city_id=?1",
+            'bind'=>[$name."%",$city_id]
+        ]);
+
+    }
 
     public function getSource()
     {
