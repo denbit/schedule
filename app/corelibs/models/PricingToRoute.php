@@ -11,11 +11,11 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class Cities extends Model
+class PricingToRoute extends Model
 {
 
     public function getSource()
     {
-        return 'cities';
+        return 'pricing_to_route';
     }
 }

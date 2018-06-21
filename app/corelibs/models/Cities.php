@@ -6,10 +6,30 @@
  * Time: 11:11
  */
 
-namespace CoreLibs\Models;
+namespace Schedule\Core\Models;
 
 
-class Cities
+use Phalcon\Mvc\Model;
+
+class Cities extends Model
 {
+    public $id;
+    public $latin_name;
+    public $cyr_name;
+    public $national_name;
 
+    public function getSource()
+    {
+        return 'cities';
+    }
+
+
+    public static function getIdByAnyName($county_id,$name)
+    {
+        return self::find([
+            'conditions'=>"(latin_name like ?0 or cyr_name like ?0 or national_name like ?0) and country_id=?1",
+            'bind'=>[$name."%",$county_id]
+        ]);
+
+    }
 }

@@ -11,11 +11,11 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class Stations extends Model
+class StationsTranslations extends Model
 {
 
     public function getSource()
     {
-        return 'stations';
+        return 'stations_translations';
     }
 }

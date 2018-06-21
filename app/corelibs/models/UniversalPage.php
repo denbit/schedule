@@ -11,11 +11,11 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class Cities extends Model
+class UniversalPage extends Model
 {
 
     public function getSource()
     {
-        return 'cities';
+        return 'uni_page';
     }
 }

@@ -11,11 +11,11 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class States extends Model
+class LocalRegions extends Model
 {
 
     public function getSource()
     {
-        return 'states';
+        return 'local_regions';
     }
 }
