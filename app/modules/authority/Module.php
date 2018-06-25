@@ -21,8 +21,8 @@ class Module implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Schedule\Modules\Transporters\Controllers' => __DIR__ . '/controllers/',
-            'Schedule\Modules\Transporters\Models'      => __DIR__ . '/models/'
+            'Schedule\Modules\Authority\Controllers' => __DIR__ . '/controllers/',
+            'Schedule\Modules\Authority\Models'      => __DIR__ . '/models/'
         ]);
 
         $loader->register();
