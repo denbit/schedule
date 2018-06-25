@@ -13,6 +13,16 @@ use Phalcon\Mvc\Model;
 
 class Stations extends Model
 {
+    private $city_id;
+
+    /**
+     * @return mixed
+     */
+    public function getCityId()
+    {
+        return $this->city_id;
+    }
+
     public static function getStationByAnyName($city_id,$name)
     {
         return self::find([

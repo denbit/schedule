@@ -128,22 +128,31 @@ class Location
 
     public function __toString()
     {
-        $info = "State info:<br>";
-        foreach ($this->state as $k => $item) {
-            $info .= $k . ' ' . $item . "<br>";
+        $info='';
+       if(!is_null($this->state)){
+           $info.= "<b>State info:</b><br>";
+           foreach ($this->state as $k => $item) {
+               $info .= $k . ' ' . $item . "<br>";
+           }
+       }
+        if(!is_null($this->city)){
+            $info .= "<b>City Info:</b><br>";
+            foreach ($this->city as $k => $item) {
+                $info .= $k . ' ' . $item . "<br>";
+            }
         }
-        $info .= "City Info:<br>";
-        foreach ($this->city as $k => $item) {
-            $info .= $k . ' ' . $item . "<br>";
-        }
-        $info .= "Local Region Info:<br>";
+        if(!is_null($this->local_reg)){
+        $info .= "<b>Local Region Info:</b><br>";
         foreach ($this->local_reg as $k => $item) {
             $info .= $k . ' ' . $item . "<br>";
         }
-        $info .= "Station Info:<br>";
+       }
+        if(!is_null($this->station)){
+        $info .= "<b>Station Info:</b><br>";
         foreach ($this->station as $k => $item) {
             $info .= $k . ' ' . $item . "<br>";
         }
+       }
         return $info;
     }
 
@@ -187,6 +196,12 @@ class Location
     }
     public static function getLocationByStation(Stations $station)
     {
+        $loc=new self();
+        $loc->station=$station;
+        $loc->city=Cities::findFirst($station->getCityId());
+        $loc->local_reg=$loc->city->is_regional?null:LocalRegions::findFirst($loc->city->local_district_id);
+        $loc->state=States::findFirst($loc->city->country_id);
+        return $loc;
 
     }
 
