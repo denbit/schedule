@@ -38,6 +38,7 @@ class Route
        $this->made_by=$res->madeBy;
        $this->path=RouteConstructor::buildRoute($res->getTransitPath());
 
+       return $this;
     }
 
     public static function findByEndCity($city)

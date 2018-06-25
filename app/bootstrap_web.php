@@ -47,7 +47,8 @@ try {
     $application->registerModules([
         'frontend' => ['className' => 'Schedule\Modules\Frontend\Module'],
 		'transporters' => ['className' => 'Schedule\Modules\Transporters\Module'],
-        'authority' => ['className' => 'Schedule\Modules\Authority\Module'],
+        'authority' => ['className' => 'Schedule\Modules\Authority\Module']
+
     ]);
 
     /**

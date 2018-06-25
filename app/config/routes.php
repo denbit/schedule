@@ -1,7 +1,6 @@
 <?php
 
 $router = $di->getRouter();
-
 foreach ($application->getModules() as $key => $module) {
 
     $namespace = preg_replace('/Module$/', 'Controllers', $module["className"]);
@@ -26,4 +25,5 @@ foreach ($application->getModules() as $key => $module) {
         'action' => 2,
         'params' => 3
     ]);
+
 }
