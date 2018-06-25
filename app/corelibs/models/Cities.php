@@ -17,6 +17,8 @@ class Cities extends Model
     public $latin_name;
     public $cyr_name;
     public $national_name;
+    public $is_regional;
+    public $local_district_id;
 
     public function getSource()
     {

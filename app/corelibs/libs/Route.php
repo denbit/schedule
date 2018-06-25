@@ -16,6 +16,8 @@ class Route
 
     private $start_st;
     private $end_st;
+    private $made_by;
+    private $path;
     private $price;
 
     public function __construct($data_for_constructor=[])
@@ -31,10 +33,11 @@ class Route
     {
 
        $res=Routes::findFirst($id);
-       var_dump( $res->toArray());
-        var_dump( $res->startStation->toArray());
-        var_dump( $res->endStation->toArray());
-        var_dump( $res->madeBy->toArray());
+       $this->start_st=Location::getLocationByStation($res->startStation);
+       $this->end_st=Location::getLocationByStation($res->endStation);
+       $this->made_by=$res->madeBy;
+       $this->path=RouteConstructor::buildRoute($res->getTransitPath());
+
     }
 
     public static function findByEndCity($city)

@@ -27,7 +27,11 @@ class RouteConstructor
         catch (\Exception $exception){
             echo $exception->getMessage();
         }
-        echo $route->getId();
+        if( $route->getId()&&$this->checkTransit($transit_data,$start_id,$end_id)){
+            $transit_result=$this->buildTransit($transit_data,$route->getId());
+            if($this->writeCost($transit_result,$cost_data))
+                return true;
+        }
 
 
 }
@@ -38,6 +42,30 @@ class RouteConstructor
 
 }
 
+    /**
+     * @param $transit_data
+     * @param $route_id
+     * @return array
+     */
+    private function buildTransit($transit_data,$route_id)
+    {
+
+}
+
+    /**
+     * @param $transit_data
+     * @param $cost_data
+     * @return bool
+     */
+    private function writeCost($transit_data,$cost_data)
+    {
+
+}
+
+    public static function buildRoute($trans_data)
+    {
+        echo $trans_data;
+}
     public function modifyRoute()
     {
 
