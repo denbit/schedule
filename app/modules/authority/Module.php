@@ -58,7 +58,7 @@ class Module implements ModuleDefinitionInterface
             $config = $this->getConfig();
 
             $view = new View();
-            $view->setViewsDir($config->get('application')->viewsDir);
+            $view->setViewsDir($config->get('authorithy')->viewsDir);
             
             $view->registerEngines([
                 '.volt'  => 'voltShared',
