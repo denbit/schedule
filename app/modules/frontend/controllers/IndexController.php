@@ -3,6 +3,7 @@
 namespace Schedule\Modules\Frontend\Controllers;
 
 use Schedule\Core\Location;
+use Schedule\Core\Route;
 
 
 class IndexController extends ControllerBase
@@ -10,9 +11,10 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-       $l= Location::getLocation('UA','',"Днеп",'Днеп');
-       echo  $l;
-       var_dump($l->getCity());
+        (new Route())->findById(3);
+//       $l= Location::getLocation('UA','',"Днеп",'Днеп');
+//       echo  $l;
+//       var_dump($l->getCity());
 //        foreach ($l as $a => $b) {
 //            foreach ($b as $k => $item) {
 //                echo $k, ' ', $item;

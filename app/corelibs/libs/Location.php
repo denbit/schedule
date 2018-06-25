@@ -88,6 +88,13 @@ class Location
         //search accross all fields
     }
 
+    /**
+     * @param $state
+     * @param $local_region
+     * @param $city
+     * @param $station
+     * @return bool|Location
+     */
     public static function getLocation($state, $local_region, $city, $station)
     {
         $state_ids = States::getIdByAnyName($state);
@@ -145,20 +152,29 @@ class Location
         //create or modify all location path
     }
 
-    public function createStation()
+    public function selectState($state)
     {
 
     }
 
-    public function addCity()
+    public function selectCity($city)
     {
 
     }
 
-    public function addState()
+    public function addCity($data)
     {
 
     }
+    public function addStation($data)
+    {
+
+    }
+    public function addLocalRegion($data)
+    {
+
+    }
+
 
     public static function getLocalRegionByCity($wildcard)
     {
@@ -166,6 +182,10 @@ class Location
     }
 
     public static function getLocalRegionByStation($wildcard)
+    {
+
+    }
+    public static function getLocationByStation(Stations $station)
     {
 
     }
