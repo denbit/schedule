@@ -72,7 +72,7 @@ class Location
     /**
      * @return array
      */
-    public function getStation()
+    public function getStations()
     {
         $info = [];
         foreach ($this->station as $k => $item) {
@@ -80,12 +80,44 @@ class Location
         }
         return $info;
 
-
     }
 
-    public static function findAllLocation($wildcard)//accross stitions and cities
+    /**
+     * @return bool|Stations
+     */
+    public function getStation()
     {
+
+        return !is_null($this->station)?$this->station:false;
+
+    }
+    public static function findAllLocation($state,$wildcard,&$data_for_clarifying=null)//accross stitions and cities
+    {
+
+        if(!is_null($state=States::getOneByAnyName($state))){
+            $city=Cities::getIdByAnyName($state->getId(),$wildcard);
+            if(count($city)>1){
+                $data_for_clarifying=$city;
+                return false;
+            }elseif(count($city)==0){
+                //write your city doesnt exist
+            }else{
+                if(count($stations=$city[0]->stations)>0){
+                    if(count($stations)==1){
+                        //building and returning full location
+                    }else{
+                        $data_for_clarifying=$stations;
+                        return false;
+                    }
+                }else{
+                    echo "creating station";
+                }
+
+            }
+        }
+
         //search accross all fields
+        //find all cities if 1 check for amount of stations of more then 1 return and check once more if 0 create station according to city name
     }
 
     /**
@@ -97,7 +129,7 @@ class Location
      */
     public static function getLocation($state, $local_region, $city, $station)
     {
-        $state_ids = States::getIdByAnyName($state);
+        $state_ids = States::getStatesByAnyName($state);
         if (count($state_ids) == 0 || count($state_ids) > 1) {
             return false;
         } else {
@@ -155,6 +187,23 @@ class Location
        }
         return $info;
     }
+    public function toArray()
+    {
+        $info=[];
+        if(!is_null($this->state)){
+            $info['state_info']= $this->state->toArray();
+        }
+        if(!is_null($this->city)){
+            $info ['city_info']=$this->city->toArray();
+        }
+        if(!is_null($this->local_reg)){
+            $info ['local_region']= $this->local_reg->toArray();
+        }
+        if(!is_null($this->station)){
+            $info ['station_info']= $this->station->toArray();
+        }
+        return $info;
+    }
 
     public function createLocation()
     {
@@ -193,6 +242,11 @@ class Location
     public static function getLocalRegionByStation($wildcard)
     {
 
+    }
+
+    public static function getLocationByStationId(int $id):Location
+    {
+        return self::getLocationByStation(Stations::findFirst($id));
     }
     public static function getLocationByStation(Stations $station)
     {

@@ -13,10 +13,20 @@ use Phalcon\Mvc\Model;
 
 class Stations extends Model
 {
+    private $id;
     private $city_id;
 
     /**
-     * @return mixed
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * @return int
      */
     public function getCityId()
     {
