@@ -11,6 +11,7 @@ namespace Schedule\Core;
 
 use Schedule\Core\Models\Routes;
 use Schedule\Core\Models\Stations;
+use Schedule\Core\Models\TransitRoutes;
 
 class RouteConstructor
 {
@@ -18,6 +19,7 @@ class RouteConstructor
     {
         if(Stations::count($start_id)!=1&&Stations::count($end_id)!=1)
             return false;
+        var_dump($this->checkTransit($transit_data,$start_id,$end_id));die;
         $route=new Routes();
         $route->setStartStation($start_id);
         $route->setEndStation($end_id);
@@ -38,7 +40,14 @@ class RouteConstructor
 
     private function checkTransit($transit_data,$start,$end)
     {
+        $start_path=$transit_data[0];
+        $end_path=end($transit_data);
+        if(($start_path['from']==$start)&&($end_path['to']==$end))
+            return true;
+        else
+            return false;
 
+        // check if first is from_id ==startId and check if last toId is end id
 
 }
 
@@ -64,7 +73,18 @@ class RouteConstructor
 
     public static function buildRoute($trans_data)
     {
-        echo $trans_data;
+
+         $transit_ids=explode(',',$trans_data);
+         $transit_stations=[];
+         foreach ($transit_ids as $transit_id){
+
+             $station=TransitRoutes::findFirst($transit_id);
+             $station->setFromIdStation(Location::getLocationByStationId($station->getFromIdStation()));
+             $station->setToIdStation(Location::getLocationByStationId($station->getToIdStation()));
+             $transit_stations[]=$station;
+         }
+         return $transit_stations;
+
 }
     public function modifyRoute()
     {

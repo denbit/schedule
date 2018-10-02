@@ -20,6 +20,11 @@ class Cities extends Model
     public $is_regional;
     public $local_district_id;
 
+    public function initialize()
+    {
+        $this->hasMany('id',Stations::class,'city_id',['alias'=>'stations']);
+    }
+
     public function getSource()
     {
         return 'cities';
