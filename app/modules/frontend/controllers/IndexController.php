@@ -15,9 +15,22 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
 
-        $all_possible=Location::findAllLocation('Ukraine','Vinny',$r);
-        var_dump(count($r));
+        $all_possible=Location::findAllLocation('Ukraine','Киев',$r);
+var_dump($all_possible->toArray());
+        foreach ($all_possible as $a=>$b){
+            foreach ($b as $k=>$item) {
+                echo $a,' ',print_r($item->toArray(),true);
+            }
 
+            echo "<br>";
+        };
+//        foreach (Location::findAllVariants("У") as $a=>$b){
+//            foreach ($b as $k=>$item) {
+//             echo $a,' ',print_r($item->toArray(),true);
+//            }
+//
+//            echo "<br>";
+//        };
      //$r= (new BusRoute('1234'));//->findById(3);
 
 //        $r=new BusRoute();
