@@ -9,7 +9,7 @@
 namespace Schedule\Core;
 
 
-class Order
+class Order extends Kernel
 {
 
 }

@@ -14,7 +14,7 @@ use Schedule\Core\Models\Company;
 use Schedule\Core\Models\Routes;
 use Schedule\Core\Models\TransitRoutes;
 
-class BusRoute
+class BusRoute extends Kernel
 {
 
     /**
@@ -43,7 +43,8 @@ class BusRoute
     private $price;
 
     public function __construct($data_for_constructor=[])
-    {if(!empty($data_for_constructor)){
+    {   parent::__construct();
+        if(!empty($data_for_constructor)){
         $bd=new RouteConstructor();
         $transit_data=[
             ['from'=>1,'to'=>4,'arrival'=>'00:00:00','departure'=>'00:20:00'],

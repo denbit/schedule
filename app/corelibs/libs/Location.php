@@ -14,7 +14,7 @@ use Schedule\Core\Models\LocalRegions;
 use Schedule\Core\Models\States;
 use Schedule\Core\Models\Stations;
 
-class Location
+class Location extends Kernel
 {
     /**
      * @var States

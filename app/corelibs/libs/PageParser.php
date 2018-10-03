@@ -9,7 +9,7 @@
 namespace Schedule\Core;
 
 
-class PageParser
+class PageParser extends Kernel
 {
 
 }

@@ -13,27 +13,44 @@ use Schedule\Core\Models\Routes;
 use Schedule\Core\Models\Stations;
 use Schedule\Core\Models\TransitRoutes;
 
-class RouteConstructor
+class RouteConstructor extends Kernel
 {
     public function createRoute($start_id,$end_id,$regularity,$transit_data,$cost_data,$made_by=1)
     {
         if(Stations::count($start_id)!=1&&Stations::count($end_id)!=1)
             return false;
-        var_dump($this->checkTransit($transit_data,$start_id,$end_id));die;
+        $this->db->begin();
+        
         $route=new Routes();
         $route->setStartStation($start_id);
         $route->setEndStation($end_id);
         $route->setRegularity($regularity);
         $route->setMadeBy($made_by);
-        try{$route->save();}
-        catch (\Exception $exception){
-            echo $exception->getMessage();
+        if(!$route->save()){
+            $this->db->rollback();
+        return  false;
         }
         if( $route->getId()&&$this->checkTransit($transit_data,$start_id,$end_id)){
             $transit_result=$this->buildTransit($transit_data,$route->getId());
-            if($this->writeCost($transit_result,$cost_data))
+            if (!$transit_result){
+                $this->db->rollback();
+                return  false;
+            }
+            $route->setTransitPath($transit_result);
+            if(!$route->update()){
+                $this->db->rollback();
+                return  false;
+            }
+
+            if($this->writeCost($transit_result,$cost_data)){
+                $this->db->commit();
+
                 return true;
+            }
+
         }
+
+
 
 
 }
@@ -58,6 +75,24 @@ class RouteConstructor
      */
     private function buildTransit($transit_data,$route_id)
     {
+        if(count($transit_data)>0){
+            $transit_ids=[];
+            foreach ($transit_data as $transit_datum){
+                $record=new TransitRoutes();
+                $record->setFromIdStation($transit_datum['from']);//check from with does it exist
+                $record->setToIdStation($transit_datum['to']);
+                $record->setDeparture($transit_datum['departure']);
+                $record->setArrival($transit_datum['arrival']);
+                $record->setBelongsToRoute($route_id);
+                if(!$record->save()){
+                   echo $record->getMessages();
+                }else{
+                    $transit_ids[]=$record->getId();
+                }
+
+            }
+            return implode(',',$transit_ids);
+        }
 
 }
 
@@ -68,7 +103,7 @@ class RouteConstructor
      */
     private function writeCost($transit_data,$cost_data)
     {
-
+ return true;
 }
 
     public static function buildRoute($trans_data)
