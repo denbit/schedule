@@ -38,11 +38,7 @@ class Location
      */
     public function getState()
     {
-        $info = [];
-        foreach ($this->state as $k => $item) {
-            $info[$k] = $item;
-        }
-        return $info;
+        return !is_null($this->state)?$this->state:false;
     }
 
     /**
@@ -50,11 +46,7 @@ class Location
      */
     public function getCity()
     {
-        $info = [];
-        foreach ($this->city as $k => $item) {
-            $info[$k] = $item;
-        }
-        return $info;
+        return !is_null($this->city)?$this->city:false;
     }
 
     /**
@@ -62,11 +54,7 @@ class Location
      */
     public function getLocalReg()
     {
-        $info = [];
-        foreach ($this->local_reg as $k => $item) {
-            $info[$k] = $item;
-        }
-        return $info;
+        return !is_null($this->local_reg)?$this->local_reg:false;
     }
 
     /**
@@ -91,6 +79,33 @@ class Location
         return !is_null($this->station)?$this->station:false;
 
     }
+
+
+    public function createLocation()
+    {
+        //create or modify all location path
+    }
+
+    public function addState( States $state)
+    {
+        $this->state=$state;
+    }
+
+    public function addCity( Cities $data)
+    {
+        $this->city=$data;
+    }
+    public function addStation( Stations $data)
+    {
+        $this->station=$data;
+
+    }
+    public function addLocalRegion($data)
+    {
+
+    }
+
+
     public static function findAllLocation($state,$wildcard,&$data_for_clarifying=null)//accross stitions and cities
     {
 
@@ -104,7 +119,12 @@ class Location
             }else{
                 if(count($stations=$city[0]->stations)>0){
                     if(count($stations)==1){
-                        //building and returning full location
+                        $loc=new self();
+                        $loc->addState($state);
+                        $loc->addCity($city[0]);
+                        $loc->local_reg=$loc->city->is_regional?null:LocalRegions::findFirst($loc->city->local_district_id);
+                        $loc->addStation($stations[0]);
+                        return $loc; //building and returning full location
                     }else{
                         $data_for_clarifying=$stations;
                         return false;
@@ -115,6 +135,40 @@ class Location
 
             }
         }
+
+        //search accross all fields
+        //find all cities if 1 check for amount of stations of more then 1 return and check once more if 0 create station according to city name
+    }
+    public static function findAllVariants($wildcard):array //accross stitions and cities
+    {
+
+        $variants=[];
+        if(!is_null($state=States::getStatesByAnyName($wildcard))){
+            $variants['states']=$state;
+        }
+
+            $city=Cities::find([
+                'conditions'=>"(latin_name like ?0 or cyr_name like ?0 or national_name like ?0)",
+                'bind'=>[$wildcard."%"]
+            ]);
+            if(count($city)>0){
+                $variants['city']=$city;
+        }
+        $loc_reg=LocalRegions::find([
+            'conditions'=>"(latin_name like ?0 or cyr_name like ?0 or national_name like ?0)",
+            'bind'=>[$wildcard."%"]
+        ]);
+        if(count($loc_reg)>0){
+            $variants['loc_reg']=$loc_reg;
+        }
+        $stations=Stations::find([
+            'conditions'=>"(latin_name like ?0 or cyr_name like ?0 or national_name like ?0)",
+            'bind'=>[$wildcard."%"]
+        ]);
+        if(count($stations)>0){
+            $variants['stations']=$stations;
+        }
+        return $variants;
 
         //search accross all fields
         //find all cities if 1 check for amount of stations of more then 1 return and check once more if 0 create station according to city name
@@ -155,6 +209,50 @@ class Location
                 }
             }
         }
+
+    }
+
+    public static function getLocalRegionByCity($wildcard)
+    {
+        $city=Cities::getIdByAnyName($wildcard);
+        if(count($city)==1){
+            if($city[0]->is_regional){
+                return new LocalRegions();
+            }else{
+                return LocalRegions::findFirst($city[0]->local_district_id);
+            }
+        }else{
+            return false;
+        }
+    }
+
+    public static function getLocalRegionByStation($wildcard)
+    {
+        $sts=Stations::getStationByAnyName($wildcard);
+        if(count($sts)==1){
+            $city=Cities::findFirst($sts[0]->getCityId());
+            if($city->is_regional){
+                return new LocalRegions();
+            }else{
+                return LocalRegions::findFirst($city->local_district_id);
+            }
+        }else{
+            return false;
+        }
+    }
+
+    public static function getLocationByStationId(int $id):Location
+    {
+        return self::getLocationByStation(Stations::findFirst($id));
+    }
+    public static function getLocationByStation(Stations $station)
+    {
+        $loc=new self();
+        $loc->station=$station;
+        $loc->city=Cities::findFirst($station->getCityId());
+        $loc->local_reg=$loc->city->is_regional?null:LocalRegions::findFirst($loc->city->local_district_id);
+        $loc->state=States::findFirst($loc->city->country_id);
+        return $loc;
 
     }
 
@@ -204,60 +302,4 @@ class Location
         }
         return $info;
     }
-
-    public function createLocation()
-    {
-        //create or modify all location path
-    }
-
-    public function selectState($state)
-    {
-
-    }
-
-    public function selectCity($city)
-    {
-
-    }
-
-    public function addCity($data)
-    {
-
-    }
-    public function addStation($data)
-    {
-
-    }
-    public function addLocalRegion($data)
-    {
-
-    }
-
-
-    public static function getLocalRegionByCity($wildcard)
-    {
-
-    }
-
-    public static function getLocalRegionByStation($wildcard)
-    {
-
-    }
-
-    public static function getLocationByStationId(int $id):Location
-    {
-        return self::getLocationByStation(Stations::findFirst($id));
-    }
-    public static function getLocationByStation(Stations $station)
-    {
-        $loc=new self();
-        $loc->station=$station;
-        $loc->city=Cities::findFirst($station->getCityId());
-        $loc->local_reg=$loc->city->is_regional?null:LocalRegions::findFirst($loc->city->local_district_id);
-        $loc->state=States::findFirst($loc->city->country_id);
-        return $loc;
-
-    }
-
-
 }
