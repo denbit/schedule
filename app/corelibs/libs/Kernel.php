@@ -7,7 +7,7 @@
  */
 
 namespace Schedule\Core;
-
+use Schedule\Core\Models\Languages;
 
 /**
  * Phalcon\Di\Injectable
@@ -65,5 +65,16 @@ public function  __get($var){
         return $this->di[$var];
     else
         return false;
+}
+
+    public function getLanguageId($lang)
+    {
+        $lang=Languages::findFirst("lang_code like '{$lang}'");
+        if ($lang===false){
+            $lang=Languages::findFirst("lang_code like 'uk'");
+        }
+        $lang_id=$lang->lang_id;
+        return $lang_id;
+
 }
 }
