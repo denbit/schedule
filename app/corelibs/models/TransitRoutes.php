@@ -58,11 +58,18 @@ class TransitRoutes extends Model
     /**
      * @return int
      */
-    public function getFromIdStation()
+    public function getFromStation()
     {
         return $this->from_id_station;
     }
 
+    /**
+     * @return int
+     */
+    public function getFromIdStation()
+    {
+        return $this->from_id_station;
+    }
     /**
      * @param int|Location $from_id_station
      */
@@ -74,11 +81,18 @@ class TransitRoutes extends Model
     /**
      * @return int
      */
-    public function getToIdStation()
+    public function getToStation()
     {
         return $this->to_id_station;
     }
 
+    /**
+     * @return int
+     */
+    public function getToIdStation()
+    {
+        return $this->to_id_station;
+    }
     /**
      * @param int $to_id_station
      */

@@ -15,12 +15,11 @@ use Schedule\Core\Models\TransitRoutes;
 
 class RouteConstructor extends Kernel
 {
-    public function createRoute($start_id,$end_id,$regularity,$transit_data,$cost_data,$made_by=1)
+    public function createRoute($start_id,$end_id,$regularity,$transit_data,$made_by=1)
     {
         if(Stations::count($start_id)!=1&&Stations::count($end_id)!=1)
             return false;
         $this->db->begin();
-        
         $route=new Routes();
         $route->setStartStation($start_id);
         $route->setEndStation($end_id);
@@ -41,12 +40,10 @@ class RouteConstructor extends Kernel
                 $this->db->rollback();
                 return  false;
             }
+            $this->db->commit();
+               return $route->getId();
 
-            if($this->writeCost($transit_result,$cost_data)){
-                $this->db->commit();
 
-                return true;
-            }
 
         }
 
@@ -94,16 +91,6 @@ class RouteConstructor extends Kernel
             return implode(',',$transit_ids);
         }
 
-}
-
-    /**
-     * @param $transit_data
-     * @param $cost_data
-     * @return bool
-     */
-    private function writeCost($transit_data,$cost_data)
-    {
- return true;
 }
 
     public static function buildRoute($trans_data)

@@ -17,6 +17,7 @@ use Schedule\Core\Models\TransitRoutes;
 class BusRoute extends Kernel
 {
 
+    public $id;
     /**
      * @var Location
      */
@@ -38,7 +39,7 @@ class BusRoute extends Kernel
      */
     private $regularity;
     /**
-     * @var float
+     * @var Cost
      */
     private $price;
 
@@ -84,15 +85,15 @@ class BusRoute extends Kernel
     /**
      * @param array $path
      */
-    public function setPath(array $path): void
+    private function setPath(array $path): void
     {
         $this->path = $path;
     }
 
     /**
-     * @param float $price
+     * @param Cost $price
      */
-    public function setPrice(float $price): void
+    public function setPrice(Cost $price): void
     {
         $this->price = $price;
     }
@@ -123,8 +124,8 @@ class BusRoute extends Kernel
             ['from'=>4,'to'=>2,'arrival'=>'01:00:00','departure'=>'01:05:00'],
             ['from'=>2,'to'=>3,'arrival'=>'03:00:00','departure'=>'00:00:00']
         ];
-        $bd->createRoute($start_id,$end_id,$this->regularity,$transit_data,$cost_data);
-
+       $r_id= $bd->createRoute($start_id,$end_id,$this->regularity,$transit_data,$cost_data);
+       $this->findById($r_id);
     }
     /**
      * @return Location
@@ -161,7 +162,7 @@ class BusRoute extends Kernel
     /**
      * @return float
      */
-    public function getPrice(): float
+    public function getPrice(): array
     {
         return $this->price;
     }
@@ -170,12 +171,21 @@ class BusRoute extends Kernel
     {
 
        $res=Routes::findFirst($id);
+       $this->id=$id;
        $this->start_st=Location::getLocationByStation($res->startStation);
        $this->end_st=Location::getLocationByStation($res->endStation);
        $this->made_by=$res->madeBy;
-       $this->path=RouteConstructor::buildRoute($res->getTransitPath());
-        //print_r($this);
+       $this->setPath(RouteConstructor::buildRoute($res->getTransitPath()));
+       $this->setPrice((new Cost())->selectRoute($this));
        return $this;
+    }
+    public function getPathSchema():array {
+        $p=[];
+        foreach ($this->path as $route){
+            $p[]=[$route->getFromIdStation()->getStation()->getId(),
+            $route->getToIdStation()->getStation()->getId()];
+        }
+        return $p;
     }
 
     public function toArray()
