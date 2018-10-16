@@ -10,16 +10,16 @@ namespace Schedule\Core;
 
 
 
-use Schedule\Core\Models\SEOInfo;
 use Schedule\Core\Models\UniversalPage;
 
 class PageParser extends Kernel
 {
 
+
     public function getPage($url,$lang,$uni_page_id=null){
          $page_data=[];
         $lang_id=$this->getLanguageId($lang);
-        $page=UniversalPage::findFirst(["url like '/' and lang_id={$lang_id}"]);
+        $page=UniversalPage::findFirst(["url like '{$url}' and lang_id={$lang_id}"]);
        // $page=new UniversalPage();
         if(true==($page_data['permanent']=$page->getHasPermanentUri())){
          $page_data['url']=$page->getUrl();
@@ -33,12 +33,14 @@ class PageParser extends Kernel
         $seo=$page->page->seo;
         $page_data['seo']=[
             'title'=>$seo->getTitle(),
-        'name'=>$seo->getName(),
+            'name'=>$seo->getName(),
             'desc'=>$seo->getDescription(),
             'before_route'=>$seo->getBeforeRoute(),
             'menu_title'=>$seo->getMenuTitle()
         ];
 
+
+        return $page_data;
        var_dump($page_data);
 
     }

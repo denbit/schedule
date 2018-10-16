@@ -4,6 +4,8 @@
 
 <p>You're now flying with Phalcon. Great things are about to happen!</p>
 <pre>
-{{ data }}
+{{ data['seo']['title'] }}
+
+    {{ select }}
 </pre>
 <p>This page is located at <code>views/index/index.volt</code></p>

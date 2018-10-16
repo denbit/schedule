@@ -1,11 +1,15 @@
 <?php
 namespace Schedule\Modules\Frontend\Models;
 use Phalcon\Mvc\Model;
+use Schedule\Core\PageParser;
+
 class IndexModel extends Model implements IModel
 {
     public function getDataForHTTP($input)
     {
-        // TODO: Implement getDataForHTTP() method.
+       $pageParser=new PageParser();
+       return $pageParser->getPage($input['url'],$input['lang']);
+
     }
 
     public function getDataForAjax($input)
@@ -13,9 +17,4 @@ class IndexModel extends Model implements IModel
         // TODO: Implement getDataForAjax() method.
     }
 
-    public function getDataForHttpLoad()
-    {
-        return "works";
-
-}
 }
