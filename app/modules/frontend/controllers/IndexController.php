@@ -10,7 +10,7 @@ use Schedule\Core\Models\States;
 use Schedule\Core\BusRoute;
 use Schedule\Core\PageParser;
 use Schedule\Modules\Frontend\Models\IndexModel;
-
+use Phalcon\Forms\Element\Select;
 
 class IndexController extends ControllerBase implements IFrontEnd
 {
@@ -19,10 +19,17 @@ class IndexController extends ControllerBase implements IFrontEnd
     {
         $locale = \Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
         $lang=   \Locale::getPrimaryLanguage(  $locale );
-$pp=new PageParser();
-$pp->getPage('j',$lang);
+        $model=new IndexModel();
+       $url=$this->request->getURI();
+        $page=$model->getDataForHttp(['url'=>$url,'lang'=>$lang]);
+    $this->view->data=$page;
+        $select=new Select('new');
+        $select->setName("dgg");
+        $select->setOptions($page);
+        $this->view->select=$select;
+
 // Locale could be something like 'en_GB' or 'en'
-        echo $locale;
+
 //        $loc= Location::getLocationByStationId(1);
 //        $loc2= Location::getLocationByStationId(4);
 //        $ro=(new BusRoute());
@@ -70,8 +77,7 @@ $pp->getPage('j',$lang);
 //            }
 //
 //            echo "<br>";
-//        };
-die;
+
 //         $cities=Cities::find();
 //         $data=print_r($cities->toArray(),true);
 //         $this->view->data=$data;
