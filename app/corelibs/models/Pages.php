@@ -17,7 +17,8 @@ class Pages extends Model
 private $id;
 private $type_id;
 private $content_id;
-
+    private $seo_info_id;
+    private $additional_title;
     /**
      * @return mixed
      */
@@ -85,20 +86,19 @@ private $content_id;
     /**
      * @return mixed
      */
-    public function getAdditianalContent()
+    public function getAdditionalTitle()
     {
-        return $this->additianal_content;
+        return $this->additional_title;
     }
 
     /**
      * @param mixed $additianal_content
      */
-    public function setAdditianalContent($additianal_content): void
+    public function setAdditionalTitle($additianal_content): void
     {
-        $this->additianal_content = $additianal_content;
+        $this->additional_title = $additianal_content;
     }
-private $seo_info_id;
-private $additianal_content;
+
     public function initialize()
     {
         $this->hasOne('id',SEOInfo::class,'to_page',['alias'=>'seo']);

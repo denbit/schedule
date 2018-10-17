@@ -14,8 +14,11 @@ use Schedule\Core\Models\UniversalPage;
 
 class PageParser extends Kernel
 {
-
-
+public $module_name;
+public $url_data;
+public $page_type;
+public $seo_data;
+public $additional_title;
     public function getPage($url,$lang,$uni_page_id=null){
          $page_data=[];
         $lang_id=$this->getLanguageId($lang);
@@ -29,7 +32,7 @@ class PageParser extends Kernel
         $page_data['module_name']=$page->getModuleName();
         $page_inst=$page->page;
         $page_data['page_type']=$page_inst->pagetype->type_name;
-        $page_data['additional_content']=$page_inst->getAdditianalContent();
+        $page_data['additional_content']=$page_inst->getAdditionalTitle();
         $seo=$page->page->seo;
         $page_data['seo']=[
             'title'=>$seo->getTitle(),
@@ -42,6 +45,16 @@ class PageParser extends Kernel
 
         return $page_data;
        var_dump($page_data);
+
+    }
+
+    public function newPageForm()
+    {
+
+    }
+
+    public function savePage()
+    {
 
     }
 
