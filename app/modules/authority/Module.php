@@ -18,11 +18,29 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerAutoloaders(DiInterface $di = null)
     {
+        /**
+         * Try to load local configuration
+         */
+        if (file_exists(__DIR__ . '/config/config.ini')) {
+
+            $config = $di['config'];
+
+            $override = new Ini(__DIR__ . '/config/config.ini');
+
+            if ($config instanceof Config) {
+                $config->merge($override);
+            } else {
+                $config = $override;
+            }
+        }
         $loader = new Loader();
+        $config = $di->getConfig();
+        $module_dir=$config->get('application')->modulesDir;
 
         $loader->registerNamespaces([
-            'Schedule\Modules\Authority\Controllers' => __DIR__ . '/controllers/',
-            'Schedule\Modules\Authority\Models'      => __DIR__ . '/models/'
+            'Schedule\Modules\Authority\Controllers' => BASE_PATH.$module_dir .  $config->get('authority')->controllersDir,
+            'Schedule\Modules\Authority\Models'      => BASE_PATH.$module_dir .  $config->get('authority')->modelsDir,
+            'Schedule\Modules\Authority\Forms'      =>  BASE_PATH.$module_dir .  $config->get('authority')->formDir
         ]);
 
         $loader->register();
@@ -35,21 +53,7 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerServices(DiInterface $di)
     {
-        /**
-         * Try to load local configuration
-         */
-        if (file_exists(__DIR__ . '/config/config.ini')) {
-            
-            $config = $di['config'];
-            
-            $override = new Ini(__DIR__ . '/config/config.ini');
 
-            if ($config instanceof Config) {
-                $config->merge($override);
-            } else {
-                $config = $override;
-            }
-        }
 
         /**
          * Setting up the view component
@@ -58,8 +62,9 @@ class Module implements ModuleDefinitionInterface
             $config = $this->getConfig();
 
             $view = new View();
-            $view->setViewsDir($config->get('authorithy')->viewsDir);
-            
+            $view->setViewsDir(BASE_PATH.$config->get('application')->modulesDir.$config->get('authority')->viewsDir);
+            $view->setLayoutsDir(BASE_PATH.$config->get('application')->modulesDir.$config->get('authority')->viewsDir."layouts/");
+          //  echo $view->getLayoutsDir();die;
             $view->registerEngines([
                 '.volt'  => 'voltShared',
                 '.phtml' => PhpEngine::class

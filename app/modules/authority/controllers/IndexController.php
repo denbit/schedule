@@ -11,6 +11,7 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
+        $config = $this->di->getConfig();var_dump($config);
        echo "test";
 
 
