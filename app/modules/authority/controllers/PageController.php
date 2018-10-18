@@ -36,10 +36,12 @@ class PageController extends ControllerBase
     { $pp=new PageParser();
         $page_sys=new PageSystem();
         if($this->request->getQuery('edit')){
-            $uri='';
-            $lang='';
-            $uni_page_id=0;
-            $form=$page_sys->getForm($pp->getPage('/','uk'));
+          if(($params=$this->dispatcher->getParams())!==false&&(!empty($params[0]))){
+              $uri='';
+              $lang='';
+              $module=$params[0];
+              $form=$page_sys->getForm($pp->getPage('uk','',$module));
+              }
         }else{
             $form=$page_sys->getForm($pp);
         }
