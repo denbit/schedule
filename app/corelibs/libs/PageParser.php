@@ -16,6 +16,7 @@ use Schedule\Core\Models\UniversalPage;
 
 class PageParser extends Kernel
 {
+    public $id;
     public $module_name;
     public $url;
     public $page_type;
@@ -37,6 +38,7 @@ class PageParser extends Kernel
         if(!empty($module))
             $page=UniversalPage::findFirst(["module_name like '{$module}' and lang_id={$lang_id}"]);
        // $page=new UniversalPage();
+        $this->id=$page->getId();
         $this->language=$lang_id;
         $this->has_permanent_url=$page->getHasPermanentUri();
         $this->url=$page->getUrl();
@@ -47,19 +49,13 @@ class PageParser extends Kernel
         }else{
             $seo=$page->page->seo;
         }
-
         $this->page_type=$page_inst->pagetype->id;
         $this->additional_title=$page_inst->getAdditionalTitle();
-
-
         $this->seo_title=$seo->getTitle();
         $this->seo_name=$seo->getName();
         $this->seo_desc=$seo->getDescription();
         $this->seo_before_route=$seo->getBeforeRoute();
         $this->seo_menu_title=$seo->getMenuTitle();
-
-
-
         return $this;
 
     }
