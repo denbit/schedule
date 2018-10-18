@@ -9,6 +9,7 @@
 namespace Schedule\Modules\Authority\Models;
 
 
+use Schedule\Core\Models\UniversalPage;
 use Schedule\Modules\Authority\Forms\PageForm;
 
 class PageSystem
@@ -18,5 +19,11 @@ class PageSystem
     {
        return $new=new PageForm($i);
         
+    }
+
+    public function getAllPages()
+    {
+        $uni=UniversalPage::getAllPages();
+        return $uni;
     }
 }

@@ -23,9 +23,9 @@ class IndexController extends ControllerBase implements IFrontEnd
        $url=$this->request->getURI();
         $page=$model->getDataForHttp(['url'=>$url,'lang'=>$lang]);
     $this->view->data=$page;
-        $select=new Select('new');
+        $select=new Select('new',$page);
         $select->setName("dgg");
-        $select->setOptions($page);
+
         $this->view->select=$select;
 
 // Locale could be something like 'en_GB' or 'en'

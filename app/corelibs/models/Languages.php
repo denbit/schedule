@@ -18,4 +18,9 @@ class Languages extends Model
     {
         return 'site_langs';
     }
+
+    public function initialize()
+    {
+        $this->hasMany('lang_id',LanguageDescription::class,'in_lang_id',['alias'=>'allangs']);
+    }
 }
