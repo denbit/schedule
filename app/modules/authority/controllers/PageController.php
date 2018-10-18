@@ -17,21 +17,34 @@ class PageController extends ControllerBase
 
     public function indexAction()
     {
-
+        $page_sys=new PageSystem();
+        $uni_pages=$page_sys->getAllPages();
+        $this->view->pages=$uni_pages;
     }
     public function createAction()
-    {
- var_dump($_POST);
+    {   $pp=new PageParser();
+        $page_sys=new PageSystem();
+        $form=$page_sys->getForm($pp);
 
+        if($form->isValid($_POST,$pp)){
+        var_dump($pp);
+        $pp->savePage();
+        }
     }
 
     public function formAction()
-    {
+    { $pp=new PageParser();
         $page_sys=new PageSystem();
-        $form=$page_sys->getForm();
+        if($this->request->getQuery('edit')){
+            $uri='';
+            $lang='';
+            $uni_page_id=0;
+            $form=$page_sys->getForm($pp->getPage('/','uk'));
+        }else{
+            $form=$page_sys->getForm($pp);
+        }
+
         $this->view->form=$form;
-        echo "wtf";
-      //  var_dump($this->view);die;
-     //   $this->view->render('page','form',$form);
+
     }
 }
