@@ -10,6 +10,8 @@ namespace Schedule\Core;
 
 
 
+use Schedule\Core\Models\Pages;
+use Schedule\Core\Models\SEOInfo;
 use Schedule\Core\Models\UniversalPage;
 
 class PageParser extends Kernel
@@ -27,19 +29,29 @@ class PageParser extends Kernel
     public $seo_before_route;
     public $seo_menu_title;
     public $language;
-    public function getPage($url,$lang,$uni_page_id=null){
+    public function getPage($lang,$url='',$module='',$uni_page_id=null){
 
         $lang_id=$this->getLanguageId($lang);
-        $page=UniversalPage::findFirst(["url like '{$url}' and lang_id={$lang_id}"]);
+        if(!empty($url))
+            $page=UniversalPage::findFirst(["url like '{$url}' and lang_id={$lang_id}"]);
+        if(!empty($module))
+            $page=UniversalPage::findFirst(["module_name like '{$module}' and lang_id={$lang_id}"]);
        // $page=new UniversalPage();
         $this->language=$lang_id;
         $this->has_permanent_url=$page->getHasPermanentUri();
         $this->url=$page->getUrl();
         $this->module_name=$page->getModuleName();
-        $page_inst=$page->page;
+        if(($page_inst=$page->page)===false){
+            $page_inst=new Pages();
+            $seo=new SEOInfo();
+        }else{
+            $seo=$page->page->seo;
+        }
+
         $this->page_type=$page_inst->pagetype->id;
         $this->additional_title=$page_inst->getAdditionalTitle();
-        $seo=$page->page->seo;
+
+
         $this->seo_title=$seo->getTitle();
         $this->seo_name=$seo->getName();
         $this->seo_desc=$seo->getDescription();
