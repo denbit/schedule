@@ -1,6 +1,7 @@
 <?php
 namespace Schedule\Modules\Authority\Forms;
 
+use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Radio;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
@@ -19,8 +20,9 @@ class PageForm extends Form
         $url=new Text('url');
         $url->addFilter('string');
         $url->setLabel("URL:");
-
         $this->add($url);
+        $id=(new Hidden('id'))->setLabel(' ');
+        $this->add($id);
         $page_type=new Select('page_type',PagesTypes::find(),[
             "using" => [
                 "id",
@@ -42,8 +44,10 @@ class PageForm extends Form
         $title=new Text('title');
         $this->add($title);
         $radio=new Radio('has_permanent_url',['value'=>0]);
+        $radio->setLabel("No");
         $this->add($radio);
         $radio1=new Radio('permanent_url1',['name'=>'has_permanent_url','value'=>1]);
+        $radio1->setLabel("Yes");
         $this->add($radio1);
         $seo_title=new Text('seo_title');
         $content=new TextArea('content');
