@@ -19,6 +19,7 @@ class UniversalPage extends Model
     private $module_name;
     private $has_permanent_uri;
     private $lang_id;
+    private $page_id;
     private $available;
     /**
      * @return mixed
@@ -34,6 +35,22 @@ class UniversalPage extends Model
     public function setLangId($lang_id): void
     {
         $this->lang_id = $lang_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPageId()
+    {
+        return $this->page_id;
+    }
+
+    /**
+     * @param mixed $page_id
+     */
+    public function setPageId($page_id): void
+    {
+        $this->page_id = $page_id;
     }
 
     /**
