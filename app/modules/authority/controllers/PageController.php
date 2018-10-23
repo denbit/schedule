@@ -27,7 +27,6 @@ class PageController extends ControllerBase
         $form=$page_sys->getForm($pp);
 
         if($form->isValid($_POST,$pp)){
-        var_dump($pp);
         $pp->savePage();
         }
     }
@@ -41,9 +40,11 @@ class PageController extends ControllerBase
               $lang='';
               $module=$params[0];
               $form=$page_sys->getForm($pp->getPage('uk','',$module));
+              $this->view->setVar('title','Editing of existing page');
               }
         }else{
             $form=$page_sys->getForm($pp);
+            $this->view->setVar('title','Creation of new page');
         }
 
         $this->view->form=$form;
