@@ -1,3 +1,4 @@
+<div class="clearfix m-2"> {{ linkTo(['/authority/page/form','Create new page','class':'btn btn-primary float-right']) }}  </div>
 {% if pages %}
     <table class="table">
         <tr><th>URL</th><th>Module Name</th><th>Languages</th></tr>

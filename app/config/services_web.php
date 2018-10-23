@@ -52,6 +52,17 @@ $di->set('flash', function () {
         'warning' => 'alert alert-warning'
     ]);
 });
+/**
+ * Register the session flash service with the Twitter Bootstrap classes
+ */
+$di->set('flashSession', function () {
+    return new Phalcon\Flash\Session([
+        'error'   => 'alert alert-danger',
+        'success' => 'alert alert-success',
+        'notice'  => 'alert alert-info',
+        'warning' => 'alert alert-warning'
+    ]);
+});
 
 /**
 * Set the default namespace for dispatcher

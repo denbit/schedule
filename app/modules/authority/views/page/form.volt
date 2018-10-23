@@ -1,6 +1,8 @@
 <div class="row">
+    <div class="navbar navbar-light bg-light"> {{ linkTo(['/authority/page/','Go to the List of Pages','class':'nav-item nav-link']) }}</div>
+</div>
+<div class="row">
     <div class="col-md-6 card">
-
         <div class="card-body">
 {{ form('authority/page/create', 'method': 'post') }}
             <h3 class="card-title">Page Editing </h3>
