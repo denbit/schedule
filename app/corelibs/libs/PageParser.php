@@ -17,6 +17,8 @@ use Schedule\Core\Models\UniversalPage;
 
 class PageParser extends Kernel
 {
+    const DYNAMIC_PAGE=1;
+    const STATIC_PAGE=2;
     public $id;
     public $module_name;
     public $url;
@@ -69,13 +71,12 @@ class PageParser extends Kernel
     public function savePage()
     {   $edit_flag=false;
 //check update or create
-       var_dump($this);
+     //  var_dump($this);
         if(!empty($this->id)&&UniversalPage::count($this->id)>0){
           echo "it exists  ";
           $edit_flag=true;
-
         }
-            echo "creating new page";
+           // echo "creating new page";
            // $this->db->begin();
         if(!$edit_flag){
             $uni=new UniversalPage();
@@ -87,6 +88,7 @@ class PageParser extends Kernel
             $uni->setUrl($this->url);
             $uni->setLangId($this->language);
            if( $uni->save()){
+               echo "uni saved";
                 if(!$edit_flag){
                     $page=new Pages();
                 }else{
@@ -94,16 +96,20 @@ class PageParser extends Kernel
                 }
                $page->setAdditionalTitle($this->additional_title);
                $page->setTypeId($this->page_type);
-               if(!$edit_flag){
-                   $content=new Content();
-               }else{
-                $content=Content::findFirst($page->getContentId());
+               if($this->page_type==PageParser::STATIC_PAGE){
+                   if(!$edit_flag){
+                       $content=new Content();
+                   }else{
+                       $content=Content::findFirst($page->getContentId());
+                   }
+                   $content->setContent($this->content);
+                   $content->setTitle($this->title);
+                   if($content->save()&&!$edit_flag){
+                       echo "content saved";
+                       $page->setContentId($content->getId());
+                   }
                }
-               $content->setContent($this->content);
-               $content->setTitle($this->title);
-               if($content->save()&&!$edit_flag){
-                $page->setContentId($content->getId());
-               }
+
                if(!$edit_flag){
                    $seo=new SEOInfo();
                }else{
@@ -116,8 +122,9 @@ class PageParser extends Kernel
                $seo->setName($this->seo_name);
                if($seo->save()&&!$edit_flag){
                    $page->setSeoInfoId($seo->getId());
-               }
+               }echo "seo saved";
                if($page->save()&&!$edit_flag){
+                   echo "page saved";
                    $uni->setPageId($page->getId());
                    $uni->save();
                    $seo->setToPage($page->getId());

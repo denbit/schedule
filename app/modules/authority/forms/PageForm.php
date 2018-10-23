@@ -51,26 +51,43 @@ class PageForm extends Form
         $lang_f->setLabel("Language of page");
         $this->add($lang_f);
         $this->add($page_type);
-        $title=new Text('title',["class"=>'form-control']);
+        if($page->page_type==PageParser::DYNAMIC_PAGE){
+            $attrs=["class"=>'form-control','disabled'=>'disabled'];
+        }else{
+            $attrs=["class"=>'form-control'];
+        }
+        $title=new Text('title',$attrs);
         $title->setLabel("Title of page");
         $this->add($title);
+        $content=new TextArea('content',$attrs);
+        $content->setLabel("Content:");
+        $this->add($content);
         $additional_title=new Text('additional_title',["class"=>'form-control']);
         $additional_title->setLabel("Additional title");
         $this->add($additional_title);
-        $radio=new Radio('has_permanent_url',['value'=>0]);
+        if($page->has_permanent_url){
+            $chk=['value'=>1,'checked'=>'checked'];
+        }else{
+            $chk=['value'=>1];
+        }
+
+        $radio=new Radio('has_permanent_url',$chk);
         $radio->setUserOption("group",'true');
-        $radio->setLabel("No");
+        $radio->setLabel("Yes");
         $this->add($radio);
-        $radio1=new Radio('permanent_url1',['name'=>'has_permanent_url','value'=>1]);
-        $radio1->setLabel("Yes");
+        if(!$page->has_permanent_url){
+            $chk=['name'=>'has_permanent_url','value'=>0,'checked'=>'checked'];
+        }else{
+            $chk=['name'=>'has_permanent_url','value'=>0];
+        }
+        $radio1=new Radio('permanent_url1',$chk);
+        $radio1->setLabel("No");
         $radio->setUserOption('h3','Has permanent URL:');
         $radio1->setUserOption("group",'true');
         $this->add($radio1);
         $seo_title=new Text('seo_title',["class"=>'form-control']);
         $seo_title->setLabel(" Title for SEO:");
-        $content=new TextArea('content',["class"=>'form-control']);
-        $content->setLabel("Content:");
-        $this->add($content);
+
         $seo_name=new Text('seo_name',["class"=>'form-control']);
         $seo_desc=new Text('seo_desc',["class"=>'form-control']);
         $seo_before_route=new Text('seo_before_route',["class"=>'form-control']);
