@@ -28,8 +28,9 @@ class PageController extends ControllerBase
 
         if($form->isValid($_POST,$pp)){
         $pp->savePage();
+            $this->flashSession->success("The page module ".$pp->module_name." was successfully saved ");
         }
-        $this->flashSession->success("The page module ".$pp->module_name." was successfully saved ");
+
 
 
 

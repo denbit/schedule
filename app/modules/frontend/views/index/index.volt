@@ -4,7 +4,7 @@
 
 <p>You're now flying with Phalcon. Great things are about to happen!</p>
 <pre>
-{{ data['seo']['title'] }}
+{{ data }}
 
     {{ select }}
 </pre>

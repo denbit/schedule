@@ -18,11 +18,30 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerAutoloaders(DiInterface $di = null)
     {
+        /**
+         * Try to load local configuration
+         */
+        if (file_exists(__DIR__ . '/config/config.ini')) {
+
+            $config = $di['config'];
+
+            $override = new Ini(__DIR__ . '/config/config.ini');
+
+            if ($config instanceof Config) {
+                $config->merge($override);
+            } else {
+                $config = $override;
+            }
+        }
+        $config = $di->getConfig();
+        $module_dir=$config->get('application')->modulesDir;
+
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Schedule\Modules\Transporters\Controllers' => __DIR__ . '/controllers/',
-            'Schedule\Modules\Transporters\Models'      => __DIR__ . '/models/'
+            'Schedule\Modules\Transporters\Controllers' => BASE_PATH.$module_dir .  $config->get('transporters')->controllersDir,
+            'Schedule\Modules\Transporters\Models'      => BASE_PATH.$module_dir .  $config->get('transporters')->modelsDir,
+            'Schedule\Modules\Transporters\Forms'      =>  BASE_PATH.$module_dir .  $config->get('transporters')->formDir
         ]);
 
         $loader->register();
@@ -35,21 +54,6 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerServices(DiInterface $di)
     {
-        /**
-         * Try to load local configuration
-         */
-        if (file_exists(__DIR__ . '/config/config.ini')) {
-            
-            $config = $di['config'];
-            
-            $override = new Ini(__DIR__ . '/config/config.ini');
-
-            if ($config instanceof Config) {
-                $config->merge($override);
-            } else {
-                $config = $override;
-            }
-        }
 
         /**
          * Setting up the view component
@@ -58,7 +62,8 @@ class Module implements ModuleDefinitionInterface
             $config = $this->getConfig();
 
             $view = new View();
-            $view->setViewsDir($config->get('application')->viewsDir);
+            $view->setViewsDir(BASE_PATH.$config->get('application')->modulesDir.$config->get('transporters')->viewsDir);
+            $view->setLayoutsDir(BASE_PATH.$config->get('application')->modulesDir.$config->get('transporters')->viewsDir."layouts/");
             
             $view->registerEngines([
                 '.volt'  => 'voltShared',

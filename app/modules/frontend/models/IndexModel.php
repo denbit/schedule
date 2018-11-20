@@ -8,7 +8,7 @@ class IndexModel extends Model implements IModel
     public function getDataForHTTP($input)
     {
        $pageParser=new PageParser();
-       return $pageParser->getPage($input['url'],$input['lang']);
+       return $pageParser->getPage($input['lang'],$input['url']);
 
     }
 

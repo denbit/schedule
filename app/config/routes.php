@@ -2,9 +2,11 @@
 
 $router = $di->getRouter();
 foreach ($application->getModules() as $key => $module) {
+    if(is_dir( BASE_PATH.$di->getConfig()->get('application')->modulesDir.$key)) {
+        require_once  BASE_PATH.$di->getConfig()->get('application')->modulesDir.$key.'/config/routes.php';
 
-    $namespace = preg_replace('/Module$/', 'Controllers', $module["className"]);
-    $router->add('/'.$key.'/:params', [
+    }
+ /*   $router->add('/'.$key.'/:params', [
         'namespace' => $namespace,
         'module' => $key,
         'controller' => 'index',
@@ -25,5 +27,7 @@ foreach ($application->getModules() as $key => $module) {
         'action' => 2,
         'params' => 3
     ]);
+*/
 
 }
+//var_dump($router);
