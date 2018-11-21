@@ -42,14 +42,21 @@ class PageController extends ControllerBase
     }
 
     public function formAction()
-    { $pp=new PageParser();
+    {
+        $pp = new PageParser();
         $page_sys=new PageSystem();
         if($this->request->getQuery('edit')){
           if(($params=$this->dispatcher->getParams())!==false&&(!empty($params[0]))){
               $uri='';
-              $lang='';
+              if ((($lang_id = $this->request->getQuery('lang')) !== false)) {
+                  $lang = $pp->getLanguageById($lang_id);
+              } else {
+                  $this->response->redirect($this->router->getRewriteUri());
+                  exit();
+              }
+
               $module=$params[0];
-              $form=$page_sys->getForm($pp->getPage('uk','',$module));
+              $form = $page_sys->getForm($pp->getPage($lang, '', $module));
               $this->view->setVar('title','Editing of existing page');
               }
         }else{

@@ -1,5 +1,6 @@
 <?php
-namespace Schedule\Modules\Authority\Forms;
+
+namespace Schedule\Modules\Transporters\Forms;
 
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Radio;
@@ -8,35 +9,25 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\TextArea;
 use Phalcon\Forms\Form;
 
+use Schedule\Core\CompanyInstance;
 use Schedule\Core\Models\Languages;
 use Schedule\Core\Models\PagesTypes;
 use Schedule\Core\PageParser;
 
-class PageForm extends Form
+class FullCompanyForm extends Form
 {
-    public function initialize(PageParser $page,$options)
+    public function initialize(CompanyInstance $company, $options)
     {
-        $this->setEntity($page);
-        $url=new Text('url',["class"=>'form-control']);
+        $this->setEntity($company);
+        $url = new Text('name', ["class" => 'form-control']);
         $url->addFilter('string');
-        $url->setLabel("URL:");
+        $url->setLabel("Company Name:");
         $this->add($url);
         $id=(new Hidden('id'))->setLabel(' ');
         $id->setUserOption('no_style',1);
         $this->add($id);
-        $page_type=new Select('page_type',PagesTypes::find(),[
-            "using" => [
-                "id",
-                "type_name",
-            ],
-            "useEmpty" => true,
-            "emptyText" => "select type",
-            "emptyValue" => "",
-        "class"=>'form-control'
-        ]);
-        $page_type->setLabel("Type of page:");
-        $module=new Text('module_name',["class"=>'form-control']);
-        $module->setLabel("Module name");
+        $module = new Text('address', ["class" => 'form-control']);
+        $module->setLabel(" Company address");
         $this->add($module);
         $lang=Languages::findFirst(['lang_code like "en"']);
         $lang_f=new Select('language',$lang->allangs,[
