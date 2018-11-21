@@ -1,0 +1,35 @@
+.breadcrumbs-row {
+    margin: 20px 0 10px 10px;
+}
+
+.submenu {
+    margin: 30px 0 50px 0;
+}
+
+.submenu > div {
+    min-height: 100px;
+
+}
+
+.submenu > div:nth-child(odd) {
+    background: red;
+}
+
+.submenu > div:nth-child(even) {
+    background: blue;
+}
+
+.person-data {
+
+}
+
+.person-data .controls {
+
+}
+
+.person-data .control-label::after {
+    padding-left: 1px;
+    content: "*";
+    color: red;
+
+}

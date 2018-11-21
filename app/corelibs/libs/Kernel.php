@@ -67,7 +67,7 @@ public function  __get($var){
         return false;
 }
 
-    public function getLanguageId($lang)
+    public function getLanguageId($lang): int
     {
         $lang=Languages::findFirst("lang_code like '{$lang}'");
         if ($lang===false){
@@ -77,4 +77,15 @@ public function  __get($var){
         return $lang_id;
 
 }
+
+    public function getLanguageById($lang_id): string
+    {
+        $lang = Languages::findFirst("lang_id like '{$lang_id}'");
+        if ($lang === false) {
+            $lang = 'uk';
+        }
+        $lang_id = $lang->lang_code;
+        return $lang_id;
+
+    }
 }

@@ -122,18 +122,22 @@ class UniversalPage extends Model
         foreach ($all as $lang){
            $lang_codes[$lang['lang_id']]=$lang['lang_code'];
             }
+
         $availables=[];
         for($i=0;$i<count($uni);$i++){
             $langs=explode(',',$uni[$i]->lang_id);
             $temp=[];
+
             foreach ($langs as $avail){
-               $temp[]=$lang_codes[$avail];
+                $temp[$avail] = $lang_codes[$avail];
             }
+
             $availables[$i]=$uni[$i]->toArray();
             $availables[$i]['available_langs']=$temp;
             unset($temp, $availables[$i]['lang_id']);
 
         }
+
         return $availables;
 
 
