@@ -62,11 +62,61 @@
         <div class="col-12"><i>Bradcrumps > Main</i></div>
     </div>
     <div class="row submenu">
-        <div class="col-sm-2 offset-1">Bradcrumps</div>
-        <div class="col-sm-2">Bradcrumps</div>
-        <div class="col-sm-2">Bradcrumps</div>
-        <div class="col-sm-2">Bradcrumps</div>
-        <div class="col-sm-2">Bradcrumps</div>
+        <div class="col-sm-2 offset-1 ">
+            <div class="row sub-bd">
+                <div class="pict"></div>
+                <div class="col my-3">
+                    <p>Company</p>
+                    <p>COntent</p>
+                </div>
+            </div>
+            <div class="row align-items-end justify-content-end ">
+                <div class="col-4 add"><span>add+</span></div>
+            </div>
+        </div>
+        <div class="col-sm-2 ">
+            <div class="row sub-bd">
+                <div class="pict"></div>
+                <div class="col my-3">
+                    <p>Company</p>
+                    <p>COntent</p>
+                </div></div>
+            <div class="row align-items-end justify-content-end">
+                <div class="col-4 add"><span>add+</span></div>
+            </div></div>
+        <div class="col-sm-2">
+            <div class="row sub-bd">
+                <div class="pict"></div>
+                <div class="col my-3">
+                    <p>Company</p>
+                    <p>COntent</p>
+                </div>
+            </div>
+            <div class="row align-items-end justify-content-end">
+                <div class="col-4 add"><span>add+</span></div>
+            </div></div>
+        <div class="col-sm-2">
+            <div class="row sub-bd">
+                <div class="pict"></div>
+                <div class="col my-3">
+                    <p>Company</p>
+                    <p>COntent</p>
+                </div>
+            </div>
+            <div class="row align-items-end justify-content-end">
+                <div class="col-4 add"><span>add+</span></div>
+            </div></div>
+        <div class="col-sm-2">
+            <div class="row sub-bd">
+                <div class="pict"></div>
+                <div class="col my-3">
+                    <p>Company</p>
+                    <p>COntent</p>
+                </div>
+            </div>
+            <div class="row align-items-end justify-content-end" >
+                <div class="col-4 add"><span>add+</span></div>
+            </div></div>
     </div>
 {{ content() }}
 </div>

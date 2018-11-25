@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row pers">
     <div class="col-5">
         {{ form('carrier/index/create',"class":"person-data",'method': 'post') }}
         {% for element in form %}
@@ -13,7 +13,7 @@
                 </div>
             {% endif %}
         {% endfor %}
-
+       <div class="clearfix float-right"> {{ submit_button("save","class":"submit") }}</div>
         {{ end_form() }}
     </div>
     <div> {{ content() }}</div>
