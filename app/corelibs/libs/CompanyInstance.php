@@ -94,7 +94,7 @@ class CompanyInstance extends Kernel
     public static function findCompanyById($id): self
     {
         $c_instance = new self();
-        $company = Company::findFirst($c_instance->id);
+        $company = Company::findFirst($id);
         $c_instance->id = $company->getId();
         $c_instance->name = $company->getName();
         $c_instance->cyr_name = $company->getCyrName();

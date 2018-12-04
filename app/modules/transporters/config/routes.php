@@ -13,6 +13,13 @@ $router->add('/carrier/:params', [
     'action' => 'index',
     'params' => 3
 ]);
+$router->add('/carrier/:action/:params', [
+    'namespace' => $namespace,
+    'module' => 'transporters',
+    'controller' => 'index',
+    'action' => 2,
+    'params' => 3
+]);
 $router->add('/carrier/:controller/:params', [
     'namespace' => $namespace,
     'module' => 'transporters',

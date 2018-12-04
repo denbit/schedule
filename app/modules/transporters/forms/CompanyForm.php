@@ -14,81 +14,33 @@ use Schedule\Core\Models\Languages;
 use Schedule\Core\Models\PagesTypes;
 use Schedule\Core\PageParser;
 
-class FullCompanyForm extends Form
+class CompanyForm extends Form
 {
     public function initialize(CompanyInstance $company, $options)
     {
         $this->setEntity($company);
-        $url = new Text('name', ["class" => 'form-control']);
-        $url->addFilter('string');
-        $url->setLabel("Company Name:");
-        $this->add($url);
+        $name = new Text('name', ["class" => 'form-control']);
+        $name->addFilter('string');
+        $name->setLabel("Company Name:");
+        $this->add($name);
         $id=(new Hidden('id'))->setLabel(' ');
         $id->setUserOption('no_style',1);
         $this->add($id);
-        $module = new Text('address', ["class" => 'form-control']);
-        $module->setLabel(" Company address");
-        $this->add($module);
-        $lang=Languages::findFirst(['lang_code like "en"']);
-        $lang_f=new Select('language',$lang->allangs,[
-            'using'=>[
-                "to_lang",
-                "description"
-            ],
-            "useEmpty"=>true,
-            "emptyText" => "select language of page",
-            "emptyValue" => "",
-            "class"=>'form-control']);
-        $lang_f->setLabel("Language of page");
-        $this->add($lang_f);
-        $this->add($page_type);
-        if($page->page_type==PageParser::DYNAMIC_PAGE){
-            $attrs=["class"=>'form-control','disabled'=>'disabled'];
-        }else{
-            $attrs=["class"=>'form-control'];
-        }
-        $title=new Text('title',$attrs);
-        $title->setLabel("Title of page");
-        $this->add($title);
-        $content=new TextArea('content',$attrs);
-        $content->setLabel("Content:");
-        $this->add($content);
-        $additional_title=new Text('additional_title',["class"=>'form-control']);
-        $additional_title->setLabel("Additional title");
-        $this->add($additional_title);
-        if($page->has_permanent_url){
-            $chk=['value'=>1,'checked'=>'checked'];
-        }else{
-            $chk=['value'=>1];
-        }
-
-        $radio=new Radio('has_permanent_url',$chk);
-        $radio->setUserOption("group",'true');
-        $radio->setLabel("Yes");
-        $this->add($radio);
-        if(!$page->has_permanent_url){
-            $chk=['name'=>'has_permanent_url','value'=>0,'checked'=>'checked'];
-        }else{
-            $chk=['name'=>'has_permanent_url','value'=>0];
-        }
-        $radio1=new Radio('permanent_url1',$chk);
-        $radio1->setLabel("No");
-        $radio->setUserOption('h3','Has permanent URL:');
-        $radio1->setUserOption("group",'true');
-        $this->add($radio1);
-        $seo_title=new Text('seo_title',["class"=>'form-control']);
-        $seo_title->setLabel(" Title for SEO:");
-
-        $seo_name=new Text('seo_name',["class"=>'form-control']);
-        $seo_desc=new Text('seo_desc',["class"=>'form-control']);
-        $seo_before_route=new Text('seo_before_route',["class"=>'form-control']);
-        $seo_menu_title=new Text('seo_menu_title',["class"=>'form-control']);
-        $this->add($seo_title);
-        $this->add($seo_name);
-        $this->add($seo_desc);
-        $this->add($seo_desc);
-        $this->add($seo_before_route);
-        $this->add($seo_menu_title);
+        $address = new Text('address', ["class" => 'form-control']);
+        $address->setLabel(" Company address");
+        $this->add($address);
+        $cyr_name = new Text('cyr_name', ["class" => 'form-control']);
+        $cyr_name->setLabel("Company Name in Cyrillic alphabet");
+        $this->add($cyr_name);
+        $latin_name = new Text('latin_name', ["class" => 'form-control']);
+        $latin_name->setLabel("Company Name in Latin alphabet");
+        $this->add($latin_name);
+        $latin_address = new Text('latin_address', ["class" => 'form-control']);
+        $latin_address->setLabel(" Company address in Latin alphabet");
+        $this->add($latin_address);
+        $judicial_form = new Text('judicial_form', ["class" => 'form-control']);
+        $judicial_form->setLabel("Judicial Form");
+        $this->add($judicial_form);
 
 
 

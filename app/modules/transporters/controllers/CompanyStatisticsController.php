@@ -9,8 +9,7 @@
 namespace Schedule\Modules\Transporters\Controllers;
 
 
-
-class CompanyController extends ControllerBase
+class CompanyStatisticsController extends ControllerBase
 {
 
     public function indexAction()

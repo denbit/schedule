@@ -1,17 +1,16 @@
-{% block content %}
-    <div class="row pers ">
+{% block content %}<div class="row pers ">
     <div class="screener row screener-gray w-75">
         <div class="col-6 ml-3">
             <div class="row align-items-center  h-100 justify-content-center">
                 <div class="col-2 ">
-                    <button class="btn btn-light" id="screener">Show Personal Content</button>
+                    <button class="btn btn-light" id="screener">Show Company Information</button>
                 </div>
 
             </div>
         </div>
     </div>
     <div class="col-5 card py-3">
-        {{ form('carrier/index/create',"class":"person-data",'method': 'post') }}
+        {{ form('carrier/index/company/',"class":"person-data",'method': 'post') }}
         {% for element in form %}
             {% if element.getUserOption('no_style') %}
                 {{ element }}
@@ -30,4 +29,3 @@
 
 </div>
 {% endblock %}
-
