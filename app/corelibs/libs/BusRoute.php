@@ -192,7 +192,7 @@ class BusRoute extends Kernel
     {
         return ['start'=>$this->start_st->toArray(),
             'end'=>$this->end_st->toArray(),
-            'company'=>$this->made_by->toArray(),
+            'company.volt' => $this->made_by->toArray(),
             'path'=>array_map(function (TransitRoutes $route){
                 return [
                     $route->getFromIdStation()->toArray(),
