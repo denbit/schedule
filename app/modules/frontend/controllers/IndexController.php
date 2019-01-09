@@ -22,11 +22,12 @@ class IndexController extends ControllerBase implements IFrontEnd
         $model=new IndexModel();
        $url=$this->request->getURI();
         $page=$model->getDataForHttp(['url'=>$url,'lang'=>$lang]);
-    $this->view->data=$page;
-        $select=new Select('new',$page);
-        $select->setName("dgg");
-
-        $this->view->select=$select;
+        $this->view->data = 'test';
+        $model->chatInit();
+//        $select=new Select('new',$page);
+//        $select->setName("dgg");
+//
+//        $this->view->select=$select;
 
 // Locale could be something like 'en_GB' or 'en'
 
@@ -82,6 +83,14 @@ class IndexController extends ControllerBase implements IFrontEnd
 //         $data=print_r($cities->toArray(),true);
 //         $this->view->data=$data;
 
+
+    }
+
+    public function chatAction()
+    {
+        if ($this->request->isAjax()) {
+
+        }
 
     }
 

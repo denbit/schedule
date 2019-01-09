@@ -21,9 +21,19 @@ class Module implements ModuleDefinitionInterface
         $loader->registerNamespaces([
             'Schedule\Modules\Frontend\Controllers' => __DIR__ . '/controllers/',
             'Schedule\Modules\Frontend\Models' => __DIR__ . '/models/',
+            'Schedule\Modules\Frontend\Models' => __DIR__ . '/models/',
         ]);
 
+        $this->registerOutsideNamespaces($loader);
         $loader->register();
+    }
+
+    private function registerOutsideNamespaces(Loader &$loader)
+    {
+        $loader->registerNamespaces([
+            'Fabiang\Xmpp' => APP_PATH . '/corelibs/outsidelibs/xmpp/'
+        ], true);
+
     }
 
     /**
