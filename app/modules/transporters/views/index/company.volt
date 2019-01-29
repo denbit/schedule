@@ -1,9 +1,9 @@
 {% block content %}<div class="row pers ">
     <div class="screener row screener-gray w-75">
-        <div class="col-6 ml-3">
-            <div class="row align-items-center  h-100 justify-content-center">
-                <div class="col-2 ">
-                    <button class="btn btn-light" id="screener">Show Company Information</button>
+        <div class="col ml-3">
+            <div class="row ">
+                <div class="col-4 offset-9 my-2 ">
+                    <button class="btn btn-outline-light" id="screener">Show company information</button>
                 </div>
 
             </div>
@@ -23,7 +23,7 @@
                 </div>
             {% endif %}
         {% endfor %}
-        <div class="clearfix float-right"> {{ submit_button("save","class":"submit") }}</div>
+        <div class="clearfix float-right"> {{ submit_button("Save","class":"submit") }}</div>
         {{ end_form() }}
     </div>
 

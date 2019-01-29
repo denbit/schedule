@@ -80,12 +80,21 @@ background-color: #e9a010;
 .carrier-menu li a{
     font-size:20px;
     cursor: pointer;
+    color: inherit;
+
+}
+.carrier-menu li{
     color: #1d1d1d;
 
 }
+
 .carrier-menu li a:hover{
     text-decoration: none;
     color:#e9a010;
+}
+.carrier-menu li.active{
+    text-decoration: none;
+    color:#e9a010!important;
 }
 
 .screener {
@@ -98,7 +107,10 @@ background-color: #e9a010;
 }
 
 .screener-gray {
-    background-color: rgba(0, 0, 0, 0.9);
-    border: dashed 5px #bf7508e6;
+    background-color: rgba(0, 0, 0, 0.85);
+    border: dashed 2px #bf7508e6;
     border-radius: 9px;
+}
+#screener{
+    text-align: end;
 }

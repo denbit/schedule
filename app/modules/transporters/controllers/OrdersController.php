@@ -15,6 +15,6 @@ class OrdersController extends ControllerBase
 
     public function indexAction()
     {
-        return "helo";
+        $this->view->section=$this->router->getControllerName();
     }
 }
