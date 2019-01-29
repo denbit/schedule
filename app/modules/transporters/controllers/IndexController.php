@@ -18,7 +18,7 @@ class IndexController extends ControllerBase
         $c_inst = CompanyInstance::findCompanyById(1);
         $persnonaldata = new PersonalDataForm($c_inst);
         $this->view->form = $persnonaldata;
-        $this->view->section = str_replace('Action', '', __FUNCTION__);
+        $this->view->section=$this->router->getActionName();
         $this->view->var_dump = print_r($config, true);
     }
 
@@ -30,7 +30,7 @@ class IndexController extends ControllerBase
         $companyInfo = new CompanyForm($c_inst);
         $this->view->form = $companyInfo;
         $this->view->var_dump = print_r($config, true);
-        $this->view->section = str_replace('Action', '', __FUNCTION__);
+        $this->view->section=$this->router->getActionName();
 
     }
 
