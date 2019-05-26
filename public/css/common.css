@@ -26,3 +26,7 @@
 .currencypopup{
     min-width: 6rem;
 }
+.logo_size{
+    max-width: 10em;
+    max-height: 5em;
+}
