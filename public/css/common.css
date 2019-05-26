@@ -30,12 +30,17 @@
     max-width: 10em;
     max-height: 5em;
 }
-.nav-link{
+.main_mn:before{
     width: 13px;
     height: 13px;
+    display: inline-block;
     background-size: 13px;
+    content: "";
     background-repeat: no-repeat;
 }
-.nav-link:before{
-    content: url(images/c);
+.main_mn.schedule:before{
+  background-image: url(/images/calendar.png);
+}
+.main_mn.tickets:before{
+    background-image: url(/images/boarding-pass.png);
 }
