@@ -22,7 +22,7 @@ class IndexController extends ControllerBase implements IFrontEnd
         $model=new IndexModel();
        $url=$this->request->getURI();
         $page=$model->getDataForHttp(['url'=>$url,'lang'=>$lang]);
-        $this->view->data = 'test';
+        $this->view->data = 'test';;
 
        // $model->chatInit();
 //        $select=new Select('new',$page);
