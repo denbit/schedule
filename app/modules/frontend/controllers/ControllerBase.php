@@ -7,7 +7,7 @@ use Schedule\Core\LanguageParser;
 class ControllerBase extends Controller
 {
 	public function onConstruct()
-	{	$lang_q=$this->request->getQuery('lang');
+	{	 $lang_q=$this->request->getQuery('lang');
 		if($lang_q)
 		{
 			LanguageParser::SystemLanguage($lang_q);

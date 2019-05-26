@@ -85,7 +85,9 @@ public function  __get($var){
 			'bind'=>[$lang]
 				])==1)
 		{
-			$this->di['cookies']->set('current',$lang);
+			$this->di['cookies']->set('current',$lang,time() + 15 * 86400);
+			$this->di['cookies']->useEncryption(false);
+			$this->di['cookies']->send();
 		}
 
 	}

@@ -4,6 +4,7 @@ namespace Schedule\Modules\Frontend;
 use Phalcon\DiInterface;
 use Phalcon\Loader;
 use Phalcon\Mvc\View;
+use Phalcon\Http\Response\Cookies;
 use Phalcon\Mvc\View\Engine\Php as PhpEngine;
 use Phalcon\Mvc\ModuleDefinitionInterface;
 
@@ -58,5 +59,16 @@ class Module implements ModuleDefinitionInterface
 
             return $view;
         });
+
+		$di->set(
+			'cookies',
+			function () {
+				$cookies = new Cookies();
+
+				$cookies->useEncryption(false);
+
+				return $cookies;
+			}
+		);
     }
 }

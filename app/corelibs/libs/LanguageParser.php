@@ -12,15 +12,17 @@ namespace Schedule\Core;
 class LanguageParser
 {
 
-
-
 	public static function SystemLanguage($lang='')
 	{
 		$kernel= new Kernel();
-		if(empty($lang))
+		if(empty($lang)){
+
 			return	$kernel->detectLanguage();
-			else
-			$kernel->rememberLanguage($lang);
+		}
+			else{
+				$kernel->rememberLanguage($lang);
+			}
+
 
 	  }
 

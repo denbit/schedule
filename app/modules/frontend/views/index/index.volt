@@ -5,7 +5,7 @@
 <p>You're now flying with Phalcon. Great things are about to happen!</p>
 <pre>{{ data }}
 </pre>
-{{ dump(page)  }}
+
 
 <p>This page is located at <code>views/index/index.volt</code></p>
 <div style="display: none;position: absolute;right: 10px; top:300px; height:100px; width: 350px; background-color: #0d6aad;">
