@@ -8,9 +8,9 @@
 {{ dump(page)  }}
 
 <p>This page is located at <code>views/index/index.volt</code></p>
-<div style="position: absolute;right: 10px; top:300px; height:100px; width: 350px; background-color: #0d6aad;">
+<div style="display: none;position: absolute;right: 10px; top:300px; height:100px; width: 350px; background-color: #0d6aad;">
 
-    <form name="xmpp"><textarea name="chat"></textarea><br><input type="text" name="input_text"><input type="button">
+    <form style="" name="xmpp"><textarea name="chat"></textarea><br><input type="text" name="input_text"><input type="button">
     </form>
 
 </div>

@@ -78,6 +78,29 @@ public function  __get($var){
 
 }
 
+	public function rememberLanguage($lang)
+	{
+		if(Languages::count([
+			'conditions'=>'lang_code like ?0',
+			'bind'=>[$lang]
+				])==1)
+		{
+			$this->di['cookies']->set('current',$lang);
+		}
+
+	}
+
+	public function detectLanguage():string
+	{
+		if($this->di['cookies']->has('current')){
+			return $this->di['cookies']->get('current');
+		}else{
+			$locale = \Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+			return \Locale::getPrimaryLanguage($locale);
+		}
+
+	}
+
     public function getLanguageById($lang_id): string
     {
         $lang = Languages::findFirst("lang_id like '{$lang_id}'");

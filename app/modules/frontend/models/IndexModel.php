@@ -3,6 +3,7 @@ namespace Schedule\Modules\Frontend\Models;
 
 use Fabiang\Xmpp\Client;
 use Phalcon\Mvc\Model;
+use Schedule\Core\Location;
 use Schedule\Core\PageParser;
 use Fabiang\Xmpp\Options;
 class IndexModel extends Model implements IModel
@@ -37,6 +38,12 @@ class IndexModel extends Model implements IModel
     public function getDataForAjax($input)
     {
         // TODO: Implement getDataForAjax() method.
+    }
+
+
+	public function searchSuggestions($suggestion)
+	{
+		return Location::findAllVariants($suggestion);
     }
 
 }

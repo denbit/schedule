@@ -14,4 +14,5 @@ interface IModel
     public function getDataForHTTP($input);
     public function getDataForAjax($input);
 
+
 }

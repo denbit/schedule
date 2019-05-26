@@ -74,6 +74,12 @@ class States extends Model
             return null;
 
     }
+
+	/**
+	 * @param $name
+	 *
+	 * @return States[]
+	 */
     public static function getStatesByAnyName($name)
     {
         return self::find([

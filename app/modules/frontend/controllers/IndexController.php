@@ -3,6 +3,7 @@
 namespace Schedule\Modules\Frontend\Controllers;
 
 use Schedule\Core\Cost;
+use Schedule\Core\LanguageParser;
 use Schedule\Core\Location;
 use Schedule\Core\Models\Cities;
 use Schedule\Core\Models\Company;
@@ -16,17 +17,25 @@ class IndexController extends ControllerBase implements IFrontEnd
 {
 
     public function indexAction()
-	{
-		$locale = \Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
-		$lang = \Locale::getPrimaryLanguage($locale);
-		$model = new IndexModel();
+	{	$model = new IndexModel();
+		$lang = LanguageParser::SystemLanguage();
 		$url = $this->request->getURI();
-		$page = $model->getDataForHttp(['url' => $url, 'lang' => $lang]);
-		$this->view->data = 'test';;
+		$url_sanitized=strpos($url,'?')===false?$url:substr($url,0,strpos($url,'?'));//crete normall get sanitize
+
+		$page = $model->getDataForHttp(['url' => $url_sanitized, 'lang' => $lang]);
+		$this->view->data = 'System language is '.$lang;
 		$this->view->page = $page;
 	}
 	public function  suggestAction(){
-		$this->isAjax();
+		//$this->isAjax();
+		$suggestion=$this->request->getQuery('suggest');
+		if (!empty($suggestion))
+		{
+			$model= new IndexModel();
+			return json_encode($model->searchSuggestions($suggestion));
+		}
+		 return json_encode(['results'=>'Nothing is available']);
+
 
 
 	}
