@@ -30,3 +30,12 @@
     max-width: 10em;
     max-height: 5em;
 }
+.nav-link{
+    width: 13px;
+    height: 13px;
+    background-size: 13px;
+    background-repeat: no-repeat;
+}
+.nav-link:before{
+    content: url(images/c);
+}
