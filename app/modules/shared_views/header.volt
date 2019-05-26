@@ -3,8 +3,7 @@
         <div class="col-1 offset-1">
             <img class=" navbar-brand " src="{{ url('images/btn.gif') }}">
         </div>
-        <div class="col-1"><h1>ШЛЯХ
-            </h1></div>
+        <div><img class="logo_size" {{ url('src="images/logo.png')}}"> </div>
         <div class="navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item mx-4">
