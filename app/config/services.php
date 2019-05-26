@@ -82,6 +82,7 @@ $di->setShared('voltShared', function ($view) {
 		'compileAlways' => $config->application->development==true ? true:false
 
 	]);
+	$volt->getCompiler()->addFunction('dump','var_dump');
 
     return $volt;
 });
