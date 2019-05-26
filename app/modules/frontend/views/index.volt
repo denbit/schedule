@@ -13,7 +13,7 @@
 </head>
 
 <body>
-{{ partial('../../shared_views/header') }}
+{{ partial('../../shared_views/header') }} 
 <div class="container-fluid">
     <div class="row breadcrumbs-row">
         <div class="col-12"><i>Szlach > </i></div>
