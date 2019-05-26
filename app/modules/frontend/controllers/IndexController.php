@@ -16,14 +16,20 @@ class IndexController extends ControllerBase implements IFrontEnd
 {
 
     public function indexAction()
-    {
-        $locale = \Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
-        $lang=   \Locale::getPrimaryLanguage(  $locale );
-        $model=new IndexModel();
-       $url=$this->request->getURI();
-        $page=$model->getDataForHttp(['url'=>$url,'lang'=>$lang]);
-        $this->view->data = 'test';;
+	{
+		$locale = \Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+		$lang = \Locale::getPrimaryLanguage($locale);
+		$model = new IndexModel();
+		$url = $this->request->getURI();
+		$page = $model->getDataForHttp(['url' => $url, 'lang' => $lang]);
+		$this->view->data = 'test';;
+		$this->view->page = $page;
+	}
+	public function  suggestAction(){
+		$this->isAjax();
 
+
+	}
        // $model->chatInit();
 //        $select=new Select('new',$page);
 //        $select->setName("dgg");
@@ -85,7 +91,7 @@ class IndexController extends ControllerBase implements IFrontEnd
 //         $this->view->data=$data;
 
 
-    }
+
 
     public function chatAction()
     {

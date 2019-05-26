@@ -11,14 +11,21 @@ $router->add('/:params', [
     'module' => 'frontend',
     'controller' => 'index',
     'action' => 'index',
-    'params' => 3
+    'params' => 1
 ]);
 $router->add('/:controller/:params', [
     'namespace' => $namespace,
     'module' => 'frontend',
     'controller' => 1,
     'action' => 'index',
-    'params' => 3
+    'params' => 2
+]);
+$router->add('/:action/:params', [
+	'namespace' => $namespace,
+	'module' => 'frontend',
+	'controller' =>'index',
+	'action' => 1,
+	'params' => 2
 ]);
 $router->add('/:controller/:action/:params', [
     'namespace' => $namespace,

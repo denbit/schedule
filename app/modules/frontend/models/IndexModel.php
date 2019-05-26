@@ -10,7 +10,13 @@ class IndexModel extends Model implements IModel
     public function getDataForHTTP($input)
     {
         $pageParser=new PageParser();
-        return $pageParser->getPage($input['lang'],$input['url']);
+        $page =$pageParser->getPage($input['lang'],$input['url']);
+        if(!$page->title && !empty($page->seo_title)){
+        	$page->title=$page->seo_title;
+		}
+		//var_dump($page);
+		return $page;
+
 
     }
 

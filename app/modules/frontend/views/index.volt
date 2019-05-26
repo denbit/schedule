@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Szlach - {{ title |default("Transportation and schedule  system") }}</title>
+    <title>Szlach - {{ page.title |default("Transportation and schedule  system") }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('shared/favicon.ico') }}"/>
@@ -16,9 +16,9 @@
 {{ partial('../../shared_views/header') }}
 <div class="container-fluid">
     <div class="row breadcrumbs-row">
-        <div class="col-12"><i>Szlach > </i></div>
+        <div class="col-12"><i>Szlach > </i><i>{{ page.seo_menu_title  }} > </i></div>
     </div>
-
+{{  page.seo_before_route  }}
     {{ content() }}
 </div>
 <footer class="mt-4"><h6 class="text-center"> Szlach 2018 &reg;</h6></footer>
