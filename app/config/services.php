@@ -67,7 +67,7 @@ $di->setShared('voltShared', function ($view) {
                 $cacheDir = __DIR__ . DIRECTORY_SEPARATOR . $cacheDir;
             }
 
-            $cacheDir = realpath($cacheDir);
+           $cacheDir = realpath($cacheDir);
 
             if (!$cacheDir) {
                 $cacheDir = sys_get_temp_dir();
@@ -78,8 +78,10 @@ $di->setShared('voltShared', function ($view) {
             }
 
             return $cacheDir . DIRECTORY_SEPARATOR . 'volt' . DIRECTORY_SEPARATOR . $filename;
-        }
-    ]);
+        },
+		'compileAlways' => $config->application->development==true ? true:false
+
+	]);
 
     return $volt;
 });

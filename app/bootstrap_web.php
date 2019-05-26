@@ -31,7 +31,8 @@ try {
      * Get config service for use in inline setup below
      */
     $config = $di->getConfig();
-
+    if ( $config->application->development)
+		header('Note: CACHING IS DISABLED ON LOCALHOST');
     /**
      * Include Autoloader
      */
