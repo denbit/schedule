@@ -13,12 +13,58 @@
 </head>
 
 <body>
+<div class="top_fixed_main">
 {{ partial('../../shared_views/header') }}
+    <h2 class="text-center margin_top mb-2 text-white">Bus tickets in Ukraine, Russia and Europe</h2>
+    <form class="form">
+        <div class="from">
+            <div class="string">From</div>
+            <input class="input" placeholder="Kharkov">
+        </div>
+        <div class="from">
+            <div class="string">To</div>
+            <input class="input" placeholder="Kiev">
+        </div>
+        <div class="from">
+            <div class="string">Data</div>
+            <input class="input" placeholder="March 28">
+        </div>
+        <div class="from">
+            <div class="string"></div>
+            <input class="input" placeholder="1 passenger">
+        </div>
+        <div class="from">
+            <div class="string"></div>
+            <div class="button"><span class="align">Schedule</span></div>
+        </div>
+    </form>
+    <div class="additional_icons">
+        <div class="icon_block">
+
+        </div>
+        <div class="icon_block">
+
+        </div>
+        <div class="icon_block">
+
+        </div>
+        <div class="icon_block">
+
+        </div>
+        <div class="icon_block">
+
+        </div>
+        <div class="icon_block">
+
+        </div>
+
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="row breadcrumbs-row">
         <div class="col-12"><i>Szlach > </i></div>
     </div>
-
     {{ content() }}
 </div>
 <footer class="mt-4"><h6 class="text-center"> Szlach 2018 &reg;</h6></footer>

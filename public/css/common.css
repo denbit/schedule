@@ -1,6 +1,6 @@
 .top_fixed{
 
-    font-family: Roboto;
+    font-family: Roboto Regular;
     background-image: url("/images/top_back.jpg");
     height: 20%;
     min-height: 300px;
@@ -8,6 +8,81 @@
     background-repeat: no-repeat;
 }
 .top_fixed>nav{
+    height: 100px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.42);
+    margin-bottom: 30px;
+    margin-left: 0px !important;
+}
+.form {
+    height: 100px;
+    width: 70%;
+    background-color: rgba(193, 134, 18, 0.42);
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 20px;
+}
+.margin_top{
+    margin-top: 150px;
+}
+.from{
+    width: 9em;
+    display: inline-block;
+    margin-right: 1em;
+}
+.string{
+    height: 20px;
+    color: #ffffff;
+    margin-bottom: 0.5em;
+}
+.input {
+    width: 100%;
+    padding: 5px;
+    height: 38px;
+    border-radius: 3px;
+    border: #808080 solid 1px;
+    font-size: 15px;
+
+}
+.button{
+    width: 10em;
+    padding: 5px;
+    height: 36px;
+    border-radius: 5px;
+    background: #e9a010;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: middle;
+
+}
+.align{
+    text-align: center;
+    vertical-align: middle;
+}
+.form.from{
+    width: 10em;
+}
+.input_from:after{
+    width: 13px;
+    height: 13px;
+    display: inline-block;
+    background-size: 13px;
+    content: "";
+    background-image: url("/images/right-arrow.png");
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.top_fixed_main{
+    font-family: Roboto Regular;
+    background-image: url("/images/header_bg.jpg");
+    background-size: cover;
+    width: 100%;
+    min-height: 45em;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.top_fixed_main>nav{
     height: 100px;
     width: 100%;
     background-color: rgba(255,255,255,0.42);
@@ -37,6 +112,7 @@
     background-size: 13px;
     content: "";
     background-repeat: no-repeat;
+    margin-right: 3px;
 }
 .main_mn.schedule:before{
   background-image: url(/images/calendar.png);
@@ -44,3 +120,22 @@
 .main_mn.tickets:before{
     background-image: url(/images/boarding-pass.png);
 }
+.additional_icons{
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+    min-height: 150px;
+    margin-top: 10px;
+}
+.icon_block{
+    width: 7em;
+    height: 8em;
+    background: rgba(193, 134, 18, 0.8);
+    margin-right: 2em;
+    padding: 10px 10px;
+    display: inline-block;
+}
+
+
+
+

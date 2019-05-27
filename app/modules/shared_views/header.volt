@@ -1,9 +1,10 @@
-<header class="top_fixed">
+
+
     <nav class="justify-content-start navbar navbar-expand-sm navbar-light">
         <div class="col-1 offset-1">
-            <img class=" navbar-brand " src="{{ url('images/btn.gif') }}">
+            <img class=" navbar-brand" src="{{ url('images/btn.gif') }}">
         </div>
-        <div><img class="logo_size" {{ url('src="images/logo.png')}}"> </div>
+        <div><img class="logo_size" src="{{ url('images/logo.png') }}"> </div>
         <div class="navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item mx-4">
@@ -41,5 +42,3 @@
             </ul>
         </div>
     </nav>
-    <h2 class="text-center my-5 text-white">Find your path! <br>{{ subtitle|default("Szlach") }}</h2>
-</header>
