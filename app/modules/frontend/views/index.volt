@@ -15,7 +15,7 @@
 <body>
 <div class="top_fixed_main">
 {{ partial('../../shared_views/header') }}
-    <h2 class="text-center margin_top mb-2 text-white">Bus tickets in Ukraine, Russia and Europe</h2>
+    <div class="content"> <h2 class="text-center padding_top mb-2 text-white">Bus tickets in Ukraine, Russia and Europe</h2>
     <form class="form">
         <div class="from">
             <div class="string">From</div>
@@ -38,34 +38,22 @@
             <div class="button"><span class="align">Schedule</span></div>
         </div>
     </form>
-    <div class="additional_icons">
-        <div class="icon_block">
-
-        </div>
-        <div class="icon_block">
-
-        </div>
-        <div class="icon_block">
-
-        </div>
-        <div class="icon_block">
-
-        </div>
-        <div class="icon_block">
-
-        </div>
-        <div class="icon_block">
-
-        </div>
-
+    <div class="additional_icons row">
+        <div class="icon_block mx-4 air col"><br><span> </span><div>air charter</div></div>
+        <div class="icon_block mx-4 free col"><br><span> </span><div>free shipping</div></div>
+        <div class="icon_block mx-4 safe col"><br><span> </span><div>Safe payment by the card</div></div>
+        <div class="icon_block mx-4 directions col"><br><span> </span><div>More than 300 directions</div></div>
+        <div class="icon_block mx-4 service col"><br><span> </span><div>24-hour support service</div></div>
+        <div class="icon_block mx-4 money col"><br><span> </span><div>Return without problems</div></div>
     </div>
-</div>
-
-<div class="container-fluid">
-    <div class="row breadcrumbs-row">
-        <div class="col-12"><i>Szlach > </i></div>
     </div>
+
+        <div class="container-fluid">
+            <div class="row breadcrumbs-row">
+                <div class="col-12"><i>Szlach > </i></div>
+        </div>
     {{ content() }}
+        </div>
 </div>
 <footer class="mt-4"><h6 class="text-center"> Szlach 2018 &reg;</h6></footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -78,6 +66,7 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 <script src="/js/carrier.main.js" async></script>
+
 </body>
 
 
