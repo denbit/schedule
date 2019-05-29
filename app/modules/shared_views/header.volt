@@ -3,18 +3,17 @@
         <div class="col-1 offset-1">
             <img class=" navbar-brand " src="{{ url('images/btn.gif') }}">
         </div>
-        <div class="col-1"><h1>ШЛЯХ
-            </h1></div>
+        <div><img class="logo_size" {{ url('src="images/logo.png')}}"> </div>
         <div class="navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item mx-4">
-                    <a class="nav-link active" href="#">Schedule</a>
+                    <a class="nav-link active main_mn schedule" href="#">Schedule</a>
                 </li>
                 <li class="nav-item mx-4">
-                    <a class="nav-link active" href="#">For passangers</a>
+                    <a class="nav-link active main_mn" href="#">For passangers</a>
                 </li>
                 <li class="nav-item mx-">
-                    <a class="nav-link active" href="#">My tickets</a>
+                    <a class="nav-link active main_mn tickets" href="#">My tickets</a>
                 </li>
             </ul>
             <div> ADmin@admin.uk</div>
