@@ -82,7 +82,31 @@ $di->setShared('voltShared', function ($view) {
 		'compileAlways' => $config->application->development==true ? true:false
 
 	]);
-	$volt->getCompiler()->addFunction('dump','var_dump');
+	$compiler=$volt->getCompiler();
+	//$compiler->addFunction('dump','var_dump');
+	$compiler->addFunction('translate', function ($res, $exprArgs='')use ($compiler) {
+
+		// Resolve the first argument
+		 $firstArgument = $compiler->expression($exprArgs[0]['expr']);
+		$secondArgument ='';
+        // Checks if the second argument was passed
+        if (isset($exprArgs[1])) {
+			 $secondArgument = $compiler->expression($exprArgs[1]['expr']);
+        }
+		$di = \Phalcon\DI::getDefault();
+		if ($di->getSession()->has('language')) {
+			$lang =$di->getSession()->get('language');
+		}else{
+			$lang = (new \Schedule\Core\Kernel())->getLanguageId('uk');
+		}
+		echo $translation = \Schedule\Core\Translate::getTranslation($firstArgument,$lang);
+		if (!empty($translation)){echo 1;
+			return $translation;
+		} else{
+			\Schedule\Core\Translate::setTranslation($firstArgument,$lang,$secondArgument);
+			return $secondArgument;
+		}
+	});
 
     return $volt;
 });
