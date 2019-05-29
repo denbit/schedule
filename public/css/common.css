@@ -92,8 +92,6 @@
 .brand{padding-top: 12px;}
 .nav-link:hover{
     color: rgba(0,0,0,.5) !important;
-
-
 }
 .langpopup{
     min-width: 4rem;
@@ -115,10 +113,16 @@
     margin-right: 3px;
 }
 .main_mn.schedule:before{
-  background-image: url(/images/calendar.png);
+  background-image: url("/images/calendar.png");
 }
 .main_mn.tickets:before{
-    background-image: url(/images/boarding-pass.png);
+    background-image: url("/images/boarding-pass.png");
+}
+.main_mn.carriers:before{
+    background-image: url("/images/user.png");
+}
+.main_mn.login:before{
+    background-image: url("/images/login.png");
 }
 .additional_icons{
     width: auto;
