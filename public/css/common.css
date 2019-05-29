@@ -1,6 +1,6 @@
 .top_fixed{
 
-    font-family: Roboto;
+    font-family: Roboto Regular;
     background-image: url("/images/top_back.jpg");
     height: 20%;
     min-height: 300px;
@@ -14,11 +14,84 @@
     margin-bottom: 30px;
     margin-left: 0px !important;
 }
+.form {
+    height: 100px;
+    width: 100%;
+    background-color: rgba(193, 134, 18, 0.42);
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 20px;
+}
+.padding_top{
+    padding-top: 150px;
+}
+.from{
+    width: auto;
+    display: inline-block;
+    margin-right: 1em;
+}
+.string{
+    height: 20px;
+    color: #ffffff;
+    margin-bottom: 0.5em;
+}
+.input {
+    width: 100%;
+    padding: 5px;
+    height: 38px;
+    border-radius: 3px;
+    border: #808080 solid 1px;
+    font-size: 15px;
+
+}
+.button{
+    width: 10em;
+    padding: 5px;
+    height: 36px;
+    border-radius: 5px;
+    background: #e9a010;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: middle;
+
+}
+.align{
+    text-align: center;
+    vertical-align: middle;
+}
+.form.from{
+    width: 10em;
+}
+.input_from:after{
+    width: 13px;
+    height: 13px;
+    display: inline-block;
+    background-size: 13px;
+    content: "";
+    background-image: url("/images/right-arrow.png");
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.top_fixed_main{
+    font-family: Roboto Regular;
+    background-image: url("/images/header_bg.jpg");
+    background-size: cover;
+    width: 100%;
+    min-height: 45em;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.top_fixed_main>nav{
+    height: 100px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.42);
+    margin-bottom: 30px;
+    margin-left: 0px !important;
+}
 .brand{padding-top: 12px;}
 .nav-link:hover{
     color: rgba(0,0,0,.5) !important;
-
-
 }
 .langpopup{
     min-width: 4rem;
@@ -37,10 +110,100 @@
     background-size: 13px;
     content: "";
     background-repeat: no-repeat;
+    margin-right: 3px;
 }
 .main_mn.schedule:before{
-  background-image: url(/images/calendar.png);
+  background-image: url("/images/calendar.png");
 }
 .main_mn.tickets:before{
-    background-image: url(/images/boarding-pass.png);
+    background-image: url("/images/boarding-pass.png");
 }
+.main_mn.carriers:before{
+    background-image: url("/images/user.png");
+}
+.main_mn.login:before{
+    background-image: url("/images/login.png");
+}
+.additional_icons{
+    width: auto;
+    margin-right: auto;
+    margin-left: auto;
+    min-height: 8em;
+    margin-top: 10px;
+}
+.icon_block{
+    width: 15%;
+    height: 8em;
+    background: rgba(233, 160, 16, 0.8);
+    padding: 10px 10px;
+    display: inline-block;
+    color: #ffffff;
+    text-align: center;
+}
+.icon_block:first-child{
+    margin-left: 0px!important;
+}
+.icon_block:last-child{
+    margin-right: 0px!important;
+}
+.icon_block:before{
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    background-size: 60px;
+    content: "";
+    background-repeat: no-repeat;
+    filter: invert(100%)
+}
+
+.icon_block.air:before{
+    background-image: url("/images/avia.png");
+
+}
+.icon_block.free:before{
+    background-image: url("/images/delivery-truck.png");
+
+}
+.icon_block.safe:before{
+    background-image: url("/images/lock.png");
+
+}
+.icon_block.directions:before{
+    background-image: url("/images/transfer.png");
+
+}
+.icon_block.service:before{
+    background-image: url("/images/call.png");
+}
+.icon_block.money:before {
+    background-image: url("/images/money.png");
+
+}
+.icon_block>span{
+    height: 47px;
+    display: inline-block;
+    content: " ";
+    vertical-align: middle;
+    width: 1px;
+}
+.icon_block>div{
+    display: inline-block;
+    width: 95%;
+}
+
+@media screen and (min-width: 1280px) {
+    body{background: #0d6aad}
+}
+@media screen and (max-width: 1024px){
+    body{background: #e9a010}
+}
+.content{
+    width: 1080px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+.icon_stging{
+    position: absolute;
+}
+
