@@ -18,7 +18,7 @@
     margin-bottom: 30px;
     margin-left: 0px !important;
 }
-.form {
+.form_container_search {
     height: 100px;
     width: 100%;
     background-color: rgba(193, 134, 18, 0.42);
@@ -50,7 +50,7 @@
 
 }
 .button{
-    width: 10em;
+    width: auto;
     padding: 5px;
     height: 36px;
     border-radius: 5px;
@@ -130,8 +130,6 @@
 }
 .additional_icons{
     width: auto;
-    margin-right: auto;
-    margin-left: auto;
     min-height: 8em;
     margin-top: 10px;
 }

@@ -15,25 +15,25 @@
 <body>
 <div class="top_fixed_main">
 {{ partial('../../shared_views/header') }}
-    <div class="content"> <h2 class="text-center padding_top mb-2 text-white">Bus tickets in Ukraine, Russia and Europe</h2>
-    <form class="form">
-        <div class="from">
+    <div class="content"> <h2 class="text-center padding_top mb-4 text-white">Bus tickets in Ukraine, Russia and Europe</h2>
+    <form class="form row">
+        <div class="form_container_search col">
             <div class="string">From</div>
             <input class="input" placeholder="Kharkov">
         </div>
-        <div class="from">
+        <div class="form_container_search col">
             <div class="string">To</div>
             <input class="input" placeholder="Kiev">
         </div>
-        <div class="from">
+        <div class="form_container_search col">
             <div class="string">Data</div>
             <input class="input" placeholder="March 28">
         </div>
-        <div class="from">
+        <div class="form_container_search col">
             <div class="string"></div>
             <input class="input" placeholder="1 passenger">
         </div>
-        <div class="from">
+        <div class="form_container_search col">
             <div class="string"></div>
             <div class="button"><span class="align">Schedule</span></div>
         </div>
