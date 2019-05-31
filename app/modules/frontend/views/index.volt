@@ -39,7 +39,7 @@
         </div>
     </form>
     <div class="additional_icons row">
-        <div class="icon_block mx-4 air col"><br><span> </span><div>air charter</div></div>
+        <div class="icon_block mx-4 air col"><br><span> </span><div>{{ translate("air_charter","Air Charter") }}</div></div>
         <div class="icon_block mx-4 free col"><br><span> </span><div>free shipping</div></div>
         <div class="icon_block mx-4 safe col"><br><span> </span><div>Safe payment by the card</div></div>
         <div class="icon_block mx-4 directions col"><br><span> </span><div>More than 300 directions</div></div>
@@ -47,15 +47,15 @@
         <div class="icon_block mx-4 money col"><br><span> </span><div>Return without problems</div></div>
     </div>
     </div>
-    {{  page.seo_before_route  }}
-        <div class="container-fluid">
-            <div class="row breadcrumbs-row">
-                <div class="col-12"><i>Szlach > </i></div>
-        </div>
-    {{ content() }}
-        </div>
 </div>
-<footer class="mt-4"><h6 class="text-center"> Szlach 2018 &reg;</h6></footer>
+{{  page.seo_before_route  }}
+<div class="container-fluid">
+    <div class="row breadcrumbs-row">
+        <div class="col-12"><i>{{ translate("path","Path") }} > </i></div>
+    </div>
+    {{ content() }}
+</div>
+<footer class="mt-4"><h6 class="text-center"> Szlach {{ date('Y') }}&reg;</h6></footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
