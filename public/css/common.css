@@ -1,6 +1,6 @@
 @font-face {
-    font-family: Roboto;
-    src: url("fonts/roboto_regular.ttf");
+    font-family:"Roboto Regular";
+    src: url("/shared/fonts/roboto_regular.ttf");
 }
 .top_fixed{
 
