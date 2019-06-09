@@ -1,16 +1,38 @@
-<div class="page-header">
-    <h1>Congratulations!</h1>
-</div>
-
-<p>You're now flying with Phalcon. Great things are about to happen!</p>
-<pre>{{ data }}
-</pre>
-
-
-<p>This page is located at <code>views/index/index.volt</code></p>
-<div style="display: none;position: absolute;right: 10px; top:300px; height:100px; width: 350px; background-color: #0d6aad;">
-
-    <form style="" name="xmpp"><textarea name="chat"></textarea><br><input type="text" name="input_text"><input type="button">
+<div class="content"> <h2 class="text-center padding_top mb-4 text-white">Bus tickets in Ukraine, Russia and Europe</h2>
+    <form class="form row">
+        <div class="form_container_search col">
+            <div class="string">From</div>
+            <input class="input" placeholder="Kharkov">
+        </div>
+        <div class="form_container_search col">
+            <div class="string">To</div>
+            <input class="input" placeholder="Kiev">
+        </div>
+        <div class="form_container_search col">
+            <div class="string">Data</div>
+            <input class="input" placeholder="March 28">
+        </div>
+        <div class="form_container_search col">
+            <div class="string"></div>
+            <input class="input" placeholder="1 passenger">
+        </div>
+        <div class="form_container_search col">
+            <div class="string"></div>
+            <div class="button"><span class="align">Schedule</span></div>
+        </div>
     </form>
-
+    <div class="additional_icons row">
+        <div class="icon_block mx-4 air col"><br><span> </span><div>{{ translate("air_charter","Air Charter") }}</div></div>
+        <div class="icon_block mx-4 free col"><br><span> </span><div>free shipping</div></div>
+        <div class="icon_block mx-4 safe col"><br><span> </span><div>Safe payment by the card</div></div>
+        <div class="icon_block mx-4 directions col"><br><span> </span><div>More than 300 directions</div></div>
+        <div class="icon_block mx-4 service col"><br><span> </span><div>24-hour support service</div></div>
+        <div class="icon_block mx-4 money col"><br><span> </span><div>Return without problems</div></div>
+    </div>
 </div>
+</div>
+{{  page.seo_before_route  }}
+<div class="container-fluid">
+    <div class="row breadcrumbs-row">
+        <div class="col-12"><i>{{ translate("path","Path") }} > </i></div>
+    </div></div>
