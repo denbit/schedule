@@ -1,4 +1,9 @@
-<div class="content"> <h2 class="text-center padding_top mb-4 text-white">Bus tickets in Ukraine, Russia and Europe</h2>
+<div class="content"> <h2 class="text-center padding_top mb-4 text-white">
+        {% if  page.seo_before_route %}
+            {{ page.seo_before_route }}
+        {% else %}
+            Bus tickets in Ukraine, Russia and Europe
+        {% endif %}</h2>
     <form class="form row">
         <div class="form_container_search col">
             <div class="string">From</div>
@@ -31,7 +36,7 @@
     </div>
 </div>
 </div>
-{{  page.seo_before_route  }}
+
 <div class="container-fluid">
     <div class="row breadcrumbs-row">
         <div class="col-12"><i>{{ translate("path","Path") }} > </i></div>
