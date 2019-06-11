@@ -17,6 +17,7 @@
 {{ partial('../../shared_views/header') }}
 
     {{ content() }}
+    <div class="form_login"></div>
 
 <footer class="mt-4"><h6 class="text-center"> Szlach {{ date('Y') }}&reg;</h6></footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -29,7 +30,7 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 <script src="/js/carrier.main.js" async></script>
-
+</div>
 </body>
 
 

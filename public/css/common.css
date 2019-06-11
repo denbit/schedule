@@ -208,4 +208,14 @@
 .icon_stging{
     position: absolute;
 }
+.form_login{
+    height: 250px;
+    width: 18%;
+    background: #fff;
+    border-radius: 6px;
+    position: absolute;
+    top: 70px;
+    left: 64%;
+    padding: 20px;
+}
 
