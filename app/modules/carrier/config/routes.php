@@ -8,28 +8,28 @@
 $namespace = preg_replace('/Module$/', 'Controllers', $module["className"]);
 $router->add('/carrier/:params', [
     'namespace' => $namespace,
-    'module' => 'transporters',
+    'module' => 'carrier',
     'controller' => 'index',
     'action' => 'index',
     'params' => 3
 ]);
 $router->add('/carrier/:action/:params', [
     'namespace' => $namespace,
-    'module' => 'transporters',
+    'module' => 'carrier',
     'controller' => 'index',
     'action' => 2,
     'params' => 3
 ]);
 $router->add('/carrier/:controller/:params', [
     'namespace' => $namespace,
-    'module' => 'transporters',
+    'module' => 'carrier',
     'controller' => 1,
     'action' => 'index',
     'params' => 3
 ]);
 $router->add('/carrier/:controller/:action/:params', [
     'namespace' => $namespace,
-    'module' => 'transporters',
+    'module' => 'carrier',
     'controller' => 1,
     'action' => 2,
     'params' => 3

@@ -47,15 +47,20 @@ try {
      * Register application modules
      */
     $application->registerModules([
-        'frontend' => ['className' => 'Schedule\Modules\Frontend\Module'],
-		'transporters' => ['className' => 'Schedule\Modules\Transporters\Module'],
-        'authority' => ['className' => 'Schedule\Modules\Authority\Module']
+		'carrier' => ['className' => '\Schedule\Modules\Carrier\Module'],
+        'authority' => ['className' => '\Schedule\Modules\Authority\Module'],
+		'frontend' => ['className' => '\Schedule\Modules\Frontend\Module']
 
     ]);
 
     /**
      * Include routes
      */
+	/**
+	 * @var $router \Phalcon\Mvc\Router
+	 */
+	$router = $di->getRouter();
+
     require APP_PATH . '/config/routes.php';
 
     echo str_replace(["\n","\r","\t"], '', $application->handle()->getContent());
@@ -63,4 +68,10 @@ try {
 } catch (\Exception $e) {
     echo $e->getMessage() . '<br>';
     echo '<pre>' . $e->getTraceAsString() . '</pre>';
+}
+finally{
+	var_dump($router->getMatchedRoute());
+	echo 'Module: ', $router->getModuleName(), '<br>';
+	echo 'Controller: ', $router->getControllerName(), '<br>';
+	echo 'Action: ', $router->getActionName(), '<br>';
 }

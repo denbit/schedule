@@ -34,7 +34,7 @@ class Module implements ModuleDefinitionInterface
             }
         }
         $loader = new Loader();
-        $config = $di->getConfig();
+        //$config = $di->getConfig();
         $module_dir=$config->get('application')->modulesDir;
 
         $loader->registerNamespaces([

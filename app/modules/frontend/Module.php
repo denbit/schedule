@@ -22,7 +22,7 @@ class Module implements ModuleDefinitionInterface
         $loader->registerNamespaces([
             'Schedule\Modules\Frontend\Controllers' => __DIR__ . '/controllers/',
             'Schedule\Modules\Frontend\Models' => __DIR__ . '/models/',
-            'Schedule\Modules\Frontend\Models' => __DIR__ . '/models/',
+
         ]);
 
         $this->registerOutsideNamespaces($loader);
@@ -44,6 +44,7 @@ class Module implements ModuleDefinitionInterface
      */
     public function registerServices(DiInterface $di)
     {
+
         /**
          * Setting up the view component
          */
@@ -70,5 +71,6 @@ class Module implements ModuleDefinitionInterface
 				return $cookies;
 			}
 		);
+
     }
 }

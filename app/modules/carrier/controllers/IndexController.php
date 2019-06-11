@@ -1,11 +1,11 @@
 <?php
 
-namespace Schedule\Modules\Transporters\Controllers;
+namespace Schedule\Modules\Carrier\Controllers;
 
 use Schedule\Core\CompanyInstance;
 
-use Schedule\Modules\Transporters\Forms\CompanyForm;
-use Schedule\Modules\Transporters\Forms\PersonalDataForm;
+use Schedule\Modules\Carrier\Forms\CompanyForm;
+use Schedule\Modules\Carrier\Forms\PersonalDataForm;
 
 
 class IndexController extends ControllerBase

@@ -4,18 +4,23 @@ use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\Router;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
-use Phalcon\Mvc\View;
-use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
+
 use Phalcon\Flash\Direct as Flash;
 
 /**
  * Registering a router
  */
 $di->setShared('router', function () {
-    $router = new Router();
-
-    $router->setDefaultModule('frontend');
-
+    $router = new Router(false);
+    $router->setDefaultModule("Schedule\Modules\Frontend");
+	$router->notFound(
+		[
+			'namespace' =>'Schedule\Modules\Frontend\Controllers',
+			'module' => 'frontend',
+			'controller' => 'index',
+			'action'     => 'error404',
+		]
+	);
     return $router;
 });
 
@@ -68,7 +73,34 @@ $di->set('flashSession', function () {
 * Set the default namespace for dispatcher
 */
 $di->setShared('dispatcher', function() {
-    $dispatcher = new Dispatcher();
-    $dispatcher->setDefaultNamespace('Schedule\Modules\Frontend\Controllers');
-    return $dispatcher;
+		$eventsManager = new \Phalcon\Events\Manager();
+
+
+		$dispatcher = new \Phalcon\Mvc\Dispatcher();
+	// Attach a listener
+	$eventsManager->attach(
+		"dispatch:beforeException", function (Phalcon\Events\Event $event, $dispatcher, Exception $exception) {
+
+		// Alternative way, controller or action doesn't exist
+		switch ($exception->getCode()) {
+			case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+				$dispatcher->forward(
+					[
+						'namespace' =>'Schedule\Modules\Frontend\Controllers',
+						'module' => 'frontend',
+						'controller' => 'index',
+						'action'     => 'error404',
+					]
+				);
+
+				return false;
+		}
+	}
+	);
+
+		//Bind the EventsManager to the dispatcher
+		$dispatcher->setEventsManager($eventsManager);
+
+		return $dispatcher;
+
 });
