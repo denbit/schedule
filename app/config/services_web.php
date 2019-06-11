@@ -12,7 +12,7 @@ use Phalcon\Flash\Direct as Flash;
  */
 $di->setShared('router', function () {
     $router = new Router(false);
-    $router->setDefaultModule("Schedule\Modules\Frontend");
+   // $router->setDefaultModule("Schedule\Modules\Frontend");
 	$router->notFound(
 		[
 			'namespace' =>'Schedule\Modules\Frontend\Controllers',
