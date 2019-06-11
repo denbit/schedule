@@ -1,5 +1,6 @@
 <?php
 
+use Phalcon\Events\Event;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\Router;
 use Phalcon\Mvc\Url as UrlResolver;
@@ -13,6 +14,15 @@ use Phalcon\Flash\Direct as Flash;
 $di->setShared('router', function () {
     $router = new Router(false);
    // $router->setDefaultModule("Schedule\Modules\Frontend");
+//	$checkRoute= new \Phalcon\Events\Manager();
+//	$checkRoute->attach('router:afterCheckRoutes',function (Phalcon\Events\Event $event, $router, Exception $exception){
+//
+//		$router->getDI();
+//	});
+//    $router->setDefaultController('index');
+//
+    $router->setDefaultAction('index');
+    //$router->setEventsManager($checkRoute);
 	$router->notFound(
 		[
 			'namespace' =>'Schedule\Modules\Frontend\Controllers',
@@ -21,9 +31,39 @@ $di->setShared('router', function () {
 			'action'     => 'error404',
 		]
 	);
+
     return $router;
 });
+/**
+ * Set the default namespace for dispatcher
+ */
+$di->setShared('dispatcher', function() {
+	$eventsManager = new \Phalcon\Events\Manager();
+	$dispatcher = new \Phalcon\Mvc\Dispatcher();
+	// Attach a listener
+	$eventsManager->attach(
+		"dispatch:beforeException", function (Phalcon\Events\Event $event, $dispatcher, Exception $exception) {
+		// Alternative way, controller or action doesn't exist
+		if( $exception->getCode() == Dispatcher::EXCEPTION_ACTION_NOT_FOUND || $exception->getCode() == Dispatcher::EXCEPTION_HANDLER_NOT_FOUND){
+				$dispatcher->forward(
+					[
+						'namespace' =>'Schedule\Modules\Frontend\Controllers',
+						'module' => 'frontend',
+						'controller' => 'index',
+						'action'     => 'error404',
+					]
+				);
+				return false;
+		}
+	}
+	);
 
+	//Bind the EventsManager to the dispatcher
+	$dispatcher->setEventsManager($eventsManager);
+
+	return $dispatcher;
+
+});
 /**
  * The URL component is used to generate all kinds of URLs in the application
  */
@@ -69,38 +109,4 @@ $di->set('flashSession', function () {
     ]);
 });
 
-/**
-* Set the default namespace for dispatcher
-*/
-$di->setShared('dispatcher', function() {
-		$eventsManager = new \Phalcon\Events\Manager();
 
-
-		$dispatcher = new \Phalcon\Mvc\Dispatcher();
-	// Attach a listener
-	$eventsManager->attach(
-		"dispatch:beforeException", function (Phalcon\Events\Event $event, $dispatcher, Exception $exception) {
-
-		// Alternative way, controller or action doesn't exist
-		switch ($exception->getCode()) {
-			case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
-				$dispatcher->forward(
-					[
-						'namespace' =>'Schedule\Modules\Frontend\Controllers',
-						'module' => 'frontend',
-						'controller' => 'index',
-						'action'     => 'error404',
-					]
-				);
-
-				return false;
-		}
-	}
-	);
-
-		//Bind the EventsManager to the dispatcher
-		$dispatcher->setEventsManager($eventsManager);
-
-		return $dispatcher;
-
-});
