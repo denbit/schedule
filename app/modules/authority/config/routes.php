@@ -11,19 +11,19 @@ $authority = new \Phalcon\Mvc\Router\Group(array(
 ));
 $authority->setPrefix('/authority');
 
-$authority->add('/', [
+$authority->add('(/)?', [
 	'controller' => 'index',
 	'action' => 'index'
 ]);
-$authority->add('/authority/:action', [
+$authority->add('/:action', [
 	'controller' => 'index',
 	'action' => 1
 ]);
-$authority->add('/authority/:controller(/?)', [
+$authority->add('/:controller(/?)', [
 	'controller' => 1,
 	'action' => 'index'
 ]);
-$authority->add('/authority/:controller/:action/', [
+$authority->add('/:controller/:action/', [
 	'controller' => 1,
 	'action' => 2
 ]);

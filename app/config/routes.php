@@ -6,7 +6,7 @@
 
  $defualt='frontend';
  $namespaces =[];
- foreach ($application->getModules() as $name =>list($className)){
+ foreach ($application->getModules() as $name =>list('className'=>$className)){
 
      $namespaces[$name]=preg_replace('/Module$/', 'Controllers', $className);
  }

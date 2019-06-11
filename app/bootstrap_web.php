@@ -29,6 +29,7 @@ try {
 
     /**
      * Get config service for use in inline setup below
+	 * @var $config \Phalcon\Config
      */
     $config = $di->getConfig();
     if ( $config->application->development)
@@ -70,8 +71,11 @@ try {
     echo '<pre>' . $e->getTraceAsString() . '</pre>';
 }
 finally{
-	var_dump($router->getMatchedRoute());
-	echo 'Module: ', $router->getModuleName(), '<br>';
-	echo 'Controller: ', $router->getControllerName(), '<br>';
-	echo 'Action: ', $router->getActionName(), '<br>';
+	if ($config->get('application')->showRoute){
+		var_dump($router->getMatchedRoute());
+		echo 'Module: ', $router->getModuleName(), '<br>';
+		echo 'Controller: ', $router->getControllerName(), '<br>';
+		echo 'Action: ', $router->getActionName(), '<br>';
+	}
+
 }
