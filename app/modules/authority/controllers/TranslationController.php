@@ -4,6 +4,7 @@ namespace Schedule\Modules\Authority\Controllers;
 
 use Schedule\Core\Location;
 use Schedule\Core\BusRoute;
+use Schedule\Core\Translate;
 
 
 class TranslationController extends ControllerBase
@@ -11,10 +12,12 @@ class TranslationController extends ControllerBase
 
     public function indexAction()
     {
-       // $config = $this->di->getConfig();var_dump($config);
-        echo "test Authority". print_r($this->dispatcher->getParams());
-echo $this->router->getMatchedRoute()->getCompiledPattern();
+		$translations = Translate::getAllTransations();
+		if(count($translations)>0){
+			$this->view->transltions = $translations;
+		}
     }
+
 
 }
 
