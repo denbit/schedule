@@ -6,11 +6,11 @@
  * Time: 12:06
  */
 
-namespace Schedule\Modules\Transporters\Controllers;
+namespace Schedule\Modules\Carrier\Controllers;
 
 
 
-class OrdersController extends ControllerBase
+class CommentsController extends ControllerBase
 {
 
     public function indexAction()

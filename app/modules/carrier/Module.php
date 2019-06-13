@@ -1,5 +1,5 @@
 <?php
-namespace Schedule\Modules\Transporters;
+namespace Schedule\Modules\Carrier;
 
 use Phalcon\DiInterface;
 use Phalcon\Loader;
@@ -39,9 +39,9 @@ class Module implements ModuleDefinitionInterface
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Schedule\Modules\Transporters\Controllers' => BASE_PATH.$module_dir .  $config->get('transporters')->controllersDir,
-            'Schedule\Modules\Transporters\Models'      => BASE_PATH.$module_dir .  $config->get('transporters')->modelsDir,
-            'Schedule\Modules\Transporters\Forms'      =>  BASE_PATH.$module_dir .  $config->get('transporters')->formDir
+            'Schedule\Modules\Carrier\Controllers' => BASE_PATH.$module_dir .  $config->get('carrier')->controllersDir,
+            'Schedule\Modules\Carrier\Models'      => BASE_PATH.$module_dir .  $config->get('carrier')->modelsDir,
+            'Schedule\Modules\Carrier\Forms'      =>  BASE_PATH.$module_dir .  $config->get('carrier')->formDir
         ]);
 
         $loader->register();
@@ -62,8 +62,8 @@ class Module implements ModuleDefinitionInterface
             $config = $this->getConfig();
 
             $view = new View();
-            $view->setViewsDir(BASE_PATH.$config->get('application')->modulesDir.$config->get('transporters')->viewsDir);
-            $view->setLayoutsDir(BASE_PATH.$config->get('application')->modulesDir.$config->get('transporters')->viewsDir."layouts/");
+            $view->setViewsDir(BASE_PATH.$config->get('application')->modulesDir.$config->get('carrier')->viewsDir);
+            $view->setLayoutsDir(BASE_PATH.$config->get('application')->modulesDir.$config->get('carrier')->viewsDir."layouts/");
             
             $view->registerEngines([
                 '.volt'  => 'voltShared',

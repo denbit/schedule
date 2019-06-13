@@ -5,32 +5,33 @@
  * Date: 19.11.2018
  * Time: 15:26
  */
-$namespace = preg_replace('/Module$/', 'Controllers', $module["className"]);
-$router->add('/:params', [
-    'namespace' => $namespace,
-    'module' => 'frontend',
-    'controller' => 'index',
-    'action' => 'index',
-    'params' => 1
+
+$frontend = new \Phalcon\Mvc\Router\Group([
+	'module'    => 'frontend' ,
+	'namespace' => $namespaces['frontend'] ,
 ]);
-$router->add('/:controller/:params', [
-    'namespace' => $namespace,
-    'module' => 'frontend',
-    'controller' => 1,
-    'action' => 'index',
-    'params' => 2
+
+$frontend->add('/' , [
+
+	'controller' => 'index' ,
+	'action'     => 'index' ,
+
 ]);
-$router->add('/:action/:params', [
-	'namespace' => $namespace,
-	'module' => 'frontend',
-	'controller' =>'index',
-	'action' => 1,
-	'params' => 2
+$frontend->add('/:controller/' , [
+	'controller' => 1 ,
+	'action'     => 'index' ,
+
 ]);
-$router->add('/:controller/:action/:params', [
-    'namespace' => $namespace,
-    'module' => 'frontend',
-    'controller' => 1,
-    'action' => 2,
-    'params' => 3
+$frontend->add('/:action' , [
+
+	'controller' => 'index' ,
+	'action'     => 1 ,
+
 ]);
+$frontend->add('/:controller/:action(/?)' , [
+	'controller' => 1 ,
+	'action'     => 2,
+
+]);
+$router->mount($frontend);
+

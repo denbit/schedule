@@ -1,5 +1,5 @@
 <?php
-namespace Schedule\Modules\Transporters\Controllers;
+namespace Schedule\Modules\Carrier\Controllers;
 
 use Phalcon\Mvc\Controller;
 

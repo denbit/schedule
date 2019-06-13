@@ -1,6 +1,6 @@
 <?php
 
-namespace Schedule\Modules\Transporters\Forms;
+namespace Schedule\Modules\Carrier\Forms;
 
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Radio;

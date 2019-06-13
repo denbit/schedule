@@ -110,5 +110,10 @@ class IndexController extends ControllerBase implements IFrontEnd
 
     }
 
+	public function error404Action()
+	{
+		echo(404);
+		exit();
+    }
 }
 

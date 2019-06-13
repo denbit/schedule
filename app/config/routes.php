@@ -1,33 +1,21 @@
 <?php
 
-$router = $di->getRouter();
-foreach ($application->getModules() as $key => $module) {
-    if(is_dir( BASE_PATH.$di->getConfig()->get('application')->modulesDir.$key)) {
-        require_once  BASE_PATH.$di->getConfig()->get('application')->modulesDir.$key.'/config/routes.php';
+ $uri=explode('/',$application ->router->getRewriteUri())[1];
 
-    }
- /*   $router->add('/'.$key.'/:params', [
-        'namespace' => $namespace,
-        'module' => $key,
-        'controller' => 'index',
-        'action' => 'index',
-        'params' => 1
-    ])->setName($key);
-    $router->add('/'.$key.'/:controller/:params', [
-        'namespace' => $namespace,
-        'module' => $key,
-        'controller' => 1,
-        'action' => 'index',
-        'params' => 2
-    ]);
-    $router->add('/'.$key.'/:controller/:action/:params', [
-        'namespace' => $namespace,
-        'module' => $key,
-        'controller' => 1,
-        'action' => 2,
-        'params' => 3
-    ]);
-*/
+ $map=['carrier','authority'];
 
+ $defualt='frontend';
+ $namespaces =[];
+ foreach ($application->getModules() as $name =>list('className'=>$className)){
+
+     $namespaces[$name]=preg_replace('/Module$/', 'Controllers', $className);
+ }
+if(in_array($uri,$map)&& is_dir( BASE_PATH.$di->getConfig()->get('application')->modulesDir.$uri) ) {
+		$module=$application->getModule($uri);
+	require_once  BASE_PATH.$di->getConfig()->get('application')->modulesDir.$uri.'/config/routes.php';
+
+}else{$module=$application->getModule($defualt);
+	require_once  BASE_PATH.$di->getConfig()->get('application')->modulesDir.$defualt.'/config/routes.php';
 }
-//var_dump($router);
+
+

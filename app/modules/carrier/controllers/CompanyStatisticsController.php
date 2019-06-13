@@ -6,7 +6,7 @@
  * Time: 12:06
  */
 
-namespace Schedule\Modules\Transporters\Controllers;
+namespace Schedule\Modules\Carrier\Controllers;
 
 
 class CompanyStatisticsController extends ControllerBase

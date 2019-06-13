@@ -10,6 +10,8 @@ namespace Schedule\Core;
 
 
 
+use Phalcon\Mvc\Model\Resultset;
+use Schedule\Core\Models\Languages;
 use Schedule\Core\Models\TranslationsCommon;
 
 class Translate  extends Kernel
@@ -55,5 +57,37 @@ class Translate  extends Kernel
 	{
 		return str_replace(['"',"'"],[''],$value);
 	}
+
+	/**
+	 * @param  int  $limit
+	 * @param  Languages|null  $language
+	 *
+	 * @return \Phalcon\Mvc\Model\ResultsetInterface
+	 */
+	public static function getAllTransations($limit=25, Languages $language = null)
+	{
+		 $records=TranslationsCommon::find([
+		 	'limit'=>$limit,
+		    'hydration'=>Resultset::HYDRATE_OBJECTS
+		 ]);
+		$resultset =[];
+		$list = LanguageParser::ListLanguages();
+		$kernel=new Kernel();
+		foreach ($records as $record)
+		{
+			if (!array_key_exists($record->key,$resultset)){
+			$resultset[$record->key]=[];
+			}
+			$resultset[$record->key]=[
+				$list[$record->lang_id]=>[
+					'id'=>$record->lang_id,
+					'value'=>$record->description
+				]
+			];
+		}
+	return Kernel::toObject($resultset);
+	}
+
+
 
 }

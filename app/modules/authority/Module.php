@@ -34,7 +34,7 @@ class Module implements ModuleDefinitionInterface
             }
         }
         $loader = new Loader();
-        $config = $di->getConfig();
+        //$config = $di->getConfig();
         $module_dir=$config->get('application')->modulesDir;
 
         $loader->registerNamespaces([
@@ -63,7 +63,9 @@ class Module implements ModuleDefinitionInterface
 
             $view = new View();
             $view->setViewsDir(BASE_PATH.$config->get('application')->modulesDir.$config->get('authority')->viewsDir);
-            $view->setLayoutsDir(BASE_PATH.$config->get('application')->modulesDir.$config->get('authority')->viewsDir."layouts/");
+            $view->setLayoutsDir(BASE_PATH.$config->get('application')->modulesDir.$config->get('authority')->viewsDir."layouts");
+            $view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+
           //  echo $view->getLayoutsDir();die;
             $view->registerEngines([
                 '.volt'  => 'voltShared',

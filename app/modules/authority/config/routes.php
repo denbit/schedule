@@ -5,25 +5,27 @@
  * Date: 19.11.2018
  * Time: 15:26
  */
-$namespace = preg_replace('/Module$/', 'Controllers', $module["className"]);
-$router->add('/authority/:params', [
-    'namespace' => $namespace,
-    'module' => 'authority',
-    'controller' => 'index',
-    'action' => 'index',
-    'params' => 3
+$authority = new \Phalcon\Mvc\Router\Group(array(
+	'module'    => 'authority' ,
+	'namespace' => $namespaces['authority']
+));
+$authority->setPrefix('/authority');
+
+$authority->add('(/)?', [
+	'controller' => 'index',
+	'action' => 'index'
 ]);
-$router->add('/authority/:controller/:params', [
-    'namespace' => $namespace,
-    'module' => 'authority',
-    'controller' => 1,
-    'action' => 'index',
-    'params' => 3
+$authority->add('/:action', [
+	'controller' => 'index',
+	'action' => 1
 ]);
-$router->add('/authority/:controller/:action/:params', [
-    'namespace' => $namespace,
-    'module' => 'authority',
-    'controller' => 1,
-    'action' => 2,
-    'params' => 3
+$authority->add('/:controller(/?)', [
+	'controller' => 1,
+	'action' => 'index'
 ]);
+$authority->add('/:controller/:action/', [
+	'controller' => 1,
+	'action' => 2,
+	//'params' => 3
+])->setName("action-auth");
+$router->mount($authority);

@@ -1,16 +1,16 @@
-
+{% extends "index.volt" %}
+{% block content %}
 <body>
 <div class="container">
 <div class="navbar-brand"><img src="https://placeimg.com/640/80/any/grayscale"></div>
- {% block content %}
+
      <div class="row">
      <div class="col-12"><h2 class="text-center">Page Control System</h2></div>
      </div>
 
+{{ content() }}
 
-     {{ content() }}
 
-    {% endblock %}
 <div class="row"></div>
 </div>
 <footer class="mt-4"> <h6 class="text-center">Managing system v1.0</h6></footer>
@@ -20,3 +20,4 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 
+{% endblock %}

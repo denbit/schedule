@@ -11,10 +11,16 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-        $config = $this->di->getConfig();var_dump($config);
-        echo "test Authority";
+
+	$this->view->setVar('string',$this->router->getMatchedRoute()->getCompiledPattern());
 
     }
+
+	public function error404Action()
+	{
+		echo(404);
+		exit();
+	}
 
 }
 
