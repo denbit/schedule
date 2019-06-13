@@ -1,3 +1,6 @@
+{% extends 'layouts/page.volt' %}
+{% block content %}
+    {{ super() }}
 <div class="clearfix m-2"> {{ linkTo(['/authority/page/form','Create new page','class':'btn btn-primary float-right']) }}  </div>
 {% if pages %}
     <table class="table">
@@ -15,3 +18,4 @@
 {% endfor %}
     </table>
 {% endif %}
+{% endblock %}

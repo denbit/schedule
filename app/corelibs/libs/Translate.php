@@ -72,6 +72,7 @@ class Translate  extends Kernel
 		 ]);
 		$resultset =[];
 		$list = LanguageParser::ListLanguages();
+		$kernel=new Kernel();
 		foreach ($records as $record)
 		{
 			if (!array_key_exists($record->key,$resultset)){
@@ -84,7 +85,7 @@ class Translate  extends Kernel
 				]
 			];
 		}
-	return $resultset;
+	return Kernel::toObject($resultset);
 	}
 
 

@@ -78,6 +78,12 @@ public function  __get($var){
 
 }
 
+	public static function toObject(array $array):\stdClass
+	{
+		return json_decode(json_encode($array), FALSE);
+
+}
+
 	public function rememberLanguage($lang)
 	{
 		if(Languages::count([

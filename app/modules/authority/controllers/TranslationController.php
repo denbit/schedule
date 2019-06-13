@@ -14,7 +14,8 @@ class TranslationController extends ControllerBase
     {
 		$translations = Translate::getAllTransations();
 		if(count($translations)>0){
-			$this->view->transltions = $translations;
+			$this->view->translations =(object) $translations;
+		//	var_dump($translations);die;
 		}
     }
 

@@ -23,8 +23,9 @@ $authority->add('/:controller(/?)', [
 	'controller' => 1,
 	'action' => 'index'
 ]);
-$authority->add('/:controller/:action/', [
+$authority->add('/:controller/:action/:params', [
 	'controller' => 1,
-	'action' => 2
+	'action' => 2,
+	'params' => 3
 ]);
 $router->mount($authority);

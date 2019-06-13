@@ -27,7 +27,7 @@ class LanguageParser
 			}
 	  }
 	  public static function ListLanguages():array {
-		$kernel=new Kernel();
+
 		  $lang_codes=Languages::find([
 			  'columns'=>'lang_id,lang_code',
 			  'hydration'=>Resultset::HYDRATE_ARRAYS

@@ -1,24 +1,32 @@
 {% extends "index.volt" %}
  {% block title %}{%  set title ='Over all status' %}   {% endblock %}
-{% block content2 %}{{ string }}
+{% block content2 %}    <table id="" class="display" cellspacing="0" width="100%">
+ <thead>
+ <tr>
+  <th>Menu</th>
+  <th>Direcci&oacute;n</th>
+  <th>Estado</th>
+  <th>Modificado</th>
+  <th>Modificado por</th>
+  <th>Acciones</th>
+ </tr>
+ </thead>
+
+ <tfoot>
+ <tr>
+  <th></th>
+  <th>Direcci&oacute;n</th>
+  <th>Estado</th>
+  <th>Modificado</th>
+  <th>Modificado por</th>
+  <th>Acciones</th>
+ </tr>
+ </tfoot>
+</table>
 {% endblock %}
 
 {% block content %}
-<table>
- <thead>
- <tr>
-  <th> Key </th><th>Ukrainian</th><th>English</th><th>Russian</th><th>Actions</th>
- </tr>
- {% for key,translation in  translations %}
-  <tr id="{{ key }}">
-   <td> {{ key}}</td>
-   <td data-id="{{ translation.uk.id }}">{{ translation.uk.value }}</td>
-   <td data-id="{{ translation.en.id }}">{{ translation.en.value }}</td>
-   <td data-id="{{ translation.ru.id }}">{{ translation.ru.value }}</td>
-  </tr>
- {% endfor %}
- </thead>
-</table>
+    {{ super() }}
 {% endblock %}
 
 

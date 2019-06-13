@@ -1,3 +1,5 @@
+{% extends 'layouts/page.volt' %}
+{% block content %}
 <div class="row">
     <div class="navbar navbar-light bg-light"> {{ linkTo(['/authority/page/','Go to the List of Pages','class':'nav-item nav-link']) }}</div>
 </div>
@@ -43,3 +45,4 @@
         </div>
     </div>
 </div>
+{% endblock %}
