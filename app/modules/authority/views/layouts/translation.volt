@@ -1,6 +1,17 @@
 {% extends "index.volt" %}
  {% block title %}{%  set title ='Over all status' %}   {% endblock %}
-{% block content2 %}    <table id="" class="display" cellspacing="0" width="100%">
+{% block content2 %}
+    <style>
+        td{
+            width: 10%;
+        }
+        hr{
+            margin-top:100px;
+        }
+
+</style>
+    <hr >
+    <table id="" class="display" cellspacing="0" width="100%">
  <thead>
  <tr>
   <th>Menu</th>

@@ -23,9 +23,9 @@ $authority->add('/:controller(/?)', [
 	'controller' => 1,
 	'action' => 'index'
 ]);
-$authority->add('/:controller/:action/:params', [
+$authority->add('/:controller/:action/', [
 	'controller' => 1,
 	'action' => 2,
-	'params' => 3
-]);
+	//'params' => 3
+])->setName("action-auth");
 $router->mount($authority);

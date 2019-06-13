@@ -44,11 +44,10 @@ $di->setShared('dispatcher', function() {
 	$eventsManager->attach(
 		"dispatch:beforeException", function (Phalcon\Events\Event $event, $dispatcher, Exception $exception) {
 		// Alternative way, controller or action doesn't exist
+
 		if( $exception->getCode() == Dispatcher::EXCEPTION_ACTION_NOT_FOUND || $exception->getCode() == Dispatcher::EXCEPTION_HANDLER_NOT_FOUND){
-				$dispatcher->forward(
-					[
-						'namespace' =>'Schedule\Modules\Frontend\Controllers',
-						'module' => 'frontend',
+
+				$dispatcher->forward(					[
 						'controller' => 'index',
 						'action'     => 'error404',
 					]
