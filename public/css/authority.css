@@ -1,0 +1,19 @@
+.authority-menu > title {
+    text-align: left;
+    text-decoration: dotted;
+    text-transform: uppercase;
+    /* margin: auto; */
+    color: white;
+    background-color: #484e53;
+}
+
+.authority-menu {
+    width: 10%;
+    min-height: 300px;
+    display: block;
+}
+
+.authority-menu .auth-title {
+    margin-right: 20px;
+    margin-left: 10px;
+}
