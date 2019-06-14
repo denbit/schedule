@@ -32,9 +32,7 @@ class LanguageParser
 			  'columns'=>'lang_id,lang_code',
 			  'hydration'=>Resultset::HYDRATE_ARRAYS
 		  ])->toArray();
-		  $ids=array_column($lang_codes,'lang_id');
-		  $codes=array_column($lang_codes,'lang_code');
-		  return array_combine($ids,$codes);
+		  return array_column($lang_codes,'lang_code','lang_id');
 	  }
 
 }
