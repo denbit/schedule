@@ -12,7 +12,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('img/favicon.ico') }}"/>
 </head>
 <body>
-<div class="container text-white bg-dark">
+<div class="container-flex text-white bg-dark">
     <div class="row">
         <div class="col">
             <img src="/images/authority/top.svg">
