@@ -18,7 +18,7 @@
         {% if translations %}
             {% for key,translation in  translations %}
                 <tr id="{{ key }}">
-                    <td> <i>{{ key}}</i></td>
+                    <td><input type="checkbox" data-key="{{ key}}">  <i>{{ key}}</i></td>
                     {% if translation.uk is not empty  %}
                         <td data-id="{{ translation.uk.id }}">{{ translation.uk.value }}</td>
                     {% else %}
@@ -34,7 +34,10 @@
                     {% else %}
                         <td ></td>
                     {% endif %}
-                    <td></td>
+                    <td>
+                        <button class="btn btn-dark">Edit</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </td>
                 </tr>
             {% endfor %}
         {% endif %}

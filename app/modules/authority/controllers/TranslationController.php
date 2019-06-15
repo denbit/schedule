@@ -19,6 +19,11 @@ class TranslationController extends ControllerBase
 		}
     }
 
+	public function editAction()
+	{
+	echo $this->dispatcher->getParam('id');
+    }
+
 
 }
 
