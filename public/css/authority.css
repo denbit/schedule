@@ -1,4 +1,4 @@
-.authority-menu > title {
+.authority-menu > .title {
     text-align: left;
     text-decoration: dotted;
     text-transform: uppercase;
@@ -8,12 +8,30 @@
 }
 
 .authority-menu {
-    width: 10%;
+    width: 250px;
     min-height: 300px;
     display: block;
+    border-top: 1px dashed #484e53;
 }
 
 .authority-menu .auth-title {
     margin-right: 20px;
     margin-left: 10px;
+}
+
+.ul_all_collapse {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.local_padding {
+    padding: 10px 30px;
+}
+
+.btn-link:hover {
+    color: #ff5656;
+    /* text-decoration: underline; */
+    background-color: transparent;
+    border-color: transparent;
 }

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('/shared/favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ url('/css/common.css') }}"/>
+    <link rel="stylesheet" href="{{ url('/css/authority.css') }}"/>
 </head>
 <body>
 
@@ -23,27 +24,56 @@
 
 </div>
 <div class="container-flex">
-    <div class="authority-menu navbar-dark">
-        <h5 class="p-2 tittle">
-            <span class="navbar-toggler-icon auth-title"></span>
-            Menu
-        </h5>
-        <ul>
-            <li>translations</li>
-            <li><a class="btn btn-link" data-toggle="collapse" href="#collapseExample" role="button"
-                   aria-expanded="false" aria-controls="collapseExample">
-                    pages
-                </a>
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        -smth<br>
-                        -smsh
+    <div class="authority-menu navbar-dark"><h5 class="p-2 title"><span class="navbar-toggler-icon auth-title"></span>
+            Menu </h5>
+        <ul class="ul_all_collapse">
+            <li>
+                <a class="btn btn-link" data-toggle="collapse" href="#translations_collapse" role="button"
+                   aria-expanded="true" aria-controls="collapse">translations</a>
+                <div class="collapse" id="translations_collapse">
+                    <div class="card card-body local_padding">
+                        <ul class="ul_all_collapse">
+                            <li>smth</li>
+                            <li>smth</li>
+                        </ul>
                     </div>
-
+                </div>
             </li>
-            <li> blog
+            <li><a class="btn btn-link" data-toggle="collapse" href="#pages_collapse" role="button" aria-expanded="true"
+                   aria-controls="collapse"> pages </a>
+                <div class="collapse show" id="pages_collapse">
+                    <div class="card card-body bg-light local_padding">
+                        <ul class="ul_all_collapse">
+                            <li>smth</li>
+                            <li>smth</li>
+                        </ul>
+                    </div>
+                </div>
             </li>
-            <li>companies list</li>
+            <li>
+                <a class="btn btn-link" data-toggle="collapse" href="#blog_collapse" role="button" aria-expanded="true"
+                   aria-controls="collapse">blog</a>
+                <div class="collapse show" id="blog_collapse">
+                    <div class="card card-body local_padding">
+                        <ul class="ul_all_collapse">
+                            <li>smth</li>
+                            <li>smth</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a class="btn btn-link" data-toggle="collapse" href="#companies_list_collapse" role="button"
+                   aria-expanded="true" aria-controls="collapse">companies list</a>
+                <div class="collapse show" id="companies_list_collapse">
+                    <div class="card card-body local_padding">
+                        <ul class="ul_all_collapse">
+                            <li>smth</li>
+                            <li>smth</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
 </div>{% block content %}{% endblock %}{% block content2 %}{% endblock %}
