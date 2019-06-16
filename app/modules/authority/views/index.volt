@@ -32,10 +32,10 @@
             <span class="navbar-toggler-icon auth-title"></span>
             Menu
         </h5>
-        <ul class="ul_all_collapse">
+        <ul class="ul_all_collapse_padding">
             <li>
-                <a class="btn btn-link" data-toggle="collapse" href="#translations_collapse" role="button"
-                   aria-expanded="true" aria-controls="collapse">translations</a>
+                <a class=" btn btn-link collapsed" data-toggle="collapse" href="#translations_collapse" role="button"
+                   aria-expanded="false" aria-controls="collapse">translations</a>
                 <div class="collapse" id="translations_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
@@ -45,21 +45,10 @@
                     </div>
                 </div>
             </li>
-            <li><a class="btn btn-link" data-toggle="collapse" href="#pages_collapse" role="button" aria-expanded="true"
+            <li><a class="btn btn-link collapsed" data-toggle="collapse" href="#pages_collapse" role="button"
+                   aria-expanded="false"
                    aria-controls="collapse"> pages </a>
-                <div class="collapse show" id="pages_collapse">
-                    <div class="card card-body bg-light local_padding">
-                        <ul class="ul_all_collapse">
-                            <li>smth</li>
-                            <li>smth</li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <a class="btn btn-link" data-toggle="collapse" href="#blog_collapse" role="button" aria-expanded="true"
-                   aria-controls="collapse">blog</a>
-                <div class="collapse show" id="blog_collapse">
+                <div class="collapse" id="pages_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
                             <li>smth</li>
@@ -69,9 +58,22 @@
                 </div>
             </li>
             <li>
-                <a class="btn btn-link" data-toggle="collapse" href="#companies_list_collapse" role="button"
-                   aria-expanded="true" aria-controls="collapse">companies list</a>
-                <div class="collapse show" id="companies_list_collapse">
+                <a class="btn btn-link collapsed" data-toggle="collapse" href="#blog_collapse" role="button"
+                   aria-expanded="false"
+                   aria-controls="collapse">blog</a>
+                <div class="collapse" id="blog_collapse">
+                    <div class="card card-body local_padding">
+                        <ul class="ul_all_collapse">
+                            <li>smth</li>
+                            <li>smth</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a class="btn btn-link collapsed" data-toggle="collapse" href="#companies_list_collapse" role="button"
+                   aria-expanded="false" aria-controls="collapse">companies list</a>
+                <div class="collapse" id="companies_list_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
                             <li>smth</li>
