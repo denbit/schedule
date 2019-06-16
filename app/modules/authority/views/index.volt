@@ -35,7 +35,10 @@
         <ul class="ul_all_collapse_padding">
             <li>
                 <a class=" btn btn-link collapsed" data-toggle="collapse" href="#translations_collapse" role="button"
-                   aria-expanded="false" aria-controls="collapse">translations</a>
+                   aria-expanded="false" aria-controls="collapse">Переклади</a>
+                {% if router.getControllerName()!='translation' %}
+                    {{ link_to(["for": "action-auth",'controller':'translation','action':''], 'List ','class':'btn-link') }}
+                {% endif %}
                 <div class="collapse" id="translations_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
@@ -47,7 +50,10 @@
             </li>
             <li><a class="btn btn-link collapsed" data-toggle="collapse" href="#pages_collapse" role="button"
                    aria-expanded="false"
-                   aria-controls="collapse"> pages </a>
+                   aria-controls="collapse"> Сторінки </a>
+                {% if router.getControllerName()!='page' %}
+                    {{ link_to(["for": "action-auth",'controller':'page','action':''], 'List','class':'btn-link') }}
+                {% endif %}
                 <div class="collapse" id="pages_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
@@ -89,7 +95,7 @@
     </div>
     </div>
 </div>
-
+{% block footer %}{% endblock %}
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
