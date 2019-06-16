@@ -23,9 +23,19 @@ $authority->add('/:controller(/?)', [
 	'controller' => 1,
 	'action' => 'index'
 ]);
-$authority->add('/:controller/:action/', [
+$authority->add('/:controller/:action(/?)', [
 	'controller' => 1,
 	'action' => 2,
 	//'params' => 3
 ])->setName("action-auth");
+$authority->addGet('/:controller/:action/([a-z\_]+|[0-9]{0,2})', [
+	'controller' => 1,
+	'action' => 2,
+	'id' => 3
+])->setName("action-save");
+$authority->addPost('/:controller/:action/([a-z\_]+)', [
+	'controller' => 1,
+	'action' => 2,
+	'id' => 3
+])->setName("action-save");
 $router->mount($authority);

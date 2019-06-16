@@ -1,39 +1,12 @@
 {% extends "index.volt" %}
  {% block title %}{%  set title ='Over all status' %}   {% endblock %}
-{% block content2 %}
-    <style>
-        td{
-            width: 10%;
-        }
-        hr{
-            margin-top:100px;
-        }
+{% block head %}
 
-</style>
-    <hr >
-    <table id="" class="display" cellspacing="0" width="100%">
- <thead>
- <tr>
-  <th>Menu</th>
-  <th>Direcci&oacute;n</th>
-  <th>Estado</th>
-  <th>Modificado</th>
-  <th>Modificado por</th>
-  <th>Acciones</th>
- </tr>
- </thead>
+ <div class="col" align="left">
+  <h1>Translations</h1>
+     {{ link_to(["for": "action-auth",'controller':'translation','action':''], 'List all transations','class':'menu-link') }}
+ </div>
 
- <tfoot>
- <tr>
-  <th></th>
-  <th>Direcci&oacute;n</th>
-  <th>Estado</th>
-  <th>Modificado</th>
-  <th>Modificado por</th>
-  <th>Acciones</th>
- </tr>
- </tfoot>
-</table>
 {% endblock %}
 
 {% block content %}
