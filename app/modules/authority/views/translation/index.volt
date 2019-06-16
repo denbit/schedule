@@ -1,17 +1,21 @@
 {% extends 'layouts/translation.volt' %}
 
 {% block content %}
+<style>
+    th{
+        padding: .65rem .5rem!important;
+    }
 
+</style>
     {{ super() }}
-
-    <div align="center">
-        <h1>Translations</h1>
-        {{ link_to(["for": "action-auth",'controller':'translation','action':''], 'List all transations','class':'menu-link') }}
-    </div>
-    <table class="mx-5">
-        <thead>
+    <table class="table middle_row" >
+        <thead class="thead-dark">
         <tr>
-            <th> Key </th><th>Ukrainian</th><th>English</th><th>Russian</th><th>Actions</th>
+            <th  scope="col"> Key </th>
+            <th  scope="col">Ukrainian</th>
+            <th  scope="col">English</th>
+            <th  scope="col">Russian</th>
+            <th  scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -35,7 +39,7 @@
                         <td ></td>
                     {% endif %}
                     <td>
-                        <button class="btn btn-dark">Edit</button>
+                        <button class="btn btn-outline-primary">Edit</button>
                         <button class="btn btn-danger">Delete</button>
                     </td>
                 </tr>

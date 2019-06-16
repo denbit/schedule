@@ -201,3 +201,7 @@
 .icon_stging{
     position: absolute;
 }
+
+.table.middle_row td{
+    vertical-align: middle;
+}
