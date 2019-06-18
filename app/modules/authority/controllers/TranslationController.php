@@ -2,6 +2,7 @@
 
 namespace Schedule\Modules\Authority\Controllers;
 
+use Schedule\Core\LanguageParser;
 use Schedule\Core\Location;
 use Schedule\Core\BusRoute;
 use Schedule\Core\Translate;
@@ -21,7 +22,16 @@ class TranslationController extends ControllerBase
 
 	public function editAction()
 	{
-	echo $this->dispatcher->getParam('id');
+	 $instance = $this->dispatcher->getParam('id');
+	 $list = Translate::getByKey($instance);
+	 $this->view->langs = LanguageParser::ListLanguages();
+	 $this->view->pair = $list->_langs;
+
+    }
+
+	public function saveAction()
+	{
+
     }
 
 

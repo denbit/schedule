@@ -28,14 +28,14 @@ $authority->add('/:controller/:action(/?)', [
 	'action' => 2,
 	//'params' => 3
 ])->setName("action-auth");
-$authority->addGet('/:controller/:action/([a-z\_]+|[0-9]{0,2})', [
+$authority->addGet('/([a-zA-Z0-9\_\-]+)/edit/([a-z\_]+)', [
 	'controller' => 1,
-	'action' => 2,
-	'id' => 3
-])->setName("action-save");
-$authority->addPost('/:controller/:action/([a-z\_]+)', [
+	'action' => 'edit',
+	'id' => 2
+])->setName("action-edit");
+$authority->addPost('/:controller/save/([a-z\_]+)', [
 	'controller' => 1,
-	'action' => 2,
-	'id' => 3
+	'action' => 'save',
+	'id' =>2
 ])->setName("action-save");
 $router->mount($authority);

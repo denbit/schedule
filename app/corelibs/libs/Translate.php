@@ -16,6 +16,10 @@ use Schedule\Core\Models\TranslationsCommon;
 
 class Translate  extends Kernel
 {
+	/**
+	 * @var TranslationsCommon[]
+	 */
+	public $_langs = [];
 	public static function getTranslation( string $key, int $lang_id):string
 	{
 		$key=str_replace(['"',"'"],[''],$key);
@@ -88,6 +92,27 @@ class Translate  extends Kernel
 	return Kernel::toObject($resultset);
 	}
 
+	public static function getByKey($key):Translate
+	{
+		$list = TranslationsCommon::find([
+			'key=?0',
+			'bind' => [$key]
+		]);
+		$self = new self();
+		$self->_langs = $list->toArray();
+		$all_langs = LanguageParser::ListLanguages();
+		$self->_langs =[
+			'content' => array_reduce($self->_langs,
+				function ( $result, $item) use ($all_langs){
+				$lang_id = $item['lang_id'];
+					unset($item['lang_id'],$item['key']);
+				$result[ $all_langs[$lang_id ] ] = $item;
+				return $result;
+				},  []),
+			'key'=> $key
+		];
+		return $self;
+	}
 
 
 }
