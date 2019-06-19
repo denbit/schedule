@@ -4,7 +4,7 @@
     <div class="card-body">
         <h3 class="card-title"> Переклад для ключа <code>{{ pair['key'] }} </code> </h3>
         <div class="card-text form-group">
-            <form  class="form">
+            <form  class="form" method="post" action="{{ url.get(['for':'action-save',"id": pair['key'], 'controller':router.getControllerName()]) }}" >
             {% for key in  langs  %}
             <div class="input-group input-group-sm mb-2">
                 <div class="input-group-prepend">

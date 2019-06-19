@@ -32,7 +32,8 @@ class TranslationController extends ControllerBase
 
 	public function saveAction()
 	{
-
+		var_dump($_POST);
+		//saveing or creating new tranwlation
     }
 
 	public function deleteAction()
