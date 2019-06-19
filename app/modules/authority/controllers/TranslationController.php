@@ -32,8 +32,17 @@ class TranslationController extends ControllerBase
 
 	public function saveAction()
 	{
-		var_dump($_POST);
-		//saveing or creating new tranwlation
+
+
+		$post= $this->request->getPost();
+		$new_post=[];
+		 array_walk($post,function ($value,$key) use( &$new_post){
+			$new_key= preg_replace("/^k_([a-z\_]{2,2}|[0-9]+)/","\$1",$key);
+			$new_post[$new_key] = $value;
+
+		} );
+		 var_dump($new_post);
+		
     }
 
 	public function deleteAction()
