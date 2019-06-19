@@ -5,6 +5,7 @@ namespace Schedule\Modules\Authority\Controllers;
 use Schedule\Core\LanguageParser;
 use Schedule\Core\Location;
 use Schedule\Core\BusRoute;
+use Schedule\Core\Models\TranslationsCommon;
 use Schedule\Core\Translate;
 
 
@@ -34,6 +35,17 @@ class TranslationController extends ControllerBase
 
     }
 
+	public function deleteAction()
+	{
+		$instance = $this->dispatcher->getParam('id');
+		$list = TranslationsCommon::find([
+			'key=?0',
+			'bind' => [$instance]
+		]);
+		foreach ($list as $item ){
+			$item->delete();
+		};
+    }
 
 }
 

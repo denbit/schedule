@@ -40,7 +40,7 @@ $authority->addPost('/:controller/save/([a-z\_]+)', [
 ])->setName("action-save");
 $authority->addDelete('/:controller/delete/([a-z\_]+)', [
 	'controller' => 1,
-	'action' => 'save',
+	'action' => 'delete',
 	'id' =>2
 ])->setName("action-delete");
 $router->mount($authority);
