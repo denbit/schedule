@@ -39,7 +39,7 @@
                         <td ></td>
                     {% endif %}
                     <td>
-                        <button class="btn btn-outline-primary">Edit</button>
+                       {{ link_to(['for':'action-edit',"id": key, 'controller':router.getControllerName()] ,'Edit', 'class':"btn btn-outline-primary") }}
                         <button class="btn btn-danger">Delete</button>
                     </td>
                 </tr>

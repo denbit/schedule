@@ -8,8 +8,7 @@
     {% block title %}{% set title ='Main' %}   {% endblock %}
     <title>Site Managing system - {{ title |default("Main") }}
     </title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"  >
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('/shared/favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ url('/css/common.css') }}"/>
     <link rel="stylesheet" href="{{ url('/css/authority.css') }}"/>
@@ -26,16 +25,19 @@
 
 </div>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row"> 
     <div class="authority-menu navbar-dark  col-3 pr-0">
         <h5 class="p-2 title">
             <span class="navbar-toggler-icon auth-title"></span>
             Menu
         </h5>
-        <ul class="ul_all_collapse">
+        <ul class="ul_all_collapse_padding">
             <li>
-                <a class="btn btn-link" data-toggle="collapse" href="#translations_collapse" role="button"
-                   aria-expanded="true" aria-controls="collapse">translations</a>
+                <a class=" btn btn-link collapsed" data-toggle="collapse" href="#translations_collapse" role="button"
+                   aria-expanded="false" aria-controls="collapse">Переклади</a>
+                {% if router.getControllerName()!='translation' %}
+                    {{ link_to(["for": "action-auth",'controller':'translation','action':''], 'List ','class':'btn-link') }}
+                {% endif %}
                 <div class="collapse" id="translations_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
@@ -45,21 +47,13 @@
                     </div>
                 </div>
             </li>
-            <li><a class="btn btn-link" data-toggle="collapse" href="#pages_collapse" role="button" aria-expanded="true"
-                   aria-controls="collapse"> pages </a>
-                <div class="collapse show" id="pages_collapse">
-                    <div class="card card-body bg-light local_padding">
-                        <ul class="ul_all_collapse">
-                            <li>smth</li>
-                            <li>smth</li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <a class="btn btn-link" data-toggle="collapse" href="#blog_collapse" role="button" aria-expanded="true"
-                   aria-controls="collapse">blog</a>
-                <div class="collapse show" id="blog_collapse">
+            <li><a class="btn btn-link collapsed" data-toggle="collapse" href="#pages_collapse" role="button"
+                   aria-expanded="false"
+                   aria-controls="collapse"> Сторінки </a>
+                {% if router.getControllerName()!='page' %}
+                    {{ link_to(["for": "action-auth",'controller':'page','action':''], 'List','class':'btn-link') }}
+                {% endif %}
+                <div class="collapse" id="pages_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
                             <li>smth</li>
@@ -69,9 +63,22 @@
                 </div>
             </li>
             <li>
-                <a class="btn btn-link" data-toggle="collapse" href="#companies_list_collapse" role="button"
-                   aria-expanded="true" aria-controls="collapse">companies list</a>
-                <div class="collapse show" id="companies_list_collapse">
+                <a class="btn btn-link collapsed" data-toggle="collapse" href="#blog_collapse" role="button"
+                   aria-expanded="false"
+                   aria-controls="collapse">blog</a>
+                <div class="collapse" id="blog_collapse">
+                    <div class="card card-body local_padding">
+                        <ul class="ul_all_collapse">
+                            <li>smth</li>
+                            <li>smth</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a class="btn btn-link collapsed" data-toggle="collapse" href="#companies_list_collapse" role="button"
+                   aria-expanded="false" aria-controls="collapse">companies list</a>
+                <div class="collapse" id="companies_list_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
                             <li>smth</li>
@@ -87,7 +94,7 @@
     </div>
     </div>
 </div>
-
+{% block footer %}{% endblock %}
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

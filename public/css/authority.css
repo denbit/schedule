@@ -29,9 +29,18 @@
     padding: 10px 30px;
 }
 
-.btn-link:hover {
+
+.ul_all_collapse_padding a.btn-link {
+    color: #484e53;
+    text-decoration: none !important;
+}
+
+.ul_all_collapse_padding a.btn-link:hover {
+
     color: #ff5656;
-    /* text-decoration: underline; */
-    background-color: transparent;
-    border-color: transparent;
+}
+
+.ul_all_collapse_padding {
+    list-style: none;
+    margin: 0px;
 }
