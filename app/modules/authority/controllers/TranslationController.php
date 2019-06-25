@@ -42,7 +42,7 @@ class TranslationController extends ControllerBase
 
 		} );
 		 var_dump($new_post);
-		
+
     }
 
 	public function deleteAction()

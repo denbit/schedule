@@ -14,7 +14,7 @@ use Schedule\Core\PageParser;
 
 class PageForm extends Form
 {
-    public function initialize(PageParser $page,$options)
+    public function initialize(PageParser $page, $options)
     {
         $this->setEntity($page);
         $url=new Text('url',["class"=>'form-control']);
