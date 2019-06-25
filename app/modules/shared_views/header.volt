@@ -28,9 +28,9 @@
                         {{ lang|default("UK") }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right langpopup" aria-labelledby="lang">
-                        <a class="dropdown-item" href="#">UA</a>
-                        <a class="dropdown-item" href="#">EN</a>
-                        <a class="dropdown-item" href="#">RU</a>
+                        <a class="dropdown-item" href=" {{ lang=="uk"?'':'?lang=uk'}}">UA</a>
+                        <a class="dropdown-item" href=" {{ lang=="en"?'':'?lang=en'}}">EN</a>
+                        <a class="dropdown-item" href=" {{ lang=="ru"?'':'?lang=ru'}}">RU</a>
                     </div>
                 </li>
                 <li class="nav-item mx-2 dropdown">
