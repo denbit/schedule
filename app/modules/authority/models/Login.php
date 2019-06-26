@@ -24,30 +24,44 @@ class Login extends Kernel
 	private $password;
 	private function on__construct()
 	{
-		$this->getSource();
+
 
 	}
-
-	public function getSource(){
+	public function getData():array {
 		/**
 		 * @var Config $local
 		 */
-    	$local= $this->di->config;
-    	$credentials = $local->get('auth');/*login and password without md5 */
-		$this->login = $credentials['login'];
-		$this->password = $credentials['password'];
-        
-    }
+		$local= $this->di->config;
+		return $local->get('auth');
+	}
+
+	public function getHash():string
+	{
+		return md5((json_encode($this->getData())));
+	}
 
 	public function check()
 	{
-
-    }
+		/*login and password without md5 */
+		$credentials = $this->getData();
+		return ($this->login == $credentials['login']) &&($this->password == $credentials['password']);
+	}
 
     public function renderLoginForm():Form{
-    	$form=new Form();
+    	$form=new Form(new self());
     	$loginField = new Text('login',['class'=>'form-control']);
+    	$loginField->setFilters(
+    		[
+    			'string',
+			    'trim'
+		    ]
+	    );
     	$passwordField = new Password('password',['class'=>'form-control']);
+//    	$passwordField->addValidator(new Validation\Validator\PresenceOf(
+//    		[
+//				'message'=>":field is required"
+//	        ]
+//	    ));alter version
     	$form->add($loginField)->add($passwordField);
     	$validate=new Validation();
     	$validate->add([
@@ -60,6 +74,15 @@ class Login extends Kernel
              				 ]
 				]
 		));
+    	$validate->add(
+    		[
+    			'login',
+			    'password'
+			    ],
+		    new Validation\Validator\PresenceOf([
+			    'message'=>":field is required"
+		    ])
+	    );
     	$form->setValidation($validate);
     	return $form;
 	}

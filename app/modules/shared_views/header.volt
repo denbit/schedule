@@ -25,6 +25,7 @@
                 <li class="nav-item  mx-2 dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="lang" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
+                        {% set lang = page.language %}
                         {{ lang|default("UK") }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right langpopup" aria-labelledby="lang">
