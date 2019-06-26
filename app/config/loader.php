@@ -9,6 +9,7 @@ $loader = new Loader();
  */
 $loader->registerNamespaces([
     'Schedule\Core\Models' => APP_PATH . '/corelibs/models/',
+    'Schedule\Core\Components'        => APP_PATH . '/corelibs/components/',
     'Schedule\Core'        => APP_PATH . '/corelibs/libs/',
 ]);
 
