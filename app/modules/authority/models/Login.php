@@ -27,11 +27,11 @@ class Login extends Kernel
 
 
 	}
-	public function getData():array {
+	public function getData():object {
 		/**
 		 * @var Config $local
 		 */
-		$local= $this->di->config;
+		$local= $this->di->getConfig();
 		return $local->get('auth');
 	}
 
@@ -49,8 +49,9 @@ class Login extends Kernel
 
     public function renderLoginForm():Form{
     	$form=new Form(new self());
+
     	$loginField = new Text('login',['class'=>'form-control']);
-    	$loginField->setFilters(
+	    $loginField->setFilters(
     		[
     			'string',
 			    'trim'
@@ -66,11 +67,11 @@ class Login extends Kernel
     	$validate=new Validation();
     	$validate->add([
     			'login',
-				'password'
+	//			'password'
 			], new Validation\Validator\Alnum([
 			             "message" => [
                  			"login" => ":field must contain only alphanumeric characters",
-                  			"password"=> ":field must contain only alphanumeric characters",
+ //                 			"password"=> ":field must contain only alphanumeric characters",
              				 ]
 				]
 		));

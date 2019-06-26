@@ -17,7 +17,7 @@ class PageSystem
 
     public function getForm($i)
     {
-       return $new=new PageForm($i);
+       return new PageForm($i);
         
     }
 
