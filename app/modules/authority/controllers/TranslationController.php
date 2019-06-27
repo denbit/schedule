@@ -2,6 +2,7 @@
 
 namespace Schedule\Modules\Authority\Controllers;
 
+use Schedule\Core\Kernel;
 use Schedule\Core\LanguageParser;
 use Schedule\Core\Location;
 use Schedule\Core\BusRoute;
@@ -33,7 +34,7 @@ class TranslationController extends ControllerBase
 	public function saveAction()
 	{
 
-
+		$instance = $this->dispatcher->getParam('id');
 		$post= $this->request->getPost();
 		$new_post=[];
 		 array_walk($post,function ($value,$key) use( &$new_post){
@@ -41,7 +42,22 @@ class TranslationController extends ControllerBase
 			$new_post[$new_key] = $value;
 
 		} );
-		 var_dump($new_post);
+		 //start transactions
+		 foreach ($new_post as $key=>$new_value){
+		 	if(is_numeric($key)){
+		 		$translation = TranslationsCommon::findFirst($key);
+		 		$translation->setDescription($new_value);
+		 		$translation->save();
+		    } else{
+		 		$lang_id=Kernel::getLId($key);
+		 		Translate::setTranslation($instance,$lang_id,$new_value);
+		    }
+		 }
+		 //end transation
+		$this->dispatcher->forward([
+			'controller'=>$this->dispatcher->getActiveController(),
+			'action'=>'index'
+		]);
 
     }
 

@@ -32,7 +32,7 @@ class Login extends Kernel
 		 * @var Config $local
 		 */
 		$local= $this->di->getConfig();
-		return $local->get('auth');
+		return $local->get('auth')?:(object)[];
 	}
 
 	public function getHash():string

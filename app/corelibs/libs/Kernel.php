@@ -132,4 +132,7 @@ class Kernel
 		return $lang_id;
 
 	}
+	public static function getLId( string $lang){
+		return (new self())->getLanguageId($lang);
+}
 }

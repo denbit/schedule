@@ -35,7 +35,7 @@ class Translate  extends Kernel
 
 	}
 
-	public static function setTranslation( string $key, string $lang_id, string $value):bool
+	public static function setTranslation( string $key, int $lang_id, string $value):bool
 	{
 
 		$lang_key=TranslationsCommon::findFirst([
