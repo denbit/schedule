@@ -63,13 +63,13 @@
                     </div>
                 </div>
             </li>
-            <li><a class="btn btn-link collapsed" data-toggle="collapse" href="#pages_collapse" role="button"
+            <li><a class="btn btn-link collapsed" data-toggle="collapse" href="#route_collapse" role="button"
                    aria-expanded="false"
                    aria-controls="collapse"> Маршути </a>
                 {% if router.getControllerName()!='route' %}
                     {{ link_to(["for": "action-auth",'controller':'route','action':''], 'List','class':'btn-link') }}
                 {% endif %}
-                <div class="collapse" id="pages_collapse">
+                <div class="collapse" id="route_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
                             <li>Створити</li>
