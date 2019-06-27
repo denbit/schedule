@@ -2,6 +2,7 @@
 
 namespace Schedule\Modules\Frontend\Controllers;
 
+use Schedule\Core\Components\NotFound;
 use Schedule\Core\Cost;
 use Schedule\Core\LanguageParser;
 use Schedule\Core\Location;
@@ -15,7 +16,7 @@ use Phalcon\Forms\Element\Select;
 
 class IndexController extends ControllerBase implements IFrontEnd
 {
-
+	use NotFound;
     public function indexAction()
 	{	$model = new IndexModel();
 		$lang = LanguageParser::SystemLanguage();
@@ -110,10 +111,6 @@ class IndexController extends ControllerBase implements IFrontEnd
 
     }
 
-	public function error404Action()
-	{
-		echo(404);
-		exit();
-    }
+
 }
 
