@@ -49,7 +49,7 @@ class TranslationController extends ControllerBase
 		 		$translation->setDescription($new_value);
 		 		$translation->save();
 		    } else{
-		 		$lang_id=Kernel::getLId($key);
+		 		$lang_id=Kernel::getLanguageId($key);
 		 		Translate::setTranslation($instance,$lang_id,$new_value);
 		    }
 		 }

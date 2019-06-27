@@ -35,7 +35,7 @@ class PageParser extends Kernel
     public $language;
     public function getPage($lang,$url='',$module='',$uni_page_id=null){
 
-        $lang_id=$this->getLanguageId($lang);
+        $lang_id=Kernel::getLanguageId($lang);
         if(!empty($url))
             $page=UniversalPage::findFirst(["url like '{$url}' and lang_id={$lang_id}"]);
         if(!empty($module))

@@ -84,7 +84,7 @@ class Kernel
 		}
 	}
 
-	public function getLanguageId($lang): int
+	public static function getLanguageId(string $lang): int
 	{
 		$lang = Languages::findFirst("lang_code like '{$lang}'");
 		if ($lang === false) {
@@ -122,7 +122,7 @@ class Kernel
 
 	}
 
-	public function getLanguageById($lang_id): string
+	public  static function getLanguageById($lang_id): string
 	{
 		$lang = Languages::findFirst("lang_id like '{$lang_id}'");
 		if ($lang === false) {
@@ -132,7 +132,5 @@ class Kernel
 		return $lang_id;
 
 	}
-	public static function getLId( string $lang){
-		return (new self())->getLanguageId($lang);
-}
+
 }

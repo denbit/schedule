@@ -49,7 +49,7 @@ class PageController extends ControllerBase
           if(($params=$this->dispatcher->getParams())!==false && (!empty($params[0]))){
               $uri='';
               if ((($lang_id = $this->request->getQuery('lang')) !== false)) {
-                  $lang = $pp->getLanguageById($lang_id);
+                  $lang = PageParser::getLanguageById($lang_id);
               } else {
                   $this->response->redirect($this->router->getRewriteUri());
                   exit();

@@ -97,7 +97,7 @@ $di->setShared('voltShared', function ($view) {
 		if ($di->getSession()->has('language')) {
 			$lang =$di->getSession()->get('language');
 		}else{
-			$lang = (new \Schedule\Core\Kernel())->getLanguageId('uk');
+			$lang = \Schedule\Core\Kernel::getLanguageId('uk');
 		}
 		echo $translation = \Schedule\Core\Translate::getTranslation($firstArgument,$lang);
 		if (!empty($translation)){echo 1;

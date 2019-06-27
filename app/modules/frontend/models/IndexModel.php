@@ -15,7 +15,7 @@ class IndexModel extends Model implements IModel
         if(!$page->title && !empty($page->seo_title)){
         	$page->title=$page->seo_title;
 		}
-        $page->language = $page->getLanguageById($page->language);
+        $page->language = PageParser::getLanguageById($page->language);
 
 		return $page;
 
