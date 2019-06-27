@@ -1,9 +1,14 @@
 {% extends "index.volt" %}
 {% block content %}
-	<div class="card w-50 p-3" style="margin: auto;">
+	<div class="card w-50" style="margin: auto;">
+	<div class="card-header">
+		<h5 class="card-title">Вхід в панель керування Системою Шлях</h5>
+	</div>
+
 		<style>
 			.control-label{width: 100px;}
 		</style>
+		<div class="card-body">
 {{ form(router.getRewriteUri(), 'method': 'post') }}
 {% for element in form %}
 	<div class="input-group  form-group">
@@ -17,5 +22,6 @@
 
 {% endfor %}
 	{{ submit_button('Login') }}
+		</div>
 	</div>
 {% endblock %}
