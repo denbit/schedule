@@ -51,18 +51,20 @@ class Login extends Kernel
     	$form=new Form(new self());
 
     	$loginField = new Text('login',['class'=>'form-control']);
+
 	    $loginField->setFilters(
     		[
     			'string',
 			    'trim'
 		    ]
-	    );
+	    )->setLabel("Login:");
     	$passwordField = new Password('password',['class'=>'form-control']);
 //    	$passwordField->addValidator(new Validation\Validator\PresenceOf(
 //    		[
 //				'message'=>":field is required"
 //	        ]
 //	    ));alter version
+	    $passwordField->setLabel("Password:");
     	$form->add($loginField)->add($passwordField);
     	$validate=new Validation();
     	$validate->add([

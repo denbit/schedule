@@ -25,7 +25,8 @@
 
 </div>
 <div class="container-fluid">
-    <div class="row"> 
+    <div class="row">
+        {% if session.has('auth_file') %}
     <div class="authority-menu navbar-dark  col-3 pr-0">
         <h5 class="p-2 title">
             <span class="navbar-toggler-icon auth-title"></span>
@@ -89,6 +90,7 @@
             </li>
         </ul>
     </div>
+        {% endif %}
     <div class="col pl-0">
     {% block content %}{% endblock %}
     </div>
