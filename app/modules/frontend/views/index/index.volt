@@ -7,11 +7,11 @@
     <form class="form row">
         <div class="form_container_search col">
             <div class="string">From</div>
-            <input class="input" placeholder="Kharkov">
+            <input class="input from" placeholder="Kharkov">
         </div>
         <div class="form_container_search col">
             <div class="string">To</div>
-            <input class="input" placeholder="Kiev">
+            <input class="input to" placeholder="Kiev">
         </div>
         <div class="form_container_search col">
             <div class="string">Data</div>
