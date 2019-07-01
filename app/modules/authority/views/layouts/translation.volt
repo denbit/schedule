@@ -4,8 +4,9 @@
 
  <div class="col" align="left">
   <h1>Translations</h1>
-     {{ link_to(['for': 'action-save', 'id': '123', 'controller': 'carrots'], 'Show','class':'edit-btn') }}
-     {{ link_to(["for": "action-auth",'controller':'translation','action':''], 'List all transations','class':'menu-link') }}
+     {% if router.getActionName()!=='index' %}
+     {{ link_to(["for": "action-auth",'controller': router.getControllerName(),'action':''], 'Back to transations','class':'menu-link') }}
+     {% endif %}
  </div>
 
 {% endblock %}

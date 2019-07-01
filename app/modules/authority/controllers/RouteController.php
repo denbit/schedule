@@ -16,6 +16,9 @@ class RouteController extends ControllerBase
 	$this->view->setVar('string',$this->router->getMatchedRoute()->getCompiledPattern());
 
     }
+    public function formAction(){
+
+	}
 
 }
 

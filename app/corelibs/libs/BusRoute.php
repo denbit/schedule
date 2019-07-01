@@ -43,15 +43,16 @@ class BusRoute extends Kernel
      */
     private $price;
 
-    public function __construct($data_for_constructor=[])
-    {   parent::__construct();
+//$transit_data=[
+//			['from'=>1,'to'=>4,'arrival'=>'00:00:00','departure'=>'00:20:00'],
+//			['from'=>4,'to'=>2,'arrival'=>'01:00:00','departure'=>'01:05:00'],
+//			['from'=>2,'to'=>3,'arrival'=>'03:00:00','departure'=>'00:00:00']
+//		];
+    public function on__construct($data_for_constructor=[])
+    {
         if(!empty($data_for_constructor)){
         $bd=new RouteConstructor();
-        $transit_data=[
-            ['from'=>1,'to'=>4,'arrival'=>'00:00:00','departure'=>'00:20:00'],
-            ['from'=>4,'to'=>2,'arrival'=>'01:00:00','departure'=>'01:05:00'],
-            ['from'=>2,'to'=>3,'arrival'=>'03:00:00','departure'=>'00:00:00']
-        ];
+
         $bd->createRoute(1,3,'2,7',$transit_data,[]);
         //set data
     }
@@ -109,11 +110,11 @@ class BusRoute extends Kernel
     public function save()
     {
         $bd=new RouteConstructor();
-        if(!$this->start_st->getStation())
+        if($this->start_st->getStation())
             $start_id=$this->start_st->getStation()->getId();
         else
             return false;
-        if(!$this->end_st->getStation())
+        if($this->end_st->getStation())
             $end_id=$this->end_st->getStation()->getId();
         else
             return false;
@@ -179,6 +180,7 @@ class BusRoute extends Kernel
        $this->setPrice((new Cost())->selectRoute($this));
        return $this;
     }
+
     public function getPathSchema():array {
         $p=[];
         foreach ($this->path as $route){
