@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-md-6 card">
         <div class="card-body">
-            {% set id='' %}
+            {% set id='new' %}
             {% if form.id is not empty %}
             {% set id=form.id %}
             {% endif %}
