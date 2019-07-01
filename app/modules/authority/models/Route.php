@@ -9,6 +9,8 @@
 namespace Schedule\Modules\Authority\Models;
 
 
+use Schedule\Modules\Authority\Forms\RouteForm;
+
 class Route
 {
 	public $id;
@@ -40,6 +42,11 @@ class Route
 //			['from'=>4,'to'=>2,'arrival'=>'01:00:00','departure'=>'01:05:00'],
 //			['from'=>2,'to'=>3,'arrival'=>'03:00:00','departure'=>'00:00:00']
 //		];
+	}
+
+	public static function getForm()
+	{
+		 return new RouteForm();
 	}
 
 
