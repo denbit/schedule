@@ -21,11 +21,13 @@ class RouteController extends ControllerBase
 		$this->view->form = Route::getForm();
 	}
 
-	public function save()
+	public function saveAction()
 	{
 		$form_instance=Route::getForm();
-		if( $form_instance->isValid($this->request->getPost()))
-		var_dump($this->request->getPost());die;
+		if( $form_instance->isValid($this->request->getPost())){
+			$form_instance->getEntity()->save();
+		}
+
 	}
 }
 

@@ -76,8 +76,15 @@ class Location extends Kernel
     public function getStation()
     {
 
-        return !is_null($this->station)?$this->station:false;
+        return !is_null($this->station)?$this->station:$this->createStation();
 
+    }
+
+	private function createStation():Stations
+	{
+		$new_station = new Stations();
+		$city = $this->getCity();
+		return $new_station->copyFromCity($city);
     }
 
 
@@ -240,6 +247,13 @@ class Location extends Kernel
             return false;
         }
     }
+	public static function getLocationByCityId( int $city_id)
+	{
+			$city=Cities::findFirst($city_id);
+			var_dump($city->stations);
+
+
+	}
 
     public static function getLocationByStationId(int $id):Location
     {

@@ -24,6 +24,18 @@ class Stations extends Model
         return $this->id;
     }
 
+	public function copyFromCity(City $city)
+	{
+		$this->city_id= $city->id;
+		$this->cyr_name=$city->cyr_name;
+		$this->latin_name=$city->latin_name;
+		$this->national_name=$city->national_name;
+		$this->desc_for_own = " Content cpoied from ".$city->latin_name;
+		$this->tel='0';
+		$this->save();
+			return $this;
+}
+
 
     /**
      * @return int
