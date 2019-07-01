@@ -43,8 +43,25 @@ class IndexModel extends Model implements IModel
 
 
 	public function searchSuggestions($suggestion)
-	{
-		return Location::findAllVariants($suggestion);
+	{$result= [];
+		  $results = Location::findAllVariants($suggestion);
+			$keys = array_keys($results);
+//var_dump($keys);var_dump($results);
+		foreach ($keys as $key) {
+			switch ($key){
+				case 'city':
+					foreach ($results[$key] as $item){
+
+					$result[] =	[
+						'value' =>$key.$item->id,
+						'label' =>$item->national_name
+						];
+					}
+					break;
+			}
+}
+
+		return $result;
     }
 
 }
