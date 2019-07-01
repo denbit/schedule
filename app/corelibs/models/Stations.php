@@ -24,7 +24,7 @@ class Stations extends Model
         return $this->id;
     }
 
-	public function copyFromCity(City $city)
+	public function copyFromCity(Cities $city)
 	{
 		$this->city_id= $city->id;
 		$this->cyr_name=$city->cyr_name;

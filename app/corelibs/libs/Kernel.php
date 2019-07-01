@@ -77,11 +77,12 @@ class Kernel
 
 	public function __get($var)
 	{
-		if (property_exists($this->di, $var)) {
-			return $this->di[$var];
-		} else {
-			return false;
-		}
+		 return $this->di->get($var);
+//		if (property_exists($this->di, $var)) {
+//			return $this->di[$var];
+//		} else {
+//			return false;
+//		}
 	}
 
 	public static function getLanguageId(string $lang): int

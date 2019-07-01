@@ -250,7 +250,13 @@ class Location extends Kernel
 	public static function getLocationByCityId( int $city_id)
 	{
 			$city=Cities::findFirst($city_id);
-			var_dump($city->stations);
+			if(count($city->stations)>0){
+				$new_station= $city->stations[0];
+			}else{
+				$new_station = (new Stations())->copyFromCity($city);
+			}
+	return	self::getLocationByStation($new_station);
+
 
 
 	}

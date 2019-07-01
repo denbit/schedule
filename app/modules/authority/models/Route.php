@@ -63,10 +63,13 @@ class Route
 			['from'=>2,'to'=>3,'arrival'=>'03:00:00','departure'=>'00:00:00']
 		];
 		$core_route= new BusRoute();
-		$core_route->setStartSt(Location::getLocationByCityId(substr($this->start_st,0,4)));
+		$core_route->setStartSt(Location::getLocationByCityId((int)substr($this->start_st,4)));
+		$core_route->setEndSt(Location::getLocationByCityId((int)substr($this->end_st,4)));
+		$core_route->setRegularity($this->regularity);
+		$core_route->setPath([]);
+		$core_route->save();
 		die;
-		$route_constructor = new RouteConstructor();
-		$r_id= $route_constructor->createRoute($this->start_id,$this->end_id,$this->regularity,$transit_data,$cost_data);
+
 	}
 
 

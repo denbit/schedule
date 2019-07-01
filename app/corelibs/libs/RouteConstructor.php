@@ -19,6 +19,8 @@ class RouteConstructor extends Kernel
     {
         if(Stations::count($start_id)!=1&&Stations::count($end_id)!=1)
             return false;
+        var_dump($this->di['db']);
+
         $this->db->begin();
         $route=new Routes();
         $route->setStartStation($start_id);
