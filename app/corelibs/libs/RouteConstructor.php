@@ -19,7 +19,6 @@ class RouteConstructor extends Kernel
     {
         if(Stations::count($start_id)!=1&&Stations::count($end_id)!=1)
             return false;
-        var_dump($this->di['db']);
 
         $this->db->begin();
         $route=new Routes();
@@ -31,13 +30,18 @@ class RouteConstructor extends Kernel
             $this->db->rollback();
         return  false;
         }
+	    if( ! empty($transit_result)){
         if( $route->getId()&&$this->checkTransit($transit_data,$start_id,$end_id)){
             $transit_result=$this->buildTransit($transit_data,$route->getId());
             if (!$transit_result){
                 $this->db->rollback();
                 return  false;
             }
-            $route->setTransitPath($transit_result);
+
+	            $route->setTransitPath($transit_result);
+        }
+	    }
+
             if(!$route->update()){
                 $this->db->rollback();
                 return  false;
@@ -47,7 +51,7 @@ class RouteConstructor extends Kernel
 
 
 
-        }
+
 
 
 
