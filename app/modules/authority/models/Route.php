@@ -46,7 +46,8 @@ class Route
 
 	public static function getForm()
 	{
-		 return new RouteForm();
+		$instance = new self();
+		 return new RouteForm($instance);
 	}
 
 

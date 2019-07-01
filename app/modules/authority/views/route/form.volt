@@ -1,13 +1,17 @@
 {% extends 'layouts/route.volt' %}
 {% block content %}
 <div class="row">
-    <div class="navbar navbar-light bg-light"> {{ link_to('/authority/page/','Go to the List of Pages','class':'nav-item nav-link') }}</div>
+    <div class="navbar navbar-light bg-light"> {{ link_to(['for'=>'action-auth','controller':router.getControllerName(),'action':''],'Go to the List of Routes','class':'nav-item nav-link') }}</div>
 </div>
 <div class="row">
     <div class="col-md-6 card">
         <div class="card-body">
-{{ form('authority/page/create', 'method': 'post') }}
-            <h3 class="card-title">Page Editing </h3>
+            {% set id='' %}
+            {% if form.id is not empty %}
+            {% set id=form.id %}
+            {% endif %}
+{{ form(url.get(['for':'action-save','controller':router.getControllerName(),'id':id]), 'method': 'post') }}
+            <h3 class="card-title">Routes Editing </h3>
 {% set group=0 %}
 {% for element in form %}
     {% if element.getUserOption('group')=='true' %}

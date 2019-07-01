@@ -18,7 +18,7 @@ class RouteController extends ControllerBase
 
     }
     public function formAction(){
-		$this->view->route = Route::getForm();
+		$this->view->form = Route::getForm();
 	}
 
 }
