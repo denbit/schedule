@@ -25,8 +25,8 @@ class RouteForm extends Form
 
 		 $id = new Hidden('id');
 
-		 $start_st =new Text('start_st');
-		 $end_st = new Text('end_st');
+		 $start_st =new Text('start_st',['class'=>'city from']);
+		 $end_st = new Text('end_st',['class'=>'city to']);
 		 $made_by = new Select('made_by',Company::find(),[
 		 	'using' => [
 		 		'id',

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	$('.form_container_search .from, .form_container_search .to').each(function(i, e){
+	$('.city.from, .city.to').each(function(i, e){
 
 			$(this).autocomplete({
 			'source': function (request, response) {

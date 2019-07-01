@@ -5,13 +5,13 @@
             Bus tickets in Ukraine, Russia and Europe
         {% endif %}</h2>
     <form class="form row">
-        <div class="form_container_search col">
+        <div class="form_container_search col ">
             <div class="string">From</div>
-            <input class="input from" placeholder="Kharkov">
+            <input class="input city from" placeholder="Kharkov">
         </div>
-        <div class="form_container_search col">
+        <div class="form_container_search col ">
             <div class="string">To</div>
-            <input class="input to" placeholder="Kiev">
+            <input class="input city to" placeholder="Kiev">
         </div>
         <div class="form_container_search col">
             <div class="string">Data</div>

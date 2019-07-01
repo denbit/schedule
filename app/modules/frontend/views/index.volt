@@ -35,7 +35,7 @@
             integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
             crossorigin="anonymous"></script>
     <script src="/js/carrier.main.js" async></script>
-    <script src="/js/common.main.js" async></script>
+
 </body>
 
 
