@@ -55,7 +55,7 @@ class Route
 
 	public function save()
 	{
-		var_dump($this);die;
+
 		$cost_data=[];
 		$transit_data=[
 			['from'=>1,'to'=>4,'arrival'=>'00:00:00','departure'=>'00:20:00'],
@@ -63,7 +63,7 @@ class Route
 			['from'=>2,'to'=>3,'arrival'=>'03:00:00','departure'=>'00:00:00']
 		];
 		$core_route= new BusRoute();
-		$core_route->setStartSt(Location::getLocationByCity());
+		$core_route->setStartSt(Location::getLocationByCityId(substr($this->start_st,0,4)));
 		die;
 		$route_constructor = new RouteConstructor();
 		$r_id= $route_constructor->createRoute($this->start_id,$this->end_id,$this->regularity,$transit_data,$cost_data);
