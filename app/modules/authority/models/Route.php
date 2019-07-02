@@ -67,10 +67,33 @@ class Route
 		$core_route->setEndSt(Location::getLocationByCityId((int)substr($this->end_st,4)));
 		$core_route->setRegularity($this->regularity);
 		$core_route->setPath([]);
-		$core_route->save();
-		die;
+		return $core_route->save();
+
 
 	}
+
+	public function getIndex($count=5)
+	{
+		$routes = BusRoute::getLast($count);
+		$output=[];
+		$name_mask = "$1  -  $2";
+		$city_mask = "$1 ,<br> $2";
+		foreach ($routes as $route)
+		{
+			$temp = [];
+			$city =$route->getStartSt()->getCity();
+			$start_name=$city->latin_name;
+			$end_name = $city->latin_name;
+			$temp['name'] = str_replace(['$1','$2'],[$start_name,$end_name],$name_mask);
+
+			$temp['start'] = str_replace(['$1','$2'],[$city->national_name,$route->getStartSt()->getCity()->state->national_name],$name_mask);
+			var_dump($route->getStartSt()->getCity()->state);die;
+			$output[] = $temp;
+		}
+
+return $output;
+	}
+
 
 
 }

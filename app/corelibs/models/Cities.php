@@ -11,6 +11,13 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
+/**
+ * Class Cities
+ *
+ * @package Schedule\Core\Models
+ * @property States $state
+ * @property Stations[] $stations
+ */
 class Cities extends Model
 {
     public $id;
@@ -19,10 +26,12 @@ class Cities extends Model
     public $national_name;
     public $is_regional;
     public $local_district_id;
+    public $country_id;
 
     public function initialize()
     {
         $this->hasMany('id',Stations::class,'city_id',['alias'=>'stations']);
+        $this->hasOne('county_id',States::class,'id',['alias'=>'state']);
     }
 
     public function getSource()

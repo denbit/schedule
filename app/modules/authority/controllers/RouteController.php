@@ -12,8 +12,10 @@ class RouteController extends ControllerBase
 {
 
     public function indexAction()
-    { BusRoute::getLast(5);die;
-	$this->view->setVar('string',$this->router->getMatchedRoute()->getCompiledPattern());
+    {
+    	$Route= new Route();
+
+	$this->view->setVar('routes',$Route->getIndex());//$this->router->getMatchedRoute()->getCompiledPattern());
 
     }
     public function formAction(){

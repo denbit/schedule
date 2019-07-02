@@ -6,7 +6,7 @@
     <table class="table">
         <tr><th>URL</th><th>Route  Name</th><th>Start</th><th>Start</th></tr>
 {% for route in routes  %}
-    <tr>
+    <tr>{{ dump(route) }}
         <td>{{ route['url'] }}</td>
         <td>{{ route['name'] }}</td>
         <td>{{ route['start'] }}</td>

@@ -182,13 +182,30 @@ class BusRoute extends Kernel
        return $this;
     }
 
+	/**
+	 * @param  int  $n
+	 *
+	 * @return self[]|bool
+	 */
 	public static function getLast(int $n)
 	{
 		$last_n = Routes::find([
+			'columns' =>'id',
 			'limit'=>$n,
-			'order'=>'desc'
+			'order'=>'id desc'
 		]);
-		var_dump($last_n->toArray());
+		$busRoute = new self();
+		if(count($last_n)>0){
+			$output = [];
+			foreach ($last_n  as $route) {
+				$route_inst = clone $busRoute;
+				$output[]= $route_inst->findById($route['id']);
+
+			}
+			return $output;
+		}
+		return false;
+
     }
 
     public function getPathSchema():array {

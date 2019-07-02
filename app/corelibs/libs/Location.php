@@ -42,7 +42,7 @@ class Location extends Kernel
     }
 
     /**
-     * @return array
+     * @return Cities|false
      */
     public function getCity()
     {
