@@ -77,7 +77,7 @@ class Route
 		$routes = BusRoute::getLast($count);
 		$output=[];
 		$name_mask = "$1  -  $2";
-		$city_mask = "$1 ,<br> $2";
+		$city_mask = '$1 , <br> $2';
 		foreach ($routes as $route)
 		{
 			$temp = [];
@@ -85,9 +85,12 @@ class Route
 			$start_name=$city->latin_name;
 			$end_name = $city->latin_name;
 			$temp['name'] = str_replace(['$1','$2'],[$start_name,$end_name],$name_mask);
+			$temp['url'] = $route->id;
+			$temp['transit_stations']=$route->getPathSchema();
 
-			$temp['start'] = str_replace(['$1','$2'],[$city->national_name,$route->getStartSt()->getCity()->state->national_name],$name_mask);
-			var_dump($route->getStartSt()->getCity()->state);die;
+			$temp['start'] = str_replace(['$1','$2'],[$city->national_name,$city->current_state->national_name],$city_mask);
+			$temp['end'] = str_replace(['$1','$2'],[$city->national_name,$city->current_state->national_name],$city_mask);
+
 			$output[] = $temp;
 		}
 

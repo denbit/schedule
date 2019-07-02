@@ -34,7 +34,7 @@ class Location extends Kernel
     private $station;
 
     /**
-     * @return array
+     * @return States
      */
     public function getState()
     {
