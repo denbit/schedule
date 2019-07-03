@@ -100,19 +100,17 @@ class RouteConstructor extends Kernel
 }
 
     public static function buildRoute($trans_data)
-    {
-
+    {   $transit_stations=[];
+	    if(!empty($trans_data)){
          $transit_ids=explode(',',$trans_data);
-         $transit_stations=[];
          foreach ($transit_ids as $transit_id){
-
              $station=TransitRoutes::findFirst($transit_id);
              $station->setFromIdStation(Location::getLocationByStationId($station->getFromIdStation()));
              $station->setToIdStation(Location::getLocationByStationId($station->getToIdStation()));
              $transit_stations[]=$station;
          }
-         return $transit_stations;
-
+	    }
+	return $transit_stations;
 }
     public function modifyRoute()
     {

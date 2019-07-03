@@ -78,18 +78,21 @@ class Route
 		$output=[];
 		$name_mask = "$1  -  $2";
 		$city_mask = '$1 , <br> $2';
+
 		foreach ($routes as $route)
 		{
 			$temp = [];
-			$city =$route->getStartSt()->getCity();
-			$start_name=$city->latin_name;
-			$end_name = $city->latin_name;
+			$st_city =$route->getStartSt()->getCity();
+			$end_city = $route->getEndSt()->getCity();
+			$start_name=$st_city->latin_name;
+			$end_name = $end_city->latin_name;
 			$temp['name'] = str_replace(['$1','$2'],[$start_name,$end_name],$name_mask);
 			$temp['url'] = $route->id;
 			$temp['transit_stations']=$route->getPathSchema();
 
-			$temp['start'] = str_replace(['$1','$2'],[$city->national_name,$city->current_state->national_name],$city_mask);
-			$temp['end'] = str_replace(['$1','$2'],[$city->national_name,$city->current_state->national_name],$city_mask);
+
+			$temp['start'] = str_replace(['$1','$2'],[$st_city->national_name,$st_city->current_state->national_name],$city_mask);
+			$temp['end'] = str_replace(['$1','$2'],[$end_city->national_name,$end_city->current_state->national_name],$city_mask);
 
 			$output[] = $temp;
 		}
@@ -97,6 +100,10 @@ class Route
 return $output;
 	}
 
+	private function buildPathSchema($pathSchema)
+	{
+
+	}
 
 
 }

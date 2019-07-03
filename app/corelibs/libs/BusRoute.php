@@ -209,12 +209,14 @@ class BusRoute extends Kernel
     }
 
     public function getPathSchema():array {
-        $p=[];
+        $pathSchema=[];
         foreach ($this->path as $route){
-            $p[]=[$route->getFromIdStation()->getStation()->getId(),
-            $route->getToIdStation()->getStation()->getId()];
+	        $pathSchema[]=[
+                'from'=>$route->getFromIdStation()->getStation()->getId(),
+                'to' =>$route->getToIdStation()->getStation()->getId()
+            ];
         }
-        return $p;
+        return $pathSchema;
     }
 
     public function toArray()
