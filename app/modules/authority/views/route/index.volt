@@ -11,7 +11,7 @@
         <td>{{ route['name'] }}</td>
         <td>{{ route['start'] }}</td>
         <td>{{ route['end'] }}</td>
-        <td>{{dump( route['transit_stations'] )}}</td>
+        <td>{{ route['transit_stations'] }}</td>
     </tr>
 {% endfor %}
     </table>

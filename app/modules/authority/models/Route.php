@@ -11,6 +11,7 @@ namespace Schedule\Modules\Authority\Models;
 
 use Schedule\Core\BusRoute;
 use Schedule\Core\Location;
+use Schedule\Core\Models\TransitRoutes;
 use Schedule\Core\RouteConstructor;
 use Schedule\Modules\Authority\Forms\RouteForm;
 
@@ -88,7 +89,7 @@ class Route
 			$end_name = $end_city->latin_name;
 			$temp['name'] = str_replace(['$1','$2'],[$start_name,$end_name],$name_mask);
 			$temp['url'] = $route->id;
-			$temp['transit_stations']=$route->getPathSchema();
+			$temp['transit_stations']= $this->buildPathSchema($route->getPathSchema());
 
 
 			$temp['start'] = str_replace(['$1','$2'],[$st_city->national_name,$st_city->current_state->national_name],$city_mask);
@@ -101,8 +102,16 @@ return $output;
 	}
 
 	private function buildPathSchema($pathSchema)
-	{
+	{ $schema ="";
+		if (! empty($pathSchema)){
+			foreach ($pathSchema as $transitroute)
+			{
+				$from_station=Location::getLocationByStationId($transitroute['from']);
+				$schema.=$from_station->getCity()->national_name.$from_station->getStation()->getId()." ";
+			}
 
+		}
+		return $schema;
 	}
 
 
