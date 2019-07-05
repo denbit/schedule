@@ -196,13 +196,13 @@ class BusRoute extends Kernel
 		]);
 		$busRoute = new self();
 		if(count($last_n)>0){
-			$output = [];
+
 			foreach ($last_n  as $route) {
 				$route_inst = clone $busRoute;
-				$output[]= $route_inst->findById($route['id']);
+				yield $route_inst->findById($route['id']);
 
 			}
-			return $output;
+
 		}
 		return false;
 

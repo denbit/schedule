@@ -28,7 +28,10 @@ class RouteController extends ControllerBase
 		if( $form_instance->isValid($this->request->getPost())){
 			$form_instance->getEntity()->save();
 		}
-
+		$this->dispatcher->forward([
+			'controller'=>$this->dispatcher->getActiveController(),
+			'action'=>'index'
+		]);
 	}
 }
 

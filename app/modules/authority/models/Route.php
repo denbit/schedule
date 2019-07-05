@@ -78,7 +78,7 @@ class Route
 		$routes = BusRoute::getLast($count);
 		$output=[];
 		$name_mask = "$1  -  $2";
-		$city_mask = '$1 , <br> $2';
+		$city_mask = '$1, <br> <small>$2</small>';
 
 		foreach ($routes as $route)
 		{

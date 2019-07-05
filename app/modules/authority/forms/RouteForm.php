@@ -9,6 +9,7 @@
 namespace Schedule\Modules\Authority\Forms;
 
 
+use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
@@ -37,7 +38,22 @@ class RouteForm extends Form
 		    'emptyValue'=>''
 		 ]);
 		 $this->add($start_st)->add($end_st)->add($made_by);
+		$this->addRegularity();
 
+	}
+
+	private function addRegularity()
+	{
+		$regularity = new Check('demo',['autocomplete'=>'off']);
+		$regularity->setUserOption('regularity','true');
+		$timestamp = strtotime('next Monday');
+		for($i = 1; $i<=7;$i++){
+			$thie_element= clone $regularity;
+			$thie_element->setLabel(strftime('%A',$timestamp));
+			$thie_element->setName("regularity[$i]");
+			$this->add($thie_element);
+			$timestamp=strtotime('+1 day',$timestamp);
+		}
 	}
 
 }
