@@ -27,13 +27,15 @@ class RouteForm extends Form
 		 $id = new Hidden('id');
 
 		 $start_st =new Text('start_st',['class'=>'city from']);
+		 $start_st->setLabel("Початкова станція");
 		 $end_st = new Text('end_st',['class'=>'city to']);
+		 $end_st->setLabel("Кінцева станція");
 		 $made_by = new Select('made_by',Company::find(),[
 		 	'using' => [
 		 		'id',
-			    'latin_name'
+			    'name'
 		    ],
-		    'emptyText' => "Please select company",
+		    'emptyText' => "Будь-ласка оберіть компанію, що здійснює перевезення",
 		    'useEmpty'=>true,
 		    'emptyValue'=>''
 		 ]);

@@ -25,7 +25,7 @@
 			{% endfor %}
 			<div class="control-group form-group">
 				<label class="control-label"> Регулярність </label>
-				<div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+				<div class="btn-group btn-group-sm btn-group-toggle d-block" data-toggle="buttons">
 					{% for element in form %}
 						{% if element.getUserOption('regularity')=='true' %}
 
@@ -37,6 +37,10 @@
 					{% endfor %}
 				</div>
 			</div>
+			<fieldset class="form-group" style="border:black 1px solid">
+					<legend class="scheduler-border">Start Time</legend>
+			</fieldset>
+
 
 			<div class="clearfix my-2">
 				{{ submit_button('Save','class': 'btn btn-outline-primary float-left') }}
