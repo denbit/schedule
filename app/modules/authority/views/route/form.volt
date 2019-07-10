@@ -14,7 +14,7 @@
 			<h3 class="card-title">Routes Editing </h3>
 
 			{% for element in form %}
-				{% if element.getUserOption('regularity')!='true' %}
+				{% if element.getUserOption('common')=='true' %}
 					<div class="control-group">
 						{{ element.label(["class": "control-label"]) }}
 						<div class="controls">
@@ -37,8 +37,18 @@
 					{% endfor %}
 				</div>
 			</div>
-			<fieldset class="form-group" style="border:black 1px solid">
-					<legend class="scheduler-border">Start Time</legend>
+			<fieldset class="form-group p-2" style="border: #484e53a8 2px solid;
+
+border-radius: 5px;">
+					<legend class="scheduler-border">Маршрут</legend>
+				<table>
+					<tr><td>Станція відправленя</td><td>Час відправлення </td><td>Станція прибуття</td><td> Час Прибуття</td></tr>
+					<tr class="data"><td><input type="text"></td><td><input type="time"></td><td><input type="text"></td><td><input type="time"></td></tr>
+					<tr class="blank d-none"><td><input type="text"></td><td><input type="time"></td><td><input type="text"></td><td><input type="time"></td></tr>
+				</table>
+				<div class="text-center m-2">  {{ tag_html("button", ["type":"button","class": "btn btn-primary"]) }}
+					Додати <i class='glyphicon glyphicon-pencil'></i>
+					{{ tag_html_close("button") }}</div>
 			</fieldset>
 
 

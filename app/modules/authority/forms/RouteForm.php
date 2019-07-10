@@ -27,18 +27,19 @@ class RouteForm extends Form
 		 $id = new Hidden('id');
 
 		 $start_st =new Text('start_st',['class'=>'city from']);
-		 $start_st->setLabel("Початкова станція");
+		 $start_st->setLabel("Початкова станція")->setUserOption('common','true');
 		 $end_st = new Text('end_st',['class'=>'city to']);
-		 $end_st->setLabel("Кінцева станція");
+		 $end_st->setLabel("Кінцева станція")->setUserOption('common','true');
 		 $made_by = new Select('made_by',Company::find(),[
 		 	'using' => [
 		 		'id',
 			    'name'
 		    ],
-		    'emptyText' => "Будь-ласка оберіть компанію, що здійснює перевезення",
+		    'emptyText' => "Будь-ласка оберіть компанію",
 		    'useEmpty'=>true,
 		    'emptyValue'=>''
 		 ]);
+		 $made_by->setUserOption('common','true')->setLabel("Компанію, що здійснює перевезення");
 		 $this->add($start_st)->add($end_st)->add($made_by);
 		$this->addRegularity();
 
@@ -56,6 +57,18 @@ class RouteForm extends Form
 			$this->add($thie_element);
 			$timestamp=strtotime('+1 day',$timestamp);
 		}
+	}
+
+	private function addTransit()
+	{
+		$start_st =new Text('start_st0',['class'=>'city from']);
+		$start_st->setLabel("Початкова станція");
+		$end_st = new Text('end_st0',['class'=>'city to']);
+		$end_st->setLabel("Кінцева станція");
+		$start_st->setUserOption('transit','true');
+		$end_st->setUserOption('transit','true');
+		$this->add($start_st)->add($end_st);
+
 	}
 
 }
