@@ -21,7 +21,7 @@
 
 <footer class="mt-4"><h6 class="text-center"> Szlach {{ date('Y') }}&reg;</h6></footer>
 {{ partial('../../shared_views/js_libs') }}
-    <script src="/js/carrier.main.js" async></script>
+    <script src="/js/common.main.js" async></script>
 
 </body>
 

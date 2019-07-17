@@ -61,6 +61,7 @@ border-radius: 5px;">
 	</div>
 {% endblock %}
 		{% block footer %}
+		{{ super() }}
 		<script>
 
 			</script>
