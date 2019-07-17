@@ -43,7 +43,20 @@ border-radius: 5px;">
 					<legend class="scheduler-border">Маршрут</legend>
 				<table>
 					<tr><td>Станція відправленя</td><td>Час відправлення </td><td>Станція прибуття</td><td> Час Прибуття</td></tr>
+										{% for element in form %}
+						{% if element.getUserOption('transit')=='true' %}
+
+
+{% if element.getName().contains=='end_st' %}
+{% continue %}
+{% endif %}
 					<tr class="data"><td><input type="text"></td><td><input type="time"></td><td><input type="text"></td><td><input type="time"></td></tr>
+
+								{{ element }} {{ element.getLabel() }}
+							</label>
+
+						{% endif %}
+					{% endfor %}
 					<tr class="blank d-none"><td><input type="text"></td><td><input type="time"></td><td><input type="text"></td><td><input type="time"></td></tr>
 				</table>
 				<div class="text-center m-2">  {{ tag_html("button", ["type":"button","class": "btn btn-primary"]) }}
