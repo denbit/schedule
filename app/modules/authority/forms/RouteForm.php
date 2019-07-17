@@ -42,6 +42,7 @@ class RouteForm extends Form
 		 $made_by->setUserOption('common','true')->setLabel("Компанію, що здійснює перевезення");
 		 $this->add($start_st)->add($end_st)->add($made_by);
 		$this->addRegularity();
+		$this->addTransit($options['stations']??0);
 
 	}
 
@@ -59,16 +60,52 @@ class RouteForm extends Form
 		}
 	}
 
-	private function addTransit()
+	private function addTransit($stations)
 	{
-		$start_st =new Text('start_st0',['class'=>'city from']);
+		$start_st =new Text('start_st',['class'=>'city from']);
 		$start_st->setLabel("Початкова станція");
-		$end_st = new Text('end_st0',['class'=>'city to']);
+		$end_st = new Text('end_st',['class'=>'city to']);
 		$end_st->setLabel("Кінцева станція");
 		$start_st->setUserOption('transit','true');
 		$end_st->setUserOption('transit','true');
-		$this->add($start_st)->add($end_st);
+		for ($i=0; ;$i++){
+			$start_st_ent= clone $start_st;
+			$start_st_ent->setName(
+				$start_st_ent->getName().$i
+			);
+			$end_st_ent= clone $end_st;
+			$end_st_ent->setName(
+				$end_st_ent->getName().$i
+			);
+			$this->add($start_st_ent)->add($end_st_ent);
+			if($i>$stations || $stations==0)break;
+		}
+
+
+
+
 
 	}
 
+	/**
+	 * Binds data to the entity
+	 *
+	 * @param  array  $data
+	 * @param  object  $entity
+	 * @param  array  $whitelist
+	 *
+	 * @return Form
+	 */
+	public function bind(array $data , $entity , $whitelist = null)
+	{
+		parent::bind($data , $entity ,
+			$whitelist);
+		$transit_data=array_filter($data,['this','filter'],ARRAY_FILTER_USE_BOTH);
+		return $this;
+	}
+
+	private function filter($key, $value )
+	{
+		var_dump($key,$value);
+	}
 }

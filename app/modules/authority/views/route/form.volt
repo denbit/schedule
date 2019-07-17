@@ -60,3 +60,8 @@ border-radius: 5px;">
 		</div>
 	</div>
 {% endblock %}
+		{% block footer %}
+		<script>
+
+			</script>
+{% endblock %}
