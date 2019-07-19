@@ -22,6 +22,13 @@ class RouteController extends ControllerBase
 		$this->view->form = Route::getForm();
 	}
 
+	public function editAction()
+	{
+		$id = $this->dispatcher->getParam('id');
+		if($id && Ro)
+
+	}
+
 	public function saveAction()
 	{
 		$form_instance=Route::getForm();

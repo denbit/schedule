@@ -51,6 +51,7 @@ class Route
 	public static function getForm()
 	{
 		$instance = new self();
+
 		 return new RouteForm($instance);
 	}
 
@@ -69,7 +70,16 @@ class Route
 		$core_route->setRegularity($this->regularity);
 		$core_route->setPath([]);
 		return $core_route->save();
+	}
 
+	public function getRoute($id)
+	{
+		$route = (new BusRoute())->findById($id);
+		$this->start_st =$route->getStartSt()->getStation()->getId();
+		$this->end_st = $route->getEndSt()->getStation()->getId();
+		$this->id=$route->id;
+		$this->made_by=$route->getMadeBy()->getId();
+		$this->path=$route->getPathSchema(true);
 
 	}
 

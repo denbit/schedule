@@ -208,7 +208,13 @@ class BusRoute extends Kernel
 
     }
 
-    public function getPathSchema():array {
+    public function getPathSchema($use_start_end = false):array {
+		if($use_start_end && empty($this->path)){
+			return [
+				'from'=>$this->start_st->getStation()->getId(),
+					'to'=>$this->end_st->getStation()->getId()
+			];
+		}
         $pathSchema=[];
         foreach ($this->path as $route){
 	        $pathSchema[]=[
