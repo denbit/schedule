@@ -13,6 +13,7 @@ use Schedule\Core\BusRoute;
 use Schedule\Core\Location;
 use Schedule\Core\Models\TransitRoutes;
 use Schedule\Core\RouteConstructor;
+use Phalcon\Forms\Form;
 use Schedule\Modules\Authority\Forms\RouteForm;
 
 class Route
@@ -21,11 +22,11 @@ class Route
 	/**
 	 * @var int
 	 */
-	private $start_st;
+	public $start_st;
 	/**
 	 * @var int
 	 */
-	private $end_st;
+	public $end_st;
 	/**
 	 * @var int
 	 */
@@ -47,12 +48,22 @@ class Route
 //			['from'=>2,'to'=>3,'arrival'=>'03:00:00','departure'=>'00:00:00']
 //		];
 	}
+	public function getPath(){
+		$stek = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2)[1];
+		if (is_subclass_of($stek['class'],Form::class, true) )
+		{
+			return $this->path;
+		}
+		return [];
+	}
 
-	public static function getForm()
+	public static function getForm( self $instance = null, $options=[])
 	{
-		$instance = new self();
-
-		 return new RouteForm($instance);
+		 if( is_null($instance)){
+			 $instance = new self();
+		 }
+		 $options = ['stations'=>count($instance->path)] + $options;
+		 return new RouteForm($instance, $options);
 	}
 
 	public function save()
@@ -80,6 +91,7 @@ class Route
 		$this->id=$route->id;
 		$this->made_by=$route->getMadeBy()->getId();
 		$this->path=$route->getPathSchema(true);
+		return $this;
 
 	}
 

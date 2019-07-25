@@ -83,7 +83,7 @@ $di->setShared('voltShared', function ($view) {
 
 	]);
 	$compiler=$volt->getCompiler();
-	//$compiler->addFunction('dump','var_dump');
+	$compiler->addFunction('substr','substr');
 	$compiler->addFunction('translate', function ($res, $exprArgs='')use ($compiler) {
 
 		// Resolve the first argument

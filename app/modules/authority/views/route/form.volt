@@ -45,16 +45,15 @@ border-radius: 5px;">
 					<tr><td>Станція відправленя</td><td>Час відправлення </td><td>Станція прибуття</td><td> Час Прибуття</td></tr>
 										{% for element in form %}
 						{% if element.getUserOption('transit')=='true' %}
+						{% if  substr(element.getName(),0,6) =='end_st' %}
+						<td>{{ element }}</td><td><input type="time"></td></tr>
+						{% else %}
+						<tr class="data"><td>{{ element }} </td><td><input type="time"></td>
+						{% endif %}
 
 
-{% if element.getName().contains=='end_st' %}
-{% continue %}
-{% endif %}
-					<tr class="data"><td><input type="text"></td><td><input type="time"></td><td><input type="text"></td><td><input type="time"></td></tr>
 
-								{{ element }} {{ element.getLabel() }}
 							</label>
-
 						{% endif %}
 					{% endfor %}
 					<tr class="blank d-none"><td><input type="text"></td><td><input type="time"></td><td><input type="text"></td><td><input type="time"></td></tr>

@@ -25,7 +25,15 @@ class RouteController extends ControllerBase
 	public function editAction()
 	{
 		$id = $this->dispatcher->getParam('id');
-		if($id && Ro)
+		if($id){
+			$route = new Route();
+			$route->getRoute($id);
+			$this->view->pick('route/form');var_dump($route);
+			$this->view->form = Route::getForm($route);
+		}else{
+			$this->dispatcher->forward(['action'=>'index']);
+		}
+
 
 	}
 

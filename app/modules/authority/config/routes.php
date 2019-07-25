@@ -33,7 +33,7 @@ $authority->add('/:controller/:action/:params', [
 	'action' => 2,
 	'params' => 3
 ])->setName("action-edit-all");
-$authority->addGet('/([a-zA-Z0-9\_\-]+)/edit/([a-z\_]+)', [ //stub for :controller some how it doesn't work
+$authority->addGet('/([a-zA-Z0-9\_\-]+)/edit/([a-z\_]+|[0-9]+)', [ //stub for :controller some how it doesn't work
 	'controller' => 1,
 	'action' => 'edit',
 	'id' => 2
