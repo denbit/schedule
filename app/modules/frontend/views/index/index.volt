@@ -27,12 +27,12 @@
         </div>
     </form>
     <div class="additional_icons row">
-        <div class="icon_block mx-4 air col"><br><span> </span><div>{{ translate("air_charter","Air Charter") }}</div></div>
-        <div class="icon_block mx-4 free col"><br><span> </span><div>free shipping</div></div>
-        <div class="icon_block mx-4 safe col"><br><span> </span><div>Safe payment by the card</div></div>
-        <div class="icon_block mx-4 directions col"><br><span> </span><div>More than 300 directions</div></div>
-        <div class="icon_block mx-4 service col"><br><span> </span><div>24-hour support service</div></div>
-        <div class="icon_block mx-4 money col"><br><span> </span><div>Return without problems</div></div>
+        <div class="icon_block mx-4 air col"><br><span> </span><div>{{ translate("air_charter","Air charter") }}</div></div>
+        <div class="icon_block mx-4 free col"><br><span> </span><div>{{ translate("free_shipping","Free shipping") }}</div></div>
+        <div class="icon_block mx-4 safe col"><br><span> </span><div>{{ translate("Safe_payment","Safe payment by the card") }}</div></div>
+        <div class="icon_block mx-4 directions col"><br><span> </span><div>{{ translate("directions","More than 300 directions") }}</div></div>
+        <div class="icon_block mx-4 service col"><br><span> </span><div>{{ translate("support_service","24-hour support service") }}</div></div>
+        <div class="icon_block mx-4 money col"><br><span> </span><div>{{ translate("Return","Return without problems") }}</div></div>
     </div>
 </div>
 </div>
@@ -40,4 +40,5 @@
 <div class="container-fluid">
     <div class="row breadcrumbs-row">
         <div class="col-12"><i>{{ translate("path","Path") }} > </i></div>
+{#       <div style="word-break: break-all; word-wrap: break-word">{{dump(page)  }}</div>#}
     </div></div>
