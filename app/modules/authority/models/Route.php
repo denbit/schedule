@@ -11,6 +11,7 @@ namespace Schedule\Modules\Authority\Models;
 
 use Schedule\Core\BusRoute;
 use Schedule\Core\Location;
+use Schedule\Core\Models\Stations;
 use Schedule\Core\Models\TransitRoutes;
 use Schedule\Core\RouteConstructor;
 use Phalcon\Forms\Form;
@@ -36,9 +37,9 @@ class Route
 	 */
 	private $path;
 	/**
-	 * @var string
+	 * @var array
 	 */
-	private $regularity='1';
+	private $regularity=[];
 
 	public function set_transit()
 	{
@@ -53,6 +54,14 @@ class Route
 		if (is_subclass_of($stek['class'],Form::class, true) )
 		{
 			return $this->path;
+		}
+		return [];
+	}
+	public function getRegularity(){
+		$stek = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2)[1];
+		if (is_subclass_of($stek['class'],Form::class, true) )
+		{
+			return $this->regularity;
 		}
 		return [];
 	}
@@ -83,14 +92,43 @@ class Route
 		return $core_route->save();
 	}
 
-	public function getRoute($id)
+	public function getRoute($id, $use_location=true)
 	{
 		$route = (new BusRoute())->findById($id);
-		$this->start_st =$route->getStartSt()->getStation()->getId();
-		$this->end_st = $route->getEndSt()->getStation()->getId();
+		$this->start_st=[
+			'id' =>$route->getStartSt()->getStation()->getId(),
+			'title' =>$route->getStartSt()->getStation()->national_name
+		];
+		$this->end_st =[
+			'id' =>$route->getEndSt()->getStation()->getId(),
+			'title' =>$route->getEndSt()->getStation()->national_name
+		];
 		$this->id=$route->id;
 		$this->made_by=$route->getMadeBy()->getId();
+		$this->regularity =array_fill_keys(explode(',',$route->getRegularity()),true);
 		$this->path=$route->getPathSchema(true);
+		$this->path=array_map(function($path_item) use ($use_location){
+			return [
+				'from' =>[
+					'id' =>$path_item['from'],
+					'title' =>$use_location
+						?
+						Location::getLocationByStationId($path_item['from'])
+						:
+						Stations::findFirst($path_item['from'])->national_name
+				],
+				'from_time'=> $path_item['from_time'],
+				'to' =>[
+					'id' =>$path_item['to'],
+					'title' =>$use_location
+						?
+						Location::getLocationByStationId($path_item['to'])
+						:
+						Stations::findFirst($path_item['to'])->national_name
+				],
+				'to_time'=>$path_item['to_time'],
+			];
+		},$this->path);
 		return $this;
 
 	}

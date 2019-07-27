@@ -11,10 +11,16 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
+/**
+ * Class Stations
+ * @property StationsTranslations $translation
+ * @package Schedule\Core\Models
+ */
 class Stations extends Model
 {
     private $id;
     private $city_id;
+
 
     /**
      * @return int
@@ -54,6 +60,15 @@ class Stations extends Model
 
     }
 
+	public function getDetails($lang_id)
+	{
+		$this->getTranslation(["lang_id=".$lang_id])->toArray();
+    }
+
+	public function initialize()
+	{
+		$this->hasMany('id',StationsTranslations::class,'station_id',['alias'=>'translation']);
+    }
     public function getSource()
     {
         return 'stations';

@@ -27,8 +27,8 @@ class RouteController extends ControllerBase
 		$id = $this->dispatcher->getParam('id');
 		if($id){
 			$route = new Route();
-			$route->getRoute($id);
-			$this->view->pick('route/form');var_dump($route);
+			$route->getRoute($id,false);
+			$this->view->pick('route/form');
 			$this->view->form = Route::getForm($route);
 		}else{
 			$this->dispatcher->forward(['action'=>'index']);

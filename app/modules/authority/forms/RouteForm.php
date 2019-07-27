@@ -15,6 +15,7 @@ use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
 use Schedule\Core\Components\DataText;
+use Schedule\Core\Components\Time;
 use Schedule\Core\Models\Company;
 use Schedule\Modules\Authority\Models\Route;
 
@@ -26,9 +27,9 @@ class RouteForm extends Form
 
 		 $id = new Hidden('id');
 
-		 $start_st =new Text('start_st',['class'=>'city from']);
+		 $start_st =new DataText('start_st',['class'=>'city from']);
 		 $start_st->setLabel("Початкова станція")->setUserOption('common','true');
-		 $end_st = new Text('end_st',['class'=>'city to']);
+		 $end_st = new DataText('end_st',['class'=>'city to']);
 		 $end_st->setLabel("Кінцева станція")->setUserOption('common','true');
 		 $made_by = new Select('made_by',Company::find(),[
 		 	'using' => [
@@ -66,6 +67,10 @@ class RouteForm extends Form
 		$start_st->setLabel("Початкова станція");
 		$end_st = new DataText('end_st',['class'=>'city to']);
 		$end_st->setLabel("Кінцева станція");
+
+		$start_time=new Time('start_time');
+		$start_time->setUserOption('transit','true');
+		$end_time=(clone $start_time)->setName('end_time');
 		$start_st->setUserOption('transit','true');
 		$end_st->setUserOption('transit','true');
 		for ($i=0; ;$i++){
@@ -73,11 +78,19 @@ class RouteForm extends Form
 			$start_st_ent->setName(
 				$start_st_ent->getName().$i
 			);
+			$start_time_ent =clone  $start_time;
+			$start_time_ent->setName(
+				$start_time_ent->getName().$i
+			);
 			$end_st_ent= clone $end_st;
 			$end_st_ent->setName(
 				$end_st_ent->getName().$i
 			);
-			$this->add($start_st_ent)->add($end_st_ent);
+			$end_time_ent =clone  $end_time;
+			$end_time_ent->setName(
+				$end_time_ent->getName().$i
+			);
+			$this->add($start_st_ent)->add($start_time_ent)->add($end_st_ent)->add($end_time_ent);
 
 			if(($stations-1)<=$i || $stations==0) break;
 		}
@@ -117,12 +130,25 @@ class RouteForm extends Form
 			$var_path=$this->_entity->getPath();
 			if (key_exists($match->index,$var_path)){
 				return
-					[$var_path[$match->index][$match->direction],'kharkiv'];
+					$var_path[$match->index][$match->direction];
 			}
-
-	}
-	else{
-			return parent::getValue($name); }
+		}
+		if(	$this->getIndex($name,['from_time'=>'start_time','to_time'=>'end_time'],$match)){
+			$var_path=$this->_entity->getPath();
+			if (key_exists($match->index,$var_path)){
+				return
+					$var_path[$match->index][$match->direction];
+			}
+		}
+		elseif( strpos($name,'regularity')!==false ){
+			preg_match('/regularity\[([1-7])\]/',$name,$match);
+			if( !empty($match[1])){
+				return ($this->_entity->getRegularity()[$match[1]]??false);
+			}
+		}
+		else{
+			return parent::getValue($name);
+		}
 	}
 	private function getIndex( string $name_of_fields, array $fields, &$index){
 

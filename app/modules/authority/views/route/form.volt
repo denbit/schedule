@@ -29,7 +29,7 @@
 					{% for element in form %}
 						{% if element.getUserOption('regularity')=='true' %}
 
-							<label class="btn btn-secondary active">
+							<label class="btn btn-secondary {% if element.getValue() %}active{% endif %}">
 								{{ element }} {{ element.getLabel() }}
 							</label>
 
@@ -43,17 +43,17 @@ border-radius: 5px;">
 					<legend class="scheduler-border">Маршрут</legend>
 				<table>
 					<tr><td>Станція відправленя</td><td>Час відправлення </td><td>Станція прибуття</td><td> Час Прибуття</td></tr>
-										{% for element in form %}
+					{% set i=0 %}
+					{% for element in form %}
 						{% if element.getUserOption('transit')=='true' %}
-						{% if  substr(element.getName(),0,6) =='end_st' %}
-						<td>{{ element }}</td><td><input type="time"></td></tr>
-						{% else %}
-						<tr class="data"><td>{{ element }} </td><td><input type="time"></td>
-						{% endif %}
-
-
-
-							</label>
+							{% if  (i % 4) == 0 %}
+							<tr class="data">
+							{% endif %}
+							<td>{{ element }}</td>
+							{%  set i += +1 %}
+							{% if  (i % 4) == 0 %}
+							</tr>
+							{% endif %}
 						{% endif %}
 					{% endfor %}
 					<tr class="blank d-none"><td><input type="text"></td><td><input type="time"></td><td><input type="text"></td><td><input type="time"></td></tr>

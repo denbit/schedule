@@ -31,7 +31,7 @@ class BusRoute extends Kernel
      */
     private $made_by;
     /**
-     * @var array
+     * @var TransitRoutes[]
      */
     private $path;
     /**
@@ -169,6 +169,14 @@ class BusRoute extends Kernel
         return $this->price;
     }
 
+	/**
+	 * @return string
+	 */
+	public function getRegularity(): string
+	{
+		return $this->regularity;
+	}
+
     public function findById( int $id)
     {
 
@@ -177,6 +185,7 @@ class BusRoute extends Kernel
        $this->start_st=Location::getLocationByStation($res->startStation);
        $this->end_st=Location::getLocationByStation($res->endStation);
        $this->made_by=$res->madeBy;
+       $this->regularity = $res->getRegularity();
        $this->setPath(RouteConstructor::buildRoute($res->getTransitPath()));
        $this->setPrice((new Cost())->selectRoute($this));
        return $this;
@@ -216,10 +225,13 @@ class BusRoute extends Kernel
 			];
 		}
         $pathSchema=[];
+
         foreach ($this->path as $route){
 	        $pathSchema[]=[
                 'from'=>$route->getFromIdStation()->getStation()->getId(),
-                'to' =>$route->getToIdStation()->getStation()->getId()
+				'from_time'=>$route->getDeparture(),
+                'to' =>$route->getToIdStation()->getStation()->getId(),
+				'to_time'=>$route->getArrival()
             ];
         }
         return $pathSchema;
