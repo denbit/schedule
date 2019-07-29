@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{ url('/css/common.css') }}"/>
     <link rel="stylesheet" href="{{ url('/css/authority.css') }}"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 </head>
 <body>
 
@@ -38,7 +40,7 @@
                 <a class=" btn btn-link collapsed" data-toggle="collapse" href="#translations_collapse" role="button"
                    aria-expanded="false" aria-controls="collapse">Переклади</a>
                 {% if router.getControllerName()!='translation' %}
-                    {{ link_to(["for": "action-auth",'controller':'translation','action':''], 'List ','class':'btn-link') }}
+                    {{ link_to(["for": "action-auth",'controller':'translation','action':''], '<i class="material-icons">list</i>','class':'btn-link') }}
                 {% endif %}
                 <div class="collapse" id="translations_collapse">
                     <div class="card card-body local_padding">
@@ -53,7 +55,7 @@
                    aria-expanded="false"
                    aria-controls="collapse"> Сторінки </a>
                 {% if router.getControllerName()!='page' %}
-                    {{ link_to(["for": "action-auth",'controller':'page','action':''], 'List','class':'btn-link') }}
+                    {{ link_to(["for": "action-auth",'controller':'page','action':''], '<i class="material-icons">list</i>','class':'btn-link') }}
                 {% endif %}
                 <div class="collapse" id="pages_collapse">
                     <div class="card card-body local_padding">
@@ -66,9 +68,9 @@
             </li>
             <li><a class="btn btn-link collapsed" data-toggle="collapse" href="#route_collapse" role="button"
                    aria-expanded="false"
-                   aria-controls="collapse"> Маршути </a>
+                   aria-controls="collapse"> Маршрути </a>
                 {% if router.getControllerName()!='route' %}
-                    {{ link_to(["for": "action-auth",'controller':'route','action':''], 'List','class':'btn-link') }}
+                    {{ link_to(["for": "action-auth",'controller':'route','action':''], '<i class="material-icons">list</i>','class':'btn-link') }}
                 {% endif %}
                 <div class="collapse" id="route_collapse">
                     <div class="card card-body local_padding">

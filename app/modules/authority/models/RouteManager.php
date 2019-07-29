@@ -17,8 +17,13 @@ use Schedule\Core\RouteConstructor;
 use Phalcon\Forms\Form;
 use Schedule\Modules\Authority\Forms\RouteForm;
 
-class Route
+class RouteManager
 {
+	/**
+	 * @var bool load status
+	 */
+	private $_loaded = false;
+
 	public $id;
 	/**
 	 * @var int
@@ -41,6 +46,10 @@ class Route
 	 */
 	private $regularity=[];
 
+	public function isLoaded():bool
+	{
+		return $this->_loaded;
+	}
 	public function set_transit()
 	{
 		//$transit_data=[
@@ -129,6 +138,7 @@ class Route
 				'to_time'=>$path_item['to_time'],
 			];
 		},$this->path);
+		$this->_loaded = true;
 		return $this;
 
 	}

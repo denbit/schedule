@@ -1,11 +1,13 @@
 {% extends 'layouts/page.volt' %}
 {% block content %}
     {{ super() }}
-<div class="clearfix m-2"> {{ link_to(['for':'action-auth','controller':router.getControllerName(),'action':'form'],'Create new page','class':'btn btn-primary float-right']) }}  </div>
-{% if pages %}
-    <table class="table">
-        <tr><th>URL</th><th>Module Name</th><th>Languages</th></tr>
-{% for page in pages  %}
+<div class="clearfix m-2  text-right ">
+    {{ link_to(['for':'action-auth','controller':router.getControllerName(),'action':'form'],'Створити нову сторінку',['class':'btn btn-info float-right']) }}
+</div>
+<table class="table">
+    {% if pages is not empty %}
+   <tr><th>URL</th><th>Module Name</th><th>Мови</th></tr>
+        {% for page in pages  %}
     <tr>
         <td>{{ page['url'] }}</td>
         <td>{{ page['module_name'] }}</td>
@@ -15,7 +17,12 @@
             {% endfor %}
         </td>
     </tr>
-{% endfor %}
+        {% endfor %}
+   {% else %}
+     <tr>
+         <td> {{ link_to(['for':'action-auth','controller':router.getControllerName(),'action':'form'],'Створити нову сторінку',['class':'btn btn-primary']) }}</td>
+     </tr>
+   {% endif %}
     </table>
-{% endif %}
+
 {% endblock %}

@@ -1,16 +1,19 @@
 {% extends "index.volt" %}
 
 {% block head %}
-    <div class="row">
-        <div class="col-12"><h2 class="text-center">Page Control System</h2></div>
-    </div>
+
+        <div class="col">
+            <h2>Page Control System</h2>
+        </div>
+    {% if router.getActionName()!=='index' %}
+            <div class="navbar navbar-light bg-light">{{ link_to(["for": "action-auth",'controller': router.getControllerName(),'action':''],'До списку сторінок','class':'nav-item nav-link') }}</div>
+
+    {% endif %}
+
 {% endblock %}
 {% block content %}
 <body>
 <div class="container">
-<div class="navbar-brand"><img src="https://placeimg.com/640/80/any/grayscale"></div>
-
-
 
 {{ content() }}
 

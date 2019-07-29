@@ -17,19 +17,19 @@ use Phalcon\Forms\Form;
 use Schedule\Core\Components\DataText;
 use Schedule\Core\Components\Time;
 use Schedule\Core\Models\Company;
-use Schedule\Modules\Authority\Models\Route;
+use Schedule\Modules\Authority\Models\RouteManager;
 
 class RouteForm extends Form
 {
-	public function initialize(Route $input_route, $options)
+	public function initialize(RouteManager $input_route, $options)
 	{
 		$this->setEntity($input_route);
 
 		 $id = new Hidden('id');
 
-		 $start_st =new DataText('start_st',['class'=>'city from']);
+		 $start_st =new DataText('start_st',['class'=>'city from form-control']);
 		 $start_st->setLabel("Початкова станція")->setUserOption('common','true');
-		 $end_st = new DataText('end_st',['class'=>'city to']);
+		 $end_st = new DataText('end_st',['class'=>'city to form-control']);
 		 $end_st->setLabel("Кінцева станція")->setUserOption('common','true');
 		 $made_by = new Select('made_by',Company::find(),[
 		 	'using' => [
@@ -38,7 +38,8 @@ class RouteForm extends Form
 		    ],
 		    'emptyText' => "Будь-ласка оберіть компанію",
 		    'useEmpty'=>true,
-		    'emptyValue'=>''
+		    'emptyValue'=>'',
+			'class'=>'form-control'
 		 ]);
 		 $made_by->setUserOption('common','true')->setLabel("Компанію, що здійснює перевезення");
 		 $this->add($start_st)->add($end_st)->add($made_by)->add($id);
@@ -63,12 +64,12 @@ class RouteForm extends Form
 
 	private function addTransit($stations)
 	{
-		$start_st =new DataText('start_st',['class'=>'city from']);
+		$start_st =new DataText('start_st',['class'=>'city from form-control']);
 		$start_st->setLabel("Початкова станція");
-		$end_st = new DataText('end_st',['class'=>'city to']);
+		$end_st = new DataText('end_st',['class'=>'city to form-control']);
 		$end_st->setLabel("Кінцева станція");
 
-		$start_time=new Time('start_time');
+		$start_time=new Time('start_time',['class'=>'form-control']);
 		$start_time->setUserOption('transit','true');
 		$end_time=(clone $start_time)->setName('end_time');
 		$start_st->setUserOption('transit','true');
@@ -151,7 +152,8 @@ class RouteForm extends Form
 		}
 	}
 	private function getIndex( string $name_of_fields, array $fields, &$index){
-
+		if (!$this->_entity->isLoaded())
+			return false;
 		foreach ($fields as $key => $pattern){
 			 if ( strpos($name_of_fields,$pattern)!==false && strcmp($pattern,$name_of_fields) < 0){
 			 	$index=(object)[

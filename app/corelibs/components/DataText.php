@@ -26,7 +26,7 @@ class DataText extends Text
 	{
 		 parent::prepareAttributes($attributes, $useChecked);
 		 $attr = parent::prepareAttributes($attributes, $useChecked);
-		 if(is_array($attr['value'])){
+		 if(isset($attr['value']) && is_array($attr['value'])){
 			 $attr['data-value']=$attr['value']['id'];
 			 $attr['value']=$attr['value']['title'];
 		 }

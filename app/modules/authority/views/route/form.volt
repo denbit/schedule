@@ -1,10 +1,7 @@
 {% extends 'layouts/route.volt' %}
 {% block content %}
 	<div class="row">
-		<div class="navbar navbar-light bg-light"> {{ link_to(['for':'action-auth','controller':router.getControllerName(),'action':''],'Go to the List of Routes','class':'nav-item nav-link') }}</div>
-	</div>
-	<div class="row">
-	<div class="col-md-6 card">
+	<div class="col-md-8 card">
 		<div class="card-body">
 			{% set id='new' %}
 			{% if form.id is not empty %}

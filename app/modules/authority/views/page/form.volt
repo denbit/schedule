@@ -1,13 +1,11 @@
 {% extends 'layouts/page.volt' %}
+{% block head %} {{ super() }} <h3 class="card-title">Page Editing </h3>{% endblock %}
 {% block content %}
-<div class="row">
-    <div class="navbar navbar-light bg-light"> {{ linkTo(['/authority/page/','Go to the List of Pages','class':'nav-item nav-link']) }}</div>
-</div>
 <div class="row">
     <div class="col-md-6 card">
         <div class="card-body">
 {{ form('authority/page/create', 'method': 'post') }}
-            <h3 class="card-title">Page Editing </h3>
+
 {% set group=0 %}
 {% for element in form %}
     {% if element.getUserOption('group')=='true' %}
