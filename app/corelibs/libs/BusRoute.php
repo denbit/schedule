@@ -121,13 +121,9 @@ class BusRoute extends Kernel
 
         $cost_data=[];
 
-        $transit_data=[
-            ['from'=>1,'to'=>4,'arrival'=>'00:00:00','departure'=>'00:20:00'],
-            ['from'=>4,'to'=>2,'arrival'=>'01:00:00','departure'=>'01:05:00'],
-            ['from'=>2,'to'=>3,'arrival'=>'03:00:00','departure'=>'00:00:00']
-        ];
-       $r_id= $bd->createRoute($start_id,$end_id,$this->regularity, $this->path);
+     $status =  $r_id = $bd->createRoute($start_id,$end_id,$this->regularity, $this->path, $this->made_by);
        $this->findById($r_id);
+       return (bool)$status;
     }
     /**
      * @return Location

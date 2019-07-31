@@ -1,13 +1,19 @@
 {% extends 'layouts/route.volt' %}
+  {% block head_script %}
+  <script>
+   var suggestPath ='{{ url.get(['for':'action-auth','controller':router.getControllerName(),'action':'suggest']) }}';
+   </script>
+  {% endblock %}
+ {% block subhead %} Редагувати/Створити маршрут {% endblock %}
 {% block content %}
 	<div class="row">
 	<div class="col-md-8 card">
 		<div class="card-body">
-			{% set id='new' %}
-			{% if form.id is not empty %}
-				{% set id=form.id %}
+			{% set id='' %}
+			{% if dispatcher.getParam('id') is not empty %}
+				{% set id=dispatcher.getParam('id') %}
 			{% endif %}
-			{{ form(url.get(['for':'action-save','controller':router.getControllerName(),'id':id]), 'method': 'post') }}
+			{{ form(url.get(['for':'action-save','controller':router.getControllerName(),'id':id]), 'method': 'post','class':'route-form') }}
 			<h3 class="card-title">Routes Editing </h3>
 
 			{% for element in form %}
@@ -72,6 +78,22 @@ border-radius: 5px;">
 		{% block footer %}
 		{{ super() }}
 		<script>
-
+		let indexPath ='{{ url.get(['for':'action-auth','controller':router.getControllerName(),'action']) }}';
+		$('.route-form').submit(function(e) {
+		  e.preventDefault();
+		  var formData = new FormData($("form").get(0));
+		  for(key of formData.keys()){
+		      let name=`input[name='${key}']`;
+		      let dataValue= $(name).data('value');
+		      if (dataValue){
+		          formData.set(key,dataValue);
+		      }
+		  }
+		  $('input, select, button').prop('disabled',true);
+			let xhr = new XMLHttpRequest();
+			xhr.open('POST',$("form").prop('action'));
+			xhr.send(formData);
+			/*location.href=indexPath;*/
+		});
 			</script>
 {% endblock %}

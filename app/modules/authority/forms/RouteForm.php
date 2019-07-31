@@ -26,7 +26,7 @@ class RouteForm extends Form
 		$this->setEntity($input_route);
 
 		 $id = new Hidden('id');
-
+		 $id->setUserOption('common','true')->setLabel(' ');
 		 $start_st =new DataText('start_st',['class'=>'city from form-control']);
 		 $start_st->setLabel("Початкова станція")->setUserOption('common','true');
 		 $end_st = new DataText('end_st',['class'=>'city to form-control']);
@@ -103,7 +103,7 @@ class RouteForm extends Form
 	 * Binds data to the entity
 	 *
 	 * @param  array  $data
-	 * @param  object  $entity
+	 * @param  RouteManager  $entity
 	 * @param  array  $whitelist
 	 *
 	 * @return Form
@@ -112,8 +112,13 @@ class RouteForm extends Form
 	{
 		parent::bind($data, $entity,
 			$whitelist);
-		$transit_data=array_filter($data, ['this','filter'],ARRAY_FILTER_USE_BOTH);
-		$entity->path = $transit_data;
+		$transit_data=array_filter($data, [$this,'filterTransit'],ARRAY_FILTER_USE_BOTH);
+		$regularity_data = array_filter($data, [$this,'filterRegularity'],ARRAY_FILTER_USE_BOTH);
+		if( $regularity_data){
+			$entity->setRegularity(array_keys($regularity_data['regularity']));
+		}
+		$transit_data = $this->packAccordingToPattern($transit_data);
+		$entity->setPath($transit_data);
 		return $this;
 	}
 
@@ -151,8 +156,8 @@ class RouteForm extends Form
 			return parent::getValue($name);
 		}
 	}
-	private function getIndex( string $name_of_fields, array $fields, &$index){
-		if (!$this->_entity->isLoaded())
+	private function getIndex( string $name_of_fields, array $fields, &$index, $use_entity = true){
+		if ($use_entity  && !$this->_entity->isLoaded())
 			return false;
 		foreach ($fields as $key => $pattern){
 			 if ( strpos($name_of_fields,$pattern)!==false && strcmp($pattern,$name_of_fields) < 0){
@@ -168,8 +173,27 @@ class RouteForm extends Form
 	}
 
 
-	private function filter($key, $value)
+	private function filterTransit($value, $key)
 	{
-		var_dump($key,$value);
+		return $this->getIndex($key,['start_st','end_st','start_time','end_time'],$match, false);
+	}
+	private function filterRegularity($value, $key)
+	{
+		return strpos($key,'regularity')!==false ;
+	}
+
+	private function packAccordingToPattern( array $data):array
+	{
+		$new_data = [];
+		['from'=>1,'to'=>4,'arrival'=>'00:00:00','departure'=>'00:20:00'];
+		 foreach ($data as $key=>$datum) {
+			 $this->getIndex($key,['from'=>'start_st','to'=>'end_st','arrival'=>'start_time','departure'=>'end_time'],$match, false);
+			 if (! isset($new_data[$match->index]))
+			 {
+				 $new_data[$match->index]=[];
+			 }
+			 $new_data[$match->index][$match->direction] = $datum;
+		 }
+		 return $new_data;
 	}
 }

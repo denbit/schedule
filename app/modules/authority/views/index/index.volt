@@ -1,5 +1,5 @@
 {% extends 'layouts/index.volt' %}
-
+ {% block subhead %} Огляд системи{% endblock %}
 {% block content %}
 
     {{ super() }}

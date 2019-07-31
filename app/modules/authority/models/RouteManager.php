@@ -66,6 +66,15 @@ class RouteManager
 		}
 		return [];
 	}
+	public function setPath($path){
+		$stek = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2)[1];
+		if (is_subclass_of($stek['class'],Form::class, true) )
+		{
+			$this->path = $path;
+			return true;
+		}
+		return false;
+	}
 	public function getRegularity(){
 		$stek = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2)[1];
 		if (is_subclass_of($stek['class'],Form::class, true) )
@@ -75,29 +84,36 @@ class RouteManager
 		return [];
 	}
 
+	public function setRegularity($regularity){
+		$stek = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2)[1];
+		if (is_subclass_of($stek['class'],Form::class, true) )
+		{
+			$this->regularity = $regularity;
+			return true;
+		}
+		return false;
+	}
 	public static function getForm( self $instance = null, $options=[])
 	{
 		 if( is_null($instance)){
 			 $instance = new self();
 		 }
-		 $options = ['stations'=>count($instance->path)] + $options;
+		 $options = ['stations'=>$instance->path?count($instance->path):0] + $options;
 		 return new RouteForm($instance, $options);
+	}
+	public function __set($name , $value)
+	{
 	}
 
 	public function save()
 	{
 
 		$cost_data=[];
-		$transit_data=[
-			['from'=>1,'to'=>4,'arrival'=>'00:00:00','departure'=>'00:20:00'],
-			['from'=>4,'to'=>2,'arrival'=>'01:00:00','departure'=>'01:05:00'],
-			['from'=>2,'to'=>3,'arrival'=>'03:00:00','departure'=>'00:00:00']
-		];
 		$core_route= new BusRoute();
-		$core_route->setStartSt(Location::getLocationByCityId((int)substr($this->start_st,4)));
-		$core_route->setEndSt(Location::getLocationByCityId((int)substr($this->end_st,4)));
-		$core_route->setRegularity($this->regularity);
-		$core_route->setPath([]);
+		$core_route->setStartSt(Location::getLocationByStationId((int)$this->start_st));
+		$core_route->setEndSt(Location::getLocationByCityId((int)$this->end_st));
+		$core_route->setRegularity(implode($this->regularity));
+		$core_route->setPath($this->path);
 		return $core_route->save();
 	}
 
@@ -171,6 +187,10 @@ class RouteManager
 return $output;
 	}
 
+	public function searchSuggestions()
+	{
+		$results = Location::findAllVariants($suggestion);
+	}
 	private function buildPathSchema($pathSchema)
 	{ $schema ="";
 		if (! empty($pathSchema)){

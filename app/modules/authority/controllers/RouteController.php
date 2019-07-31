@@ -6,6 +6,7 @@ use Schedule\Core\Components\NotFound;
 use Schedule\Core\Location;
 use Schedule\Core\BusRoute;
 use Schedule\Modules\Authority\Models\RouteManager;
+use Schedule\Modules\Frontend\Models\IndexModel;
 
 
 class RouteController extends ControllerBase
@@ -47,6 +48,19 @@ class RouteController extends ControllerBase
 			'controller'=>$this->dispatcher->getActiveController(),
 			'action'=>'index'
 		]);
+	}
+	public function  suggestAction(){
+		//$this->isAjax();
+		$suggestion=$this->request->getQuery('suggest');
+		if (!empty($suggestion))
+		{
+			$model= new RouteManager();
+			return json_encode($model->searchSuggestions($suggestion));
+		}
+		return json_encode(['results'=>'Nothing is available']);
+
+
+
 	}
 }
 

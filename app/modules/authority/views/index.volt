@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
+    {% block head_script %}{% endblock %}
 </head>
 <body>
 
@@ -112,6 +113,7 @@
     </div>
         {% endif %}
     <div class="col pl-0">
+        {% block subhead %}{% endblock %}
     {% block content %}{% endblock %}
     </div>
     </div>
