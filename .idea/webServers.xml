@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="5f9f02fa-ba1c-412a-ae47-b6524bfc35b6" name="access" url="http://1228579.raspis00.web.hosting-test.net/">
+        <fileTransfer host="raspis00.ftp.tools" port="21" rootFolder="/xn--k1auh3a.space/test" accessType="FTPS">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="fe1ed556-7ce5-4a63-b4c1-56f86e8e8fe7" name="ssh" url="http://1228579.raspis00.web.hosting-test.net/">
+        <fileTransfer host="raspis00.ftp.tools" port="22" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

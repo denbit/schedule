@@ -1,0 +1,111 @@
+mysql,raspis00_test,cities,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,cities,local_district_id,7,int,,FOREIGN KEY,raspis00_test,local_regions,id
+mysql,raspis00_test,cities,country_id,2,int,,FOREIGN KEY,raspis00_test,states,id
+mysql,raspis00_test,comments_to_routes,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,comments_to_routes,route_id,2,int,,FOREIGN KEY,raspis00_test,routes,id
+mysql,raspis00_test,comments_to_routes,ansewer_to_id,6,int,,FOREIGN KEY,raspis00_test,comments_to_routes,id
+mysql,raspis00_test,company,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,company,user,9,int,,FOREIGN KEY,raspis00_test,users,id
+mysql,raspis00_test,lang_desc,in_lang_id,1,int,,FOREIGN KEY,raspis00_test,site_langs,lang_id
+mysql,raspis00_test,lang_desc,to_lang,3,int,,FOREIGN KEY,raspis00_test,site_langs,lang_id
+mysql,raspis00_test,local_regions,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,page_types,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,pages,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,pages,type_id,2,int,,FOREIGN KEY,raspis00_test,page_types,id
+mysql,raspis00_test,pages,seo_info_id,4,int,,FOREIGN KEY,raspis00_test,seo_info,id
+mysql,raspis00_test,pricing_to_route,from_station_id,1,int,,FOREIGN KEY,raspis00_test,stations,id
+mysql,raspis00_test,pricing_to_route,to_station_id,2,int,,FOREIGN KEY,raspis00_test,stations,id
+mysql,raspis00_test,pricing_to_route,to_route,5,int,,FOREIGN KEY,raspis00_test,routes,id
+mysql,raspis00_test,reviews_to_company,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,reviews_to_company,company_id,2,int,,FOREIGN KEY,raspis00_test,company,id
+mysql,raspis00_test,reviews_to_company,ansewer_to_id,6,int,,FOREIGN KEY,raspis00_test,reviews_to_company,id
+mysql,raspis00_test,routes,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,routes,start_station,2,int,,FOREIGN KEY,raspis00_test,stations,id
+mysql,raspis00_test,routes,end_station,3,int,,FOREIGN KEY,raspis00_test,stations,id
+mysql,raspis00_test,routes,made_by,5,int,,FOREIGN KEY,raspis00_test,company,id
+mysql,raspis00_test,seo_info,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,seo_info,to_page,2,int,,FOREIGN KEY,raspis00_test,pages,id
+mysql,raspis00_test,site_langs,lang_id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,states,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,static_content,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,stations,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,stations,city_id,3,int,,FOREIGN KEY,raspis00_test,cities,id
+mysql,raspis00_test,stations_translations,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,stations_translations,lang_id,2,int,,FOREIGN KEY,raspis00_test,site_langs,lang_id
+mysql,raspis00_test,stations_translations,station_id,5,int,,FOREIGN KEY,raspis00_test,stations,id
+mysql,raspis00_test,transit_routes,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,transit_routes,from_id_station,2,int,,FOREIGN KEY,raspis00_test,stations,id
+mysql,raspis00_test,transit_routes,to_id_station,3,int,,FOREIGN KEY,raspis00_test,stations,id
+mysql,raspis00_test,transit_routes,belongs_to_route,6,int,,FOREIGN KEY,raspis00_test,routes,id
+mysql,raspis00_test,translations_common,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,translations_common,lang_id,3,int,,FOREIGN KEY,raspis00_test,site_langs,lang_id
+mysql,raspis00_test,uni_page,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,uni_page,lang_id,5,int,,FOREIGN KEY,raspis00_test,site_langs,lang_id
+mysql,raspis00_test,uni_page,page_id,6,int,,FOREIGN KEY,raspis00_test,pages,id
+mysql,raspis00_test,users,id,1,int,,PRIMARY KEY,,,
+mysql,raspis00_test,cities,cyr_name,3,varchar,255,,,,
+mysql,raspis00_test,cities,latin_name,4,varchar,255,,,,
+mysql,raspis00_test,cities,national_name,5,varchar,255,,,,
+mysql,raspis00_test,cities,is_regional,6,smallint,,,,,
+mysql,raspis00_test,cities,belongs_to_region,8,int,,,,,
+mysql,raspis00_test,cities,notice,9,longtext,4294967295,,,,
+mysql,raspis00_test,comments_to_routes,name,3,varchar,255,,,,
+mysql,raspis00_test,comments_to_routes,email,4,varchar,255,,,,
+mysql,raspis00_test,comments_to_routes,comment,5,longtext,4294967295,,,,
+mysql,raspis00_test,company,name,2,varchar,255,,,,
+mysql,raspis00_test,company,cyr_name,3,varchar,255,,,,
+mysql,raspis00_test,company,latin_name,4,varchar,255,,,,
+mysql,raspis00_test,company,address,5,varchar,255,,,,
+mysql,raspis00_test,company,cyr_address,6,varchar,255,,,,
+mysql,raspis00_test,company,latin_address,7,varchar,255,,,,
+mysql,raspis00_test,company,judicial_form,8,longtext,4294967295,,,,
+mysql,raspis00_test,lang_desc,description,2,varchar,255,,,,
+mysql,raspis00_test,local_regions,latin_name,2,varchar,255,,,,
+mysql,raspis00_test,local_regions,national_name,3,varchar,255,,,,
+mysql,raspis00_test,local_regions,cyr_name,4,varchar,255,,,,
+mysql,raspis00_test,local_regions,belongs_to_region,5,int,,,,,
+mysql,raspis00_test,page_types,type_name,2,enum,7,,,,
+mysql,raspis00_test,pages,content_id,3,int,,,,,
+mysql,raspis00_test,pages,additianal_content,5,longtext,4294967295,,,,
+mysql,raspis00_test,pricing_to_route,price,3,float,,,,,
+mysql,raspis00_test,pricing_to_route,currency,4,varchar,4,,,,
+mysql,raspis00_test,reviews_to_company,name,3,varchar,255,,,,
+mysql,raspis00_test,reviews_to_company,email,4,varchar,255,,,,
+mysql,raspis00_test,reviews_to_company,comment,5,longtext,4294967295,,,,
+mysql,raspis00_test,routes,transit_path,4,longtext,4294967295,,,,
+mysql,raspis00_test,routes,regularity,6,text,65535,,,,
+mysql,raspis00_test,seo_info,title,3,varchar,255,,,,
+mysql,raspis00_test,seo_info,description,4,longtext,4294967295,,,,
+mysql,raspis00_test,seo_info,name,5,varchar,255,,,,
+mysql,raspis00_test,seo_info,before_route,6,longtext,4294967295,,,,
+mysql,raspis00_test,seo_info,menu_title,7,varchar,255,,,,
+mysql,raspis00_test,site_langs,lang_code,2,varchar,255,,,,
+mysql,raspis00_test,states,latin_name,2,varchar,255,,,,
+mysql,raspis00_test,states,national_name,3,varchar,255,,,,
+mysql,raspis00_test,states,cyr_name,4,varchar,255,,,,
+mysql,raspis00_test,static_content,title,2,varchar,200,,,,
+mysql,raspis00_test,static_content,head_,3,varchar,400,,,,
+mysql,raspis00_test,static_content,content_title,4,varchar,200,,,,
+mysql,raspis00_test,static_content,content,5,mediumtext,16777215,,,,
+mysql,raspis00_test,static_content,body_,6,varchar,200,,,,
+mysql,raspis00_test,static_content,footer_,7,varchar,400,,,,
+mysql,raspis00_test,stations,is_intermediated,2,smallint,,,,,
+mysql,raspis00_test,stations,cyr_name,4,varchar,255,,,,
+mysql,raspis00_test,stations,latin_name,5,varchar,255,,,,
+mysql,raspis00_test,stations,national_name,6,varchar,255,,,,
+mysql,raspis00_test,stations,desc_for_own,7,varchar,50,,,,
+mysql,raspis00_test,stations,tel,8,varchar,255,,,,
+mysql,raspis00_test,stations,translated_info_cached,9,longtext,4294967295,,,,
+mysql,raspis00_test,stations_translations,name,3,varchar,255,,,,
+mysql,raspis00_test,stations_translations,description,4,longtext,4294967295,,,,
+mysql,raspis00_test,transit_routes,arrival,4,time,,,,,
+mysql,raspis00_test,transit_routes,departure,5,time,,,,,
+mysql,raspis00_test,translations_common,key,2,varchar,255,,,,
+mysql,raspis00_test,translations_common,description,4,longtext,4294967295,,,,
+mysql,raspis00_test,uni_page,url,2,varchar,500,,,,
+mysql,raspis00_test,uni_page,module_name,3,varchar,50,,,,
+mysql,raspis00_test,uni_page,has_permanent_uri,4,tinyint,,,,,
+mysql,raspis00_test,users,login,2,varchar,50,,,,
+mysql,raspis00_test,users,password,3,varchar,50,,,,
+mysql,raspis00_test,users,name,4,varchar,50,,,,
+mysql,raspis00_test,users,l_name,5,varchar,50,,,,
