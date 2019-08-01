@@ -115,9 +115,10 @@ class RouteManager
 		$core_route = new BusRoute();
 		$core_route->id = $this->id;
 		$core_route->setStartSt(Location::getLocationByStationId((int)$this->start_st));
-		$core_route->setEndSt(Location::getLocationByCityId((int)$this->end_st));
-		$core_route->setRegularity(implode($this->regularity));
+		$core_route->setEndSt(Location::getLocationByStationId((int)$this->end_st));
+		$core_route->setRegularity(implode(',',$this->regularity));
 		$core_route->setMadeBy(Company::findFirst($this->made_by));
+		var_dump($this->path);
 		$core_route->setPath($this->path);
 
 		return $core_route->save();
