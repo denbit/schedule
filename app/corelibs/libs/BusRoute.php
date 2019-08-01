@@ -120,10 +120,15 @@ class BusRoute extends Kernel
             return false;
 
         $cost_data=[];
-
-     $status =  $r_id = $bd->createRoute($start_id,$end_id,$this->regularity, $this->path, $this->made_by);
-       $this->findById($r_id);
-       return (bool)$status;
+if ($this->id){
+	$status =(bool)  $r_id = $bd->modifyRoute($start_id,$end_id,$this->regularity, $this->path, $this->made_by);
+}else{
+	$status =(bool) $r_id = $bd->createRoute($start_id,$end_id,$this->regularity, $this->path, $this->made_by);
+}
+     if($status){
+	     $this->findById($r_id);
+     }
+       return $status;
     }
     /**
      * @return Location

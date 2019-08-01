@@ -19,11 +19,6 @@ use Schedule\Modules\Authority\Forms\RouteForm;
 
 class RouteManager
 {
-	/**
-	 * @var bool load status
-	 */
-	private $_loaded = false;
-
 	public $id;
 	/**
 	 * @var int
@@ -33,6 +28,10 @@ class RouteManager
 	 * @var int
 	 */
 	public $end_st;
+	/**
+	 * @var bool load status
+	 */
+	private $_loaded = false;
 	/**
 	 * @var int
 	 */
@@ -46,18 +45,20 @@ class RouteManager
 	 */
 	private $regularity=[];
 
+	public static function getForm( self $instance = null, $options=[])
+	{
+		 if( is_null($instance)){
+			 $instance = new self();
+		 }
+		 $options = ['stations'=>$instance->path?count($instance->path):0] + $options;
+		 return new RouteForm($instance, $options);
+	}
+
 	public function isLoaded():bool
 	{
 		return $this->_loaded;
 	}
-	public function set_transit()
-	{
-		//$transit_data=[
-//			['from'=>1,'to'=>4,'arrival'=>'00:00:00','departure'=>'00:20:00'],
-//			['from'=>4,'to'=>2,'arrival'=>'01:00:00','departure'=>'01:05:00'],
-//			['from'=>2,'to'=>3,'arrival'=>'03:00:00','departure'=>'00:00:00']
-//		];
-	}
+
 	public function getPath(){
 		$stek = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2)[1];
 		if (is_subclass_of($stek['class'],Form::class, true) )
@@ -66,6 +67,7 @@ class RouteManager
 		}
 		return [];
 	}
+
 	public function setPath($path){
 		$stek = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2)[1];
 		if (is_subclass_of($stek['class'],Form::class, true) )
@@ -75,6 +77,7 @@ class RouteManager
 		}
 		return false;
 	}
+
 	public function getRegularity(){
 		$stek = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS,2)[1];
 		if (is_subclass_of($stek['class'],Form::class, true) )
@@ -93,23 +96,16 @@ class RouteManager
 		}
 		return false;
 	}
-	public static function getForm( self $instance = null, $options=[])
-	{
-		 if( is_null($instance)){
-			 $instance = new self();
-		 }
-		 $options = ['stations'=>$instance->path?count($instance->path):0] + $options;
-		 return new RouteForm($instance, $options);
-	}
+
 	public function __set($name , $value)
 	{
 	}
 
 	public function save()
 	{
-
 		$cost_data=[];
 		$core_route= new BusRoute();
+		$core_route->id =$this->id;
 		$core_route->setStartSt(Location::getLocationByStationId((int)$this->start_st));
 		$core_route->setEndSt(Location::getLocationByCityId((int)$this->end_st));
 		$core_route->setRegularity(implode($this->regularity));
@@ -184,15 +180,12 @@ class RouteManager
 			$output[] = $temp;
 		}
 
-return $output;
+	return $output;
 	}
 
-	public function searchSuggestions()
-	{
-		$results = Location::findAllVariants($suggestion);
-	}
 	private function buildPathSchema($pathSchema)
-	{ $schema ="";
+	{
+		$schema ="";
 		if (! empty($pathSchema)){
 			foreach ($pathSchema as $transitroute)
 			{
@@ -202,6 +195,11 @@ return $output;
 
 		}
 		return $schema;
+	}
+
+	public function searchSuggestions($suggestion)
+	{
+		 return $results = Location::findAllVariants($suggestion);
 	}
 
 
