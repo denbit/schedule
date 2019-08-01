@@ -1,11 +1,10 @@
 $(document).ready(function () {
 	$('.city.from, .city.to').each(function(i, e){
-
-			$(this).autocomplete({
-				'source': function (request, response) {
-if (typeof suggestPath === 'undefined'){
-	var suggestPath;
-}
+		$(this).autocomplete({
+			source: function (request, response) {
+				if (typeof suggestPath === 'undefined'){
+					var suggestPath;
+				}
 					$.ajax({
 						url: suggestPath||'/suggest',
 						data: {suggest: $(e).val()},
@@ -15,7 +14,7 @@ if (typeof suggestPath === 'undefined'){
 						console.log(data.length);
 					});
 				},
-				select: function( event, ui ) {
+			select: function( event, ui ) {
 					 $(event.target)
 						 .val(ui.item.label);
 					 let value;
@@ -35,8 +34,6 @@ if (typeof suggestPath === 'undefined'){
 					event.preventDefault();
 
 				}
-
 		});
-	})
-
+	});
 });
