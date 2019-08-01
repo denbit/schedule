@@ -45,7 +45,7 @@ class RouteController extends ControllerBase
 			$form_instance->getEntity()->save();
 		}
 
-die('i have stopped');;
+die('i have stopped');
 $this->dispatcher->forward([
 			'controller'=>$this->dispatcher->getControllerName(),
 			'action'=>'index'

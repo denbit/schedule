@@ -15,24 +15,33 @@ use Schedule\Core\Models\TransitRoutes;
 
 class RouteConstructor extends Kernel
 {
-    public function createRoute($start_id,$end_id,$regularity,$transit_data,$made_by=1)
+
+    public function createRoute(BusRoute $busroute)
     {
+	     if($busroute->getStartSt()->getStation())
+		     $start_id=$busroute->getStartSt()->getStation()->getId();
+	     else
+		     return false;
+        if($busroute->getEndSt()->getStation())
+	        $end_id=$busroute->getEndSt()->getStation()->getId();
+        else
+	        return false;
         if(Stations::count($start_id)!=1&&Stations::count($end_id)!=1)
             return false;
-	    die('i am here');
+
         $this->db->begin();
         $route=new Routes();
         $route->setStartStation($start_id);
         $route->setEndStation($end_id);
-        $route->setRegularity($regularity);
-        $route->setMadeBy($made_by);
+        $route->setRegularity($busroute->getRegularity());
+        $route->setMadeBy($busroute->getMadeBy());
         if(!$route->save()){
             $this->db->rollback();
         return  false;
         }
 	    if( ! empty($transit_result)){
-        if( $route->getId()&&$this->checkTransit($transit_data,$start_id,$end_id)){
-            $transit_result=$this->buildTransit($transit_data,$route->getId());
+        if( $route->getId()&&$this->checkTransit($busroute->getPath(),$start_id,$end_id)){
+            $transit_result=$this->buildTransit($busroute->getPath(),$route->getId());
             if (!$transit_result){
                 $this->db->rollback();
                 return  false;
@@ -112,42 +121,54 @@ class RouteConstructor extends Kernel
 	    }
 	return $transit_stations;
 }
-    public function modifyRoute()
-    {
-	    if(Stations::count($start_id)!=1&&Stations::count($end_id)!=1)
-		    return false;
-	    die('i am here');
-	    $this->db->begin();
-	    $route=new Routes();
-	    $route->setStartStation($start_id);
-	    $route->setEndStation($end_id);
-	    $route->setRegularity($regularity);
-	    $route->setMadeBy($made_by);
-	    if(!$route->save()){
-		    $this->db->rollback();
-		    return  false;
-	    }
-	    if( ! empty($transit_result)){
-		    if( $route->getId()&&$this->checkTransit($transit_data,$start_id,$end_id)){
-			    $transit_result=$this->buildTransit($transit_data,$route->getId());
-			    if (!$transit_result){
-				    $this->db->rollback();
-				    return  false;
-			    }
+	public function modifyRoute(BusRoute $busroute)
+	{
+		if($busroute->getStartSt()->getStation())
+			$start_id=$busroute->getStartSt()->getStation()->getId();
+		else
+			return false;
+		if($busroute->getEndSt()->getStation())
+			$end_id=$busroute->getEndSt()->getStation()->getId();
+		else
+			return false;
+		if(Stations::count($start_id)!=1&&Stations::count($end_id)!=1)
+			return false;
 
-			    $route->setTransitPath($transit_result);
-		    }
-	    }
+		$this->db->begin();
+		$route=Routes::findFirst($busroute->id);
+		$route->setStartStation($start_id);
+		$route->setEndStation($end_id);
+		$route->setRegularity($busroute->getRegularity());
+		$route->setMadeBy($busroute->getMadeBy());
+		if(!$route->save()){
+			$this->db->rollback();
+			return  false;
+		}
+		if( ! empty($transit_result)){
+			if( $route->getId()&&$this->checkTransit($busroute->getPath(),$start_id,$end_id)){
+				$transit_result=$this->buildTransit($busroute->getPath(),$route->getId());
+				if (!$transit_result){
+					$this->db->rollback();
+					return  false;
+				}
 
-	    if(!$route->update()){
-		    $this->db->rollback();
-		    return  false;
-	    }
-	    $this->db->commit();
-	    return $route->getId();
+				$route->setTransitPath($transit_result);
+			}
+		}
+
+		if(!$route->update()){
+			$this->db->rollback();
+			return  false;
+		}
+		$this->db->commit();
+		return $route->getId();
 
 
 
 
-    }
+
+
+
+
+	}
 }

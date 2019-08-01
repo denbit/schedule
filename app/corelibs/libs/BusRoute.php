@@ -110,20 +110,12 @@ class BusRoute extends Kernel
     public function save()
     {
         $bd=new RouteConstructor();
-        if($this->start_st->getStation())
-            $start_id=$this->start_st->getStation()->getId();
-        else
-            return false;
-        if($this->end_st->getStation())
-            $end_id=$this->end_st->getStation()->getId();
-        else
-            return false;
 
         $cost_data=[];
 if ($this->id){
-	$status =(bool)  $r_id = $bd->modifyRoute($start_id,$end_id,$this->regularity, $this->path, $this->made_by);
+	$status =(bool)  $r_id = $bd->modifyRoute($this);
 }else{
-	$status =(bool) $r_id = $bd->createRoute($start_id,$end_id,$this->regularity, $this->path, $this->made_by);
+	$status =(bool) $r_id = $bd->createRoute($this);
 }
      if($status){
 	     $this->findById($r_id);
