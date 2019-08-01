@@ -1,12 +1,13 @@
 $(document).ready(function () {
 	$('.city.from, .city.to').each(function(i, e){
+
 		$(this).autocomplete({
 			source: function (request, response) {
 				if (typeof suggestPath === 'undefined'){
-					var suggestPath;
+					var suggestPath=window.suggestPath;
 				}
 					$.ajax({
-						url: suggestPath||'/suggest',
+						url: suggestPath ||'/suggest',
 						data: {suggest: $(e).val()},
 						dataType:"json"
 					}).done(function (data, status) {

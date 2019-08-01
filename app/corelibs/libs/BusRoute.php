@@ -177,7 +177,7 @@ if ($this->id){
        $this->id=$id;
        $this->start_st=Location::getLocationByStation($res->startStation);
        $this->end_st=Location::getLocationByStation($res->endStation);
-       $this->made_by=$res->madeBy;
+       $this->setMadeBy(Company::findFirst($res->made_by));
        $this->regularity = $res->getRegularity();
        $this->setPath(RouteConstructor::buildRoute($res->getTransitPath()));
        $this->setPrice((new Cost())->selectRoute($this));
