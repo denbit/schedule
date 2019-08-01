@@ -38,7 +38,7 @@ $authority->addGet('/([a-zA-Z0-9\_\-]+)/edit/([a-z\_]+|[0-9]+)', [ //stub for :c
 	'action' => 'edit',
 	'id' => 2
 ])->setName("action-edit");
-$authority->addPost('/([a-zA-Z0-9\_\-]+)/save/([a-z\_]+)', [
+$authority->addPost('/([a-zA-Z0-9\_\-]+)/save/([a-z\_]+|[0-9]+)', [
 	'controller' => 1,
 	'action' => 'save',
 	'id' =>2
