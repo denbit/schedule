@@ -199,7 +199,15 @@ class RouteManager
 
 	public function searchSuggestions($suggestion)
 	{
-		 return $results = Location::findAllVariants($suggestion);
+		  $results = Location::findAllVariants($suggestion);
+
+					foreach ($results['stations'] as $item){
+						$result[] =	[
+							'value' =>$item->id,
+							'label' =>$item->national_name
+						];
+					}
+
 	}
 
 

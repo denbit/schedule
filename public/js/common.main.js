@@ -5,7 +5,7 @@ $(document).ready(function () {
 				'source': function (request, response) {
 
 					$.ajax({
-						url: '/suggest',
+						url: suggestPath||'/suggest',
 						data: {suggest: $(e).val()},
 						dataType:"json"
 					}).done(function (data, status) {
