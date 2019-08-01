@@ -53,7 +53,10 @@ class IndexModel extends Model implements IModel
 					foreach ($results[$key] as $item){
 
 					$result[] =	[
-						'value' =>$key.$item->id,
+						'value' =>json_encode( (object)[
+							'category' => $key,
+							'id' =>$item->id
+						]),
 						'label' =>$item->national_name
 						];
 					}

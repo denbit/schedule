@@ -3,7 +3,9 @@ $(document).ready(function () {
 
 			$(this).autocomplete({
 				'source': function (request, response) {
-
+if (typeof suggestPath === 'undefined'){
+	var suggestPath;
+}
 					$.ajax({
 						url: suggestPath||'/suggest',
 						data: {suggest: $(e).val()},
@@ -16,7 +18,19 @@ $(document).ready(function () {
 				select: function( event, ui ) {
 					 $(event.target)
 						 .val(ui.item.label);
-						$(event.target).attr('data-value',ui.item.value);
+					 let value;
+					 try {
+						 value = JSON.parse(ui.item.value)
+					 }
+					 finally {
+						 if( typeof value =="object"){ con
+							 $(event.target).data('category',value.category);
+							 $(event.target).data('id',value.id);
+						 }else {
+							 $(event.target).attr('data-value',ui.item.value);
+						 }
+					 }
+
 					console.log($(event.target));
 					event.preventDefault();
 
