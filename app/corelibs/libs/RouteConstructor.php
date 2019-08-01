@@ -89,7 +89,7 @@ class RouteConstructor extends Kernel
     {
         if(count($transit_data)>0){
             $transit_ids=[];
-            foreach ($transit_data as $transit_datum){
+            foreach ($transit_data as $place_path=> $transit_datum){
                 $record=new TransitRoutes();
                 $record->setFromIdStation($transit_datum['from']);//check from with does it exist
                 $record->setToIdStation($transit_datum['to']);
@@ -108,6 +108,41 @@ class RouteConstructor extends Kernel
 
 }
 
+
+	/**
+	 * @param $transit_data
+	 * @param $route_id
+	 * @return array
+	 */
+	private function modifyTransit($transit_data, Routes $route)
+	{
+
+		if(!empty($transit_path=$route->getTransitPath())){
+			$transit_ids=explode(',',$transit_path);
+		if(count($transit_data)>0){
+			$transit_ids_to_write=[];
+			foreach ($transit_data as $place_path => $transit_datum){
+				$record=TransitRoutes::findFirst($transit_ids[$place_path]);
+				if ( $record===false){
+				$record = new TransitRoutes();
+				$record->setBelongsToRoute($route->getId());
+				}
+				$record->setFromIdStation($transit_datum['from']);//check from with does it exist
+				$record->setToIdStation($transit_datum['to']);
+				$record->setDeparture($transit_datum['departure']);
+				$record->setArrival($transit_datum['arrival']);
+				if(!$record->save()){
+					echo $record->getMessages();
+				}else{
+					$transit_ids_to_write[]=$record->getId();
+				}
+
+			}
+		}
+			return implode(',',$transit_ids_to_write);
+		}
+
+	}
     public static function buildRoute($trans_data)
     {   $transit_stations=[];
 	    if(!empty($trans_data)){
@@ -146,7 +181,7 @@ class RouteConstructor extends Kernel
 		}
 		if( ! empty($transit_result)){
 			if( $route->getId()&&$this->checkTransit($busroute->getPath(),$start_id,$end_id)){
-				$transit_result=$this->buildTransit($busroute->getPath(),$route->getId());
+				$transit_result=$this->modifyTransit($busroute->getPath(),$route);
 				if (!$transit_result){
 					$this->db->rollback();
 					return  false;
