@@ -181,6 +181,7 @@ if ($this->id){
        $this->regularity = $res->getRegularity();
        $this->setPath(RouteConstructor::buildRoute($res->getTransitPath()));
        $this->setPrice((new Cost())->selectRoute($this));
+
        return $this;
     }
 

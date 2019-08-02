@@ -44,7 +44,7 @@
 
 border-radius: 5px;">
 					<legend class="scheduler-border">Маршрут</legend>
-				<table>
+				<table id="transit_wrapper">
 					<tr><td>Станція відправленя</td><td>Час відправлення </td><td>Станція прибуття</td><td> Час Прибуття</td></tr>
 					{% set i=0 %}
 					{% for element in form %}
@@ -59,10 +59,9 @@ border-radius: 5px;">
 							{% endif %}
 						{% endif %}
 					{% endfor %}
-					<tr class="blank d-none"><td><input type="text"></td><td><input type="time"></td><td><input type="text"></td><td><input type="time"></td></tr>
 				</table>
-				<div class="text-center m-2">  {{ tag_html("button", ["type":"button","class": "btn btn-primary"]) }}
-					Додати <i class='glyphicon glyphicon-pencil'></i>
+				<div class="text-center m-2">  {{ tag_html("button", ["type":"button","class": "btn btn-primary add_transit"]) }}
+					Додати <i class=''>+</i>
 					{{ tag_html_close("button") }}</div>
 			</fieldset>
 
@@ -78,6 +77,37 @@ border-radius: 5px;">
 		{% block footer %}
 		{{ super() }}
 		<script>
+
+
+
+	$(document).ready(function () {
+		$("[name=start_st0]").attr('readonly','readonly');
+		let el = $("[name^=end_st]");
+		let end = Array.prototype.reverse.apply(el).get(0);
+		$(end).attr('readonly','readonly');
+
+		function add_transit(i){
+			var block = `<tr class="data"><td><input type="text" name="start_st${i}"></td><td><input type="time" name="start_time${i}"></td><td><input type="text" name="end_st${i}"></td><td><input type="time" name="end_time${i}"></td></tr>`;
+			$('#transit_wrapper').append(block);
+		}
+
+
+		$('.add_transit').click(
+			()=>{
+			add_transit($("[name^=end_st]").length-1) }
+			);
+	});
+	$("[name=start_st]").on('autocompleteselect', function(event,ui) {
+	   $("[name=start_st0]").val(ui.item.label);
+		$("[name=start_st0]").attr('data-value',ui.item.value);
+	});
+	$("[name^=end_st]").on('autocompleteselect', function(event,ui) {
+		let el = $("[name^=end_st]");
+		let end = Array.prototype.reverse.apply(el).get(0);
+	   $(end).val(ui.item.label);
+		$(end).attr('data-value',ui.item.value);
+	});
+
 		let indexPath ='{{ url.get(['for':'action-auth','controller':router.getControllerName(),'action']) }}';
 		$('.route-form').submit(function(e) {
 		  e.preventDefault();
