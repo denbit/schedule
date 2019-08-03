@@ -6,10 +6,10 @@ namespace Schedule\Modules\Frontend\Controllers;
 
 use Schedule\Modules\Authority\Models\PageManager;
 
-class ListController extends ControllerBase
+class SearchController extends ControllerBase
 {
 
-	public function mainAction()
+	public function indexAction()
 	{
 		if ($this->request->getHeader('X-Passed') == 'PageManager') {
 			$this->view->disable();
@@ -17,7 +17,6 @@ class ListController extends ControllerBase
 		} else {
 			$this->response->redirect('/');
 		}
-
 
 	}
 }

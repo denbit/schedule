@@ -76,8 +76,7 @@ class PageParser extends Kernel
 	public function savePage()
 	{
 		$edit_flag = false;
-//check update or create
-		//  var_dump($this);
+
 		if (!empty($this->id) && UniversalPage::count($this->id) > 0) {
 			echo "it exists  ";
 			$edit_flag = true;

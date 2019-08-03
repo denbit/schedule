@@ -7,6 +7,7 @@ use Phalcon\Mvc\View;
 use Phalcon\Http\Response\Cookies;
 use Phalcon\Mvc\View\Engine\Php as PhpEngine;
 use Phalcon\Mvc\ModuleDefinitionInterface;
+use Phalcon\Text;
 
 class Module implements ModuleDefinitionInterface
 {
@@ -66,13 +67,17 @@ class Module implements ModuleDefinitionInterface
 			$controllers = [];
 
 			foreach (glob($fronted . '*Controller.php') as $controller) {
-				$cntrlName = basename($controller, '.php');
+
+				$cntrlName =Text::lower(basename($controller, 'Controller.php'));
+
 				$className = 'Schedule\Modules\Frontend\Controllers\\' . basename($controller, '.php');
 				$controllers[$cntrlName] = []; ;
 				$methods = (new \ReflectionClass($className))->getMethods(\ReflectionMethod::IS_PUBLIC);
 				foreach ($methods as $method) {
 					if (\Phalcon\Text::endsWith($method->name, 'Action')) {
-						$controllers[$cntrlName][] = $method->name;
+
+						$controllers[$cntrlName][] = basename($method->name, 'Action');
+
 					}
 				}
 			}
