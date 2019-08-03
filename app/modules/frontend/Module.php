@@ -60,6 +60,24 @@ class Module implements ModuleDefinitionInterface
 
             return $view;
         });
+		$di->set('module_list', function (){
+			$config = $this->getConfig();
+			$fronted = $config->get('frontend')->controllersDir;
+			$controllers = [];
+
+			foreach (glob($fronted . '*Controller.php') as $controller) {
+				$cntrlName = basename($controller, '.php');
+				$className = 'Schedule\Modules\Frontend\Controllers\\' . basename($controller, '.php');
+				$controllers[$cntrlName] = []; ;
+				$methods = (new \ReflectionClass($className))->getMethods(\ReflectionMethod::IS_PUBLIC);
+				foreach ($methods as $method) {
+					if (\Phalcon\Text::endsWith($method->name, 'Action')) {
+						$controllers[$cntrlName][] = $method->name;
+					}
+				}
+			}
+			return $controllers;
+		});
 
 		$di->set(
 			'cookies',

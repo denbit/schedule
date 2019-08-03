@@ -10,20 +10,20 @@ namespace Schedule\Modules\Authority\Controllers;
 
 
 use Schedule\Core\PageParser;
-use Schedule\Modules\Authority\Models\PageSystem;
+use Schedule\Modules\Authority\Models\PageManager;
 
 class PageController extends ControllerBase
 {
 
     public function indexAction()
     {
-        $page_sys=new PageSystem();
+        $page_sys=new PageManager();
         $uni_pages=$page_sys->getAllPages();
         $this->view->pages=$uni_pages;
     }
     public function createAction()
     {   $pp=new PageParser();
-        $page_sys=new PageSystem();
+        $page_sys=new PageManager();
         $form=$page_sys->getForm($pp);
 
         if($form->isValid($_POST,$pp)){
@@ -44,7 +44,7 @@ class PageController extends ControllerBase
     public function formAction()
     {
         $pp = new PageParser();
-        $page_sys=new PageSystem();
+        $page_sys=new PageManager();
         if($this->request->getQuery('edit')){
           if(($params=$this->dispatcher->getParams())!==false && (!empty($params[0]))){
               $uri='';
