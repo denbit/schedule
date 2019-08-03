@@ -40,6 +40,7 @@ class IndexController extends ControllerBase implements IFrontEnd
 
 
 	}
+
        // $model->chatInit();
 //        $select=new Select('new',$page);
 //        $select->setName("dgg");

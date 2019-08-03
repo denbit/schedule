@@ -7,6 +7,7 @@ use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 
 use Phalcon\Flash\Direct as Flash;
+use Schedule\Modules\Frontend\Controllers\IndexController;
 
 /**
  * Registering a router
@@ -63,6 +64,7 @@ $di->setShared('dispatcher', function() {
 	return $dispatcher;
 
 });
+
 /**
  * The URL component is used to generate all kinds of URLs in the application
  */
