@@ -18,5 +18,6 @@ class ListController extends ControllerBase
 			$this->response->redirect('/');
 		}
 
+
 	}
 }

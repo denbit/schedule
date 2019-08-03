@@ -11,6 +11,7 @@ namespace Schedule\Modules\Authority\Models;
 
 use Phalcon\Config;
 use Schedule\Core\Kernel;
+
 use Schedule\Core\Models\Languages;
 use Schedule\Core\Models\UniversalPage;
 use Schedule\Core\PageParser;
@@ -24,6 +25,7 @@ class PageManager extends Kernel
 		/**
 		 * @var $config Config
 		 */
+
 		$opts = array(
 			'http'=>array(
 				'header'=>"X-Passed: PageManager\r\n"
@@ -49,14 +51,17 @@ class PageManager extends Kernel
 
     public function getForm( PageParser $i)
     {
+
 		$available_modules = $this->scanForModules();
 		$available_modules->modules = array_combine(array_values($available_modules->modules),array_values($available_modules->modules));
+
        return new PageForm($i,$available_modules);
         
     }
 
     public function getAllPages()
     {
+
 		$uni=UniversalPage::find([
 			'columns'=>'url,module_name, group_concat(lang_id) as lang_id ',
 			'group'=>'module_name'
@@ -85,6 +90,7 @@ class PageManager extends Kernel
 		}
 
 		return $availables;
+
 
     }
 }

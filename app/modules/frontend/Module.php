@@ -67,13 +67,17 @@ class Module implements ModuleDefinitionInterface
 			$controllers = [];
 
 			foreach (glob($fronted . '*Controller.php') as $controller) {
+
 				$cntrlName =Text::lower(basename($controller, 'Controller.php'));
+
 				$className = 'Schedule\Modules\Frontend\Controllers\\' . basename($controller, '.php');
 				$controllers[$cntrlName] = []; ;
 				$methods = (new \ReflectionClass($className))->getMethods(\ReflectionMethod::IS_PUBLIC);
 				foreach ($methods as $method) {
 					if (\Phalcon\Text::endsWith($method->name, 'Action')) {
+
 						$controllers[$cntrlName][] = basename($method->name, 'Action');
+
 					}
 				}
 			}
