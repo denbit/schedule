@@ -26,9 +26,13 @@ class LanguageParser
 				$kernel->rememberLanguage($lang);
 			}
 	  }
+
+	/**
+	 * @return array of pairs lang_id => lang_code
+	 */
 	  public static function ListLanguages():array {
 
-		  $lang_codes=Languages::find([
+		  $lang_codes = Languages::find([
 			  'columns'=>'lang_id,lang_code',
 			  'hydration'=>Resultset::HYDRATE_ARRAYS
 		  ])->toArray();

@@ -9,6 +9,7 @@
 namespace Schedule\Modules\Authority\Controllers;
 
 
+use Phalcon\Mvc\Model\Transaction\Exception;
 use Schedule\Core\PageParser;
 use Schedule\Modules\Authority\Models\PageManager;
 
@@ -17,8 +18,8 @@ class PageController extends ControllerBase
 
     public function indexAction()
     {
-        $page_sys=new PageManager();
-        $uni_pages=$page_sys->getAllPages();
+        $page_manger=new PageManager();
+        $uni_pages=$page_manger->getListOfPages();
         $this->view->pages=$uni_pages;
     }
     public function createAction()
@@ -27,7 +28,13 @@ class PageController extends ControllerBase
         $form=$page_sys->getForm($pp);
 
         if($form->isValid($_POST,$pp)){
-        $pp->savePage();
+        	try{
+				$pp->savePage();
+			}
+			catch (Exception $save_ex){
+        		$this->flashSession->error($save_ex->getMessage());
+			}
+
             $this->flashSession->success("The page module ".$pp->module_name." was successfully saved ");
         }
 

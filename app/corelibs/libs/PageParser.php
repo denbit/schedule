@@ -9,6 +9,7 @@
 namespace Schedule\Core;
 
 
+use Phalcon\Mvc\Model\Transaction\Exception;
 use Schedule\Core\Models\Content;
 use Schedule\Core\Models\Pages;
 use Schedule\Core\Models\SEOInfo;
@@ -73,16 +74,20 @@ class PageParser extends Kernel
 
 	}
 
+	/**
+	 * Make saving transaction
+	 * @throws Exception
+	 * @return bool
+	 */
 	public function savePage()
 	{
 		$edit_flag = false;
-
+		$log_message = '';
+		$this->db->begin();
 		if (!empty($this->id) && UniversalPage::count($this->id) > 0) {
-			echo "it exists  ";
+			$log_message .= "it exists  ";
 			$edit_flag = true;
 		}
-		// echo "creating new page";
-		// $this->db->begin();
 		if (!$edit_flag) {
 			$uni = new UniversalPage();
 		} else {
@@ -93,7 +98,7 @@ class PageParser extends Kernel
 		$uni->setUrl($this->url);
 		$uni->setLangId($this->language);
 		if ($uni->save()) {
-			echo "uni saved";
+			$log_message .= "uni saved";
 			if (!$edit_flag) {
 				$page = new Pages();
 			} else {
@@ -109,10 +114,15 @@ class PageParser extends Kernel
 				}
 				$content->setContent($this->content);
 				$content->setTitle($this->title);
-				if ($content->save() && !$edit_flag) {
-					echo "content saved";
+				if (!$content->save()) {
+					$this->throwWriteError($log_message);
+				}
+				$content_message = "content updated";
+				if (!$edit_flag) {
+					$content_message = "content saved";
 					$page->setContentId($content->getId());
 				}
+				$log_message .= $content_message;
 			}
 
 			if (!$edit_flag) {
@@ -125,20 +135,36 @@ class PageParser extends Kernel
 			$seo->setTitle($this->seo_title);
 			$seo->setMenuTitle($this->seo_menu_title);
 			$seo->setName($this->seo_name);
-			if ($seo->save() && !$edit_flag) {
+			if (!$seo->save()) {
+				$this->throwWriteError($log_message);
+			}
+			if (!$edit_flag) {
 				$page->setSeoInfoId($seo->getId());
 			}
-			echo "seo saved";
-			if ($page->save() && !$edit_flag) {
-				echo "page saved";
-				$uni->setPageId($page->getId());
-				$uni->save();
-				$seo->setToPage($page->getId());
-				echo "cool";
+			$log_message .= "seo saved";
+			if (!$page->save() || !$uni->save()) {
+				$this->throwWriteError($log_message);
 			}
+			$log_message .= "page saved";
+			if (!$edit_flag) {
+				$uni->setPageId($page->getId());
+				$seo->setToPage($page->getId());
+				$log_message .= "cool";
+			}
+			echo $log_message;
+			return $this->db->commit();
+
+		} else {
+			$this->throwWriteError($log_message);
 		}
 
 
+	}
+
+	private function throwWriteError($m)
+	{
+		$this->db->rollback();
+		throw new Exception($m);
 	}
 
 

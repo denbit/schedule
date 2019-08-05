@@ -12,6 +12,7 @@ namespace Schedule\Modules\Authority\Models;
 use Phalcon\Config;
 use Schedule\Core\Kernel;
 
+use Schedule\Core\LanguageParser;
 use Schedule\Core\Models\Languages;
 use Schedule\Core\Models\UniversalPage;
 use Schedule\Core\PageParser;
@@ -59,30 +60,24 @@ class PageManager extends Kernel
         
     }
 
-    public function getAllPages()
+    public function getListOfPages()
     {
 
-		$uni=UniversalPage::find([
+		$universal_page=UniversalPage::find([
 			'columns'=>'url,module_name, group_concat(lang_id) as lang_id ',
 			'group'=>'module_name'
 		]);
-		// return $uni;
-		$all=Languages::find()->toArray();
-		$lang_codes=[];
-		foreach ($all as $lang){
-			$lang_codes[$lang['lang_id']]=$lang['lang_code'];
-		}
-
+		$lang_codes=LanguageParser::ListLanguages();
 		$availables=[];
-		for($i=0;$i<count($uni);$i++){
-			$langs=explode(',',$uni[$i]->lang_id);
+		for($i=0;$i<count($universal_page);$i++){
+			$langs=explode(',',$universal_page[$i]->lang_id);
 			$temp=[];
 
 			foreach ($langs as $avail){
 				$temp[$avail] = $lang_codes[$avail];
 			}
 
-			$availables[$i]=$uni[$i]->toArray();
+			$availables[$i]=$universal_page[$i]->toArray();
 			sort($temp);
 			$availables[$i]['available_langs']= array_reverse($temp,true);
 			unset($temp, $availables[$i]['lang_id']);
