@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-md-6 card">
         <div class="card-body">
-{{ form('authority/page/create', 'method': 'post') }}
+{{ form(url.get(['for':'action-auth','controller': router.getControllerName(),'action':'create']), 'method': 'post') }}
 
 {% set group=0 %}
 {% for element in form %}
@@ -47,7 +47,13 @@
 {% block footer %}
 {{ super() }}
     <script>
-         var page_types = '{{ page_types }}';
-        $('select#page_type')
+         var page_types = {{ page_types }};
+        $('select#page_type').change(function () {
+            if ($(this).val()==page_types.dynamic){
+                $('#title,#content').prop('disabled',true);
+            }else  {
+                $('#title,#content').prop('disabled',false);
+            }
+        })
     </script>
 {% endblock %}

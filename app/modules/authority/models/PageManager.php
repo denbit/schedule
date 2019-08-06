@@ -51,13 +51,14 @@ class PageManager extends Kernel
 		 ];
 	}
 
-    public function getForm( PageParser $i)
+    public function getForm( PageParser $i, bool $edit = false)
     {
 
-		$available_modules = $this->scanForModules();
-		$available_modules->modules = array_combine(array_values($available_modules->modules),array_values($available_modules->modules));
+		$options = $this->scanForModules();
+		$options->modules = array_combine(array_values($options->modules),array_values($options->modules));
+		$options->edit = $edit;
 
-       return new PageForm($i,$available_modules);
+       return new PageForm($i,$options);
         
     }
 

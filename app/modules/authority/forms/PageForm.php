@@ -37,18 +37,19 @@ class PageForm extends Form
 			"class" => 'form-control',
 		]
 		);
-		$page_type->setLabel("Type of page:");
+		$page_type->setLabel("Тип сторінки:");
 		$module = new Select(
 			'module_name', $options->modules, [
-			"emptyText" => "select module",
+			"emptyText" => "Оберіть назву модуля",
 			"useEmpty" => true,
 			"emptyValue" => "",
 			"class" => 'form-control',
 		]
 		);
-		$module->setLabel("Module name");
+		$module->setLabel("Назва модуля");
 		$this->add($module);
 		$lang = Languages::findFirst(['lang_code like "en"']);
+		$language_disabled = $options->edit?'disabled':'';
 		$lang_f = new Select(
 			'language', $lang->allangs, [
 			'using' => [
@@ -56,9 +57,9 @@ class PageForm extends Form
 				"description",
 			],
 			"useEmpty" => true,
-			"emptyText" => "select language of page",
+			"emptyText" => "оберіть мову",
 			"emptyValue" => "",
-			"class" => 'form-control',
+			"class" => "form-control $language_disabled",
 		]
 		);
 		$lang_f->setLabel("Language of page");
@@ -69,15 +70,17 @@ class PageForm extends Form
 		} else {
 			$attrs = ["class" => 'form-control'];
 		}
+		$additional_title = new Text('additional_title', ["class" => 'form-control']);
+		$additional_title->setLabel("Заголовок сторінки");
+		$this->add($additional_title);
+
 		$title = new Text('title', $attrs);
-		$title->setLabel("Title of page");
+		$title->setLabel("Заголовок контенту ");
 		$this->add($title);
 		$content = new TextArea('content', $attrs);
 		$content->setLabel("Content:");
 		$this->add($content);
-		$additional_title = new Text('additional_title', ["class" => 'form-control']);
-		$additional_title->setLabel("Additional title");
-		$this->add($additional_title);
+
 		if ($page->has_permanent_url) {
 			$chk = ['value' => 1, 'checked' => 'checked'];
 		} else {

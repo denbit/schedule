@@ -64,7 +64,7 @@ class PageController extends ControllerBase
               }
 
               $module=$params[0];
-              $form = $page_sys->getForm($pp->getPage($lang, '', $module));
+              $form = $page_sys->getForm($pp->getPage($lang, '', $module),true);
               $this->view->setVar('title','Editing of existing page');
               }
         }else{
@@ -73,7 +73,7 @@ class PageController extends ControllerBase
         }
 
         $this->view->form=$form;
-        $this->view->page_types = json_encode(array_column(PagesTypes::find()->toArray(),'id','page_type'));
+        $this->view->page_types = json_encode(array_column(PagesTypes::find()->toArray(),'id','type_name'));
 
     }
 }

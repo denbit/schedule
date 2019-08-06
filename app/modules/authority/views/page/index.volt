@@ -13,7 +13,7 @@
         <td>{{ page['module_name'] }}</td>
         <td>
             {% for name, value in page['available_langs'] %}
-                <a href="form/{{ page['module_name'] }}?lang={{ name }}&edit=1">{{ value }}</a>
+                <a href="{{ url.get(['for':'action-auth','controller': router.getControllerName(),'action':'form']) }}/{{ page['module_name'] }}?lang={{ name }}&edit=1">{{ value }}</a>
             {% endfor %}
         </td>
     </tr>
