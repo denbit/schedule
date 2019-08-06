@@ -99,15 +99,16 @@ class PageParser extends Kernel
 		$uni->setLangId($this->language);
 		if ($uni->save()) {
 			$log_message .= "uni saved";
-			if (!$edit_flag) {
+			if (!$edit_flag ||  is_null($uni->getPageId())) {
 				$page = new Pages();
 			} else {
 				$page = Pages::findFirst($uni->getPageId());
 			}
+
 			$page->setAdditionalTitle($this->additional_title);
 			$page->setTypeId($this->page_type);
 			if ($this->page_type == PageParser::STATIC_PAGE) {
-				if (!$edit_flag) {
+				if (!$edit_flag || is_null($page->getContentId())) {
 					$content = new Content();
 				} else {
 					$content = Content::findFirst($page->getContentId());
@@ -118,14 +119,14 @@ class PageParser extends Kernel
 					$this->throwWriteError($log_message);
 				}
 				$content_message = "content updated";
-				if (!$edit_flag) {
+				if (!$edit_flag ) {
 					$content_message = "content saved";
 					$page->setContentId($content->getId());
 				}
 				$log_message .= $content_message;
 			}
 
-			if (!$edit_flag) {
+			if (!$edit_flag  || is_null($page->getSeoInfoId())) {
 				$seo = new SEOInfo();
 			} else {
 				$seo = SEOInfo::findFirst($page->getSeoInfoId());
@@ -138,21 +139,25 @@ class PageParser extends Kernel
 			if (!$seo->save()) {
 				$this->throwWriteError($log_message);
 			}
-			if (!$edit_flag) {
+			if (!$edit_flag || is_null($page->getSeoInfoId())) {
 				$page->setSeoInfoId($seo->getId());
 			}
+
 			$log_message .= "seo saved";
 			if (!$page->save() || !$uni->save()) {
 				$this->throwWriteError($log_message);
 			}
-			$log_message .= "page saved";
-			if (!$edit_flag) {
+			if (!$edit_flag || is_null($uni->getPageId())) {
 				$uni->setPageId($page->getId());
 				$seo->setToPage($page->getId());
 				$log_message .= "cool";
 			}
+			$log_message .= "page saved";
+			if (!$seo->save() || !$uni->save()) {
+				$this->throwWriteError($log_message);
+			}
 			echo $log_message;
-			return $this->db->commit();
+			 $this->db->commit();
 
 		} else {
 			$this->throwWriteError($log_message);
