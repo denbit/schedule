@@ -3,7 +3,7 @@
 {% block content %}
 
     {{ super() }}
-
+{{ dump(statistics) }}
 
     <script>
 		$(document).ready(function() {
