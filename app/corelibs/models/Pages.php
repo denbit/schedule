@@ -10,6 +10,9 @@ namespace Schedule\Core\Models;
 
 
 use Phalcon\Mvc\Model;
+use Phalcon\Validation;
+use Phalcon\Validation\Validator\Alpha;
+use Phalcon\Validation\Validator\PresenceOf;
 
 class Pages extends Model
 {
@@ -99,6 +102,19 @@ private $content_id;
         $this->additional_title = $additianal_content;
     }
 
+	public function validation()
+	{
+		$validator =new Validation();
+		$validator->add(['type_id','seo_info_id'], new PresenceOf(
+			['message'=>":field is required"]
+		));
+		$validator->add(['type_id','seo_info_id'],new Alpha(['message'=>[
+			'lang_id'=>"Language code is nessecary ",
+			'page_id' =>" :field is required"
+		]]));
+		//$this->validate($validator);
+
+	}
     public function initialize()
     {
         $this->hasOne('id',SEOInfo::class,'to_page',['alias'=>'seo']);

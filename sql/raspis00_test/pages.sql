@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
 
 -- Zrzucanie danych dla tabeli raspis00_test.pages: ~3 rows (około)
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
-INSERT INTO `pages` (`id`, `type_id`, `content_id`, `seo_info_id`, `additianal_content`) VALUES
+INSERT INTO `pages` (`id`, `type_id`, `content_id`, `seo_info_id`, additional_content) VALUES
 	(0, 1, NULL, 1, 'Main Page'),
 	(2, 1, NULL, 2, 'Головна'),
 	(3, 1, NULL, 3, 'Главная');

@@ -10,6 +10,7 @@ namespace Schedule\Modules\Authority\Controllers;
 
 
 use Phalcon\Mvc\Model\Transaction\Exception;
+use Schedule\Core\Models\PagesTypes;
 use Schedule\Core\PageParser;
 use Schedule\Modules\Authority\Models\PageManager;
 
@@ -72,6 +73,7 @@ class PageController extends ControllerBase
         }
 
         $this->view->form=$form;
+        $this->view->page_types = json_encode(array_column(PagesTypes::find()->toArray(),'id','page_type'));
 
     }
 }

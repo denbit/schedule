@@ -44,3 +44,10 @@
     </div>
 </div>
 {% endblock %}
+{% block footer %}
+{{ super() }}
+    <script>
+         var page_types = '{{ page_types }}';
+        $('select#page_type')
+    </script>
+{% endblock %}

@@ -10,6 +10,8 @@ namespace Schedule\Core\Models;
 
 
 use Phalcon\Mvc\Model;
+use Phalcon\Validation;
+use Phalcon\Validation\Validator\{PresenceOf,Alpha};
 
 class UniversalPage extends Model
 {
@@ -110,8 +112,21 @@ class UniversalPage extends Model
         $this->has_permanent_uri = $has_permanent_uri;
     }
 
+    public function validation()
+	{
+		 $validator =new Validation();
+		 $validator->add(['lang_id','page_id'], new PresenceOf(
+		 	['message'=>":field is required"]
+		 ));
+		 $validator->add(['lang_id','page_id'],new Alpha(['message'=>[
+			 'lang_id'=>"Language code is nessecary ",
+			 'page_id' =>" :field is required"
+		 ]]));
+		// $this->validate($validator);
 
-    public function initialize()
+	}
+
+	public function initialize()
     {
         $this->hasOne('page_id',Pages::class,'id',['alias'=>'page']);
       //  $this->hasMany('lang_id')
