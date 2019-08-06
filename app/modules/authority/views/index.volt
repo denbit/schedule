@@ -46,8 +46,8 @@
                 <div class="collapse" id="translations_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
-                            <li>smth</li>
-                            <li>smth</li>
+                            <li> {{ link_to(["for": "action-auth",'controller':'translation','action':''], 'Видалити масово','class':'btn-link') }}</li>
+                            <li> {{ link_to(["for": "action-auth",'controller':'translation','action':''], 'Знайти строку','class':'btn-link') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -61,8 +61,8 @@
                 <div class="collapse" id="pages_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
-                            <li>smth</li>
-                            <li>smth</li>
+                            <li>{{ link_to(["for": "action-auth",'controller':'page','action':'form'], 'Створити нову','class':'btn-link') }}</li>
+                            <li>{{ link_to(["for": "action-auth",'controller':'page','action':'form'], 'Всі сторінки','class':'btn-link') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -76,9 +76,9 @@
                 <div class="collapse" id="route_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
-                            <li>Створити</li>
-                            <li>Видалити масово</li>
-                            <li>Опублікувати</li>
+                            <li>{{ link_to(["for": "action-auth",'controller':'route','action':'form'], 'Створити','class':'btn-link') }}</li>
+                            <li>{{ link_to(["for": "action-auth",'controller':'route','action':''], 'Видалити масово','class':'btn-link') }}</li>
+                            <li>{{ link_to(["for": "action-auth",'controller':'route','action':''], 'Опублікувати','class':'btn-link') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
             <li>
                 <a class="btn btn-link collapsed" data-toggle="collapse" href="#blog_collapse" role="button"
                    aria-expanded="false"
-                   aria-controls="collapse">blog</a>
+                   aria-controls="collapse">Блоги</a>
                 <div class="collapse" id="blog_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
@@ -98,7 +98,10 @@
             </li>
             <li>
                 <a class="btn btn-link collapsed" data-toggle="collapse" href="#companies_list_collapse" role="button"
-                   aria-expanded="false" aria-controls="collapse">companies list</a>
+                   aria-expanded="false" aria-controls="collapse">Компанії-перевізники </a>
+                {% if router.getControllerName()!='company' %}
+                    {{ link_to(["for": "action-auth",'controller':'company','action':''], '<i class="material-icons">list</i>','class':'btn-link') }}
+                {% endif %}
                 <div class="collapse" id="companies_list_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">

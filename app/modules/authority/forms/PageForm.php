@@ -59,10 +59,11 @@ class PageForm extends Form
 			"useEmpty" => true,
 			"emptyText" => "оберіть мову",
 			"emptyValue" => "",
-			"class" => "form-control $language_disabled",
-		]
-		);
-		$lang_f->setLabel("Language of page");
+			"class" => "form-control",
+		]		);
+		$lang_f->setLabel("Language of page")
+				->setAttribute('disabled',$language_disabled);
+
 		$this->add($lang_f);
 		$this->add($page_type);
 		if ($page->page_type == PageParser::DYNAMIC_PAGE) {

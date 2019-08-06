@@ -70,6 +70,7 @@ class PageManager extends Kernel
 			'group'=>'module_name'
 		]);
 		$lang_codes=LanguageParser::ListLanguages();
+
 		$availables=[];
 		for($i=0;$i<count($universal_page);$i++){
 			$langs=explode(',',$universal_page[$i]->lang_id);
@@ -78,12 +79,10 @@ class PageManager extends Kernel
 			foreach ($langs as $avail){
 				$temp[$avail] = $lang_codes[$avail];
 			}
-
 			$availables[$i]=$universal_page[$i]->toArray();
-			sort($temp);
+			asort($temp);
 			$availables[$i]['available_langs']= array_reverse($temp,true);
 			unset($temp, $availables[$i]['lang_id']);
-
 		}
 
 		return $availables;
