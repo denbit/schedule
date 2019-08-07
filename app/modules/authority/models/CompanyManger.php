@@ -15,6 +15,6 @@ class CompanyManger extends Kernel
 		$companies=Company::find([
 			'limit'=>$index
 		]);
-		return $companies->toArray();
+		return $companies;
 	}
 }
