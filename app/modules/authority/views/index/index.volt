@@ -3,7 +3,15 @@
 {% block content %}
 
     {{ super() }}
-{{ dump(statistics) }}
+	<div class="card">
+		<div class="card-title"> System statistics</div>
+		<div class="card-body">
+			{% for index,item in statistics %}
+			<p><b>{{ index|upper }}: </b> {{ item }}</p>
+			{% endfor %}
+		</div>
+	</div>
+
 
     <script>
 		$(document).ready(function() {
