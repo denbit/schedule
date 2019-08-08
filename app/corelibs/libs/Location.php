@@ -330,11 +330,24 @@ class Location extends Kernel
 		$tree = [];
 		switch (get_class($start)) {
 			case States::class:
+				$tree[$start->getId()] = [
+					'name' => $start->getLatinName(),
+					'children' => [],
+				];
 				$cities = self::getRegionalCitiesByState($start);
 				foreach ($cities as $city){
+					$tree[$start->getId()]['children'] [$city->getId()] = [
+						'name' => $city->getLatinName(),
+						'children' => [],
+					];
 					$regions = self::getRegionsByRegionalCity($city);
 					foreach ($regions as $region){
-						self::getCityByRegion($region);
+						$tree[$start->getId()]['children'] [$city->getId()] ['children'] = [];
+						$towns = self::getCityByRegion($region);
+						foreach ($towns as $town) {
+							$tree[$start->getId()]['children'] [$city->getId()] ['children'][$town->getId(
+							)] = $town->getLatinName();
+						}
 					}
 				}
 				break;
