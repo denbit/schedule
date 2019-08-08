@@ -34,7 +34,7 @@ class RouteConstructor extends Kernel
         $route->setStartStation($start_id);
         $route->setEndStation($end_id);
         $route->setRegularity($busroute->getRegularity());
-        $route->setMadeBy($busroute->getMadeBy());
+        $route->setMadeBy($busroute->getMadeBy()->getId());
         if(!$route->save()){
             $this->db->rollback();
         return  false;
