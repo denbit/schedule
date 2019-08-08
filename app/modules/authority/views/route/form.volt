@@ -98,6 +98,9 @@ border-radius: 5px;">
 								<input type="time" class="form-control" name="end_time${i}"></td>
 							</tr>`;
 				$('#transit_wrapper').append(block);
+				$(`[name="end_st${i}"], [name="start_st${i}"]`).each(function(i, e){
+					$(this).autocomplete(getObject(e))});
+
 				/*process existing data...*/
 				let end = `[name^=end_st${i}]`;
 				let prev_end = `[name^=end_st${i - 1}]`;
@@ -107,6 +110,7 @@ border-radius: 5px;">
 				$(prev_end).val('');
 				$(prev_end).attr('data-value', '');
 				$(prev_end).prop('readonly', false);
+
 			}
 
 
