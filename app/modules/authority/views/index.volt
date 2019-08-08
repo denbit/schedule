@@ -84,10 +84,13 @@
                 </div>
             </li>
             <li>
-                <a class="btn btn-link collapsed" data-toggle="collapse" href="#blog_collapse" role="button"
+                <a class="btn btn-link collapsed" data-toggle="collapse" href="#location_collapse" role="button"
                    aria-expanded="false"
-                   aria-controls="collapse">Блоги</a>
-                <div class="collapse" id="blog_collapse">
+                   aria-controls="collapse">Розташування</a>
+                {% if router.getControllerName()!='location' %}
+                    {{ link_to(["for": "action-auth",'controller':'location','action':''], '<i class="material-icons">list</i>','class':'btn-link') }}
+                {% endif %}
+                <div class="collapse" id="location_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
                             <li>smth</li>

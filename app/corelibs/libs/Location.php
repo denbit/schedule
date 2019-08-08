@@ -335,13 +335,13 @@ class Location extends Kernel
 					'children' => [],
 				];
 				$cities = self::getRegionalCitiesByState($start);
-				foreach ($cities as $city){
+				foreach ($cities as $city) {
 					$tree[$start->getId()]['children'] [$city->getId()] = [
 						'name' => $city->getLatinName(),
 						'children' => [],
 					];
 					$regions = self::getRegionsByRegionalCity($city);
-					foreach ($regions as $region){
+					foreach ($regions as $region) {
 						$tree[$start->getId()]['children'] [$city->getId()] ['children'] [$region->id] = [
 							'name' => $region->latin_name,
 							'children' => [],
@@ -349,8 +349,7 @@ class Location extends Kernel
 						$towns = self::getCityByRegion($region);
 						foreach ($towns as $town) {
 							$tree[$start->getId()]['children'] [$city->getId(
-							)] ['children'][$region->id] ['children'][$town->getId(
-							)] = $town->getLatinName();
+							)] ['children'][$region->id] ['children'][$town->getId()] = $town->getLatinName();
 						}
 					}
 				}

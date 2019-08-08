@@ -17,7 +17,18 @@ class LocationController extends ControllerBase
 
 		$locationManager = new LocationManager();
 		$overview = $locationManager->getOverview();
-		$this->view->setVar('overview', $overview);
+		$string = '';
+		$closere = function ($item, $key, $closere) use (&$string) {
+			$string .= "<li data=$key> <button class=\"btn btn-link collapsed\" data-toggle=\"collapse\" href=\"#{$item['name']}_collapse\" role=\"button\" aria-expanded=\"false\" aria-controls=\"collapse\">{$item['name']}</button><ul class=\"collapse\" id=\"{$item['name']}_collapse\">";
+			if (is_array($item) && is_array($item['children'])) {
+				array_walk($item['children'], $closere, $closere);
+			}
+			$string .= "</ul></li>";
+		};
+
+		array_walk($overview['per_state'], $closere, $closere);
+		$this->view->setVar('overview', (object)$overview);
+		$this->view->setVar('string', $string);
     }
 
 }

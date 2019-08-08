@@ -34,7 +34,7 @@ class PageManager extends Kernel
 		);
 
 		$context = stream_context_create($opts);
-		if ($stream = fopen($_SERVER['HTTP_HOST'].'/list/main', 'r',false, $context)) {
+		if ($stream = fopen('http://'.$_SERVER['HTTP_HOST'].'/list/main', 'r', false, $context)) {
 			// вывести всю страницу начиная со смещения 10
 			$controllers = json_decode(stream_get_contents($stream));
 			fclose($stream);

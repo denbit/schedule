@@ -49,7 +49,6 @@ class PageForm extends Form
 		$module->setLabel("Назва модуля");
 		$this->add($module);
 		$lang = Languages::findFirst(['lang_code like "en"']);
-		$language_disabled = $options->edit?'disabled':'';
 		$lang_f = new Select(
 			'language', $lang->allangs, [
 			'using' => [
@@ -61,8 +60,10 @@ class PageForm extends Form
 			"emptyValue" => "",
 			"class" => "form-control",
 		]		);
-		$lang_f->setLabel("Language of page")
-				->setAttribute('disabled',$language_disabled);
+		$lang_f->setLabel("Language of page");
+		if ($options->edit) {
+			$lang_f->setAttribute('disabled', 'disabled');
+		}
 
 		$this->add($lang_f);
 		$this->add($page_type);

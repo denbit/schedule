@@ -21,11 +21,12 @@ class LocationManager
 			'local_regions' => LocalRegions::count(),
 			'stations' =>Stations::count()
 		];
+		$list = array_change_key_case($list, CASE_UPPER);
 		$per_state = new Location();
 		$per_state->addState(States::getOneByAnyName('Ukraine'));
 		$per_state_tree = $per_state->buildTree();
 		$result_set = [
-			'overview' => $list,
+			'list' => $list,
 			'per_state' => $per_state_tree,
 		];
 
