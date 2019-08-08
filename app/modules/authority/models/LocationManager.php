@@ -21,7 +21,11 @@ class LocationManager
 			'local_regions' => LocalRegions::count(),
 			'stations' =>Stations::count()
 		];
-		$per_state = [Location::findAllLocation()];
+		$per_state = new Location();
+		$per_state->addState(States::getOneByAnyName('Ukraine'));
+		$tree = $per_state->buildTree();
+		var_dump($tree);
+		die;
 		$per_local_regin = [];
 
 	}

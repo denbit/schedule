@@ -29,6 +29,63 @@ class Cities extends Model
     public $local_district_id;
     public $country_id;
 
+	/**
+	 * @return mixed
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getLatinName()
+	{
+		return $this->latin_name;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getCyrName()
+	{
+		return $this->cyr_name;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getNationalName()
+	{
+		return $this->national_name;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getIsRegional()
+	{
+		return $this->is_regional;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getLocalDistrictId()
+	{
+		return $this->local_district_id;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getCountryId()
+	{
+		return $this->country_id;
+	}
+
+
     public function initialize()
     {
         $this->hasMany('id',Stations::class,'city_id',['alias'=>'stations']);
