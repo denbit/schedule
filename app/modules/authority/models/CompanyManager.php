@@ -7,7 +7,7 @@ namespace Schedule\Modules\Authority\Models;
 use Schedule\Core\Kernel;
 use Schedule\Core\Models\Company;
 
-class CompanyManger extends Kernel
+class CompanyManager extends Kernel
 {
 
 	public function getList($index=5)

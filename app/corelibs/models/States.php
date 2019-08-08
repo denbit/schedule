@@ -11,6 +11,12 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
+/**
+ * Class States
+ * @package Schedule\Core\Models
+ * @property Cities $cities
+ * @method getCities()
+ */
 class States extends Model
 {
     public $id;
@@ -48,6 +54,11 @@ class States extends Model
     public function getNationalName()
     {
         return $this->national_name;
+    }
+
+	public function initialize()
+	{
+		$this->hasMany('id',Cities::class,'country_id',['alias'=>'cities']);
     }
 
     public function getSource()

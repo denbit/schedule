@@ -16,6 +16,7 @@ use Phalcon\Mvc\Model;
  *
  * @package Schedule\Core\Models
  * @property States $current_state
+ * * @property LocalRegions[] $local_regions
  * @property Stations[] $stations
  */
 class Cities extends Model
@@ -31,7 +32,8 @@ class Cities extends Model
     public function initialize()
     {
         $this->hasMany('id',Stations::class,'city_id',['alias'=>'stations']);
-        $this->hasOne('country_id',States::class,'id',['alias'=>'current_state']);
+		$this->hasMany('id',LocalRegions::class,'belongs_to_region',['alias'=>'local_regions']);
+        $this->belongsTo('country_id',States::class,'id',['alias'=>'current_state']);
     }
 
     public function getSource()
