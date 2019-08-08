@@ -14,10 +14,10 @@ class LocationController extends ControllerBase
 	use NotFound;
     public function indexAction()
     {
-		$cities = Location::getRegionalCitiesByState(States::findFirst(['latin_name'=>'Ukraine']));
+
 		$locationManager = new LocationManager();
-		$locationManager->getOverview();
-		var_dump($cities->toArray());die;
+		$overview = $locationManager->getOverview();
+		$this->view->setVar('overview', $overview);
     }
 
 }

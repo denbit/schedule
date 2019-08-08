@@ -99,9 +99,10 @@ class Cities extends Model
     }
 
 
-    public static function getIdByAnyName($county_id,$name)
+	public static function getOneByAnyName($county_id, $name)
     {
-        return self::find([
+		return self::findFirst(
+			[
             'conditions'=>"(latin_name like ?0 or cyr_name like ?0 or national_name like ?0) and country_id=?1",
             'bind'=>[$name."%",$county_id]
         ]);

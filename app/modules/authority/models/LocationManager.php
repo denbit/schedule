@@ -22,11 +22,13 @@ class LocationManager
 			'stations' =>Stations::count()
 		];
 		$per_state = new Location();
-		$per_state->addCity(Cities::getOneByAnyName('Київ'));
-		$tree = $per_state->buildTree();
-		var_dump($tree);
-		die;
-		$per_local_regin = [];
+		$per_state->addState(States::getOneByAnyName('Ukraine'));
+		$per_state_tree = $per_state->buildTree();
+		$result_set = [
+			'overview' => $list,
+			'per_state' => $per_state_tree,
+		];
 
+		return $result_set;
 	}
 }
