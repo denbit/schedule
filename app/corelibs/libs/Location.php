@@ -342,18 +342,38 @@ class Location extends Kernel
 					];
 					$regions = self::getRegionsByRegionalCity($city);
 					foreach ($regions as $region){
-						$tree[$start->getId()]['children'] [$city->getId()] ['children'] = [];
+						$tree[$start->getId()]['children'] [$city->getId()] ['children'] [$region->id] = [
+							'name' => $region->latin_name,
+							'children' => [],
+						];
 						$towns = self::getCityByRegion($region);
 						foreach ($towns as $town) {
-							$tree[$start->getId()]['children'] [$city->getId()] ['children'][$town->getId(
+							$tree[$start->getId()]['children'] [$city->getId(
+							)] ['children'][$region->id] ['children'][$town->getId(
 							)] = $town->getLatinName();
 						}
 					}
 				}
 				break;
 			case Cities::class:
+				$regions = self::getRegionsByRegionalCity($start);
+				foreach ($regions as $region) {
+					$tree[$start->getId()] ['children'] [$region->id] = [
+						'name' => $region->latin_name,
+						'children' => [],
+					];
+					$towns = self::getCityByRegion($region);
+					foreach ($towns as $town) {
+						$tree[$start->getId()] ['children'][$region->id] ['children'][$town->getId(
+						)] = $town->getLatinName();
+					}
+				}
 				break;
 			case LocalRegions::class:
+				$towns = self::getCityByRegion($start);
+				foreach ($towns as $town) {
+					$tree[$start->getId()] ['children'][$town->getId()] = $town->getLatinName();
+				}
 				break;
 		}
 

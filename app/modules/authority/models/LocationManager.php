@@ -22,7 +22,7 @@ class LocationManager
 			'stations' =>Stations::count()
 		];
 		$per_state = new Location();
-		$per_state->addState(States::getOneByAnyName('Ukraine'));
+		$per_state->addCity(Cities::getOneByAnyName('Київ'));
 		$tree = $per_state->buildTree();
 		var_dump($tree);
 		die;
