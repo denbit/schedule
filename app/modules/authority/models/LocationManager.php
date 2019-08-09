@@ -52,6 +52,20 @@ class LocationManager extends Kernel
 
 	}
 
+	public function addItem($item_to_add, $parent_entity)
+	{
+
+	}
+
+	public function getParent( string $category, int $id)
+	{
+
+	}
+
+	public function getInstanceFromData( string $caterogy ,array $data)
+	{
+
+	}
 
 	private function get_template($key, $item)
 	{

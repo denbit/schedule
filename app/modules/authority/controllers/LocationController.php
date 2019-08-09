@@ -36,10 +36,23 @@ class LocationController extends ControllerBase
 		$this->view->setVar('list_tree', $overview->tree_list);
     }
 
-	public function addItemAction()
+	public function saveItemAction()
 	{
+		$category = $this->dispatcher->getParam('category');
+		$parent_category = $this->dispatcher->getParam('parent_category');
+		$parent_id = $this->dispatcher->getParam('parent_id');
+		$post_data =$this->request->getPost();
+		$locationManager = new LocationManager();
+		$ItemInstance= $locationManager->getInstanceFromData($category,$post_data);
+		$parentEntity = $locationManager->getParent($parent_category,$parent_id);
+		$locationManager->addItem($ItemInstance,$parentEntity);
+
 		die('loook');
     }
+	public function addItemAction()
+	{
+		
+	}
 
 }
 

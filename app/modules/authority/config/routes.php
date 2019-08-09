@@ -55,4 +55,11 @@ $authority->addGet('/location/add/([a-z\_]{3,})/to/([a-z\_]+)/([0-9]+)', [
 	'parent_category'=>2,
 	'parent_id'=>3
 ])->setName("action-add-location");
+$authority->addPost('/location/save/([a-z\_]{3,})/to/([a-z\_]+)/([0-9]+)', [
+	'controller' => 'location',
+	'action' => 'addItem',
+	'category' =>1,
+	'parent_category'=>2,
+	'parent_id'=>3
+])->setName("action-save-location");
 $router->mount($authority);
