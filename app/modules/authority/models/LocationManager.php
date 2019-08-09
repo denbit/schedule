@@ -43,7 +43,7 @@ class LocationManager extends Kernel
 			if (is_array($item) && is_array($item['children'])) {
 				array_walk($item['children'], $closere, $closere);
 			}
-			$string .= "</ul></li>";
+			$string .=  $this->getPartialTemplate('locationTreeEnd');
 		};
 
 		array_walk($tree, $closere, $closere);

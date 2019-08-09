@@ -19,7 +19,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col">{{ string }}</div>
+		<div class="col">{{ list_tree }}</div>
 	</div>
 
 {% endblock %}

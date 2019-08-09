@@ -10,6 +10,7 @@ namespace Schedule\Core;
 
 use Phalcon\Mvc\View;
 use Schedule\Core\Models\Languages;
+use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 
 /**
  * Phalcon\Di\Injectable
@@ -89,9 +90,16 @@ class Kernel
 	public function getPartialTemplate($template,...$vars){
 		$view_inst= new View\Simple();
 		$view_dir = $this->di->getConfig()->get('application')->partialViewDir;
-		$view_inst->setViewsDir($view_dir);
-		$view_inst->setVars($vars);
-		return $view_inst->render($template);
+		$view_inst->setViewsDir(APP_PATH . $view_dir);
+		$view_inst->registerEngines([
+			'.volt' => function ($simpleView, $di) {
+				$volt = new VoltEngine($simpleView, $di);
+				return $volt;
+			}
+		]);
+		$view_inst->setDI($this->di);
+		$view_inst->setVars($vars[0]);
+		return $view_inst->render($template.'.volt');
 
 	}
 	public static function getLanguageId(string $lang): int
