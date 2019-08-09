@@ -51,6 +51,7 @@ class LocationManager
 
 	}
 
+
 	private function get_template($key, $item)
 	{
 		return <<< HTML

@@ -12,6 +12,20 @@ use Schedule\Modules\Authority\Models\LocationManager;
 class LocationController extends ControllerBase
 {
 	use NotFound;
+
+	private $location_nodes = [];
+
+	public function initialize()
+	{
+		$this->location_nodes = [
+			'states'=>'state',
+			'cities'=>'city',
+			'localRegions'=>'local_region',
+			'stations'=>'station'
+		];
+		$this->view->setVar('location_nodes',(object) $this->location_nodes);
+
+	}
     public function indexAction()
     {
 
@@ -20,6 +34,11 @@ class LocationController extends ControllerBase
 
 		$this->view->setVar('overview', $overview);
 		$this->view->setVar('list_tree', $overview->tree_list);
+    }
+
+	public function addItemAction()
+	{
+		die('loook');
     }
 
 }
