@@ -18,13 +18,19 @@ use Phalcon\Mvc\Model;
  */
 class LocalRegions extends Model implements LocationNodeInterface
 {
+public $id;
+public $latin_name;
+public $national_name;
+public $cyr_name;
+public $belongs_to_region;
 	/**
 	 * @param array $fields Fields of model $fieldName => Phalcon\Db\Column Dype
 	 * @return array of editable column
 	 */
 	public function getFields(array $fields)
 	{
-		// TODO: Implement getFields() method.
+		unset($fields['belongs_to_region']);
+		return $fields;
 	}
 
 	/**
@@ -33,7 +39,7 @@ class LocalRegions extends Model implements LocationNodeInterface
 	 */
 	public function setParentId(int $id)
 	{
-		// TODO: Implement setParentId() method.
+		$this->belongs_to_region = $id;
 	}
 
 

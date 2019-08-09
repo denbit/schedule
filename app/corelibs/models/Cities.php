@@ -27,6 +27,7 @@ class Cities extends Model implements LocationNodeInterface
     public $national_name;
     public $is_regional;
     public $local_district_id;
+    public $belongs_to_region;
 
 	/**
 	 * @param array $fields Fields of model $fieldName => Phalcon\Db\Column Dype
@@ -34,7 +35,8 @@ class Cities extends Model implements LocationNodeInterface
 	 */
 	public function getFields(array $fields)
 	{
-		// TODO: Implement getFields() method.
+		unset( $fields['country_id'], $fields['belongs_to_region'], $fields['local_district_id']);
+		return $fields;
 	}
 
 	/**
@@ -43,7 +45,10 @@ class Cities extends Model implements LocationNodeInterface
 	 */
 	public function setParentId(int $id)
 	{
-		// TODO: Implement setParentId() method.
+		if ($this->is_regional)
+			$this->country_id = $id;
+		else
+			$this->belongs_to_region;
 	}
 
 	public $country_id;

@@ -126,7 +126,7 @@ class Location extends Kernel
 	{
 		$class = new  \ReflectionClass(States::class);
 		$namespace = $class->getNamespaceName();
-		 return $nodeName = $namespace . array_flip(self::$location_nodes)[$c];
+		 return $nodeName = $namespace .'\\'. array_flip(self::$location_nodes)[$c];
 
 }
 

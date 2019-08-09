@@ -42,7 +42,8 @@ class RouteController extends ControllerBase
 	{
 		$form_instance=RouteManager::getForm();
 		if( $form_instance->isValid($this->request->getPost())){
-			$form_instance->getEntity()->save();
+			$x=$form_instance->getEntity()->save();
+			var_dump($x);
 		}
 
 die('i have stopped');

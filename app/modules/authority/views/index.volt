@@ -129,7 +129,7 @@
     <script src="/js/common.main.js" async></script>
 {% endblock %}
 
-{% if this.flash %}
+{% if this.flashSession %}
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="placeholderModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -138,7 +138,7 @@
                 <h4 class="modal-title" id="placeholderModalLabel">Modal Heading</h4>
             </div>
             <div class="modal-body">
-                {{ flash.output() }}
+                {{ flashSession.output() }}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default modal-footer-close" data-dismiss="modal">Modal button</button>

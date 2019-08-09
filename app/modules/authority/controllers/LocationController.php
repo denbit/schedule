@@ -29,6 +29,7 @@ class LocationController extends ControllerBase
 		$locationManager = new LocationManager();
 		$overview = $locationManager->getOverview();
 
+
 		$this->view->setVar('overview', $overview);
 		$this->view->setVar('list_tree', $overview->tree_list);
     }
@@ -49,17 +50,19 @@ class LocationController extends ControllerBase
 	public function addItemAction()
 	{
 		$this->view->disable();
-		if ($this->request->isAjax()){
+		if (!$this->request->isAjax()){
 			$category = $this->dispatcher->getParam('category');
 			$parent_category = $this->dispatcher->getParam('parent_category');
 			$parent_id = $this->dispatcher->getParam('parent_id');
 			$locationManager = new LocationManager();
 			$parentEntity = $locationManager->getParent($parent_category,$parent_id);
 			$fields = $locationManager->getFields($category);
+
 			$view = $locationManager->getPartialTemplate('add_node',[
 				'parent_node'=>$parentEntity,
-				'fields' =>$fields
+				'fields' =>array_keys($fields)
 			]);
+			$this->flash->success('Getting data');
 			return $view;
 
 		}

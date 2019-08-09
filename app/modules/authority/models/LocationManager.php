@@ -59,9 +59,17 @@ class LocationManager extends Kernel
 
 	}
 
+	/**
+	 * @param Model $item_to_add|LocationNodeInterface
+	 * @param Model $parent_entity|LocationNodeInterface
+	 * @return bool
+	 * @throws Model\Exception
+	 */
 	public function addItem(Model $item_to_add, Model $parent_entity)
 	{
-		$item_to_add->assign(['map' => $parent_entity->getId()]);
+		$item_to_add->setParentId($parent_entity->getId());
+		$item_to_add->assign(['map' =>'' ]);
+
 		if (!$item_to_add->create()) {
 			$messages = $item_to_add->getMessages();
 			throw new Model\Exception(implode("\n", $messages));
@@ -104,11 +112,12 @@ class LocationManager extends Kernel
 			/**
 			 * @var $node Model|LocationNodeInterface
 			 */
-			$locationNode = new (Location::getNodeName($category))();
+			$locationNodeName=Location::getNodeName($category);
+			$locationNode = new $locationNodeName();
 			$metadata = $locationNode->getModelsMetaData();
 			$dataTypes = $metadata->getDataTypes($locationNode);
 
-			$nodeFields = $locationNode::getFields($dataTypes);
+			$nodeFields = $locationNode->getFields($dataTypes);
 
 			return $nodeFields;
 		}
