@@ -98,7 +98,9 @@ class Kernel
 			}
 		]);
 		$view_inst->setDI($this->di);
-		$view_inst->setVars($vars[0]);
+		if($vars){
+			$view_inst->setVars($vars[0]);
+		}
 		return $view_inst->render($template.'.volt');
 
 	}
