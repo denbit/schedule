@@ -13,17 +13,12 @@ class LocationController extends ControllerBase
 {
 	use NotFound;
 
-	private $location_nodes = [];
+
 
 	public function initialize()
 	{
-		$this->location_nodes = [
-			'states'=>'state',
-			'cities'=>'city',
-			'localRegions'=>'local_region',
-			'stations'=>'station'
-		];
-		$this->view->setVar('location_nodes',(object) $this->location_nodes);
+
+		$this->view->setVar('location_nodes',(object) Location::$location_nodes);
 
 	}
     public function indexAction()
@@ -51,7 +46,7 @@ class LocationController extends ControllerBase
     }
 	public function addItemAction()
 	{
-		
+
 	}
 
 }

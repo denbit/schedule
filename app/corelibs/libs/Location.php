@@ -16,6 +16,12 @@ use Schedule\Core\Models\Stations;
 
 class Location extends Kernel
 {
+	public static $location_nodes = [
+		'States'=>'state',
+		'Cities'=>'city',
+		'LocalRegions'=>'local_region',
+		'Stations'=>'station'
+	];
 	/**
 	 * @var States
 	 */
@@ -116,6 +122,13 @@ class Location extends Kernel
 
 	}
 
+	public static function getNodeName($c)
+	{
+		$class = new  \ReflectionClass(States::class);
+		$namespace = $class->getNamespaceName();
+		 return $nodeName = $namespace . array_flip(self::$location_nodes)[$c];
+
+}
 
 	public static function findAllLocation(
 		States $state,
@@ -332,24 +345,30 @@ class Location extends Kernel
 			case States::class:
 				$tree[$start->getId()] = [
 					'name' => $start->getLatinName(),
+					'category'=>'States',
 					'children' => [],
 				];
 				$cities = self::getRegionalCitiesByState($start);
 				foreach ($cities as $city) {
 					$tree[$start->getId()]['children'] [$city->getId()] = [
 						'name' => $city->getLatinName(),
+						'category'=>'Cities',
 						'children' => [],
 					];
 					$regions = self::getRegionsByRegionalCity($city);
 					foreach ($regions as $region) {
 						$tree[$start->getId()]['children'] [$city->getId()] ['children'] [$region->id] = [
 							'name' => $region->latin_name,
+							'category'=>'LocalRegions',
 							'children' => [],
 						];
 						$towns = self::getCityByRegion($region);
 						foreach ($towns as $town) {
 							$tree[$start->getId()]['children'] [$city->getId(
-							)] ['children'][$region->id] ['children'][$town->getId()] = $town->getLatinName();
+							)] ['children'][$region->id] ['children'][$town->getId()] =[
+								'name'=> $town->getLatinName(),
+								'category'=>'Cities'
+							];
 						}
 					}
 				}

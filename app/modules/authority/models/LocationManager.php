@@ -4,6 +4,8 @@
 namespace Schedule\Modules\Authority\Models;
 
 
+use Phalcon\Exception;
+use Phalcon\Mvc\Model;
 use Schedule\Core\Kernel;
 use Schedule\Core\Location;
 use Schedule\Core\Models\Cities;
@@ -39,11 +41,11 @@ class LocationManager extends Kernel
 	{
 		$string = '';
 		$closere = function ($item, $key, $closere) use (&$string) {
-			$string .= $this->getPartialTemplate('locationTree',['key'=>$key, 'item'=>$item]);
+			$string .= $this->getPartialTemplate('locationTree',['key'=>$key, 'item'=>$item,'nodeNames'=> Location::$location_nodes]);
 			if (is_array($item) && is_array($item['children'])) {
 				array_walk($item['children'], $closere, $closere);
 			}
-			$string .=  $this->getPartialTemplate('locationTreeEnd');
+			$string .=  $this->getPartialTemplate('locationTreeEnd',['key'=>$key, 'item'=>$item]);
 		};
 
 		array_walk($tree, $closere, $closere);
@@ -52,19 +54,40 @@ class LocationManager extends Kernel
 
 	}
 
-	public function addItem($item_to_add, $parent_entity)
+	public function addItem( Model $item_to_add, Model $parent_entity)
 	{
-
+		$item_to_add->assign( ['map'=>$parent_entity->getId()]);
+		if (! $item_to_add->create()){
+			$messages = $item_to_add->getMessages();
+			throw new Model\Exception(implode("\n",$messages));
+		}
+		return true;
 	}
 
 	public function getParent( string $category, int $id)
 	{
-
+		if ( in_array($category,Location::$location_nodes)){
+			/**
+			 * @var $locationNode Model
+			 */
+			$locationNode = Location::getNodeName($category);
+			return $locationNode::findFirst($id);
+		}
+		throw new Exception("$category is not location node");
 	}
 
-	public function getInstanceFromData( string $caterogy ,array $data)
+	public function getInstanceFromData( string $category ,array $data)
 	{
-
+		if ( in_array($category,Location::$location_nodes)){
+			/**
+			 * @var $node Model
+			 */
+			$locationNode = Location::getNodeName($category);
+			$node = new $locationNode();
+			$node->assign($data);
+			return $node;
+		}
+		throw new Exception("$category is not location node");
 	}
 
 	private function get_template($key, $item)
