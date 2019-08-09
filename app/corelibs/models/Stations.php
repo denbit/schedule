@@ -16,7 +16,7 @@ use Phalcon\Mvc\Model;
  * @property StationsTranslations $translation
  * @package Schedule\Core\Models
  */
-class Stations extends Model
+class Stations extends Model implements LocationNodeInterface
 {
     private $id;
     private $city_id;
@@ -29,6 +29,24 @@ class Stations extends Model
     {
         return $this->id;
     }
+
+	/**
+	 * @param array $fields Fields of model $fieldName => Phalcon\Db\Column Dype
+	 * @return array of editable column
+	 */
+	public function getFields(array $fields)
+	{
+		// TODO: Implement getFields() method.
+	}
+
+	/**
+	 * @param int $id Id of parent model - specifies the relatin in autofilling
+	 * @return null
+	 */
+	public function setParentId(int $id)
+	{
+		// TODO: Implement setParentId() method.
+	}
 
 	public function copyFromCity(Cities $city)
 	{

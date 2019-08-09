@@ -17,7 +17,7 @@ use Phalcon\Mvc\Model;
  * @property Cities $cities
  * @method getCities()
  */
-class States extends Model
+class States extends Model implements LocationNodeInterface
 {
     public $id;
     public $latin_name;
@@ -32,7 +32,25 @@ class States extends Model
         return $this->id;
     }
 
-    /**
+	/**
+	 * @param array $fields Fields of model $fieldName => Phalcon\Db\Column Dype
+	 * @return array of editable column
+	 */
+	public function getFields(array $fields)
+	{
+		// TODO: Implement getFields() method.
+	}
+
+	/**
+	 * @param int $id Id of parent model - specifies the relatin in autofilling
+	 * @return null
+	 */
+	public function setParentId(int $id)
+	{
+		// TODO: Implement setParentId() method.
+	}
+
+	/**
      * @return mixed
      */
     public function getLatinName()

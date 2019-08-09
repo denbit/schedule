@@ -4,12 +4,14 @@
 namespace Schedule\Modules\Authority\Models;
 
 
+use Phalcon\Db\Column;
 use Phalcon\Exception;
 use Phalcon\Mvc\Model;
 use Schedule\Core\Kernel;
 use Schedule\Core\Location;
 use Schedule\Core\Models\Cities;
 use Schedule\Core\Models\LocalRegions;
+use Schedule\Core\Models\LocationNodeInterface;
 use Schedule\Core\Models\States;
 use Schedule\Core\Models\Stations;
 
@@ -22,7 +24,7 @@ class LocationManager extends Kernel
 			'countries' => States::count(),
 			'cities' => Cities::count(),
 			'local_regions' => LocalRegions::count(),
-			'stations' =>Stations::count()
+			'stations' => Stations::count(),
 		];
 		$list = array_change_key_case($list, CASE_UPPER);
 		$per_state = new Location();
@@ -41,11 +43,14 @@ class LocationManager extends Kernel
 	{
 		$string = '';
 		$closere = function ($item, $key, $closere) use (&$string) {
-			$string .= $this->getPartialTemplate('locationTree',['key'=>$key, 'item'=>$item,'nodeNames'=> Location::$location_nodes]);
+			$string .= $this->getPartialTemplate(
+				'locationTree',
+				['key' => $key, 'item' => $item, 'nodeNames' => Location::$location_nodes]
+			);
 			if (is_array($item) && is_array($item['children'])) {
 				array_walk($item['children'], $closere, $closere);
 			}
-			$string .=  $this->getPartialTemplate('locationTreeEnd',['key'=>$key, 'item'=>$item]);
+			$string .= $this->getPartialTemplate('locationTreeEnd', ['key' => $key, 'item' => $item]);
 		};
 
 		array_walk($tree, $closere, $closere);
@@ -54,38 +59,58 @@ class LocationManager extends Kernel
 
 	}
 
-	public function addItem( Model $item_to_add, Model $parent_entity)
+	public function addItem(Model $item_to_add, Model $parent_entity)
 	{
-		$item_to_add->assign( ['map'=>$parent_entity->getId()]);
-		if (! $item_to_add->create()){
+		$item_to_add->assign(['map' => $parent_entity->getId()]);
+		if (!$item_to_add->create()) {
 			$messages = $item_to_add->getMessages();
-			throw new Model\Exception(implode("\n",$messages));
+			throw new Model\Exception(implode("\n", $messages));
 		}
+
 		return true;
 	}
 
-	public function getParent( string $category, int $id)
+	public function getParent(string $category, int $id)
 	{
-		if ( in_array($category,Location::$location_nodes)){
+		if (in_array($category, Location::$location_nodes)) {
 			/**
 			 * @var $locationNode Model
 			 */
 			$locationNode = Location::getNodeName($category);
+
 			return $locationNode::findFirst($id);
 		}
 		throw new Exception("$category is not location node");
 	}
 
-	public function getInstanceFromData( string $category ,array $data)
+	public function getInstanceFromData(string $category, array $data)
 	{
-		if ( in_array($category,Location::$location_nodes)){
+		if (in_array($category, Location::$location_nodes)) {
 			/**
 			 * @var $node Model
 			 */
 			$locationNode = Location::getNodeName($category);
 			$node = new $locationNode();
 			$node->assign($data);
+
 			return $node;
+		}
+		throw new Exception("$category is not location node");
+	}
+
+	public function getFields($category)
+	{
+		if (in_array($category, Location::$location_nodes)) {
+			/**
+			 * @var $node Model|LocationNodeInterface
+			 */
+			$locationNode = new (Location::getNodeName($category))();
+			$metadata = $locationNode->getModelsMetaData();
+			$dataTypes = $metadata->getDataTypes($locationNode);
+
+			$nodeFields = $locationNode::getFields($dataTypes);
+
+			return $nodeFields;
 		}
 		throw new Exception("$category is not location node");
 	}

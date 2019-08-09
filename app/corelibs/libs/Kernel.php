@@ -87,7 +87,7 @@ class Kernel
 //		}
 	}
 
-	public function getPartialTemplate($template,...$vars){
+	public function getPartialTemplate($template,$vars=null){
 		$view_inst= new View\Simple();
 		$view_dir = $this->di->getConfig()->get('application')->partialViewDir;
 		$view_inst->setViewsDir(APP_PATH . $view_dir);
@@ -99,7 +99,7 @@ class Kernel
 		]);
 		$view_inst->setDI($this->di);
 		if($vars){
-			$view_inst->setVars($vars[0]);
+			$view_inst->setVars($vars);
 		}
 		return $view_inst->render($template.'.volt');
 

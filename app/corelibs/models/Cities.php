@@ -19,7 +19,7 @@ use Phalcon\Mvc\Model;
  * * @property LocalRegions[] $local_regions
  * @property Stations[] $stations
  */
-class Cities extends Model
+class Cities extends Model implements LocationNodeInterface
 {
     public $id;
     public $latin_name;
@@ -27,7 +27,26 @@ class Cities extends Model
     public $national_name;
     public $is_regional;
     public $local_district_id;
-    public $country_id;
+
+	/**
+	 * @param array $fields Fields of model $fieldName => Phalcon\Db\Column Dype
+	 * @return array of editable column
+	 */
+	public function getFields(array $fields)
+	{
+		// TODO: Implement getFields() method.
+	}
+
+	/**
+	 * @param int $id Id of parent model - specifies the relatin in autofilling
+	 * @return null
+	 */
+	public function setParentId(int $id)
+	{
+		// TODO: Implement setParentId() method.
+	}
+
+	public $country_id;
 
 	/**
 	 * @return mixed
