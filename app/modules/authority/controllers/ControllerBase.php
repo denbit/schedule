@@ -4,6 +4,7 @@ namespace Schedule\Modules\Authority\Controllers;
 use Phalcon\Filter;
 use Phalcon\Forms\Form;
 use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\View;
 use Schedule\Modules\Authority\Models\Login;
 
 class ControllerBase extends Controller
@@ -12,7 +13,7 @@ class ControllerBase extends Controller
 	public function onConstruct()
 	{
 		 if (!$this->logon()){
-return false;
+			 return false;
 		 }
 	}
 
@@ -30,8 +31,8 @@ return false;
 					return true;
 				}
 			}
-			$this->view->form = $form;
 			$this->view->pick('login');
+			$this->view->loginform = $form;
 
 		}
 		return true;

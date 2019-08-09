@@ -91,12 +91,14 @@ $di->setShared('session', function () {
  * Register the session flash service with the Twitter Bootstrap classes
  */
 $di->set('flash', function () {
-    return new Flash([
+    $flash = new Flash([
         'error'   => 'alert alert-danger',
         'success' => 'alert alert-success',
         'notice'  => 'alert alert-info',
         'warning' => 'alert alert-warning'
     ]);
+    //$flash->setImplicitFlush(true);
+    return $flash;
 });
 /**
  * Register the session flash service with the Twitter Bootstrap classes

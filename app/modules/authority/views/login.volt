@@ -10,7 +10,7 @@
 		</style>
 		<div class="card-body">
 {{ form(router.getRewriteUri(), 'method': 'post') }}
-{% for element in form %}
+{% for element in loginform %}
 	<div class="input-group  form-group">
 	<div class="input-group-prepend">
 		{{ element.label(["class": "control-label input-group-text"]) }}

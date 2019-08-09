@@ -1,7 +1,7 @@
 {% extends "index.volt" %}
 
 {% block head %}
-
+    {{ super() }}
         <div class="col">
             <h2>Page Control System</h2>
         </div>

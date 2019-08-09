@@ -128,6 +128,30 @@
 {% block footer %}
     <script src="/js/common.main.js" async></script>
 {% endblock %}
+
+{% if this.flash %}
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="placeholderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="placeholderModalLabel">Modal Heading</h4>
+            </div>
+            <div class="modal-body">
+                {{ flash.output() }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default modal-footer-close" data-dismiss="modal">Modal button</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        $('.modal').modal({
+            show: true
+        });
+    </script>
+{% endif %}
 </body>
 
 </html>

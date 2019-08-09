@@ -23,7 +23,7 @@ class LocationController extends ControllerBase
 	}
     public function indexAction()
     {
-
+		$this->flash->error("trololo");die;
 		$locationManager = new LocationManager();
 		$overview = $locationManager->getOverview();
 
@@ -41,8 +41,8 @@ class LocationController extends ControllerBase
 		$ItemInstance= $locationManager->getInstanceFromData($category,$post_data);
 		$parentEntity = $locationManager->getParent($parent_category,$parent_id);
 		$locationManager->addItem($ItemInstance,$parentEntity);
+		$this->flash->success("$category was created");
 
-		die('loook');
     }
 	public function addItemAction()
 	{
