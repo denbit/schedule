@@ -4,13 +4,14 @@
 namespace Schedule\Modules\Authority\Models;
 
 
+use Schedule\Core\Kernel;
 use Schedule\Core\Location;
 use Schedule\Core\Models\Cities;
 use Schedule\Core\Models\LocalRegions;
 use Schedule\Core\Models\States;
 use Schedule\Core\Models\Stations;
 
-class LocationManager
+class LocationManager extends Kernel
 {
 
 	public function getOverview(): object
@@ -38,7 +39,7 @@ class LocationManager
 	{
 		$string = '';
 		$closere = function ($item, $key, $closere) use (&$string) {
-			$string .= $this->get_template($key, $item);
+			$string .= $this->getPartialTemplate('locationTree',['key'=>$key, 'item'=>$item]);
 			if (is_array($item) && is_array($item['children'])) {
 				array_walk($item['children'], $closere, $closere);
 			}

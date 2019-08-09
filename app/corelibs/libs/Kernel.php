@@ -88,7 +88,7 @@ class Kernel
 
 	public function getPartialTemplate($template,...$vars){
 		$view_inst= new View\Simple();
-		$view_dir = $this->di->config->get('application')->partialViewDir;
+		$view_dir = $this->di->getConfig()->get('application')->partialViewDir;
 		$view_inst->setViewsDir($view_dir);
 		$view_inst->setVars($vars);
 		return $view_inst->render($template);
