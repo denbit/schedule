@@ -303,7 +303,7 @@ class Location extends Kernel
 	 */
 	public static function getRegionalCitiesByState(States $state)
 	{
-		return $state->getCities(['is_regional' => 1]);
+		return $state->getCities(['is_regional = 1']);
 	}
 
 	/**
