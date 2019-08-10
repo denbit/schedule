@@ -129,7 +129,7 @@
     <script src="/js/common.main.js" async></script>
 {% endblock %}
 
-{% if this.flashSession %}
+{% if this.flashSession.has('success') || this.flashSession.has('error') || this.flashSession.has('warning') %}
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="placeholderModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
