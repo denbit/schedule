@@ -8,13 +8,10 @@
     {% block title %}{% set title ='Main' %}   {% endblock %}
     <title>Site Managing system - {{ title |default("Main") }}
     </title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"  >
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('/shared/favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ url('/css/common.css') }}"/>
     <link rel="stylesheet" href="{{ url('/css/authority.css') }}"/>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
+    {{ partial('../../shared_views/css_libs') }}
     {% block head_script %}{% endblock %}
 </head>
 <body>

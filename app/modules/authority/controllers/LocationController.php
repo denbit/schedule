@@ -83,10 +83,23 @@ class LocationController extends ControllerBase
 			$this->flash->success('Getting data');
 
 			return $view;
-
 		}
+	}
 
+	public function editItemAction()
+	{
+		$category = $this->dispatcher->getParam('category');
+		$parent_category = $this->dispatcher->getParam('parent_category');
+		$parent_id = $this->dispatcher->getParam('parent_id');
+		$post_data = $this->request->getPost();
+	}
 
+	public function deleteItemAction()
+	{
+		$category = $this->dispatcher->getParam('category');
+		$parent_category = $this->dispatcher->getParam('parent_category');
+		$parent_id = $this->dispatcher->getParam('parent_id');
+		$post_data = $this->request->getPost();
 	}
 
 	private static function LocationException($message)

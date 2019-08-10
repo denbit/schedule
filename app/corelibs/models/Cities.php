@@ -112,9 +112,9 @@ class Cities extends Model implements LocationNodeInterface
 
     public function initialize()
     {
-        $this->hasMany('id',Stations::class,'city_id',['alias'=>'stations']);
-		$this->hasMany('id',LocalRegions::class,'belongs_to_region',['alias'=>'local_regions']);
-        $this->belongsTo('country_id',States::class,'id',['alias'=>'current_state']);
+        $this->hasMany('id',Stations::class,'city_id',['alias'=>'stations', 'foreignKey' => true]);
+		$this->hasMany('id',LocalRegions::class,'belongs_to_region',['alias'=>'local_regions', 'foreignKey' => true]);
+        $this->belongsTo('country_id',States::class,'id',['alias'=>'current_state',  'foreignKey' => true]);
     }
 
     public function getSource()
