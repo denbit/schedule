@@ -4,6 +4,21 @@
 {% endblock %}
 {% block content %}
 	{{ super() }}
+	<style>
+		.location::after {
+			content: " add";
+			font-size: 12px;
+			color: #888888;
+			margin-left: 10px;
+			margin-bottom: -14px;
+			position: relative;
+			bottom: 10px;
+		}
+
+		.location::after:hover {
+			color: #484e53;
+		}
+	</style>
 	<div class="clearfix m-2  text-right ">
 		{{ link_to(['for':'action-auth','controller':router.getControllerName(),'action':'form'],'Створити нову локацію',['class':'btn btn-info float-right']) }}
 	</div>
