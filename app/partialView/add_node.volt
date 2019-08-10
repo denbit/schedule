@@ -1,4 +1,4 @@
-{{ form(url.get(['for':'action-save-location','category':request.category,'parent_category':request.parent_category,'parent_id':request.parent_id])) }}
+{{ form(url.get(['for':'action-save-location','category':params.category,'parent_category':params.parent_category,'parent_id':params.parent_id])) }}
 	{% for el in fields %}<label>{{ el }} :</label>
 		{{ text_field(el) }}
 	{% endfor %}

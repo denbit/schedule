@@ -68,7 +68,6 @@ class LocationManager extends Kernel
 	public function addItem(Model $item_to_add, Model $parent_entity)
 	{
 		$item_to_add->setParentId($parent_entity->getId());
-		$item_to_add->assign(['map' =>'' ]);
 
 		if (!$item_to_add->create()) {
 			$messages = $item_to_add->getMessages();

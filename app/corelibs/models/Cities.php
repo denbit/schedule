@@ -48,7 +48,7 @@ class Cities extends Model implements LocationNodeInterface
 		if ($this->is_regional)
 			$this->country_id = $id;
 		else
-			$this->belongs_to_region;
+			$this->belongs_to_region=$id;
 	}
 
 	public $country_id;
