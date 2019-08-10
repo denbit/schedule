@@ -3,13 +3,8 @@
 {% block head %}
     {{ super() }}
         <div class="col">
-            <h2>Page Control System</h2>
+            <h2>Система контролю сторінок</h2>
         </div>
-    {% if router.getActionName()!=='index' %}
-            <div class="navbar navbar-light bg-light">{{ link_to(["for": "action-auth",'controller': router.getControllerName(),'action':''],'До списку сторінок','class':'nav-item nav-link') }}</div>
-
-    {% endif %}
-
 {% endblock %}
 {% block content %}
 <body>

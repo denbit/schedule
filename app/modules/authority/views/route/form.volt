@@ -4,7 +4,19 @@
 		  var suggestPath = '{{ url.get(['for':'action-auth','controller':router.getControllerName(),'action':'suggest']) }}';
 	  </script>
   {% endblock %}
- {% block subhead %} Редагувати/Створити маршрут {% endblock %}
+ {% block subhead %}
+  <div class="col" align="left">
+	<h5>
+	{% if router.getActionName()=='edit' %}
+		Редагувати
+ 	{% else %}
+  		Створити
+   	{% endif %}
+   	маршрут
+   </h5>
+ </div>
+
+ {% endblock %}
 {% block content %}
 <div class="row">
 	<div class="col-md-8 card">
@@ -14,7 +26,7 @@
 				{% set id=dispatcher.getParam('id') %}
 			{% endif %}
 			{{ form(url.get(['for':'action-save','controller':router.getControllerName(),'id':id]), 'method': 'post','class':'route-form') }}
-			<h3 class="card-title">Routes Editing </h3>
+
 
 			{% for element in form %}
 				{% if element.getUserOption('common')=='true' %}

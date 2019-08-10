@@ -21,7 +21,15 @@
         <div class="col">
             <img src="/images/authority/top.svg">
         </div>
-        {% block head %}{% endblock %}
+        <div class="col">
+            <div class="row">{% block head %}{% endblock %} </div>
+            <div class="row"> {% block subhead %}{% endblock %}</div>
+        </div>
+		{% if router.getActionName()!=='index' %}
+            <div class="navbar navbar-light bg-light">{{ link_to(["for": "action-auth",'controller': router.getControllerName(),'action':''],'На головну розділу','class':'nav-item nav-link') }}</div>
+
+		{% endif %}
+
     </div>
 
 </div>
@@ -38,7 +46,7 @@
                 <a class=" btn btn-link collapsed" data-toggle="collapse" href="#translations_collapse" role="button"
                    aria-expanded="false" aria-controls="collapse">Переклади</a>
                 {% if router.getControllerName()!='translation' %}
-                    {{ link_to(["for": "action-auth",'controller':'translation','action':''], '<i class="material-icons">list</i>','class':'btn-link') }}
+                    {{ link_to(["for": "action-auth",'controller':'translation','action':''], '<i class="fa fa-bars"></i>','class':'btn-link') }}
                 {% endif %}
                 <div class="collapse" id="translations_collapse">
                     <div class="card card-body local_padding">
@@ -53,7 +61,7 @@
                    aria-expanded="false"
                    aria-controls="collapse"> Сторінки </a>
                 {% if router.getControllerName()!='page' %}
-                    {{ link_to(["for": "action-auth",'controller':'page','action':''], '<i class="material-icons">list</i>','class':'btn-link') }}
+                    {{ link_to(["for": "action-auth",'controller':'page','action':''], '<i class="fa fa-bars"></i>','class':'btn-link') }}
                 {% endif %}
                 <div class="collapse" id="pages_collapse">
                     <div class="card card-body local_padding">
@@ -68,7 +76,7 @@
                    aria-expanded="false"
                    aria-controls="collapse"> Маршрути </a>
                 {% if router.getControllerName()!='route' %}
-                    {{ link_to(["for": "action-auth",'controller':'route','action':''], '<i class="material-icons">list</i>','class':'btn-link') }}
+                    {{ link_to(["for": "action-auth",'controller':'route','action':''], '<i class="fa fa-bars"></i>','class':'btn-link') }}
                 {% endif %}
                 <div class="collapse" id="route_collapse">
                     <div class="card card-body local_padding">
@@ -85,7 +93,7 @@
                    aria-expanded="false"
                    aria-controls="collapse">Розташування</a>
                 {% if router.getControllerName()!='location' %}
-                    {{ link_to(["for": "action-auth",'controller':'location','action':''], '<i class="material-icons">list</i>','class':'btn-link') }}
+                    {{ link_to(["for": "action-auth",'controller':'location','action':''], '<i class="fa fa-bars"></i>','class':'btn-link') }}
                 {% endif %}
                 <div class="collapse" id="location_collapse">
                     <div class="card card-body local_padding">
@@ -100,7 +108,7 @@
                 <a class="btn btn-link collapsed" data-toggle="collapse" href="#companies_list_collapse" role="button"
                    aria-expanded="false" aria-controls="collapse">Компанії-перевізники </a>
                 {% if router.getControllerName()!='company' %}
-                    {{ link_to(["for": "action-auth",'controller':'company','action':''], '<i class="material-icons">list</i>','class':'btn-link') }}
+                    {{ link_to(["for": "action-auth",'controller':'company','action':''], '<i class="fa fa-bars"></i>','class':'btn-link') }}
                 {% endif %}
                 <div class="collapse" id="companies_list_collapse">
                     <div class="card card-body local_padding">
@@ -116,7 +124,7 @@
     </div>
         {% endif %}
     <div class="col pl-0">
-        {% block subhead %}{% endblock %}
+
     {% block content %}{% endblock %}
     </div>
     </div>
@@ -126,19 +134,19 @@
     <script src="/js/common.main.js" async></script>
 {% endblock %}
 
-{% if this.flashSession.has('success') || this.flashSession.has('error') || this.flashSession.has('warning') %}
+{% if  flashSession.has('success') or flashSession.has('error') or flashSession.has('warning')  %}
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="placeholderModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="placeholderModalLabel">Modal Heading</h4>
+                <h4 class="modal-title" id="placeholderModalLabel">Повідомлення системи</h4>
             </div>
             <div class="modal-body">
                 {{ flashSession.output() }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default modal-footer-close" data-dismiss="modal">Modal button</button>
+                <button type="button" class="btn btn-default modal-footer-close" data-dismiss="modal">Зачинити</button>
             </div>
         </div>
     </div>

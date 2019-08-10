@@ -1,5 +1,9 @@
 {% extends 'layouts/company.volt' %}
- {% block subhead %} Огляд первізників{% endblock %}
+ {% block subhead %}
+	 <div class="col" align="left">
+		 <h5>Огляд перевізників</h5>
+	 </div>
+ {% endblock %}
 {% block content %}
 
 	{{ super() }}

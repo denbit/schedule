@@ -1,18 +1,29 @@
 {% extends 'layouts/location.volt' %}
 {% block subhead %}
-	Огляд локацій
+	<div class="col" align="left">
+		<h5>
+			Огляд локацій
+		</h5>
+	</div>
+
 {% endblock %}
 {% block content %}
 	{{ super() }}
 	<style>
-		.location::after {
-			content: " add";
+		.location_tree{
+			padding-left: 50px;
+		}
+		.location{
+			margin: 5px 0 0 0;
+		}
+		.location > span {
+
 			font-size: 12px;
-			color: #888888;
 			margin-left: 10px;
 			margin-bottom: -14px;
 			position: relative;
-			bottom: 10px;
+			bottom: 5px;
+			left:12px;
 		}
 
 		.location::after:hover {
@@ -34,7 +45,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col">{{ list_tree }}</div>
+		<div class="col location_tree">{{ list_tree }}</div>
 	</div>
 
 {% endblock %}
