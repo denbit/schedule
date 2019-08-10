@@ -2,13 +2,9 @@
 
 namespace Schedule\Modules\Authority\Controllers;
 
-use Phalcon\Db\Column;
-use Phalcon\Mvc\Model\MetaData;
+
 use Schedule\Core\Components\NotFound;
 use Schedule\Core\Location;
-use Schedule\Core\BusRoute;
-use Schedule\Core\Models\Cities;
-use Schedule\Core\Models\States;
 use Schedule\Modules\Authority\Models\LocationManager;
 
 
@@ -51,7 +47,7 @@ class LocationController extends ControllerBase
 	{
 		$this->view->disable();
 		if (!$this->request->isAjax()){
-			$category = $this->dispatcher->getParam('category');
+			$category = $this->dispatcher->getParams('category');
 			$parent_category = $this->dispatcher->getParam('parent_category');
 			$parent_id = $this->dispatcher->getParam('parent_id');
 			$locationManager = new LocationManager();
@@ -60,7 +56,12 @@ class LocationController extends ControllerBase
 
 			$view = $locationManager->getPartialTemplate('add_node',[
 				'parent_node'=>$parentEntity,
-				'fields' =>array_keys($fields)
+				'fields' =>array_keys($fields),
+				'request'=>(object)[
+					'category' =>$category,
+					'parent_category'=>$parent_category,
+					'parent_id'=>$parent_id
+				]
 			]);
 			$this->flash->success('Getting data');
 			return $view;
