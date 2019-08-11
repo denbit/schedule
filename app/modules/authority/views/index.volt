@@ -153,9 +153,9 @@
     </div>
     </div>
     <script>
-        $('.modal').modal({
-            show: true
-        });
+        // $('.modal').modal({
+        //     show: true
+        // });
     </script>
 {% endif %}
 </body>

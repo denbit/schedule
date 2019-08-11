@@ -1,0 +1,10 @@
+.contextMenu {
+	display: block;
+	position: absolute;
+	z-index: 10;
+	text-decoration: none;
+}
+
+.contextMenu-active {
+	display: block;
+}

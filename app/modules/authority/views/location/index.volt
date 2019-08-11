@@ -29,7 +29,9 @@
 		.location::after:hover {
 			color: #484e53;
 		}
+
 	</style>
+	<link rel="stylesheet" href="../../../../../public/css/location.css">
 	<div class="clearfix m-2  text-right ">
 		{{ link_to(['for':'action-auth','controller':router.getControllerName(),'action':'form'],'Створити нову локацію',['class':'btn btn-info float-right']) }}
 	</div>
@@ -47,5 +49,31 @@
 	<div class="row">
 		<div class="col location_tree">{{ list_tree }}</div>
 	</div>
+	<nav class="contextMenu">
+		<ul>
+			<li class="contextMenuItem">
+				<a href="#" class="contextMenuItemLink">Delate</a>
+			</li>
+			<li class="contextMenuItem">
+				<a href="#" class="contextMenuItemLink">Edit</a>
+			</li>
+			<li class="contextMenuItem">
+				<a href="#" class="contextMenuItemLink">Save</a>
+			</li>
+		</ul>
+	</nav>
+{% endblock %}
 
+{% block footer %}
+	{{ super() }}
+	<script>
+		(function () {
+			"use strict";
+			document.addEventListener('contextmenu', function (e) {
+				console.log(e);
+			});
+		})();
+
+
+	</script>
 {% endblock %}
