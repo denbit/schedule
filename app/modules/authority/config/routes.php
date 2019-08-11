@@ -57,7 +57,7 @@ $authority->addGet('/location/add/([a-z\_]{3,})/to/([a-z\_]+)/([0-9]+)', [
 ])->setName("action-add-location");
 $authority->addGet('/location/([a-z\_]{3,})/([0-9]+)', [
 	'controller' => 'location',
-	'action' => 'editItem',
+	'action' => 'editItemForm',
 	'category' =>1,
 	'id'=>3
 ])->setName("action-edit-location");

@@ -18,5 +18,10 @@ class CompanyController extends ControllerBase
 
     }
 
+	public function editAction()
+	{
+		
+    }
+
 }
 
