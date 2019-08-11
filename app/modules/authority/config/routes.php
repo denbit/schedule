@@ -59,19 +59,19 @@ $authority->addGet('/location/([a-z\_]{3,})/([0-9]+)', [
 	'controller' => 'location',
 	'action' => 'editItemForm',
 	'category' =>1,
-	'id'=>3
+	'id'=>2
 ])->setName("action-edit-location");
 $authority->addPut('/location/([a-z\_]{3,})/([0-9]+)', [
 	'controller' => 'location',
 	'action' => 'editItem',
 	'category' =>1,
-	'id'=>3
+	'id'=>2
 ])->setName("action-edit-process-location");
 $authority->addDelete('/location/([a-z\_]{3,})/([0-9]+)', [
 	'controller' => 'location',
 	'action' => 'deleteItem',
 	'category' =>1,
-	'id'=>3
+	'id'=>2
 ])->setName("action-delete-location");
 $authority->addPost('/location/save/([a-z\_]{3,})/to/([a-z\_]+)/([0-9]+)', [
 	'controller' => 'location',

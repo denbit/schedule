@@ -86,33 +86,29 @@ class LocationController extends ControllerBase
 		}
 	}
 
-	public function editItemAction()
-	{
-		$category = $this->dispatcher->getParam('category');
-		$parent_category = $this->dispatcher->getParam('parent_category');
-		$parent_id = $this->dispatcher->getParam('parent_id');
-		$post_data = $this->request->getPost();
-	}
-	public function editItemAction()
-{
-	$category = $this->dispatcher->getParam('category');
-	$parent_category = $this->dispatcher->getParam('parent_category');
-	$parent_id = $this->dispatcher->getParam('parent_id');
-	$post_data = $this->request->getPost();
-}
 	public function editItemFormAction()
 	{
 		$category = $this->dispatcher->getParam('category');
-		$parent_category = $this->dispatcher->getParam('parent_category');
-		$parent_id = $this->dispatcher->getParam('parent_id');
-		$post_data = $this->request->getPost();
+		$node_id = $this->dispatcher->getParam('id');
+		$locationManager = new LocationManager();
+		$fields = $locationManager->getFields($category,$node_id);
 	}
+
+	public function editItemAction()
+	{
+		$category = $this->dispatcher->getParam('category');
+		$node_id = $this->dispatcher->getParam('id');
+		$post_data = $this->request->getPost();
+		$locationManager = new LocationManager();
+		$fields = $locationManager->getFields($category,$node_id);
+
+	}
+
 
 	public function deleteItemAction()
 	{
 		$category = $this->dispatcher->getParam('category');
-		$parent_category = $this->dispatcher->getParam('parent_category');
-		$parent_id = $this->dispatcher->getParam('parent_id');
+		$node_id = $this->dispatcher->getParam('id');
 		$post_data = $this->request->getPost();
 	}
 

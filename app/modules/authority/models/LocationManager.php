@@ -90,22 +90,29 @@ class LocationManager extends Kernel
 		throw new Exception("$category is not location node");
 	}
 
-	public function getInstanceFromData(string $category, array $data)
+	public function getInstanceFromData(string $category, array $data, int $id = null)
 	{
 		if (in_array($category, Location::$location_nodes)) {
 			/**
 			 * @var $node Model
 			 */
-			$locationNode = Location::getNodeName($category);
-			$node = new $locationNode();
-			$node->assign($data);
+			$locationNodeName = Location::getNodeName($category);
+			if ( !is_null($id)){
+				$locationNode = $locationNodeName::findFirst($id);
+				//get fields
+			}
+			else{
+				$locationNode = new $locationNodeName();
+			}
+
+			$locationNode->assign($data);//use intersect for security
 
 			return $node;
 		}
 		throw new Exception("$category is not location node");
 	}
 
-	public function getFields($category)
+	public function getFields($category, int $id = null)
 	{
 		if (in_array($category, Location::$location_nodes)) {
 			/**
@@ -117,6 +124,10 @@ class LocationManager extends Kernel
 			$dataTypes = $metadata->getDataTypes($locationNode);
 
 			$nodeFields = $locationNode->getFields($dataTypes);
+			if ( !is_null($id)){
+				$locationNode = $locationNodeName::findFirst($id);
+				//get fields
+			}
 
 			return $nodeFields;
 		}
