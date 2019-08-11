@@ -1,4 +1,9 @@
 {% extends  'layouts/translation.volt' %}
+{% block subhead %}
+    <div class="col" align="left">
+        <h5>Редагувати переклад</h5>
+    </div>
+    {% endblock %}
 {% block content %}
 <div class="card">
     <div class="card-body">

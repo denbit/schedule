@@ -206,16 +206,16 @@ class RouteManager
 
 	private function buildPathSchema($pathSchema)
 	{
-		$schema = "";
+		$schema = [];
 		if (!empty($pathSchema)) {
 			foreach ($pathSchema as $transitroute) {
 				$from_station = Location::getLocationByStationId($transitroute['from']);
-				$schema .= $from_station->getCity()->national_name.$from_station->getStation()->getId()." ";
+				$schema[] =$from_station->getCity()->national_name;
 			}
 
 		}
 
-		return $schema;
+		return implode(' -> ', $schema);
 	}
 
 	public function searchSuggestions($suggestion)
