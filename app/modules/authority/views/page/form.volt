@@ -1,15 +1,5 @@
 {% extends 'layouts/page.volt' %}
-{% block subhead %} {{ super() }}
-    <div class="col" align="left">
-    <h5>
-		{% if request.getQuery('edit') %}
-            Редагувати
-		{% else %}
-            Створити
-		{% endif %}
-        сторінку
-    </h5>
-    </div>{% endblock %}
+{% block subhead %} {{ super() }} <h3 class="card-title">Page Editing </h3>{% endblock %}
 {% block content %}
 <div class="row">
     <div class="col-md-6 card">
