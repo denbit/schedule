@@ -94,4 +94,13 @@ public $belongs_to_region;
     {
         return 'local_regions';
     }
+
+	/**
+	 * Deletes all related children models
+	 * @return $this
+	 */
+	public function deleteChildren()
+	{
+		// TODO: Implement deleteChildren() method.
+	}
 }

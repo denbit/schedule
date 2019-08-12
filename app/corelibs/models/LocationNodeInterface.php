@@ -18,4 +18,10 @@ interface LocationNodeInterface
 	 */
 	public function setParentId(int $id);
 
+	/**
+	 * Deletes all related children models
+	 * @return $this
+	 */
+	public function deleteChildren();
+
 }
