@@ -94,6 +94,7 @@ class Kernel
 		$view_inst->registerEngines([
 			'.volt' => function ($simpleView, $di) {
 				$volt = new VoltEngine($simpleView, $di);
+				$volt->setOptions(['compileAlways' => $this->di->getConfig()->application->development==true ? true:false]);
 				return $volt;
 			}
 		]);

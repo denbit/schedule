@@ -118,7 +118,7 @@ class LocationManager extends Kernel
 			/**
 			 * @var $node Model|LocationNodeInterface
 			 */
-			$locationNodeName=Location::getNodeName($category);
+			$locationNodeName =Location::getNodeName($category);
 			$locationNode = new $locationNodeName();
 			$metadata = $locationNode->getModelsMetaData();
 			$dataTypes = $metadata->getDataTypes($locationNode);
@@ -126,7 +126,7 @@ class LocationManager extends Kernel
 			$nodeFields = $locationNode->getFields($dataTypes);
 			if ( !is_null($id)){
 				$locationNode = $locationNodeName::findFirst($id);
-				//get fields
+				$nodeFields = array_intersect_key($locationNode->toArray(), $nodeFields);
 			}
 
 			return $nodeFields;
@@ -134,6 +134,11 @@ class LocationManager extends Kernel
 		throw new Exception("$category is not location node");
 	}
 
+	public function delete($category, int $id)
+	{
+		$node = $this->getParent($category,$id);
+		$node->delete();//make recursive delete
+}
 	private function get_template($key, $item)
 	{
 		return <<< HTML

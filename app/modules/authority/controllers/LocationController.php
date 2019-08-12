@@ -40,13 +40,13 @@ class LocationController extends ControllerBase
 		$locationManager = new LocationManager();
 		$parentEntity = $locationManager->getParent($parent_category, $parent_id);
 		if ($category == 'city') {
-			switch ($parent_category){
+			switch ($parent_category) {
 				case 'state':
 					$post_data['is_regional'] = 1;
 					$post_data['country_id'] = $parentEntity->getId();
 					break;
 				case 'local_region':
-					$post_data['is_regional'] =  0;
+					$post_data['is_regional'] = 0;
 					$post_data['country_id'] = $parentEntity->regional_center->getCountryId();
 					break;
 				default:
@@ -91,7 +91,16 @@ class LocationController extends ControllerBase
 		$category = $this->dispatcher->getParam('category');
 		$node_id = $this->dispatcher->getParam('id');
 		$locationManager = new LocationManager();
-		$fields = $locationManager->getFields($category,$node_id);
+		$fields = $locationManager->getFields($category, $node_id);
+		$view = $locationManager->getPartialTemplate(
+			'editNode',
+			[
+				'fields' => $fields,
+				'params' => (object)$this->dispatcher->getParams(),
+			]
+		);
+
+		return $view;
 	}
 
 	public function editItemAction()
@@ -100,8 +109,12 @@ class LocationController extends ControllerBase
 		$node_id = $this->dispatcher->getParam('id');
 		$post_data = $this->request->getPost();
 		$locationManager = new LocationManager();
-		$fields = $locationManager->getFields($category,$node_id);
-
+		$node = $locationManager->getInstanceFromData($category, $post_data, $node_id);
+		if (!$node->update()) {
+			$messages = $node->getMessages();
+			throw new Model\Exception(implode("\n", $messages));
+		}
+		$this->flash->success("$category {$node->latin_name} was updated ");
 	}
 
 
@@ -109,12 +122,18 @@ class LocationController extends ControllerBase
 	{
 		$category = $this->dispatcher->getParam('category');
 		$node_id = $this->dispatcher->getParam('id');
-		$post_data = $this->request->getPost();
+		$locationManager = new LocationManager();
+		if ($locationManager->delete($category, $node_id)) {
+			$this->flash->success("$category was deleted ");
+		} else {
+			$this->flash->error("Internal error!");
+		}
+
 	}
 
 	private static function LocationException($message)
 	{
-		 throw new Exception($message);
+		throw new Exception($message);
 	}
 
 }
