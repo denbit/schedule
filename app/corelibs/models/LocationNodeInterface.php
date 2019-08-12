@@ -22,6 +22,6 @@ interface LocationNodeInterface
 	 * Deletes all related children models
 	 * @return $this
 	 */
-	public function deleteChildren();
+	public function beforeDelete();
 
 }

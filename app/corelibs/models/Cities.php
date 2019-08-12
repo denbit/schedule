@@ -35,7 +35,7 @@ class Cities extends Model implements LocationNodeInterface
 	 */
 	public function getFields(array $fields)
 	{
-		unset( $fields['country_id'], $fields['local_district_id']);
+		unset( $fields['country_id'], $fields['local_district_id'], $fields['id']);
 		return $fields;
 	}
 
@@ -137,8 +137,12 @@ class Cities extends Model implements LocationNodeInterface
 	 * Deletes all related children models
 	 * @return $this
 	 */
-	public function deleteChildren()
+	public function beforeDelete()
 	{
-		// TODO: Implement deleteChildren() method.
+		if ($this->is_regional){
+			foreach ($this->local_regions as $local_region){
+				$local_region->delete();
+			}
+		}
 	}
 }

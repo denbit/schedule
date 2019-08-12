@@ -140,7 +140,6 @@ class LocationManager extends Kernel
 	public function delete($category, int $id)
 	{
 		$node = $this->getParent($category,$id);
-		$node->deleteChildren();
 		$node->delete();//make recursive delete
 }
 	private function get_template($key, $item)

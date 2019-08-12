@@ -71,7 +71,7 @@ public $belongs_to_region;
 	 */
 	public function getFields(array $fields)
 	{
-		unset($fields['belongs_to_region']);
+		unset($fields['belongs_to_region'],$fields['id']);
 		return $fields;
 	}
 
@@ -99,8 +99,10 @@ public $belongs_to_region;
 	 * Deletes all related children models
 	 * @return $this
 	 */
-	public function deleteChildren()
+	public function beforeDelete()
 	{
-		// TODO: Implement deleteChildren() method.
+		 foreach ($this->towns as $towns){
+		 	$towns->delete();
+		 }
 	}
 }
