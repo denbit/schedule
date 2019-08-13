@@ -33,5 +33,22 @@ $frontend->add('/:controller/:action(/?)' , [
 	'action'     => 2,
 
 ]);
+$dinamic_router = \Schedule\Core\Models\UniversalPage::find([
+	' has_permanent_uri =0',
+	'columns'=>'url,module_name',
+	'group'=>'module_name',
+]);
+try
+{
+	/**
+	 * @var \Schedule\Core\Models\UniversalPage $dynamic_route
+	 */
+	foreach ($dinamic_router as $dynamic_route ){
+		$frontend->addGet($dynamic_route->readAttribute('url'),$dynamic_route->readAttribute('module_name'));
+	}
+} catch (Exception $exception){
+	echo  $exception->getMessage();
+}
+var_dump($frontend);
 $router->mount($frontend);
 

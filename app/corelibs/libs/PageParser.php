@@ -38,17 +38,20 @@ class PageParser extends Kernel
 	{
 
 		$lang_id = Kernel::getLanguageId($lang);
-		if (!empty($url)) {
+		if (!empty($url) && !empty($module)){
+			$page = UniversalPage::findFirst(["url like '{$url}' and lang_id={$lang_id} and module_name='{$module}'"]);
+		}elseif (!empty($url)) {
 			$page = UniversalPage::findFirst(["url like '{$url}' and lang_id={$lang_id}"]);
-		}
-		if (!empty($module)) {
+		}elseif (!empty($module)) {
 			$page = UniversalPage::findFirst(["module_name like '{$module}' and lang_id={$lang_id}"]);
 		}
-		//$page=new UniversalPage();
-
+		if ($page ===false){
+			return false;
+		}
 		$this->id = $page->getId();
 		$this->language = $lang_id;
-		$this->has_permanent_url = $page->getHasPermanentUri();
+		$this->has_permanent_url = $page->getHasPermanentUri();//using uri else using pattern
+
 		$this->url = $page->getUrl();
 		$this->module_name = $page->getModuleName();
 		if (($page_inst = $page->page) === false) {

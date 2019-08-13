@@ -11,7 +11,11 @@ class IndexModel extends Model implements IModel
     public function getDataForHTTP($input)
     {
         $pageParser=new PageParser();
-        $page = $pageParser->getPage($input['lang'],$input['url']);
+
+        $url = $input['url']??'';
+        $module = $input['module']?? '';
+        $page = $pageParser->getPage($input['lang'], $url, $module);
+
         if(!$page->title && !empty($page->seo_title)){
         	$page->title=$page->seo_title;
 		}

@@ -43,7 +43,7 @@ class PageManager extends Kernel
 		foreach ($controllers as $controller=>$actions )
 		{
 			foreach ($actions as $action) {
-				$modules[]=$controller.':'.$action;
+				$modules[]=$controller.'::'.$action;
 			}
 		}
 		 return (object)[
