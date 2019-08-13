@@ -30,6 +30,11 @@
 			color: #484e53;
 		}
 
+		.visible {
+			position: absolute;
+
+		}
+
 	</style>
 	<link rel="stylesheet" href="../../../../../public/css/location.css">
 	<div class="clearfix m-2  text-right ">
@@ -49,7 +54,11 @@
 	<div class="row">
 		<div class="col location_tree">{{ list_tree }}</div>
 	</div>
-	<nav class="contextMenu">
+
+{% endblock %}
+
+{% block footer %}
+	<nav id="contextMenu" class="visible">
 		<ul>
 			<li class="contextMenuItem">
 				<a href="#" class="contextMenuItemLink">Delate</a>
@@ -62,18 +71,38 @@
 			</li>
 		</ul>
 	</nav>
-{% endblock %}
-
-{% block footer %}
 	{{ super() }}
 	<script>
+		// (function () {
+		// 	"use strict";
+		// 	document.querySelector('.location-menu').addEventListener('contextmenu', function (e) {
+		// 		 let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+		// 		document.getElementById('contextMenu').style.top=e.clientY+(scrollTop)+'px';
+		// 		document.getElementById('contextMenu').style.left=e.clientX+'px';
+		// 		e.preventDefault();
+		// 		let menu = document.querySelector("#contextMenu");
+		// 		let menuState = 0;
+		// 		let active = "context-menu--active";
+		// 	});
+		// })();
 		(function () {
-			"use strict";
-			document.addEventListener('contextmenu', function (e) {
-				console.log(e);
-			});
-		})();
 
+			"use strict";
+
+			let locationItems = document.querySelectorAll(".location-menu");
+
+			for (let i = 0, len = locationItems.length; i < len; i++) {
+				var locationItem = locationItems[i];
+				contextMenuListener(locationItems);
+			}
+
+			function contextMenuListener(el) {
+				el.addEventListener("contextmenu", function (e) {
+					console.log(e, el);
+				});
+			}
+
+		})();
 
 	</script>
 {% endblock %}
