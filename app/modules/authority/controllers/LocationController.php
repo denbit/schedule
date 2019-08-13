@@ -128,7 +128,6 @@ class LocationController extends ControllerBase
 		} else {
 			$this->flash->error("Internal error!");
 		}
-
 	}
 
 	private static function LocationException($message)

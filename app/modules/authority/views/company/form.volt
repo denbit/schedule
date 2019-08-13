@@ -18,9 +18,9 @@
 			{% if dispatcher.getParam('id') is not empty %}
 				{% set id=dispatcher.getParam('id') %}
 			{% endif %}
-			{{ form(url.get(['for':'action-save','controller':router.getControllerName(),'id':id]), 'method': 'post','class':'company-form') }}
+			{{ form(companyForm.getAction(), 'method': 'post','class':'company-form') }}
 
-{% for element in form %}
+{% for element in companyForm %}
 
     <div class="control-group">
         {{ element.label(["class": "control-label"]) }}
