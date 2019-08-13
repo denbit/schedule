@@ -10,6 +10,7 @@ namespace Schedule\Modules\Authority\Models;
 
 
 use Schedule\Core\BusRoute;
+use Schedule\Core\Cost;
 use Schedule\Core\Location;
 use Schedule\Core\Models\Company;
 use Schedule\Core\Models\Stations;
@@ -123,6 +124,12 @@ class RouteManager
 		return $core_route->save();
 	}
 
+	public function addCostData($id)
+	{
+		$route = (new BusRoute())->findById($id);
+		var_dump((new Cost())->selectRoute($route)->addCostForTrip($loc,$loc2,45,Cost::UAH));
+//        (new Cost())->selectRoute($ro)->getAllCosts();
+	}
 	public function getRoute($id, $use_location = true)
 	{
 		$route = (new BusRoute())->findById($id);

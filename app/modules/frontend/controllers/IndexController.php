@@ -14,7 +14,7 @@ use Schedule\Core\PageParser;
 use Schedule\Modules\Frontend\Models\IndexModel;
 use Phalcon\Forms\Element\Select;
 
-class IndexController extends ControllerBase implements IFrontEnd
+class IndexController extends ControllerBase
 {
 	use NotFound;
     public function indexAction()
@@ -28,9 +28,9 @@ class IndexController extends ControllerBase implements IFrontEnd
 		$this->view->page = $page;
 	}
 	public function  suggestAction(){
-		//$this->isAjax();
+		$this->isAjax();
 		$suggestion=$this->request->getQuery('suggest');
-		if (!empty($suggestion))
+		if ( !empty($suggestion))
 		{
 			$model= new IndexModel();
 			return json_encode($model->searchSuggestions($suggestion));

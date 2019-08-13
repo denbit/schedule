@@ -20,4 +20,9 @@ class ListController extends ControllerBase
 
 
 	}
+
+	public function indexAction()
+	{
+		// TODO: Implement indexAction() method.
+	}
 }
