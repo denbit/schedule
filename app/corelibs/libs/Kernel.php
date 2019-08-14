@@ -42,6 +42,7 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
  * @property \Phalcon\Di|\Phalcon\DiInterface                                                          $di
  * @property \Phalcon\Session\Bag|\Phalcon\Session\BagInterface                                        $persistent
  * @property \Phalcon\Mvc\View|\Phalcon\Mvc\ViewInterface                                              $view
+ * @property \Phalcon\Cache\Backend|\Phalcon\Cache\Backend[]                                           $coreCache
  */
 class Kernel
 {
