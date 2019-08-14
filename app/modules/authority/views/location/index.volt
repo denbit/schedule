@@ -29,13 +29,12 @@
 		}
 
 		.unvisible {
-			position: absolute;
 			display: none;
 		}
 
 		.visible {
 			display: block;
-
+			position: absolute;
 		}
 
 		.visible > ul {
@@ -131,7 +130,7 @@
 			if (state !== 0) {
 				state = 0;
 				contextMenu.classList.remove(active);
-
+				contextMenu.classList.add('unvisible');
 			}
 		}
 
@@ -153,6 +152,9 @@
 					data.setAttribute('data-uri', '/' + category + '/' + id);
 
 					contextMenu.classList.add(active);
+					contextMenu.classList.remove('unvisible');
+
+
 					let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 					contextMenu.style.top = (e.clientY + (scrollTop) + 5) + 'px';
 					contextMenu.style.left = (e.clientX + 5) + 'px';
