@@ -91,4 +91,13 @@ class Stations extends Model implements LocationNodeInterface
     {
         return 'stations';
     }
+
+	/**
+	 * Deletes all related children models
+	 * @return $this
+	 */
+	public function beforeDelete()
+	{
+		// TODO: Implement beforeDelete() method.
+	}
 }
