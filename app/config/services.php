@@ -10,76 +10,76 @@ use Phalcon\Cache\Backend\{File as LongCache, Memory as ShortCache};
  * Shared configuration service
  */
 $di->setShared('config', function () {
-    return new Ini(APP_PATH  . "/config/config.ini");
+	return new Ini(APP_PATH  . "/config/config.ini");
 });
 
 /**
  * Database connection is created based in the parameters defined in the configuration file
  */
 $di->setShared('db', function () {
-    $config = $this->getConfig();
+	$config = $this->getConfig();
 
-    $class = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
-    $params = [
-        'host'     => $config->database->host,
-        'username' => $config->database->username,
-        'password' => $config->database->password,
-        'dbname'   => $config->database->dbname,
-        'charset'  => $config->database->charset
-    ];
+	$class = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
+	$params = [
+		'host'     => $config->database->host,
+		'username' => $config->database->username,
+		'password' => $config->database->password,
+		'dbname'   => $config->database->dbname,
+		'charset'  => $config->database->charset
+	];
 
-    if ($config->database->adapter == 'Postgresql') {
-        unset($params['charset']);
-    }
+	if ($config->database->adapter == 'Postgresql') {
+		unset($params['charset']);
+	}
 
-    $connection = new $class($params);
+	$connection = new $class($params);
 
-    return $connection;
+	return $connection;
 });
 
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */
 $di->setShared('modelsMetadata', function () {
-    return new MetaDataAdapter();
+	return new MetaDataAdapter();
 });
 
 /**
  * Configure the Volt service for rendering .volt templates
  */
 $di->setShared('voltShared', function ($view) {
-    $config = $this->getConfig();
+	$config = $this->getConfig();
 
-    $volt = new VoltEngine($view, $this);
-    $volt->setOptions([
-        'compiledPath' => function($templatePath) use ($config) {
-            $basePath = $config->application->appDir;
-            if ($basePath && substr($basePath, 0, 2) == '..') {
-                $basePath = dirname(__DIR__);
-            }
+	$volt = new VoltEngine($view, $this);
+	$volt->setOptions([
+		'compiledPath' => function($templatePath) use ($config) {
+			$basePath = $config->application->appDir;
+			if ($basePath && substr($basePath, 0, 2) == '..') {
+				$basePath = dirname(__DIR__);
+			}
 
-            $basePath = realpath($basePath);
-            $templatePath = trim(substr($templatePath, strlen($basePath)), '\\/');
+			$basePath = realpath($basePath);
+			$templatePath = trim(substr($templatePath, strlen($basePath)), '\\/');
 
-            $filename = basename(str_replace(['\\', '/'], '_', $templatePath), '.volt') . '.php';
+			$filename = basename(str_replace(['\\', '/'], '_', $templatePath), '.volt') . '.php';
 
-            $cacheDir = $config->application->cacheDir;
-            if ($cacheDir && substr($cacheDir, 0, 2) == '..') {
-                $cacheDir = __DIR__ . DIRECTORY_SEPARATOR . $cacheDir;
-            }
+			$cacheDir = $config->application->cacheDir;
+			if ($cacheDir && substr($cacheDir, 0, 2) == '..') {
+				$cacheDir = __DIR__ . DIRECTORY_SEPARATOR . $cacheDir;
+			}
 
-           $cacheDir = realpath($cacheDir);
+			$cacheDir = realpath($cacheDir);
 
-            if (!$cacheDir) {
-                $cacheDir = sys_get_temp_dir();
-            }
+			if (!$cacheDir) {
+				$cacheDir = sys_get_temp_dir();
+			}
 
-            if (!is_dir($cacheDir . DIRECTORY_SEPARATOR . 'volt' )) {
-                @mkdir($cacheDir . DIRECTORY_SEPARATOR . 'volt' , 0755, true);
-            }
+			if (!is_dir($cacheDir . DIRECTORY_SEPARATOR . 'volt' )) {
+				@mkdir($cacheDir . DIRECTORY_SEPARATOR . 'volt' , 0755, true);
+			}
 
-            return $cacheDir . DIRECTORY_SEPARATOR . 'volt' . DIRECTORY_SEPARATOR . $filename;
-        },
+			return $cacheDir . DIRECTORY_SEPARATOR . 'volt' . DIRECTORY_SEPARATOR . $filename;
+		},
 		'compileAlways' => $config->application->development==true ? true:false
 
 	]);
@@ -88,12 +88,12 @@ $di->setShared('voltShared', function ($view) {
 	$compiler->addFunction('translate', function ($res, $exprArgs='')use ($compiler) {
 
 		// Resolve the first argument
-		 $firstArgument = $compiler->expression($exprArgs[0]['expr']);
+		$firstArgument = $compiler->expression($exprArgs[0]['expr']);
 		$secondArgument ='';
-        // Checks if the second argument was passed
-        if (isset($exprArgs[1])) {
-			 $secondArgument = $compiler->expression($exprArgs[1]['expr']);
-        }
+		// Checks if the second argument was passed
+		if (isset($exprArgs[1])) {
+			$secondArgument = $compiler->expression($exprArgs[1]['expr']);
+		}
 		$di = \Phalcon\DI::getDefault();
 		if ($di->getSession()->has('language')) {
 			$lang =$di->getSession()->get('language');
@@ -109,10 +109,10 @@ $di->setShared('voltShared', function ($view) {
 		}
 	});
 
-    return $volt;
+	return $volt;
 });
 $di->setShared('coreCache',function (){
-	$storage_format = new \Phalcon\Cache\Frontend\Igbinary(   [
+	$storage_format = new \Phalcon\Cache\Frontend\Data(   [
 		'lifetime' => 2592000,
 	]);
 	$storage_format_quick =  new \Phalcon\Cache\Frontend\Data(
@@ -122,11 +122,17 @@ $di->setShared('coreCache',function (){
 	);
 	$cache = new ShortCache($storage_format_quick);
 	//!! add config reading!
+	$cacheDir = $this->getConfig()->application->cacheDir;
+	if ($cacheDir && (substr($cacheDir, 0, 2) == '..'|| substr($cacheDir, 0, 3) == '/..')) {
+		$cacheDir = APP_PATH . DIRECTORY_SEPARATOR . $cacheDir;
+	}
+
+	$cacheDir = realpath($cacheDir);//echo $cacheDir;die;
 	$long_cache = new LongCache($storage_format,[
-		"cacheDir"=>"../cache"
+		"cacheDir"=>$cacheDir.'/'
 	]);
 	return (object)[
 		'fast'=>$cache,
 		'slow'=>$long_cache
-		];
+	];
 });

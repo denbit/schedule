@@ -78,6 +78,44 @@ class Kernel
 
 	}
 
+	/**
+	 * serialize() checks if your class has a function with the magic name __sleep.
+	 * If so, that function is executed prior to any serialization.
+	 * It can clean up the object and is supposed to return an array with the names of all variables of that object that should be serialized.
+	 * If the method doesn't return anything then NULL is serialized and E_NOTICE is issued.
+	 * The intended use of __sleep is to commit pending data or perform similar cleanup tasks.
+	 * Also, the function is useful if you have very large objects which do not need to be saved completely.
+	 *
+	 * @return string[]
+	 * @link https://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.sleep
+	 */
+	public function __sleep()
+	{
+		$ref =new \ReflectionClass( static::class);
+		$vars=[];
+		foreach ($ref->getProperties(\ReflectionProperty::IS_PRIVATE|\ReflectionProperty::IS_PROTECTED|\ReflectionProperty::IS_PUBLIC) as $item) {
+			if ($item->getName()=='di'||$item->isStatic())
+				continue;
+			$vars[]=$item->getName();
+		   }
+		return $vars;
+	}
+
+	/**
+	 * unserialize() checks for the presence of a function with the magic name __wakeup.
+	 * If present, this function can reconstruct any resources that the object may have.
+	 * The intended use of __wakeup is to reestablish any database connections that may have been lost during
+	 * serialization and perform other reinitialization tasks.
+	 *
+	 * @return void
+	 * @link https://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.sleep
+	 */
+	public function __wakeup()
+	{
+		$this->di = self::$di_inst;
+	}
+
+
 	public function __get($var)
 	{
 		 return $this->di->get($var);
