@@ -107,9 +107,9 @@
 
 {% block footer %}
 	<nav id="contextMenu" class="unvisible">
-		<ul>
+		<ul><span id="data"></span>
 			<li class="contextMenuItem">
-				<a href="#" class="contextMenuItemLink">Delate</a>
+				Delete
 			</li>
 			<li class="contextMenuItem">
 				<a href="#" class="contextMenuItemLink">Edit</a>
@@ -146,6 +146,12 @@
 			spanElement.addEventListener('contextmenu', function (e) {
 				if (state !== 1) {
 					state = 1;
+					const parent = spanElement.parentNode.parentNode;
+					let category = parent.getAttribute('data-category');
+					let id = parent.getAttribute('data-id');
+					let data = document.getElementById('data');
+					data.setAttribute('data-uri', '/' + category + '/' + id);
+
 					contextMenu.classList.add(active);
 					let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 					contextMenu.style.top = (e.clientY + (scrollTop) + 5) + 'px';
