@@ -18,7 +18,11 @@ class IndexController extends ControllerBase
 {
 	use NotFound;
     public function indexAction()
-	{	$model = new IndexModel();
+	 {	foreach ( $this->di->getServices() as $key=>$service){
+	 	echo  $key,"=>", get_class($service),"<br>";
+	 }die;
+
+		$model = new IndexModel();
 		$lang = LanguageParser::SystemLanguage();
 		$url = $this->request->getURI();
 		$url_sanitized=strpos($url,'?')===false?$url:substr($url,0,strpos($url,'?'));//crete normall get sanitize

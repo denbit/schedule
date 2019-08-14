@@ -157,7 +157,7 @@ if ($this->id){
     /**
      * @return float
      */
-    public function getPrice(): array
+    public function getPrice(): Cost
     {
         return $this->price;
     }

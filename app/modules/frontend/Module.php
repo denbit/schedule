@@ -94,6 +94,8 @@ class Module implements ModuleDefinitionInterface
 				return $cookies;
 			}
 		);
+		$di->set('viewsCache',function (){});
+		$di->set('modelsCache', function (){});
 
     }
 }

@@ -4,6 +4,7 @@ use Phalcon\Loader;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Config\Adapter\Ini;
+use Phalcon\Cache\Backend\{File as LongCache, Memory as ShortCache};
 
 /**
  * Shared configuration service
@@ -109,4 +110,23 @@ $di->setShared('voltShared', function ($view) {
 	});
 
     return $volt;
+});
+$di->setShared('coreCache',function (){
+	$storage_format = new \Phalcon\Cache\Frontend\Igbinary(   [
+		'lifetime' => 2592000,
+	]);
+	$storage_format_quick =  new \Phalcon\Cache\Frontend\Data(
+		[
+			'lifetime' => 1800,
+		]
+	);
+	$cache = new ShortCache($storage_format_quick);
+	//!! add config reading!
+	$long_cache = new LongCache($storage_format,[
+		"cacheDir"=>"../cache"
+	]);
+	return (object)[
+		'fast'=>$cache,
+		'slow'=>$long_cache
+		];
 });

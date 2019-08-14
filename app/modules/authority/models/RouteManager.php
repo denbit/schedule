@@ -124,10 +124,16 @@ class RouteManager
 		return $core_route->save();
 	}
 
-	public function addCostData($id)
+	public function viewCostInfo()
+	{
+
+	}
+	public function addCostData($id,$start_st, $end_st)
 	{
 		$route = (new BusRoute())->findById($id);
-		var_dump((new Cost())->selectRoute($route)->addCostForTrip($loc,$loc2,45,Cost::UAH));
+		$loc = Location::getLocationByStation($start_st);
+		$loc2 = Location::getLocationByStation($end_st);
+		$route->getPrice()->addCostForTrip($loc,$loc2,45,Cost::UAH);
 //        (new Cost())->selectRoute($ro)->getAllCosts();
 	}
 	public function getRoute($id, $use_location = true)
