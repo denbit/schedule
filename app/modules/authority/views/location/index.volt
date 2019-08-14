@@ -10,33 +10,81 @@
 {% block content %}
 	{{ super() }}
 	<style>
-		.location_tree{
-			padding-left: 50px;
-		}
-		.location{
+		.location {
 			margin: 5px 0 0 0;
 		}
+
 		.location > span {
 
-			font-size: 12px;
+			font-size: 14px;
 			margin-left: 10px;
 			margin-bottom: -14px;
 			position: relative;
 			bottom: 5px;
-			left:12px;
+			left: 12px;
 		}
 
 		.location::after:hover {
 			color: #484e53;
 		}
 
-		.visible {
+		.unvisible {
 			position: absolute;
+			display: none;
+		}
+
+		.visible {
+			display: block;
 
 		}
 
+		.visible > ul {
+			list-style: none;
+			margin: 0;
+			padding: .5rem 2rem;
+			background: #e2f6ceed;
+		}
+
+		.visible > ul > li {
+
+			padding: .5rem;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.visible > ul > li > a {
+			color: #484e53;
+		}
+
+		.location_tree > li > button {
+			list-style: none;
+			color: #484e53;
+		!important;
+		}
+
+		.location_tree li > button > span {
+			color: #80db25;
+		}
+
+		.btn-link > ul > li {
+			list-style: none;
+			color: #484e53;
+		}
+
+		.location_tree > li ul > li {
+			list-style: none;
+
+		}
+
+		.location_tree > li > ul > li button {
+			color: #484e53 !important;
+		}
+
+		.location_tree > li {
+			list-style: none;
+		}
 	</style>
-	<link rel="stylesheet" href="../../../../../public/css/location.css">
+	<link rel="stylesheet" href="{{ url('/css/location.css') }}">
 	<div class="clearfix m-2  text-right ">
 		{{ link_to(['for':'action-auth','controller':router.getControllerName(),'action':'form'],'Створити нову локацію',['class':'btn btn-info float-right']) }}
 	</div>
@@ -58,7 +106,7 @@
 {% endblock %}
 
 {% block footer %}
-	<nav id="contextMenu" class="visible">
+	<nav id="contextMenu" class="unvisible">
 		<ul>
 			<li class="contextMenuItem">
 				<a href="#" class="contextMenuItemLink">Delate</a>
@@ -73,36 +121,46 @@
 	</nav>
 	{{ super() }}
 	<script>
-		// (function () {
-		// 	"use strict";
-		// 	document.querySelector('.location-menu').addEventListener('contextmenu', function (e) {
-		// 		 let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-		// 		document.getElementById('contextMenu').style.top=e.clientY+(scrollTop)+'px';
-		// 		document.getElementById('contextMenu').style.left=e.clientX+'px';
-		// 		e.preventDefault();
-		// 		let menu = document.querySelector("#contextMenu");
-		// 		let menuState = 0;
-		// 		let active = "context-menu--active";
-		// 	});
-		// })();
-		(function () {
+		"use strict";
+		let span = document.querySelectorAll('.location-menu');
+		let state = 0;
+		let contextMenu = document.getElementById('contextMenu');
+		let active = 'visible';
 
-			"use strict";
+		function closeMenu() {
+			if (state !== 0) {
+				state = 0;
+				contextMenu.classList.remove(active);
 
-			let locationItems = document.querySelectorAll(".location-menu");
+			}
+		}
 
-			for (let i = 0, len = locationItems.length; i < len; i++) {
-				var locationItem = locationItems[i];
-				contextMenuListener(locationItems);
+		let spanMount = span.length;
+		for (let i = 0; i < spanMount; i++) {
+			let spanElement = span[i];
+			contextMenuFunc(spanElement);
+		}
+
+
+		function contextMenuFunc(spanElement) {
+			spanElement.addEventListener('contextmenu', function (e) {
+				if (state !== 1) {
+					state = 1;
+					contextMenu.classList.add(active);
+					let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+					contextMenu.style.top = (e.clientY + (scrollTop) + 5) + 'px';
+					contextMenu.style.left = (e.clientX + 5) + 'px';
+					e.preventDefault();
+				} else closeMenu();
+
+			});
+		}
+
+		document.addEventListener('click', function () {
+			if (contextMenu.classList.contains(active)) {
+				closeMenu();
 			}
 
-			function contextMenuListener(el) {
-				el.addEventListener("contextmenu", function (e) {
-					console.log(e, el);
-				});
-			}
-
-		})();
-
+		})
 	</script>
 {% endblock %}
