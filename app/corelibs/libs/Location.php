@@ -407,14 +407,14 @@ class Location extends Kernel
 	{
 
 		$loc = new self();
-		 if ($location=$loc->coreCache->get(get_class($station).$station->getId())){
+		 if ($location=$loc->coreCache->long->get(get_class($station).$station->getId())){
 		 	return $location;
 		 }
 		$loc->station = $station;
 		$loc->city = Cities::findFirst($station->getCityId());
 		$loc->local_reg = $loc->city->is_regional ? null : LocalRegions::findFirst($loc->city->local_district_id);
 		$loc->state = States::findFirst($loc->city->country_id);
-		$loc->coreCache->save(get_class($station).$station->getId(), $loc);
+		$loc->coreCache->long->save(get_class($station).$station->getId(), $loc);
 		return $loc;
 
 	}
