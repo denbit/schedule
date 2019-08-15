@@ -17,7 +17,7 @@ use Phalcon\Mvc\Model;
  * @property Cities $cities
  * @method getCities()
  */
-class States extends Model implements LocationNodeInterface
+class States extends CachableModel implements LocationNodeInterface
 {
 	public $id;
 	public $latin_name;

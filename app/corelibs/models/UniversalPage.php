@@ -13,7 +13,7 @@ use Phalcon\Mvc\Model;
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\{PresenceOf,Alpha};
 
-class UniversalPage extends Model
+class UniversalPage extends CachableModel
 {
 
     private $id;

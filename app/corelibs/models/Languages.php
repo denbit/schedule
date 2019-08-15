@@ -11,7 +11,7 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class Languages extends Model
+class Languages extends CachableModel
 {
 
 

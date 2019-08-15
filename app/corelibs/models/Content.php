@@ -10,7 +10,7 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class Content extends Model
+class Content extends CachableModel
 {
     private $id;
     private $content;

@@ -9,6 +9,7 @@
 namespace Schedule\Core;
 
 use Phalcon\Mvc\View;
+use Phalcon\Text;
 use Schedule\Core\Models\Languages;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 
@@ -191,6 +192,36 @@ class Kernel
 		$lang_id = $lang->lang_code;
 		return $lang_id;
 
+	}
+
+	public static function createCacheKey($input):string
+	{
+		$reducer = function ($accamulator, $key)use ($input){
+			$accamulator.= Text::concat($key,'&',$input[$key],'_');
+			return $accamulator;
+		};
+		$type =gettype($input);
+		$class = get_called_class();
+		$key = '';
+		switch ($type){
+			case "boolean":
+			case "integer":
+			case "double":
+			case "string":
+			$key = $class. (string)$input;
+				break;
+			case "array":
+				$key = array_reduce(array_keys($input),$reducer,$class);
+				break;
+			case "object":
+				if($input instanceof \stdClass){
+					$input = (array)$input;
+					$key = array_reduce(array_keys($input),$reducer,$class);
+				}
+				break;
+		}
+		$key = strtolower(str_replace('\\','_',$key));
+		return md5($key);
 	}
 
 }

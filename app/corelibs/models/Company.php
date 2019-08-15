@@ -2,7 +2,7 @@
 
 namespace Schedule\Core\Models;
 
-class Company extends \Phalcon\Mvc\Model
+class Company extends CachableModel
 {
 
     /**

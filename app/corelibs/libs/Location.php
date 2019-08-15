@@ -405,9 +405,12 @@ class Location extends Kernel
 
 	public static function getLocationByStation(Stations $station)
 	{
-		$cl = str_replace('\\','_',get_class($station));
+		$cachekey = Location::createCacheKey([
+			'class'=> get_class($station),
+			'id'=>$station->getId()
+		]);
 		$loc = new self();
-		 if ($location=$loc->coreCache->slow->get($cl.$station->getId())){
+		 if ($location=$loc->coreCache->slow->get($cachekey)){
 
 		 	return $location;
 		 }
@@ -415,7 +418,7 @@ class Location extends Kernel
 		$loc->city = Cities::findFirst($station->getCityId());
 		$loc->local_reg = $loc->city->is_regional ? null : LocalRegions::findFirst($loc->city->local_district_id);
 		$loc->state = States::findFirst($loc->city->country_id);
-		$loc->coreCache->slow->save($cl.$station->getId(), $loc);
+		$loc->coreCache->slow->save($cachekey, $loc);
 		return $loc;
 
 	}

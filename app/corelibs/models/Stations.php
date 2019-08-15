@@ -16,7 +16,7 @@ use Phalcon\Mvc\Model;
  * @property StationsTranslations $translation
  * @package Schedule\Core\Models
  */
-class Stations extends Model implements LocationNodeInterface
+class Stations extends CachableModel implements LocationNodeInterface
 {
     private $id;
     private $city_id;

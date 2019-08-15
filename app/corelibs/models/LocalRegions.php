@@ -17,7 +17,7 @@ use Phalcon\Mvc\Model;
  * @property Cities[] $towns
  * @property Cities $regional_center
  */
-class LocalRegions extends Model implements LocationNodeInterface
+class LocalRegions extends CachableModel implements LocationNodeInterface
 {
 public $id;
 public $latin_name;

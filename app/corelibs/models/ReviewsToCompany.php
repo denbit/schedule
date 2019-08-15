@@ -11,7 +11,7 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class ReviewsToCompany extends Model
+class ReviewsToCompany  extends CachableModel
 {
 
     public function getSource()

@@ -11,7 +11,7 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class LanguageDescription extends Model
+class LanguageDescription extends CachableModel
 {
 
     public function getSource()

@@ -2,7 +2,7 @@
 
 namespace Schedule\Core\Models;
 
-class Users extends \Phalcon\Mvc\Model
+class Users extends CachableModel
 {
 
     /**

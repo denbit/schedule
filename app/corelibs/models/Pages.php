@@ -14,7 +14,7 @@ use Phalcon\Validation;
 use Phalcon\Validation\Validator\Alpha;
 use Phalcon\Validation\Validator\PresenceOf;
 
-class Pages extends Model
+class Pages  extends CachableModel
 {
 
 private $id;
