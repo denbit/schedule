@@ -12,7 +12,7 @@ namespace Schedule\Core\Models;
 use Phalcon\Mvc\Model;
 use Schedule\Core\Location;
 
-class TransitRoutes extends Model
+class TransitRoutes extends  CachableModel
 {
     /**
      * @var int

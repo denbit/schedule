@@ -202,7 +202,7 @@ if ($this->id){
 
 			foreach ($last_n  as $route) {
 				$route_inst = clone $busRoute;
-				yield $route_inst->findById($route['id']);
+			yield $route_inst->findById($route['id']);
 
 			}
 

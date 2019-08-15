@@ -11,7 +11,7 @@ namespace Schedule\Core\Models;
 
 use Phalcon\Mvc\Model;
 
-class Routes extends Model
+class Routes extends CachableModel
 {
 
     /**
