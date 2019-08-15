@@ -406,7 +406,7 @@ class Location extends Kernel
 	public static function getLocationByStation(Stations $station)
 	{
 		$cachekey = Location::createCacheKey([
-			'class'=> get_class($station),
+			'findby'=> get_class($station),
 			'id'=>$station->getId()
 		]);
 		$loc = new self();

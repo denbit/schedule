@@ -194,14 +194,16 @@ class Kernel
 
 	}
 
-	public static function createCacheKey($input):string
+	public static function createCacheKey($input,$model=''):string
 	{
 		$reducer = function ($accamulator, $key)use ($input){
-			$accamulator.= Text::concat($key,'&',$input[$key],'_');
+			if ($key=='di') return '';
+			$input[$key]=is_array($input[$key])?implode('',$input[$key]):$input[$key];
+			 $accamulator.= ('_'.$key.'&'.$input[$key]);
 			return $accamulator;
 		};
 		$type =gettype($input);
-		$class = get_called_class();
+		$class = (get_called_class().$model)."=";
 		$key = '';
 		switch ($type){
 			case "boolean":
@@ -211,7 +213,7 @@ class Kernel
 			$key = $class. (string)$input;
 				break;
 			case "array":
-				$key = array_reduce(array_keys($input),$reducer,$class);
+			 $key = array_reduce(array_keys($input),$reducer,$class);
 				break;
 			case "object":
 				if($input instanceof \stdClass){
@@ -220,8 +222,9 @@ class Kernel
 				}
 				break;
 		}
-		$key = strtolower(str_replace('\\','_',$key));
-		return md5($key);
+		$key= strtolower(str_replace('\\','_',$key));
+
+		return ($key);
 	}
 
 }
