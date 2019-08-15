@@ -87,8 +87,8 @@ public $belongs_to_region;
 
 	public function initialize()
 	{
-		$this->hasMany('id',Cities::class,'local_district_id',['alias'=>'towns']);
-		$this->belongsTo('belongs_to_region',Cities::class,'id',['alias'=>'regional_center']);
+		$this->hasMany('id',Cities::class,'local_district_id',['alias'=>'towns', 'reusable' => true]);
+		$this->belongsTo('belongs_to_region',Cities::class,'id',['alias'=>'regional_center', 'reusable' => true]);
 	}
     public function getSource()
     {

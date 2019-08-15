@@ -111,9 +111,18 @@ $di->setShared('voltShared', function ($view) {
 
 	return $volt;
 });
+$di->setShared('modelsCache', function (){
+	$storage_format_quick =  new \Phalcon\Cache\Frontend\Data(
+	[
+		'lifetime' => 1800,
+	]
+);
+
+	return new ShortCache($storage_format_quick);
+});
 $di->setShared('coreCache',function (){
-	$storage_format = new \Phalcon\Cache\Frontend\Data(   [
-		'lifetime' => 2592000,
+	$storage_format = new \Phalcon\Cache\Frontend\Igbinary([
+		'lifetime' => 1800,
 	]);
 	$storage_format_quick =  new \Phalcon\Cache\Frontend\Data(
 		[
@@ -127,9 +136,14 @@ $di->setShared('coreCache',function (){
 		$cacheDir = APP_PATH . DIRECTORY_SEPARATOR . $cacheDir;
 	}
 
-	$cacheDir = realpath($cacheDir);//echo $cacheDir;die;
+	$cacheDir = realpath($cacheDir);
+	$targetDir = $cacheDir."/core";
+	if(!is_dir($targetDir)){
+		mkdir($targetDir,755,true);
+	}
+
 	$long_cache = new LongCache($storage_format,[
-		"cacheDir"=>$cacheDir.'/'
+		"cacheDir"=> $targetDir . DIRECTORY_SEPARATOR
 	]);
 	return (object)[
 		'fast'=>$cache,

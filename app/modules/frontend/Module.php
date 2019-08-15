@@ -95,7 +95,7 @@ class Module implements ModuleDefinitionInterface
 			}
 		);
 		$di->set('viewsCache',function (){});
-		$di->set('modelsCache', function (){});
+
 
     }
 }

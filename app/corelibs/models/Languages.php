@@ -22,6 +22,6 @@ class Languages extends Model
 
     public function initialize()
     {
-        $this->hasMany('lang_id',LanguageDescription::class,'in_lang_id',['alias'=>'allangs']);
+        $this->hasMany('lang_id',LanguageDescription::class,'in_lang_id',['alias'=>'allangs', 'reusable' => true]);
     }
 }

@@ -85,7 +85,7 @@ class Stations extends Model implements LocationNodeInterface
 
 	public function initialize()
 	{
-		$this->hasMany('id',StationsTranslations::class,'station_id',['alias'=>'translation']);
+		$this->hasMany('id',StationsTranslations::class,'station_id',['alias'=>'translation', 'reusable' => true]);
     }
     public function getSource()
     {

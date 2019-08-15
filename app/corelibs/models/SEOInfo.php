@@ -134,7 +134,7 @@ private  $menu_title;
     }
 public function initialize()
     {
-        $this->hasOne('id',Pages::class,'seo_info_id',['alias'=>'page']);
+        $this->hasOne('id',Pages::class,'seo_info_id',['alias'=>'page', 'reusable' => true]);
     }
     public function getSource()
     {

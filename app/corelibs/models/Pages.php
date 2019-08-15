@@ -117,8 +117,8 @@ private $content_id;
 	}
     public function initialize()
     {
-        $this->hasOne('id',SEOInfo::class,'to_page',['alias'=>'seo']);
-        $this->hasOne('type_id',PagesTypes::class,'id',['alias'=>'pagetype']);
+        $this->hasOne('id',SEOInfo::class,'to_page',['alias'=>'seo', 'reusable' => true]);
+        $this->hasOne('type_id',PagesTypes::class,'id',['alias'=>'pagetype', 'reusable' => true]);
 
     }
     public function getSource()

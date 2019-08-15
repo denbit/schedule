@@ -86,6 +86,7 @@ class States extends Model implements LocationNodeInterface
 				'params' => [
 					'conditions' => 'is_regional=1'
 				],
+				'reusable' => true
 			]
 		);
 	}
