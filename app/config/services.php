@@ -5,6 +5,7 @@ use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Config\Adapter\Ini;
 use Phalcon\Cache\Backend\{File as LongCache, Memory as ShortCache};
+use Phalcon\Cache\Frontend\{Json,Data as Serialaze};
 
 /**
  * Shared configuration service
@@ -119,7 +120,7 @@ $di_inst=$this;
 	return $volt;
 });
 $di->setShared('modelsCache', function (){
-	$storage_format_quick =  new \Phalcon\Cache\Frontend\Data(
+	$storage_format_quick =  new Serialaze(
 	[
 		'lifetime' => 1800,
 	]
@@ -136,10 +137,10 @@ $di->setShared('modelsCache', function (){
 });
 
 $di->setShared('coreCache',function (){
-	$storage_format = new \Phalcon\Cache\Frontend\Data([
+	$storage_format = new Serialaze([
 		'lifetime' => 1800,
 	]);
-	$storage_format_quick =  new \Phalcon\Cache\Frontend\Data(
+	$storage_format_quick =  new Json(
 		[
 			'lifetime' => 1800,
 		]

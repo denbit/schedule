@@ -25,12 +25,14 @@ class IndexController extends ControllerBase
 		$model = new IndexModel();
 		$lang = LanguageParser::SystemLanguage();
 		$url = $this->request->getURI();
-		$url_sanitized=strpos($url,'?')===false?$url:substr($url,0,strpos($url,'?'));//crete normall get sanitize
+		$url_sanitized=strtok($url,'?');//crete normall get sanitize
 
 		$page = $model->getDataForHttp(['url' => $url_sanitized, 'lang' => $lang,'module'=>$this->router->getControllerName()."::".$this->router->getActionName()]);
 		$this->view->data = 'System language is '.$lang;
 		$this->view->page = $page;
 	}
+
+
 	public function  suggestAction(){
 		$this->isAjax();
 		$suggestion=$this->request->getQuery('suggest');
