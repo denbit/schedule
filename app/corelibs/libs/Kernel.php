@@ -194,7 +194,12 @@ class Kernel
 
 	}
 
-	public static function createCacheKey($input,$model=''):string
+	/**
+	 * @param $input  should contain input params
+	 * @param string $model If cache key for Model, $model is neccessary
+	 * @return string if it is called from model $class=Kernel if from Kernel childs then $child::class
+	 */
+	public static function createCacheKey($input, $model=''):string
 	{
 		$reducer = function ($accamulator, $key)use ($input){
 			if ($key=='di') return '';
@@ -223,7 +228,9 @@ class Kernel
 				break;
 		}
 		$key= strtolower(str_replace('\\','_',$key));
-
+if( $model ){
+	echo $key,"\n";
+}
 		return ($key);
 	}
 

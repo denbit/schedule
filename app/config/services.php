@@ -121,7 +121,7 @@ $di->setShared('modelsCache', function (){
 	return new ShortCache($storage_format_quick);
 });
 $di->setShared('coreCache',function (){
-	$storage_format = new \Phalcon\Cache\Frontend\Igbinary([
+	$storage_format = new \Phalcon\Cache\Frontend\Data([
 		'lifetime' => 1800,
 	]);
 	$storage_format_quick =  new \Phalcon\Cache\Frontend\Data(

@@ -138,9 +138,9 @@ class Routes extends CachableModel
 
     public function initialize()
     {
-        $this->hasOne('start_station',Stations::class,'id',['alias'=>'startStation']);
-        $this->hasOne('end_station',Stations::class,'id',['alias'=>'endStation']);
-        $this->hasOne('made_by',Company::class,'id',['alias'=>'madeBy']);
+        $this->hasOne('start_station',Stations::class,'id',['alias'=>'startStation','reusable' => true]);
+        $this->hasOne('end_station',Stations::class,'id',['alias'=>'endStation','reusable' => true]);
+        $this->hasOne('made_by',Company::class,'id',['alias'=>'madeBy','reusable' => true]);
     }
     public function getSource()
     {
