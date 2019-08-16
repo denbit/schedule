@@ -117,6 +117,21 @@ $di->setShared('modelsCache', function (){
 		'lifetime' => 1800,
 	]
 );
+	//!! add config reading!
+	$cacheDir = $this->getConfig()->application->cacheDir;
+	if ($cacheDir && (substr($cacheDir, 0, 2) == '..'|| substr($cacheDir, 0, 3) == '/..')) {
+		$cacheDir = APP_PATH . DIRECTORY_SEPARATOR . $cacheDir;
+	}
+
+	$cacheDir = realpath($cacheDir);
+	$targetDir = $cacheDir."/models";
+	if(!is_dir($targetDir)){
+		mkdir($targetDir,755,true);
+	}
+
+	$long_cache = new LongCache($storage_format_quick,[
+		"cacheDir"=> $targetDir . DIRECTORY_SEPARATOR
+	]);
 
 	return new ShortCache($storage_format_quick);
 });
