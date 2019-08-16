@@ -12,12 +12,32 @@ use Phalcon\Cache\Backend\{File as LongCache, Memory as ShortCache};
 $di->setShared('config', function () {
 	return new Ini(APP_PATH  . "/config/config.ini");
 });
+$config = $di->getConfig();
+
+$di->setShared('cacheFolder',function ($subfolder='') use ($config){
+	$cacheDir = $config->application->cacheDir;
+	if ($cacheDir && substr($cacheDir, 0, 2) == '..'|| substr($cacheDir, 0, 3) == '/..') {
+		$cacheDir = APP_PATH . DIRECTORY_SEPARATOR . $cacheDir;
+	}
+
+	$cacheDir = realpath($cacheDir);
+
+	if (!$cacheDir) {
+		$cacheDir = sys_get_temp_dir();
+	}
+
+	if ( !empty($subfolder) || !is_dir($cacheDir . DIRECTORY_SEPARATOR . $subfolder )) {
+		@mkdir($cacheDir . DIRECTORY_SEPARATOR . $subfolder , 0755, true);
+		return $cacheDir . DIRECTORY_SEPARATOR . $subfolder;
+	}
+	return $cacheDir;
+});
 
 /**
  * Database connection is created based in the parameters defined in the configuration file
  */
-$di->setShared('db', function () {
-	$config = $this->getConfig();
+$di->setShared('db', function () use ($config) {
+
 
 	$class = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
 	$params = [
@@ -47,12 +67,12 @@ $di->setShared('modelsMetadata', function () {
 /**
  * Configure the Volt service for rendering .volt templates
  */
-$di->setShared('voltShared', function ($view) {
-	$config = $this->getConfig();
+$di->setShared('voltShared', function ($view) use ($config) {
 
+$di_inst=$this;
 	$volt = new VoltEngine($view, $this);
 	$volt->setOptions([
-		'compiledPath' => function($templatePath) use ($config) {
+		'compiledPath' => function($templatePath) use ($config,$di_inst) {
 			$basePath = $config->application->appDir;
 			if ($basePath && substr($basePath, 0, 2) == '..') {
 				$basePath = dirname(__DIR__);
@@ -63,22 +83,9 @@ $di->setShared('voltShared', function ($view) {
 
 			$filename = basename(str_replace(['\\', '/'], '_', $templatePath), '.volt') . '.php';
 
-			$cacheDir = $config->application->cacheDir;
-			if ($cacheDir && substr($cacheDir, 0, 2) == '..') {
-				$cacheDir = __DIR__ . DIRECTORY_SEPARATOR . $cacheDir;
-			}
+			$cacheDir = $di_inst->getCacheFolder('volt');
 
-			$cacheDir = realpath($cacheDir);
-
-			if (!$cacheDir) {
-				$cacheDir = sys_get_temp_dir();
-			}
-
-			if (!is_dir($cacheDir . DIRECTORY_SEPARATOR . 'volt' )) {
-				@mkdir($cacheDir . DIRECTORY_SEPARATOR . 'volt' , 0755, true);
-			}
-
-			return $cacheDir . DIRECTORY_SEPARATOR . 'volt' . DIRECTORY_SEPARATOR . $filename;
+			return $cacheDir . DIRECTORY_SEPARATOR . $filename;
 		},
 		'compileAlways' => $config->application->development==true ? true:false
 
@@ -117,24 +124,17 @@ $di->setShared('modelsCache', function (){
 		'lifetime' => 1800,
 	]
 );
-	//!! add config reading!
-	$cacheDir = $this->getConfig()->application->cacheDir;
-	if ($cacheDir && (substr($cacheDir, 0, 2) == '..'|| substr($cacheDir, 0, 3) == '/..')) {
-		$cacheDir = APP_PATH . DIRECTORY_SEPARATOR . $cacheDir;
-	}
 
-	$cacheDir = realpath($cacheDir);
-	$targetDir = $cacheDir."/models";
-	if(!is_dir($targetDir)){
-		mkdir($targetDir,755,true);
-	}
+
+	$targetDir = $this->getCacheFolder('models');
 
 	$long_cache = new LongCache($storage_format_quick,[
 		"cacheDir"=> $targetDir . DIRECTORY_SEPARATOR
 	]);
 
-	return new ShortCache($storage_format_quick);
+	return $long_cache;// new ShortCache($storage_format_quick);
 });
+
 $di->setShared('coreCache',function (){
 	$storage_format = new \Phalcon\Cache\Frontend\Data([
 		'lifetime' => 1800,
@@ -145,17 +145,7 @@ $di->setShared('coreCache',function (){
 		]
 	);
 	$cache = new ShortCache($storage_format_quick);
-	//!! add config reading!
-	$cacheDir = $this->getConfig()->application->cacheDir;
-	if ($cacheDir && (substr($cacheDir, 0, 2) == '..'|| substr($cacheDir, 0, 3) == '/..')) {
-		$cacheDir = APP_PATH . DIRECTORY_SEPARATOR . $cacheDir;
-	}
-
-	$cacheDir = realpath($cacheDir);
-	$targetDir = $cacheDir."/core";
-	if(!is_dir($targetDir)){
-		mkdir($targetDir,755,true);
-	}
+	$targetDir = $this->getCacheFolder('core');
 
 	$long_cache = new LongCache($storage_format,[
 		"cacheDir"=> $targetDir . DIRECTORY_SEPARATOR

@@ -202,7 +202,8 @@ class Kernel
 	 */
 	public static function createCacheKey($input, $model=''):string
 	{
-		if (! $input) throw  new Exception("KEy must exist");
+		if (is_null($input))
+			throw  new Exception("Key must exist");
 		$reducer = function ($accamulator, $key)use ($input){
 			if ($key=='di') return $accamulator;
 			$input[$key]=is_array($input[$key])?implode('',$input[$key]):$input[$key];
@@ -210,7 +211,7 @@ class Kernel
 			return $accamulator;
 		};
 		$type =gettype($input);
-		$class= (get_called_class().$model)."=";
+		$class = (get_called_class().$model)."=";
 		$key = '';
 		switch ($type){
 			case "boolean":
