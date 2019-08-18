@@ -11,10 +11,10 @@ $authority = new \Phalcon\Mvc\Router\Group(array(
 ));
 $authority->setPrefix('/authority');
 
-$authority->add('(/)?', [
+$authority->add('(/?)', [
 	'controller' => 'index',
 	'action' => 'index'
-]);
+])->setName('main-authority');
 $authority->add('/:action', [
 	'controller' => 'index',
 	'action' => 1

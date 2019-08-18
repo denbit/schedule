@@ -10,6 +10,7 @@
 	<table class="table middle_row">
 		<thead class="thead-dark">
 		<tr>
+			<th scope="col">ID</th>
 			<th scope="col">Логін</th>
 			<th scope="col">Ім"я</th>
 			<th scope="col">Призвище</th>
@@ -21,7 +22,11 @@
 		{% if users is not empty %}
 			{% for user in  users %}
 				<tr id="{{ user.id }}">
-					<td><input type="checkbox" data-key="{{ user.id }}"> <i>{{ user.id }}</i>
+					<td>
+						<input type="checkbox" data-key="{{ user.id }}"> <i>{{ user.id }}</i>
+					</td>
+					<td>
+						{{ user.login }}
 					</td>
 					<td>
 						{% if user.name  %}{{ user.name }}{% endif %}

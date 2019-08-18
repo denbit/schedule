@@ -20,7 +20,7 @@
 <div class="container-fluid text-white bg-dark">
     <div class="row">
         <div class="col">
-            <img src="/images/authority/top.svg">
+            {{ link_to(['for':'main-authority'], image('/images/authority/top.svg',"alt":'Szlach managing system')) }}
         </div>
         <div class="col">
             <div class="row">{% block head %}{% endblock %} </div>
