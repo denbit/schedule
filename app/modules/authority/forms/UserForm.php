@@ -8,24 +8,51 @@ use Phalcon\Forms\Element\Text;
 
 use Phalcon\Forms\Form;
 
+use Phalcon\Validation\Validator\Alnum;
+use Phalcon\Validation\Validator\Email;
+use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Regex;
+use Phalcon\Validation\Validator\Uniqueness;
 use Schedule\Core\Models\Users;
 
 
 class UserForm extends Form
 {
-	public function initialize(Users $user, $options)
+	public function initialize(Users $user=null, $options)
 	{
 		$this->setEntity($user);
 
-		$this->add(new Hidden('id'));
+		$id=new Hidden('id');
+		$id//->addValidator(new Numericality(['message'=>":field shoudl be numeric"]))
+			->setLabel("");
 		$name = new Text('name');
-		$cyr_name = new Text('l_name');
-		$latin_name = new Text('password');
-		$this->add($name)->add($latin_name)->add($cyr_name);
-		$address = new Text('login');
-		$latin_address = new Text('email');
-		$this->add($address)->add($latin_address);
-		$this->add(new Text('judicial_form'));
+		$name->addValidator(new Regex([
+			'pattern'=>'/^[\w\s]+$/',
+			'message'
+		]));
+		$l_name = new Text('l_name');
+		$password = new Text('password');
+		$password->addValidator(new PresenceOf(['message'=>"field is mandatory"]));
+		$password2= new Text('password2');
+		$password2->addValidator( new PresenceOf(['message'=>"Re type password once more"]));
+		$login = new Text('login');
+		$login->addValidators([
+			new PresenceOf(),new Regex(['pattern'=>'/^[A-Za-z0-9@_]+$/']),
+			new Uniqueness(['model'=>new Users()
+			])
+		]);
+		$email = new Text('email');
+		$email->addValidators([
+			new PresenceOf(),
+			new Uniqueness(['model'=>new Users()]),
+			new Email(["message" => "The e-mail is not valid" ])
+		]);
+
+		$this->add($login)->add($email)
+			->add($id)->add($name)
+			->add($l_name)->add($password)
+			->add($password2);
 
 	}
 }

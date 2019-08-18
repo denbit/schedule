@@ -131,8 +131,8 @@
                 <div class="collapse" id="users_list_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
-                            <li>Створити</li>
-                            <li>Пошук</li>
+                            <li>{{ link_to(["for": "action-auth",'controller':'users','action':'form'], 'Створити','class':'btn-link') }}</li>
+                            <li>{{ link_to(["for": "action-auth",'controller':'users','action':'form'], 'Пошук','class':'btn-link') }}</li>
                         </ul>
                     </div>
                 </div>

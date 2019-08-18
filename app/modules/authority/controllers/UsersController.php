@@ -26,12 +26,22 @@ class UsersController extends ControllerBase
 	public function formAction()
 	{
 		$userForm = UsersManager::getUserForm();
+		$action = $this->url->get(
+			[
+				'for' => "action-save",
+				'controller' => $this->dispatcher->getControllerName(),
+				'action' => 'save',
+				'id'=>''
+			]
+		);
+		$userForm->setAction($action);
+		$this->view->usersForm=$userForm;
 	}
 	public function editAction()
 	{
 		$id = $this->dispatcher->getParam('id');
 
-		if (false !== ($user = Users::findFirst($id))) {
+		if ( $id && false !== ($user = Users::findFirst($id))) {
 			$userForm = UsersManager::getUserForm($user);
 			$action = $this->url->get(
 				[
@@ -42,8 +52,8 @@ class UsersController extends ControllerBase
 				]
 			);
 			$userForm->setAction($action);
-			$this->view->pick('company/form');
-			$this->view->companyForm = $user;
+			$this->view->pick('users/form');
+			$this->view->usersForm = $user;
 		} else {
 			$this->dispatcher->forward(
 				[
@@ -58,17 +68,26 @@ class UsersController extends ControllerBase
 	public function saveAction()
 	{
 		$id = $this->dispatcher->getParam('id');
-		if (false !== ($user = Users::findFirst($id))) {
+		if (! $id || false === ($user = Users::findFirst($id))) {
+			$user=new Users();
+		}
 			$userForm = UsersManager::getUserForm($user);
+
+
 			if ($userForm->isValid($this->request->getPost())) {
-				if ($userForm->save()) {
+
+				if ($user->save()) {
 					$this->flashSession->success("The company  {$user->getLogin()} was saved succesfully");
 				}
-			}
-		}else{
+
+
+		}else{ foreach($userForm->getMessages() as $m){
+				echo $m;
+			};
+				echo 1;
 			$this->flashSession->error("System wasn't able to save company $id ");
 		}
-
+die;
 		$this->response->redirect($this->url->get([
 				'for' => "action-auth",
 				'controller' => $this->dispatcher->getControllerName(),

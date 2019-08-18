@@ -10,7 +10,7 @@ namespace Schedule\Modules\Authority\Models;
 
 
 use Schedule\Core\{Models\Users,Kernel};
-
+use Schedule\Modules\Authority\Forms\UserForm;
 class UsersManager extends Kernel
 {
 	public function getList($index=5)
@@ -23,7 +23,7 @@ class UsersManager extends Kernel
 		return $users;
 	}
 
-	public function getUserForm( Users $i = null, bool $edit = false)
+	public static function getUserForm( Users $i = null, bool $edit = false)
 	{
 
 		$options=new \stdClass();
