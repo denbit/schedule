@@ -3,15 +3,14 @@
 namespace Schedule\Modules\Authority\Controllers;
 
 
-use Phalcon\Exception;
+use Phalcon\Mvc\Model\Exception;
 use Schedule\Core\Components\NotFound;
 use Schedule\Core\Location;
 use Schedule\Modules\Authority\Models\LocationManager;
 
 
-class LocationController extends ControllerBase
+class LocationController extends ControllerBase implements ICreatable,ISearchable,IEditable
 {
-	use NotFound;
 
 
 	public function initialize()
@@ -19,6 +18,26 @@ class LocationController extends ControllerBase
 
 		$this->view->setVar('location_nodes', (object)Location::$location_nodes);
 
+	}
+
+	public function formAction()
+	{
+		// TODO: Implement formAction() method.
+	}
+
+	public function saveAction()
+	{
+		// TODO: Implement saveAction() method.
+	}
+
+	public function editAction()
+	{
+		// TODO: Implement editAction() method.
+	}
+
+	public function searchAction()
+	{
+		// TODO: Implement searchAction() method.
 	}
 
 	public function indexAction()
@@ -112,7 +131,7 @@ class LocationController extends ControllerBase
 		$node = $locationManager->getInstanceFromData($category, $post_data, $node_id);
 		if (!$node->update()) {
 			$messages = $node->getMessages();
-			throw new Model\Exception(implode("\n", $messages));
+			throw new Exception(implode("\n", $messages));
 		}
 		$this->flash->success("$category {$node->latin_name} was updated ");
 	}

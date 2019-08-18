@@ -14,10 +14,20 @@ use Schedule\Core\Models\PagesTypes;
 use Schedule\Core\PageParser;
 use Schedule\Modules\Authority\Models\PageManager;
 
-class PageController extends ControllerBase
+class PageController extends ControllerBase implements ICreatable,IEditable
 {
+	public function saveAction()
+	{
+		// TODO: Implement saveAction() method.
+	}
 
-    public function indexAction()
+	public function editAction()
+	{
+		// TODO: Implement editAction() method.
+	}
+
+
+	public function indexAction()
     {
         $page_manger=new PageManager();
         $uni_pages=$page_manger->getListOfPages();

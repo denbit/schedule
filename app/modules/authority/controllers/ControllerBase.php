@@ -1,20 +1,22 @@
 <?php
 namespace Schedule\Modules\Authority\Controllers;
 
-use Phalcon\Filter;
-use Phalcon\Forms\Form;
+
 use Phalcon\Mvc\Controller;
-use Phalcon\Mvc\View;
+use Schedule\Core\Components\NotFound;
+use Schedule\Core\IMainAction;
 use Schedule\Modules\Authority\Models\Login;
 
-class ControllerBase extends Controller
+abstract class ControllerBase extends Controller implements IMainAction
 {
+	use NotFound;
 
 	public function onConstruct()
 	{
 		 if (!$this->logon()){
 			 return false;
 		 }
+		 return true;
 	}
 
 

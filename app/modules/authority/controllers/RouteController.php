@@ -2,18 +2,20 @@
 
 namespace Schedule\Modules\Authority\Controllers;
 
-use Schedule\Core\Components\NotFound;
-use Schedule\Core\Cost;
-use Schedule\Core\Location;
-use Schedule\Core\BusRoute;
+
+
 use Schedule\Modules\Authority\Models\RouteManager;
-use Schedule\Modules\Frontend\Models\IndexModel;
 
 
-class RouteController extends ControllerBase
+
+class RouteController extends ControllerBase implements ICreatable,ISearchable,IEditable
 {
+	public function searchAction()
+	{
+		// TODO: Implement searchAction() method.
+	}
 
-    public function indexAction()
+	public function indexAction()
     {
     	$Route= new RouteManager();
 

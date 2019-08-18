@@ -235,7 +235,7 @@ class Kernel
 //	echo $class;
 //	echo $key,"  - key\n";
 //}
-		return ($key);
+		return md5($key);
 	}
 
 }

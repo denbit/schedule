@@ -6,10 +6,10 @@
  * Time: 12:52
  */
 
-namespace Schedule\Modules\Frontend\Controllers;
+namespace Schedule\Core;
 
 
-interface IFrontEnd
+interface IMainAction
 {
     public function indexAction();
 

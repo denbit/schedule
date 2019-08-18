@@ -36,13 +36,14 @@ class LanguageParser
 		   * @var Di
 		   */
 	  	$di =Di::getDefault();
-		if(false==($lang_list=$di->coreCache->fast->get('language_list'))){
+		$kernel= new Kernel();
+		if(false==($lang_list=$kernel->coreCache->slow->get('language_list'))){
 			$lang_codes = Languages::find([
 				'columns'=>'lang_id, lang_code',
 				'hydration'=>Resultset::HYDRATE_ARRAYS
 			])->toArray();
 			$lang_list = array_column($lang_codes,'lang_code','lang_id');
-			$di->coreCache->fast->save('language_list',$lang_list, 3600);
+			$kernel->coreCache->slow->save('language_list',$lang_list, 3600);
 		}
 
 		  return $lang_list;

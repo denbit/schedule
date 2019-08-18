@@ -10,10 +10,14 @@ use Schedule\Core\Models\TranslationsCommon;
 use Schedule\Core\Translate;
 
 
-class TranslationController extends ControllerBase
+class TranslationController extends ControllerBase implements ISearchable,IEditable
 {
+	public function searchAction()
+	{
+		// TODO: Implement searchAction() method.
+	}
 
-    public function indexAction()
+	public function indexAction()
     {
 		$translations = Translate::getAllTransations();
 		if(count($translations)>0){

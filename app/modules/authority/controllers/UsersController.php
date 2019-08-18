@@ -3,34 +3,36 @@
 namespace Schedule\Modules\Authority\Controllers;
 
 use Schedule\Core\Components\NotFound;
-use Schedule\Core\Location;
-use Schedule\Core\BusRoute;
+
 use Schedule\Core\Models\Company;
-use Schedule\Modules\Authority\Models\CompanyManager;
+use Schedule\Core\Models\Users;
+use Schedule\Modules\Authority\Models\UsersManager;
 
 
-class CompanyController extends ControllerBase implements ISearchable,IEditable
+class UsersController extends ControllerBase
 {
 	use NotFound;
 
-	public function searchAction()
-	{
-		// TODO: Implement searchAction() method.
-	}
-
 	public function indexAction()
 	{
-		$manager = new CompanyManager();
-		$this->view->companies = $manager->getList();
+		$manager = new UsersManager();
+//		var_dump( $manager->getList()->toArray());
+//		die;
+
+		$this->view->users = $manager->getList();
 
 	}
 
+	public function formAction()
+	{
+		$userForm = UsersManager::getUserForm();
+	}
 	public function editAction()
 	{
 		$id = $this->dispatcher->getParam('id');
 
-		if (false !== ($company = Company::findFirst($id))) {
-			$companyForm = CompanyManager::getCompanyForm($company);
+		if (false !== ($user = Users::findFirst($id))) {
+			$userForm = UsersManager::getUserForm($user);
 			$action = $this->url->get(
 				[
 					'for' => "action-save",
@@ -39,9 +41,9 @@ class CompanyController extends ControllerBase implements ISearchable,IEditable
 					'id'=>$id
 				]
 			);
-			$companyForm->setAction($action);
+			$userForm->setAction($action);
 			$this->view->pick('company/form');
-			$this->view->companyForm = $companyForm;
+			$this->view->companyForm = $user;
 		} else {
 			$this->dispatcher->forward(
 				[
@@ -56,11 +58,11 @@ class CompanyController extends ControllerBase implements ISearchable,IEditable
 	public function saveAction()
 	{
 		$id = $this->dispatcher->getParam('id');
-		if (false !== ($company = Company::findFirst($id))) {
-			$companyForm = CompanyManager::getCompanyForm($company);
-			if ($companyForm->isValid($this->request->getPost())) {
-				if ($company->save()) {
-					$this->flashSession->success("The company  {$company->getName()} was saved succesfully");
+		if (false !== ($user = Users::findFirst($id))) {
+			$userForm = UsersManager::getUserForm($user);
+			if ($userForm->isValid($this->request->getPost())) {
+				if ($userForm->save()) {
+					$this->flashSession->success("The company  {$user->getLogin()} was saved succesfully");
 				}
 			}
 		}else{

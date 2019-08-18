@@ -1,6 +1,6 @@
 <?php
 
-use Phalcon\Loader;
+
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Config\Adapter\Ini;
@@ -10,19 +10,20 @@ use Phalcon\Cache\Frontend\{Json,Data as Serialaze};
 /**
  * Shared configuration service
  */
+
 $di->setShared('config', function () {
 	return new Ini(APP_PATH  . "/config/config.ini");
 });
 $config = $di->getConfig();
 
-$di->setShared('cacheFolder',function ($subfolder='') use ($config){
+$di->set('cacheFolder',function ($subfolder='') use ($config){
 	$cacheDir = $config->application->cacheDir;
 	if ($cacheDir && substr($cacheDir, 0, 2) == '..'|| substr($cacheDir, 0, 3) == '/..') {
 		$cacheDir = APP_PATH . DIRECTORY_SEPARATOR . $cacheDir;
 	}
 
-	$cacheDir = realpath($cacheDir);
-
+	 $cacheDir = realpath($cacheDir);
+	echo $cacheDir;
 	if (!$cacheDir) {
 		$cacheDir = sys_get_temp_dir();
 	}
@@ -93,7 +94,7 @@ $di_inst=$this;
 	]);
 	$compiler=$volt->getCompiler();
 	$compiler->addFunction('substr','substr');
-	$compiler->addFunction('translate', function ($res, $exprArgs='')use ($compiler) {
+	$compiler->addFunction('translate', function ($_, $exprArgs='')use ($compiler) {
 
 		// Resolve the first argument
 		$firstArgument = $compiler->expression($exprArgs[0]['expr']);

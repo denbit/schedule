@@ -83,8 +83,10 @@
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
                             <li>{{ link_to(["for": "action-auth",'controller':'route','action':'form'], 'Створити','class':'btn-link') }}</li>
+                            <li>{{ link_to(["for": "action-auth",'controller':'route','action':'search'], 'Пошук','class':'btn-link') }}</li>
                             <li>{{ link_to(["for": "action-auth",'controller':'route','action':''], 'Видалити масово','class':'btn-link') }}</li>
                             <li>{{ link_to(["for": "action-auth",'controller':'route','action':''], 'Опублікувати','class':'btn-link') }}</li>
+
                         </ul>
                     </div>
                 </div>
@@ -99,7 +101,7 @@
                 <div class="collapse" id="location_collapse">
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
-                            <li>smth</li>
+                            <li>Нове розташування</li>
                             <li>smth</li>
                         </ul>
                     </div>
@@ -116,6 +118,21 @@
                         <ul class="ul_all_collapse">
                             <li>smth</li>
                             <li>smth</li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a class="btn btn-link collapsed" data-toggle="collapse" href="#users_list_collapse" role="button"
+                   aria-expanded="false" aria-controls="collapse">Користувачі </a>
+				{% if router.getControllerName()!='users' %}
+					{{ link_to(["for": "action-auth",'controller':'users','action':''], '<i class="fa fa-bars"></i>','class':'btn-link') }}
+				{% endif %}
+                <div class="collapse" id="users_list_collapse">
+                    <div class="card card-body local_padding">
+                        <ul class="ul_all_collapse">
+                            <li>Створити</li>
+                            <li>Пошук</li>
                         </ul>
                     </div>
                 </div>
