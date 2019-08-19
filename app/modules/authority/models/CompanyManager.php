@@ -7,6 +7,7 @@ namespace Schedule\Modules\Authority\Models;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
+use Schedule\Core\Components\DataText;
 use Schedule\Core\Kernel;
 use Schedule\Core\Models\Company;
 
@@ -34,6 +35,9 @@ class CompanyManager extends Kernel
 	$cyr_address = new Text('cyr_address');
 	$form->add($address)->add($latin_address)->add($cyr_address);
 	$form->add(new Text('judicial_form'));
+	$user = new DataText('user');
+	$user->setLabel('Користувач');
+	$form->add($user);
 	return $form;
 }
 }

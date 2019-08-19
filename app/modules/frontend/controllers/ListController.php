@@ -4,7 +4,7 @@
 namespace Schedule\Modules\Frontend\Controllers;
 
 
-use Schedule\Modules\Authority\Models\PageManager;
+
 
 class ListController extends ControllerBase
 {

@@ -74,20 +74,18 @@ class UsersController extends ControllerBase
 			$userForm = UsersManager::getUserForm($user);
 
 
-			if ($userForm->isValid($this->request->getPost())) {
+			if ($userForm->isValid($this->request->getPost()) && $user->save()) {
 
-				if ($user->save()) {
 					$this->flashSession->success("The company  {$user->getLogin()} was saved succesfully");
+
+		}else{
+				$messages='';
+				foreach($userForm->getMessages() as $m){
+					$messages.= $m;
 				}
-
-
-		}else{ foreach($userForm->getMessages() as $m){
-				echo $m;
-			};
-				echo 1;
-			$this->flashSession->error("System wasn't able to save company $id ");
+			$this->flashSession->error("System wasn't able to save company $id <br>$messages");
 		}
-die;
+
 		$this->response->redirect($this->url->get([
 				'for' => "action-auth",
 				'controller' => $this->dispatcher->getControllerName(),

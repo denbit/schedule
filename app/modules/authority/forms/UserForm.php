@@ -30,25 +30,25 @@ class UserForm extends Form
 		$name->addValidator(new Regex([
 			'pattern'=>'/^[\w\s]+$/',
 			'message'
-		]));
+		]))->setLabel('Імя');
 		$l_name = new Text('l_name');
+		$l_name->setLabel('Призвище');
 		$password = new Text('password');
-		$password->addValidator(new PresenceOf(['message'=>"field is mandatory"]));
+		$password->addValidator(new PresenceOf(['message'=>"field is mandatory"]))->setLabel('Пароль');
 		$password2= new Text('password2');
-		$password2->addValidator( new PresenceOf(['message'=>"Re type password once more"]));
+		$password2->addValidator( new PresenceOf(['message'=>"Re type password once more"]))->setLabel('Повторити пароль');
 		$login = new Text('login');
 		$login->addValidators([
 			new PresenceOf(),new Regex(['pattern'=>'/^[A-Za-z0-9@_]+$/']),
 			new Uniqueness(['model'=>new Users()
 			])
-		]);
+		])->setLabel('Логін');;
 		$email = new Text('email');
 		$email->addValidators([
 			new PresenceOf(),
 			new Uniqueness(['model'=>new Users()]),
 			new Email(["message" => "The e-mail is not valid" ])
-		]);
-
+		])->setLabel('Емейл');
 		$this->add($login)->add($email)
 			->add($id)->add($name)
 			->add($l_name)->add($password)
