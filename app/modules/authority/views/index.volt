@@ -152,7 +152,7 @@
 {% endblock %}
 
 {% if  flashSession.has('success') or flashSession.has('error') or flashSession.has('warning')  %}
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="systemMessage" aria-hidden="true">
+    <div class="modal fade" tabindex="-1" role="dialog" id="system_info" aria-labelledby="systemMessage" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -169,7 +169,7 @@
     </div>
     </div>
     <script>
-        setTimeout(()=>$('.modal').modal({show: true}),2000);
+        setTimeout(()=>$('#system_info').modal({show: true}),2000);
     </script>
 {% endif %}
 </body>

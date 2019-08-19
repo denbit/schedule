@@ -35,7 +35,7 @@ class CompanyManager extends Kernel
 	$cyr_address = new Text('cyr_address');
 	$form->add($address)->add($latin_address)->add($cyr_address);
 	$form->add(new Text('judicial_form'));
-	$user = new DataText('user');
+	$user = new DataText('user_id');
 	$user->setLabel('Користувач');
 	$form->add($user);
 	return $form;

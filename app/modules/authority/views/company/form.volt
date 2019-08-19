@@ -31,7 +31,8 @@
             <div class="controls input-group">
                 {{ element.render(['readonly':true]) }}
                 <div class="input-group-append">
-                    <input type="button" class="input-group-text btn btn-secondary" id="add-user" data-toggle="modal" data-target="#users_list" value="Обрати">
+                    <input type="button" class="input-group-text btn btn-secondary btn-sm" id="add-user" data-toggle="modal" data-target="#users_list" value="Обрати">
+                    <input type="reset" class=" btn btn-danger btn-sm" id="remove-user" value="Видалити">
                 </div>
             </div>
         {% else %}
@@ -56,9 +57,9 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h4 class="modal-title" id="users_list_title">Користувачі</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="users_list_title">Користувачі</h4>
                 </div>
                 <div class="modal-body">
                 <ul id="user_selector"></ul>
@@ -74,10 +75,10 @@
          .then(response=>{
              return  response.json();
          });
-
+        const user_id = $('#user_id');
         $('#add-user').click(function () {
             function addUser(e){
-                $('#user').val($(this).data('id'));
+                user_id.val($(this).data('id'));
                 $('#users_list').modal('hide');
             }
             users.then((resp)=>{
@@ -86,12 +87,17 @@
                     const userElement=document.createElement('li');
                     userElement.setAttribute('data-id',user.id);
                     userElement.style.listStyle='none';
-                    userElement.innerText=`<b>${user.login}</b>(${user.name})`;
+                    userElement.innerHTML=`<b>${user.login}</b>(${user.name})`;
                     userElement.addEventListener('click',addUser);
                     list.push(userElement);
                 }
+                $('#user_selector').empty();
                 $('#user_selector').append(list);
             })
+        });
+        $('#remove-user').click(function (e) {
+            e.preventDefault();
+            user_id.val('');
         });
     </script>
 {% endblock %}
