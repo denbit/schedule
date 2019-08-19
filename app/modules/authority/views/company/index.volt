@@ -21,7 +21,7 @@
 		{% if companies is not empty %}
 			{% for company in  companies %}
 				<tr id="{{ company.id }}">
-					<td><input type="checkbox" data-key="{{ company.id }}"> <i>{{ company.id }} - {{ company.user }}</i>
+					<td><input type="checkbox" data-key="{{ company.id }}"> <i>{{ company.id }} {% if company.user  %}- {{ company.user.getLogin() }}{% endif %} </i>
 					</td>
 					<td>
 						{% if company.name  %}{{ company.name }},<br>{% endif %}

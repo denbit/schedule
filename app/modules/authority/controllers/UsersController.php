@@ -53,7 +53,7 @@ class UsersController extends ControllerBase
 			);
 			$userForm->setAction($action);
 			$this->view->pick('users/form');
-			$this->view->usersForm = $user;
+			$this->view->usersForm = $userForm;
 		} else {
 			$this->dispatcher->forward(
 				[
@@ -76,21 +76,30 @@ class UsersController extends ControllerBase
 
 			if ($userForm->isValid($this->request->getPost()) && $user->save()) {
 
-					$this->flashSession->success("The company  {$user->getLogin()} was saved succesfully");
+					$this->flashSession->success("The user  {$user->getLogin()} was saved succesfully");
+				$this->response->redirect($this->url->get([
+					'for' => "action-auth",
+					'controller' => $this->dispatcher->getControllerName(),
+					'action' => 'index'
+				]));
 
 		}else{
 				$messages='';
 				foreach($userForm->getMessages() as $m){
 					$messages.= $m;
 				}
-			$this->flashSession->error("System wasn't able to save company $id <br>$messages");
+				$this->dispatcher->forward(
+					[
+						'controller' => $this->dispatcher->getControllerName(),
+						'action' => $id ? 'edit':'form',
+						'id'=>$id??''
+					]
+				);
+			$this->flashSession->error("System wasn't able to save user $id <br>$messages");
+
 		}
 
-		$this->response->redirect($this->url->get([
-				'for' => "action-auth",
-				'controller' => $this->dispatcher->getControllerName(),
-				'action' => 'index'
-			]));
+
 	}
 
 	public function listAction()
