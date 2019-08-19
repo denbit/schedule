@@ -125,12 +125,12 @@ abstract class CachableModel extends Model
 		 * @var  $di Di
 		 * @var Backend $default
 		 */
-		$di = Di::getDefault();var_dump(self::isCachable());
+		$di = Di::getDefault();//var_dump(self::isCachable());
 		if (self::isCachable() && $di->has('modelsCache')) {
 
 			$cache_key = Kernel::createCacheKey($parameters, get_called_class());
 			$default = $di->get('modelsCache');
-			echo $lifetime = (is_null(self::$_lifetime) ? $default->getLifetime()?:$default->getFrontend()->getLifetime() : self::$_lifetime);
+			$lifetime = (is_null(self::$_lifetime) ? $default->getLifetime()?:$default->getFrontend()->getLifetime() : self::$_lifetime);
 			// Convert the parameters to an array
 			if (!is_array($parameters)) {
 				$parameters = [$parameters];

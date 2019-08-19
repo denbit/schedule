@@ -32,4 +32,10 @@ class UsersManager extends Kernel
 		return new UserForm($i,$options);
 
 	}
+
+	public static function getUserForSelect()
+	{
+		$users=Users::find(['columns'=>'id,login,name']);
+		return $users->toArray();
+	}
 }

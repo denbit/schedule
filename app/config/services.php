@@ -23,7 +23,7 @@ $di->set('cacheFolder',function ($subfolder='') use ($config){
 	}
 
 	 $cacheDir = realpath($cacheDir);
-	echo $cacheDir;
+	//echo $cacheDir;
 	if (!$cacheDir) {
 		$cacheDir = sys_get_temp_dir();
 	}

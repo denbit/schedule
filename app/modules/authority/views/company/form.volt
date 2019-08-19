@@ -24,9 +24,18 @@
 
     <div class="control-group">
         {{ element.label(["class": "control-label"]) }}
+        {% if element.getName()=='user' %}
+            <div class="controls input-group">
+                {{ element.render(['readonly':true]) }}
+                <div class="input-group-append">
+                    <input type="button" class="input-group-text btn btn-secondary" id="add-user" value="Обрати">
+                </div>
+            </div>
+        {% else %}
         <div class="controls">
             {{ element }}
         </div>
+            {% endif %}
     </div>
 
 {% endfor %}
@@ -41,6 +50,13 @@
 {% block footer %}
 {{ super() }}
     <script>
-
+ const users=fetch('{{ url(['for':'action-auth','controller':'users','action':'list']) }}');
+        $('#add-user').click(function () {
+            users.then(response=>{
+                return  response.json()
+            }).then((resp)=>{
+                console.log(resp)
+            })
+        });
     </script>
 {% endblock %}

@@ -93,5 +93,11 @@ class UsersController extends ControllerBase
 			]));
 	}
 
+	public function listAction()
+	{
+		$userChoose= UsersManager::getUserForSelect();
+		$this->response->setJsonContent($userChoose)->send();
+	}
+
 }
 
