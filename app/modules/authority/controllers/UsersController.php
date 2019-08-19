@@ -71,7 +71,7 @@ class UsersController extends ControllerBase
 		if (! $id || false === ($user = Users::findFirst($id))) {
 			$user=new Users();
 		}
-			$userForm = UsersManager::getUserForm($user);
+			$userForm = UsersManager::getUserForm($user, !empty($id));
 
 
 			if ($userForm->isValid($this->request->getPost()) && $user->save()) {

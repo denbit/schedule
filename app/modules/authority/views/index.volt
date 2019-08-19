@@ -8,7 +8,6 @@
     {% block title %}{% set title ='Main' %}   {% endblock %}
     <title>Site Managing system - {{ title |default("Main") }}
     </title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"  >
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('/shared/favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ url('/css/common.css') }}"/>
     <link rel="stylesheet" href="{{ url('/css/authority.css') }}"/>
@@ -153,26 +152,24 @@
 {% endblock %}
 
 {% if  flashSession.has('success') or flashSession.has('error') or flashSession.has('warning')  %}
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="placeholderModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="systemMessage" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
+                <h5 class="modal-title" id="systemMessage">Повідомлення системи</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="placeholderModalLabel">Повідомлення системи</h4>
             </div>
             <div class="modal-body">
                 {{ flashSession.output() }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default modal-footer-close" data-dismiss="modal">Зачинити</button>
+                <button type="button" class="btn btn-default modal-footer-close btn-sm" data-dismiss="modal">Зачинити</button>
             </div>
         </div>
     </div>
     </div>
     <script>
-        // $('.modal').modal({
-        //     show: true
-        // });
+        setTimeout(()=>$('.modal').modal({show: true}),2000);
     </script>
 {% endif %}
 </body>

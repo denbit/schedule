@@ -263,7 +263,7 @@ class Company extends CachableModel
      */
     public function getUserId()
     {
-        return $this->user;
+        return $this->user_id;
     }
 
     /**
@@ -274,7 +274,7 @@ class Company extends CachableModel
         $this->setSource("company");
         $this->hasMany('id', 'Schedule\Core\Models\ReviewsToCompany', 'company_id', ['alias' => 'ReviewsToCompany']);
         $this->hasMany('id', 'Schedule\Core\Models\Routes', 'made_by', ['alias' => 'Routes', 'reusable' => true]);
-        $this->hasOne('user', Users::class, 'id', ['alias' => 'user', 'reusable' => true]);
+        $this->hasOne('user_id', Users::class, 'id', ['alias' => 'user', 'reusable' => true]);
     }
 
     /**

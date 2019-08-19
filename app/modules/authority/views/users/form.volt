@@ -7,7 +7,7 @@
 		{% else %}
 			Створити
 		{% endif %}
-		профіль компанії
+		 профіль користувача
 	</h5>
 	</div>{% endblock %}
 {% block content %}
@@ -21,7 +21,10 @@
 				{{ form(usersForm.getAction(), 'method': 'post','class':'users-form') }}
 
 				{% for element in usersForm %}
-
+					{% if element.getName()=='id' %}
+						{{ element }}
+						{% continue %}
+					{% endif %}
 					<div class="control-group">
 						{{ element.label(["class": "control-label"]) }}
 						<div class="controls">
@@ -31,7 +34,7 @@
 
 				{% endfor %}
 				<div class="clearfix my-2">
-					{{ submit_button('Save','class': 'btn btn-outline-primary float-left') }}
+					{{ submit_button('Зберегти','class': 'btn btn-outline-primary float-left') }}
 				</div>
 				{{ end_form() }}
 			</div>
@@ -41,6 +44,5 @@
 {% block footer %}
 	{{ super() }}
 	<script>
-
 	</script>
 {% endblock %}

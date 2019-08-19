@@ -21,10 +21,13 @@
 			{{ form(companyForm.getAction(), 'method': 'post','class':'company-form') }}
 
 {% for element in companyForm %}
-
+    {% if element.getName()=='id' %}
+        {{ element }}
+        {% continue %}
+    {% endif %}
     <div class="control-group">
         {{ element.label(["class": "control-label"]) }}
-        {% if element.getName()=='user' %}
+        {% if element.getName()=='user_id' %}
             <div class="controls input-group">
                 {{ element.render(['readonly':true]) }}
                 <div class="input-group-append">
@@ -50,7 +53,7 @@
 {% block footer %}
 {{ super() }}
     <div class="modal fade" id="users_list" tabindex="-1" role="dialog" aria-labelledby="users_list_title" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
@@ -61,21 +64,23 @@
                 <ul id="user_selector"></ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Зачинити</button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Зачинити</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
- const users=fetch('{{ url(['for':'action-auth','controller':'users','action':'list']) }}');
+ const users=fetch('{{ url(['for':'action-auth','controller':'users','action':'list']) }}')
+         .then(response=>{
+             return  response.json();
+         });
+
         $('#add-user').click(function () {
             function addUser(e){
                 $('#user').val($(this).data('id'));
                 $('#users_list').modal('hide');
             }
-            users.then(response=>{
-                return  response.json();
-            }).then((resp)=>{
+            users.then((resp)=>{
                 var list=[];
                 for (user of resp){
                     const userElement=document.createElement('li');
@@ -86,7 +91,6 @@
                     list.push(userElement);
                 }
                 $('#user_selector').append(list);
-
             })
         });
     </script>
