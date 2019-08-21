@@ -24,3 +24,4 @@ $loader->registerClasses([
 ]);
 
 $loader->register();
+require BASE_PATH.'/vendor/autoload.php';

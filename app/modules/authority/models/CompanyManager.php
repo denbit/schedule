@@ -22,22 +22,32 @@ class CompanyManager extends Kernel
 		return $companies;
 	}
 
-	public static function getCompanyForm( $instance = null):Form{
+	public static function getCompanyForm(Company $instance = null,$options = null):Form{
 
 	$form = new Form($instance);
-	$form->add(new Hidden('id'));
+	$id =new Hidden('id');
+	$id ->setLabel(" ");
 	$name = new Text('name');
+	$name->setLabel("Національна назва");
 	$cyr_name = new Text('cyr_name');
+	$cyr_name->setLabel('');
 	$latin_name = new Text('latin_name');
-	$form->add($name)->add($latin_name)->add($cyr_name);
+	$latin_name->setLabel('');
+
 	$address = new Text('address');
+	$address->setLabel('Національна назва');
 	$latin_address = new Text('latin_address');
+	$latin_address ->setLabel('Назва латиницею');
 	$cyr_address = new Text('cyr_address');
-	$form->add($address)->add($latin_address)->add($cyr_address);
-	$form->add(new Text('judicial_form'));
-	$user = new DataText('user_id');
+	$cyr_address ->setLabel('Назва кирилицею');
+	$judicial_form = new Text('judicial_form');
+	$judicial_form->setLabel('Юридична форма');
+	$user = new Text('user_id');
 	$user->setLabel('Користувач');
-	$form->add($user);
+	$form->add($user)->add($name)
+		->add($latin_name)->add($cyr_name)
+		->add($address)->add($latin_address)
+		->add($cyr_address)->add($judicial_form);
 	return $form;
 }
 }
