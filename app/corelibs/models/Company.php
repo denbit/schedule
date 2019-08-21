@@ -57,7 +57,7 @@ class Company extends CachableModel
      *
      * @var integer
      */
-    protected $user;
+    protected $user_id;
 
     /**
      * Method to set the value of field id
@@ -171,7 +171,7 @@ class Company extends CachableModel
      */
     public function setUserId($user)
     {
-        $this->user = $user;
+        $this->user_id = $user;
 
         return $this;
     }
