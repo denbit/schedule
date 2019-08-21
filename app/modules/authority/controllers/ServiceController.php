@@ -12,7 +12,7 @@ use Schedule\Core\Models\States;
 use Schedule\Core\Models\TranslationsCommon;
 
 
-class IndexController extends ControllerBase
+class ServiceController extends ControllerBase
 {
 	use NotFound;
 
