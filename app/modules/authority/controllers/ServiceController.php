@@ -3,6 +3,7 @@
 namespace Schedule\Modules\Authority\Controllers;
 
 use Schedule\Core\Components\NotFound;
+use Schedule\Core\Kernel;
 use Schedule\Core\Location;
 use Schedule\Core\BusRoute;
 use Schedule\Core\Models\Cities;
@@ -21,11 +22,36 @@ class ServiceController extends ControllerBase
 
 	}
 	public function cacheAction(){
-		$modelsFolder = $this->getCacheFolder('models');
-		$coreFolder = $this->getCacheFolder('core');
-		$voltFolder = $this->getCacheFolder('volt');
-		array_map('unlink',glob($modelsFolder."/*"));
+		$di =$this->di;
+		$cache_services =['models','core','volt'];
+		var_dump($_SERVER);
+		//@apache_setenv('no-gzip', 1);
+		@ini_set('zlib.output_compression', 0);
+		@ini_set('implicit_flush', 1);
+		// Turn off output buffering
+		@ini_set('output_buffering', 'off');
+		set_time_limit(0);
+		ob_implicit_flush(1);
+		header('Content-Encoding: none'); // Disable gzip compression
+		foreach ($cache_services as $service){
+			$cacheServiceFolder = $di->getCacheFolder($service);
+			$cache_service = $this->getCacheArray($cacheServiceFolder);
+			array_map('unlink',$cache_service->items);
+			echo " $service cache was flushed. {$cache_service->count} records were deleted";
+			flush();
+			ob_end_flush();
+			sleep(2);
+		}
 
+
+
+	}
+	public function getCacheArray($dir){
+		$array = glob($dir."/*");
+		return Kernel::toObject([
+			'items'=>$array,
+			'count' => count($array)
+			]);
 	}
 
 }
