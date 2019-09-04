@@ -24,12 +24,6 @@ class ServiceController extends ControllerBase
 	public function cacheAction(){
 		$di =$this->di;
 		$cache_services =['models','core','volt'];
-		var_dump($_SERVER);
-		//@apache_setenv('no-gzip', 1);
-		@ini_set('zlib.output_compression', 0);
-		@ini_set('implicit_flush', 1);
-		// Turn off output buffering
-		@ini_set('output_buffering', 'off');
 		set_time_limit(0);
 		ob_implicit_flush(1);
 		header('Content-Encoding: none'); // Disable gzip compression
@@ -40,7 +34,7 @@ class ServiceController extends ControllerBase
 			echo " $service cache was flushed. {$cache_service->count} records were deleted";
 			flush();
 			ob_end_flush();
-			sleep(2);
+			sleep(1);
 		}
 
 
