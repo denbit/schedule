@@ -2,7 +2,12 @@
   "name": "Szlach/core-web",
   "description": "A short description of what your package does",
   "require": {
-	"php": "^7.2"
+	"php": "^7.2",
+    "react/react": "^1.0",
+    "maximebf/debugbar": "^1.15"
 
+  },
+  "require-dev": {
+    "snowair/phalcon-debugbar": "^1.2"
   }
 }
