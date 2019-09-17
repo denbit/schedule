@@ -2,9 +2,10 @@
 namespace Schedule\Modules\Frontend\Controllers;
 
 use Phalcon\Mvc\Controller;
+use Schedule\Core\IMainAction;
 use Schedule\Core\LanguageParser;
 
-abstract class ControllerBase extends Controller implements IFrontEnd
+abstract class ControllerBase extends Controller implements IMainAction
 {
 	abstract public function indexAction();
 	public function onConstruct()
