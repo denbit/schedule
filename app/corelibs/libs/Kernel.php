@@ -248,11 +248,13 @@ class Kernel
 	 */
 	public static function createCacheKeyForModel($input, $model):string
 	{
+		$self = new self();
+		$self->logger->log($input);
 		if (is_null($input))
 			throw  new Exception("Key must exist");
-		$reducer = function ($accamulator, $key)use ($input){
+		$reducer = function ($accamulator, $key) use ($input){
 			if ($key=='di') return $accamulator;
-			$this->logger->log($accamulator);
+
 			$input[$key]=is_array($input[$key])?implode('',$input[$key]):$input[$key];
 			$accamulator.= ('_'.$key.'&'.$input[$key]);
 
@@ -264,12 +266,21 @@ class Kernel
 		switch ($type){
 			case "boolean":
 			case "integer":
-				$key = $class. (string)array_reduce(array_keys(['id' => $input]),$reducer,$class);;
+				$key = (string) array_reduce(array_keys(['id' =>(string)$input]),$reducer,$class);
+			break;
 			case "double":
 			case "string":
-				$key = $class. (string)$input;
+				$key = (string) array_reduce(array_keys(['id' => (string)$input]),$reducer,$class);
 				break;
 			case "array":
+				if (array_key_exists('bind', $input)) {
+					$key = array_key_exists(0, $input)? 0 : null;
+					$key = (is_null($key) && array_key_exists("conditions", $input)) ? "conditions" : $key;
+					foreach ($input['bind'] as $bindkey => $bindee){
+						$input[$key] = str_replace(":${$bindkey}:", $bindee, $input[$key]);
+						$input[$key] = str_replace("?${$bindkey}", $bindee, $input[$key]);
+					}
+				}
 				$key = array_reduce(array_keys($input),$reducer,$class);
 				break;
 			case "object":
@@ -279,6 +290,7 @@ class Kernel
 				}
 				break;
 		}
+
 		$key = strtolower(str_replace('\\','_',$key));
 //if( $model &&!$key ){
 //	echo $class;
