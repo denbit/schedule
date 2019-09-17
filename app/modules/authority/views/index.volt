@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="{{ url('/css/common.css') }}"/>
     <link rel="stylesheet" href="{{ url('/css/authority.css') }}"/>
     {{ partial('../../shared_views/css_libs') }}
+    {% if debugbarHEAD is not empty %}
+        {{  debugbarHEAD }}
+    {% endif %}
     {% block head_script %}{% endblock %}
 </head>
 <body>
@@ -171,6 +174,9 @@
     <script>
         setTimeout(()=>$('#system_info').modal({show: true}),2000);
     </script>
+{% endif %}
+{% if debugbar is not empty %}
+    {{  debugbar }}
 {% endif %}
 </body>
 

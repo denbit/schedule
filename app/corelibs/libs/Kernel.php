@@ -45,6 +45,7 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
  * @property \Phalcon\Session\Bag|\Phalcon\Session\BagInterface                                        $persistent
  * @property \Phalcon\Mvc\View|\Phalcon\Mvc\ViewInterface                                              $view
  * @property \Phalcon\Cache\Backend|\Phalcon\Cache\Backend[]                                           $coreCache
+ * @property \Phalcon\Logger\Adapter\File                                                              $logger
  */
 class Kernel
 {
@@ -202,6 +203,9 @@ class Kernel
 	 */
 	public static function createCacheKey($input, $model=''):string
 	{
+		if (!empty($model)){
+			return self::createCacheKeyForModel($input,$model);
+		}
 		if (is_null($input))
 			throw  new Exception("Key must exist");
 		$reducer = function ($accamulator, $key)use ($input){
@@ -222,6 +226,51 @@ class Kernel
 				break;
 			case "array":
 			 $key = array_reduce(array_keys($input),$reducer,$class);
+				break;
+			case "object":
+				if($input instanceof \stdClass){
+					$input = (array)$input;
+					$key = array_reduce(array_keys($input),$reducer,$class);
+				}
+				break;
+		}
+		$key = strtolower(str_replace('\\','_',$key));
+//if( $model &&!$key ){
+//	echo $class;
+//	echo $key,"  - key\n";
+//}
+		return md5($key);
+	}
+	/**
+	 * @param $input  should contain input params
+	 * @param string $model If cache key for Model, $model is neccessary
+	 * @return string if it is called from model $class=Kernel if from Kernel childs then $child::class
+	 */
+	public static function createCacheKeyForModel($input, $model):string
+	{
+		if (is_null($input))
+			throw  new Exception("Key must exist");
+		$reducer = function ($accamulator, $key)use ($input){
+			if ($key=='di') return $accamulator;
+			$this->logger->log($accamulator);
+			$input[$key]=is_array($input[$key])?implode('',$input[$key]):$input[$key];
+			$accamulator.= ('_'.$key.'&'.$input[$key]);
+
+			return $accamulator;
+		};
+		$type =gettype($input);
+		$class = (get_called_class().$model)."=";
+		$key = '';
+		switch ($type){
+			case "boolean":
+			case "integer":
+				$key = $class. (string)array_reduce(array_keys(['id' => $input]),$reducer,$class);;
+			case "double":
+			case "string":
+				$key = $class. (string)$input;
+				break;
+			case "array":
+				$key = array_reduce(array_keys($input),$reducer,$class);
 				break;
 			case "object":
 				if($input instanceof \stdClass){

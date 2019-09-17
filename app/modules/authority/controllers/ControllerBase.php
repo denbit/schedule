@@ -13,6 +13,11 @@ abstract class ControllerBase extends Controller implements IMainAction
 
 	public function onConstruct()
 	{
+		if ($this->config->get('application')->development==true){
+			global $debugbarRenderer;
+			$this->view->debugbarHEAD=$debugbarRenderer->renderHEAD();
+			$this->view->debugbar=$debugbarRenderer->render();
+		}
 		 if (!$this->logon()){
 			 return false;
 		 }

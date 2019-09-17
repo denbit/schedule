@@ -11,6 +11,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('/shared/favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ url('/css/common.css') }}"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"/>
+    {% if debugbarHEAD is not empty %}
+        {{  debugbarHEAD }}
+    {% endif %}
 </head>
 
 <body>
@@ -23,7 +26,9 @@
 <footer class="mt-4"><h6 class="text-center"> Szlach {{ date('Y') }}&reg;</h6></footer>
 {{ partial('../../shared_views/js_libs') }}
     <script src="/js/common.main.js" async></script>
-
+    {% if debugbar is not empty %}
+        {{  debugbar }}
+    {% endif %}
 </body>
 
 

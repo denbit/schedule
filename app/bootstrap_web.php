@@ -1,7 +1,9 @@
 <?php
 
+use DebugBar\StandardDebugBar;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Mvc\Application;
+use Snowair\Debugbar\ServiceProvider;
 
 error_reporting(E_ALL);
 ini_set('display_errors','on');
@@ -64,6 +66,9 @@ try {
 
     require APP_PATH . '/config/routes.php';
 
+	$debugbar = new StandardDebugBar();
+	$debugbarRenderer = $debugbar->getJavascriptRenderer();
+	(new Snowair\Debugbar\ServiceProvider())->start();
     echo str_replace(["\n","\r","\t"], '', $application->handle()->getContent());
 
 } catch (\Exception $e) {

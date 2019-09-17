@@ -1,6 +1,7 @@
 <?php
 
 
+use Phalcon\Logger\Adapter\File;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Config\Adapter\Ini;
@@ -16,6 +17,15 @@ $di->setShared('config', function () {
 });
 $config = $di->getConfig();
 
+$di->set('logger',function () use($config) {
+	$logDir  = $config->application->logDir??sys_get_temp_dir();
+	if ($logDir && substr($logDir, 0, 2) == '..'|| substr($logDir, 0, 3) == '/..') {
+		$logDir = APP_PATH . DIRECTORY_SEPARATOR . $logDir;
+	}
+	$logDir = realpath($logDir);
+	$logger = new File($logDir);
+	return $logger;
+});
 $di->set('cacheFolder',function ($subfolder='') use ($config){
 	$cacheDir = $config->application->cacheDir;
 	if ($cacheDir && substr($cacheDir, 0, 2) == '..'|| substr($cacheDir, 0, 3) == '/..') {

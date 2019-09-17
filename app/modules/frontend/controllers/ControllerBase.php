@@ -14,7 +14,11 @@ abstract class ControllerBase extends Controller implements IFrontEnd
 			LanguageParser::SystemLanguage($lang_q);
 			$this->response->redirect($this->router->getRewriteUri());
 		}
-
+		if ($this->config->get('application')->development==true){
+			global $debugbarRenderer;
+			$this->view->debugbarHEAD=$debugbarRenderer->renderHEAD();
+			$this->view->debugbar=$debugbarRenderer->render();
+		}
 	 }
 	protected function isAjax():bool
 	{
