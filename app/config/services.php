@@ -17,13 +17,13 @@ $di->setShared('config', function () {
 });
 $config = $di->getConfig();
 
-$di->set('logger',function () use($config) {
+$di->setShared('logger',function () use($config) {
 	$logDir  = $config->application->logDir??sys_get_temp_dir();
 	if ($logDir && substr($logDir, 0, 2) == '..'|| substr($logDir, 0, 3) == '/..') {
 		$logDir = APP_PATH . DIRECTORY_SEPARATOR . $logDir;
 	}
 	$logDir = realpath($logDir);
-	$logger = new File($logDir);
+	$logger = new File($logDir . DIRECTORY_SEPARATOR . "current.log");
 	return $logger;
 });
 $di->set('cacheFolder',function ($subfolder='') use ($config){

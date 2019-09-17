@@ -47,10 +47,10 @@ $frontend->add(
 
 	]
 );
-$dinamic_router = \Schedule\Core\Models\UniversalPage::find(
+$dynamic_router = \Schedule\Core\Models\UniversalPage::find(
 	[
-		' has_permanent_uri =0',
-		'columns' => 'url,module_name',
+		'has_permanent_uri=0',
+		'columns' => 'url, module_name',
 		'group' => 'module_name',
 	]
 );
@@ -58,7 +58,7 @@ try {
 	/**
 	 * @var \Schedule\Core\Models\UniversalPage $dynamic_route
 	 */
-	foreach ($dinamic_router as $dynamic_route) {
+	foreach ($dynamic_router as $dynamic_route) {
 		$frontend->addGet($dynamic_route->readAttribute('url'), $dynamic_route->readAttribute('module_name'));
 	}
 } catch (Exception $exception) {
