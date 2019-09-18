@@ -119,7 +119,7 @@ $di_inst=$this;
 		}else{
 			$lang = \Schedule\Core\Kernel::getLanguageId('uk');
 		}
-		echo $translation = \Schedule\Core\Translate::getTranslation($firstArgument,$lang);
+		 $translation = \Schedule\Core\Translate::getTranslation($firstArgument,$lang);
 		if (!empty($translation)){echo 1;
 			return $translation;
 		} else{

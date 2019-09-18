@@ -249,53 +249,62 @@ class Kernel
 	public static function createCacheKeyForModel($input, $model):string
 	{
 		$self = new self();
-		$self->logger->log($input);
+		$self->logger->debug(json_encode($input));
 		if (is_null($input))
 			throw  new Exception("Key must exist");
-		$reducer = function ($accamulator, $key) use ($input){
-			if ($key=='di') return $accamulator;
 
-			$input[$key]=is_array($input[$key])?implode('',$input[$key]):$input[$key];
-			$accamulator.= ('_'.$key.'&'.$input[$key]);
-
-			return $accamulator;
-		};
 		$type =gettype($input);
 		$class = (get_called_class().$model)."=";
-		$key = '';
 		switch ($type){
 			case "boolean":
 			case "integer":
-				$key = (string) array_reduce(array_keys(['id' =>(string)$input]),$reducer,$class);
-			break;
 			case "double":
 			case "string":
-				$key = (string) array_reduce(array_keys(['id' => (string)$input]),$reducer,$class);
+				$input = ["id" => (string) $input];
 				break;
 			case "array":
 				if (array_key_exists('bind', $input)) {
-					$key = array_key_exists(0, $input)? 0 : null;
+					$key = array_key_exists("0", $input)? 0 : null;
 					$key = (is_null($key) && array_key_exists("conditions", $input)) ? "conditions" : $key;
 					foreach ($input['bind'] as $bindkey => $bindee){
-						$input[$key] = str_replace(":${$bindkey}:", $bindee, $input[$key]);
-						$input[$key] = str_replace("?${$bindkey}", $bindee, $input[$key]);
+						var_dump($bindkey,$bindee,$input[$key],$key);
+						$input[$key] = is_numeric($bindkey)
+							?
+							str_replace("?${$bindkey}", $bindee, $input[$key])
+							:
+							str_replace(":$bindkey:", $bindee, $input[$key]);
 					}
+					unset($input['bind']);
 				}
-				$key = array_reduce(array_keys($input),$reducer,$class);
 				break;
 			case "object":
 				if($input instanceof \stdClass){
 					$input = (array)$input;
-					$key = array_reduce(array_keys($input),$reducer,$class);
 				}
 				break;
 		}
 
+		$reducer = function ($accamulator, $reduce_key) use ($input,$self){
+			$reduce_key = (string)$reduce_key;
+			if ($reduce_key=='di')	return $accamulator;
+			//$input[$key]=is_array($input[$key])?implode('',(string)$input[$key]):(string)$input[$key];
+			//echo $input;
+			$value = str_replace(' ','', $input[$reduce_key]);
+
+			$accamulator.= ('_'.$reduce_key . "&{$value}");
+
+			return $accamulator;
+		};
+		$key = (string) array_reduce(array_keys($input),$reducer,$class);
 		$key = strtolower(str_replace('\\','_',$key));
+
 //if( $model &&!$key ){
 //	echo $class;
 //	echo $key,"  - key\n";
 //}
+
+$self->logger->info($key);
+
 		return md5($key);
 	}
 
