@@ -83,7 +83,7 @@ class PageController extends ControllerBase implements ICreatable,IEditable
         }
 
         $this->view->form=$form;
-        $this->view->page_types = json_encode(array_column(PagesTypes::find()->toArray(),'id','type_name'));
+        $this->view->page_types = json_encode(array_column(PagesTypes::find()->toArray(),'id','type_name'));//die;
 
     }
 }

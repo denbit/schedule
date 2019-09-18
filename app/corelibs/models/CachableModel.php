@@ -11,7 +11,7 @@ use Schedule\Core\Kernel;
 
 abstract class CachableModel extends Model
 {
-	private static $_cachable = false;
+	private static $_cachable = true;
 	private static $_lifetime = null;
 
 	/**

@@ -40,13 +40,15 @@ try {
      * Include Autoloader
      */
     include APP_PATH . '/config/loader.php';
-
+	if(file_exists(BASE_PATH.'/vendor/autoload.php')) {
+		include BASE_PATH.'/vendor/autoload.php';
+	}
     /**
      * Handle the request
      */
     $application = new Application($di);
-
-    /**
+	$di['app'] = $application;
+	/**
      * Register application modules
      */
     $application->registerModules([

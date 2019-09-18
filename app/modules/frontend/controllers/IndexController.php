@@ -18,9 +18,10 @@ class IndexController extends ControllerBase
 {
 	use NotFound;
     public function indexAction()
-	 {	foreach ( $this->di->getServices() as $key=>$service){
-	 	echo  $key,"=>", get_class($service),"<br>";
-	 }die;
+	 {
+//	 	foreach ( $this->di->getServices() as $key=>$service){
+//	 	echo  $key,"=>", get_class($service),"<br>";
+//	 }die;
 
 		$model = new IndexModel();
 		$lang = LanguageParser::SystemLanguage();
