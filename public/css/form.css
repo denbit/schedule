@@ -1,0 +1,62 @@
+.orange {
+	height: calc(1.7rem + 2px) !important;
+	color: #ffffff;
+	background-color: #e9a010;
+}
+
+.small {
+	padding: .25rem .5rem;
+	line-height: 1.5;
+	border-radius: .2rem;
+	font-size: .7rem;
+}
+
+.formHeader {
+	font-size: .75rem;
+	text-align: center;
+}
+
+.checkbox {
+	font-size: .75rem;
+	text-align: left;
+}
+
+.form_login {
+	height: auto;
+	width: 20%;
+	background: #fff;
+	border-radius: 6px;
+	position: absolute;
+	top: 70px;
+	left: 64%;
+	padding: .9rem;
+
+}
+
+.control {
+	display: block;
+	width: 100%;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-radius: .25rem;
+	transition: border-color .15s;
+	height: calc(1.7rem + 2px);
+	padding: .175rem .45rem;
+	font-size: .6rem;
+}
+
+.restore {
+	float: right;
+	font-size: .7rem;
+	color: #8b8b8b;
+	border-bottom: 1px solid #8b8b8b59;
+	font-weight: bold;
+}
+
+.have_not_account {
+	text-align: center;
+	font-size: .75rem;
+}
