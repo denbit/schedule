@@ -29,7 +29,9 @@
     <div class="additional_icons row">
         <div class="icon_block mx-4 air col"><br><span> </span><div>{{ translate("air_charter","Air charter") }}</div></div>
         <div class="icon_block mx-4 free col"><br><span> </span><div>{{ translate("free_shipping","Free shipping") }}</div></div>
-        <div class="icon_block mx-4 safe col"><br><span> </span><div>{{ translate("Safe_payment","Safe payment by the card") }}</div></div>
+        <div class="icon_block mx-4 safe col"><br><span> </span>
+            <div>{{ translate("safe_payment","Safe payment by the card") }}</div>
+        </div>
         <div class="icon_block mx-4 directions col"><br><span> </span><div>{{ translate("directions","More than 300 directions") }}</div></div>
         <div class="icon_block mx-4 service col"><br><span> </span><div>{{ translate("support_service","24-hour support service") }}</div></div>
         <div class="icon_block mx-4 money col"><br><span> </span><div>{{ translate("Return","Return without problems") }}</div></div>
@@ -39,14 +41,14 @@
 
 <div class="container-fluid">
     <div class="row breadcrumbs-row">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">{{ translate("path","Path") }} > </li>
-        </ol>
-    </div>
-    <div class="row">
-        <div class="col">
-            <h2>{{data}}</h2>
-        </div>
-    </div>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">{{ translate("path","Path") }} > </li>
+		</ol>
+	</div>
+	<div class="row">
+		<div class="col">
+			<h2>{{data}}</h2>
+		</div>
+	</div>
 
 </div>

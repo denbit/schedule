@@ -2,6 +2,10 @@
     font-family:"Roboto Regular";
     src: url("/shared/fonts/roboto_regular.ttf");
 }
+
+body {
+    font-size: .85rem;
+}
 .top_fixed{
 
     font-family: Roboto Regular;
@@ -200,16 +204,6 @@
 }
 .icon_stging{
     position: absolute;
-}
-.form_login{
-    height: 250px;
-    width: 18%;
-    background: #fff;
-    border-radius: 6px;
-    position: absolute;
-    top: 70px;
-    left: 64%;
-    padding: 20px;
 }
 
 .table.middle_row td{
