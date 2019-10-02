@@ -26,21 +26,19 @@ $di->setShared('logger',function () use($config) {
 	$logger = new File($logDir . DIRECTORY_SEPARATOR . "current.log");
 	return $logger;
 });
-$di->set('cacheFolder',function ($subfolder='') use ($config){
+$di->set('cacheFolder',function ($subfolder = '') use ($config){
 	$cacheDir = $config->application->cacheDir;
-	if ($cacheDir && substr($cacheDir, 0, 2) == '..'|| substr($cacheDir, 0, 3) == '/..') {
-		$cacheDir = APP_PATH . DIRECTORY_SEPARATOR . $cacheDir;
-	}
-
-	 $cacheDir = realpath($cacheDir);
-	//echo $cacheDir;
-	if (!$cacheDir) {
+	if ($cacheDir) {
+		$baseName = dirname($cacheDir);
+		$cacheDir = realpath($baseName) . DIRECTORY_SEPARATOR . basename($cacheDir);
+	} else{
 		$cacheDir = sys_get_temp_dir();
 	}
 
+
 	if ( !empty($subfolder) || !is_dir($cacheDir . DIRECTORY_SEPARATOR . $subfolder )) {
-		@mkdir($cacheDir . DIRECTORY_SEPARATOR . $subfolder , 0755, true);
-		return $cacheDir . DIRECTORY_SEPARATOR . $subfolder;
+		@mkdir($cacheDir . DIRECTORY_SEPARATOR . $subfolder , 0777, true);
+		return	$dir = $cacheDir . DIRECTORY_SEPARATOR . $subfolder ;
 	}
 	return $cacheDir;
 });
@@ -120,7 +118,7 @@ $di_inst=$this;
 			$lang = \Schedule\Core\Kernel::getLanguageId('uk');
 		}
 		 $translation = \Schedule\Core\Translate::getTranslation($firstArgument,$lang);
-		if (!empty($translation)){echo 1;
+		if (!empty($translation)){
 			return $translation;
 		} else{
 			\Schedule\Core\Translate::setTranslation($firstArgument,$lang,$secondArgument);

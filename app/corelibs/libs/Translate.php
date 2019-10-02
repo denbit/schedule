@@ -20,9 +20,10 @@ class Translate  extends Kernel
 	 * @var TranslationsCommon[]
 	 */
 	public $_langs = [];
+
 	public static function getTranslation( string $key, int $lang_id):string
 	{
-		$key=str_replace(['"',"'"],[''],$key);
+		$key = self::filter($key);
 		$lang_key=TranslationsCommon::findFirst([
 			 "lang_id=?0 and key like ?1",
 			'bind' => [$lang_id, $key]
@@ -47,7 +48,7 @@ class Translate  extends Kernel
 			 $lang_key->description = $value;
 			 return $lang_key->update();
 		} else{
-			$lang_key =new TranslationsCommon();
+			$lang_key = new TranslationsCommon();
 			return $lang_key->save([
 				'key'=>self::filter($key),
 				'lang_id' =>$lang_id,
@@ -59,7 +60,7 @@ class Translate  extends Kernel
 
 	public static function filter($value)
 	{
-		return str_replace(['"',"'"],[''],$value);
+		return str_replace(['"',"'",' '],['','','_'],strtolower($value));
 	}
 
 	/**
@@ -76,7 +77,6 @@ class Translate  extends Kernel
 		 ]);
 		$resultset =[];
 		$list = LanguageParser::ListLanguages();
-		$kernel=new Kernel();
 		foreach ($records as $record)
 		{
 			if (!array_key_exists($record->key,$resultset)){

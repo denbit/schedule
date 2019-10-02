@@ -45,7 +45,7 @@ class PageParser extends Kernel
 		}elseif (!empty($module)) {
 			$page = UniversalPage::findFirst(["module_name like '{$module}' and lang_id={$lang_id}"]);
 		}
-		if ($page ===false){
+		if ($page === false){
 			return false;
 		}
 		$this->id = $page->getId();

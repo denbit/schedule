@@ -18,7 +18,7 @@ class IndexController extends ControllerBase
 {
 	use NotFound;
     public function indexAction()
-	 {
+	 {//die;
 //	 	foreach ( $this->di->getServices() as $key=>$service){
 //	 	echo  $key,"=>", get_class($service),"<br>";
 //	 }die;
@@ -28,7 +28,13 @@ class IndexController extends ControllerBase
 		$url = $this->request->getURI();
 		$url_sanitized=strtok($url,'?');//crete normall get sanitize
 
-		$page = $model->getDataForHttp(['url' => $url_sanitized, 'lang' => $lang,'module'=>$this->router->getControllerName()."::".$this->router->getActionName()]);
+		$page = $model->getDataForHttp(
+			[
+				'url' => $url_sanitized,
+				'lang' => $lang,
+				'module'=>$this->router->getControllerName()."::".$this->router->getActionName()
+			]
+		);
 		$this->view->data = 'System language is '.$lang;
 		$this->view->page = $page;
 	}

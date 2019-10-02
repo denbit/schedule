@@ -12,9 +12,12 @@ class IndexModel extends Model implements IModel
     {
         $pageParser=new PageParser();
 
-        $url = $input['url']??'';
-        $module = $input['module']?? '';
+        $url = $input['url'] ?? '';
+        $module = $input['module'] ??  '';
         $page = $pageParser->getPage($input['lang'], $url, $module);
+
+        if (!$page)
+        	return new PageParser();
 
         if(!$page->title && !empty($page->seo_title)){
         	$page->title=$page->seo_title;
