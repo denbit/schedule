@@ -26,6 +26,7 @@ $di->setShared('logger',function () use($config) {
 	$logger = new File($logDir . DIRECTORY_SEPARATOR . "current.log");
 	return $logger;
 });
+
 $di->set('cacheFolder',function ($subfolder = '') use ($config){
 	$cacheDir = $config->application->cacheDir;
 	if ($cacheDir) {
@@ -34,9 +35,7 @@ $di->set('cacheFolder',function ($subfolder = '') use ($config){
 	} else{
 		$cacheDir = sys_get_temp_dir();
 	}
-
-
-	if ( !empty($subfolder) || !is_dir($cacheDir . DIRECTORY_SEPARATOR . $subfolder )) {
+	if ( !empty($subfolder) && !is_dir($cacheDir . DIRECTORY_SEPARATOR . $subfolder )) {
 		@mkdir($cacheDir . DIRECTORY_SEPARATOR . $subfolder , 0777, true);
 		return	$dir = $cacheDir . DIRECTORY_SEPARATOR . $subfolder ;
 	}
@@ -115,10 +114,11 @@ $di_inst=$this;
 		if ($di->getSession()->has('language')) {
 			$lang =$di->getSession()->get('language');
 		}else{
-			$lang = \Schedule\Core\Kernel::getLanguageId('uk');
+			$lang = \Schedule\Core\Kernel::getLanguageId('en');
 		}
 		 $translation = \Schedule\Core\Translate::getTranslation($firstArgument,$lang);
 		if (!empty($translation)){
+
 			return $translation;
 		} else{
 			\Schedule\Core\Translate::setTranslation($firstArgument,$lang,$secondArgument);

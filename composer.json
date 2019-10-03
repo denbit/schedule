@@ -1,11 +1,12 @@
 {
-  "name": "Szlach/core-web",
+  "name": "szlach/core-web",
   "description": "A short description of what your package does",
   "require": {
 	"php": "^7.2",
     "react/react": "^1.0",
     "maximebf/debugbar": "^1.15",
-    "fabfuel/prophiler": "^1.6"
+    "fabfuel/prophiler": "^1.6",
+    "amphp/amp": "^2.2"
 
   },
   "require-dev": {

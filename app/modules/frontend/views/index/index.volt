@@ -39,6 +39,14 @@
 
 <div class="container-fluid">
     <div class="row breadcrumbs-row">
-        <div class="col-12"><i>{{ translate("path","Path") }} > </i></div>
-{#       <div style="word-break: break-all; word-wrap: break-word">{{dump(page)  }}</div>#}
-    </div></div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">{{ translate("path","Path") }} > </li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>{{data}}</h2>
+        </div>
+    </div>
+
+</div>

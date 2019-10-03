@@ -60,7 +60,10 @@ class Translate  extends Kernel
 
 	public static function filter($value)
 	{
-		return str_replace(['"',"'",' '],['','','_'],strtolower($value));
+		if (preg_match('/([A-Z])|(\s)/',$value)){
+			$value = str_replace(' ','_', strtolower($value)) . "_auto";
+		}
+		return str_replace(['"',"'"],['',''], $value);
 	}
 
 	/**

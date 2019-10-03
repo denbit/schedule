@@ -21,6 +21,7 @@
       <path value="$PROJECT_DIR$/vendor/filp/whoops" />
       <path value="$PROJECT_DIR$/vendor/snowair/phalcon-debugbar" />
       <path value="$PROJECT_DIR$/vendor/fabfuel/prophiler" />
+      <path value="$PROJECT_DIR$/vendor/amphp/amp" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

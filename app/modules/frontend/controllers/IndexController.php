@@ -26,7 +26,7 @@ class IndexController extends ControllerBase
 		$model = new IndexModel();
 		$lang = LanguageParser::SystemLanguage();
 		$url = $this->request->getURI();
-		$url_sanitized=strtok($url,'?');//crete normall get sanitize
+		$url_sanitized=strtok($url,'?');
 
 		$page = $model->getDataForHttp(
 			[

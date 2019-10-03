@@ -18,6 +18,24 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="3c0806ce-29ba-48bf-9286-a96bf20e9551" name="s-core" url="http://www.s-core.dev/">
+        <fileTransfer host="192.168.1.6" port="22" rootFolder="/home/r_a/www/shlyah_core" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
+    <groups>
+      <group>
+        <name>shlyah</name>
+        <servers>
+          <name value="access" />
+          <name value="ssh" />
+          <name value="s-core" />
+        </servers>
+      </group>
+    </groups>
   </component>
 </project>

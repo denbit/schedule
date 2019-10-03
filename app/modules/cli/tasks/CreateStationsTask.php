@@ -4,7 +4,7 @@ namespace Schedule\Modules\Cli\Tasks;
 use Schedule\Core\Models\Cities;
 use Schedule\Core\Models\Stations;
 
-class Create_stationsTask extends \Phalcon\Cli\Task
+class CreateStationsTask extends \Phalcon\Cli\Task
 {
     public function mainAction()
     { $i=0;
