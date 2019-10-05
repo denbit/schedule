@@ -4,6 +4,6 @@ console.log(form_show);
 
 function showForm() {
 	if (form_show === ('' && null)) {
-
+  
 	}
 }
