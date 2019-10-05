@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ url('/css/common.css') }}"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"/>
     <link rel="stylesheet" href="{{ url('css/form.css') }}"/>
+	<link rel="stylesheet" href="{{ url('css/main_page.css') }}"/>
     {% if debugbarHEAD is not empty %}
         {{  debugbarHEAD }}
     {% endif %}
@@ -19,11 +20,10 @@
 </head>
 
 <body>
-<div class="top_fixed_main">
-{{ partial('../../shared_views/header') }}
-
     {{ content() }}
-    <div class="form_login"></div>
+
+	{{ partial('../../shared_views/mainForm') }}
+
     <footer class="mt-4">
         <h6 class="text-center"> Szlach {{ date('Y') }}&reg;</h6>
     </footer>

@@ -21,8 +21,8 @@
                 </li>
             </ul>
             <div class="nav-link active main_mn login mr-auto" id="log_in" onclick="showForm()">Login</div>
-            {{ partial('../../shared_views/mainForm') }}
-            <ul class="navbar-nav">
+
+			<ul class="navbar-nav">
                 <li class="nav-item  mx-2 dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="lang" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">

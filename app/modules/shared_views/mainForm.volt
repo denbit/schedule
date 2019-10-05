@@ -1,5 +1,5 @@
 {% block mainForm %}
-	<div class="form_login" id="form_login" hidden="true">
+	<div class="form_login" id="form_login">
 		<div class="formHeader">
 			<span>{{ translate('log_in','Log in') }}</span>
 		</div>

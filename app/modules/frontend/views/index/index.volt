@@ -1,9 +1,13 @@
-<div class="content"> <h2 class="text-center padding_top mb-4 text-white">
+<div class="top_fixed_main">
+	{{ partial('../../shared_views/header') }}
+	<div class="content">
+		<h2 class="text-center padding_top mb-4 text-white">
         {% if  page.seo_before_route %}
             {{ page.seo_before_route }}
         {% else %}
             Bus tickets in Ukraine, Russia and Europe
-        {% endif %}</h2>
+		{% endif %}
+		</h2>
     <form class="form row">
         <div class="form_container_search col ">
             <div class="string">From</div>
@@ -38,17 +42,75 @@
     </div>
 </div>
 </div>
-
 <div class="container-fluid">
-    <div class="row breadcrumbs-row">
+	<div class="row breadcrumbs-row">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item">{{ translate("path","Path") }} > </li>
 		</ol>
 	</div>
 	<div class="row">
 		<div class="col">
-			<h2>{{data}}</h2>
+
 		</div>
 	</div>
 
+
+	<section>
+		<div class="popular_destinations ">
+			<h2>{{ translate('popular_destinations', 'Popular destinations') }}</h2>
+			<div class="subhead-popular-dest">
+				<span class="popular-dest">{{ translate('date_popular_dest','April 2020') }}</span>
+				<span class="popular-dest">{{ translate('city_popular_dest','From: Lviv') }}</span>
+		</div>
+			<div class="shadow-popular"><img src="/images/frontend/st_top_bg2.png"></div>
+			<div class="img-container">
+				<div class="first-popular-dest">
+					<div class="text-first-popular">
+						<div class="content-first-popular-dest">
+							<div class="d-inline h2">
+								{{ translate('lisbon','Lisbon') }},&nbsp
+							</div>
+							<div class="d-inline h5">
+								{{ translate('portugal','Portugal') }}
+							</div>
+						</div>
+
+						<div class="sub-content-first-popular-dest">
+							<div class="p-1">
+								{{ translate('view_prices','View prices') }}
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="img-container">
+				<div class="next-popular-des">
+					<div class="text-first-popular">
+						<div class="content-first-popular-dest">
+							<div class="d-inline h2">
+								{{ translate('lisbon','Lisbon') }},&nbsp
+							</div>
+							<div class="d-inline h5">
+								{{ translate('portugal','Portugal') }}
+							</div>
+						</div>
+
+						<div class="sub-content-first-popular-dest">
+							<div class="p-1">
+								{{ translate('view_prices','View prices') }}
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+	</div>
+	</section>
+
 </div>
+
+
+
+
