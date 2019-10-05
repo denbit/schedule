@@ -86,4 +86,9 @@ class PageController extends ControllerBase implements ICreatable,IEditable
         $this->view->page_types = json_encode(array_column(PagesTypes::find()->toArray(),'id','type_name'));//die;
 
     }
+
+	public function cloneAction()
+	{
+		
+    }
 }

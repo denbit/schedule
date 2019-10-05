@@ -112,7 +112,7 @@ abstract class CachableModel extends Model
 	 * </code>
 	 *
 	 * @param mixed $parameters
-	 * @return \Phalcon\Mvc\Model\ResultsetInterface
+	 * @return \Phalcon\Mvc\Model\Resultset
 	 */
 	public static function find($parameters = null)
 	{
