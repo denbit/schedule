@@ -63,48 +63,55 @@
 				<span class="popular-dest">{{ translate('city_popular_dest','From: Lviv') }}</span>
 		</div>
 			<div class="shadow-popular"><img src="/images/frontend/st_top_bg2.png"></div>
-			<div class="img-container">
-				<div class="first-popular-dest">
-					<div class="text-first-popular">
-						<div class="content-first-popular-dest">
-							<div class="d-inline h2">
-								{{ translate('lisbon','Lisbon') }},&nbsp
+			<div class="d-inline-flex">
+				<div class="img-container">
+					<div class="first-popular-dest">
+						<div class="text-first-popular">
+							<div class="content-first-popular-dest">
+								<div class="d-inline h2">
+									{{ translate('lisbon','Lisbon') }},&nbsp
+								</div>
+								<div class="d-inline h5">
+									{{ translate('portugal','Portugal') }}
+								</div>
 							</div>
-							<div class="d-inline h5">
-								{{ translate('portugal','Portugal') }}
-							</div>
-						</div>
 
-						<div class="sub-content-first-popular-dest">
-							<div class="p-1">
+							<div class="sub-content-first-popular-dest">
+							<span class="p-1 mr-4">
 								{{ translate('view_prices','View prices') }}
+							</span>
+								<span>
+								<img src="/images/frontend/arrow_png24.png">
+							</span>
 							</div>
 						</div>
 					</div>
+
 				</div>
-
-			</div>
-
-			<div class="img-container">
-				<div class="next-popular-des">
-					<div class="text-first-popular">
-						<div class="content-first-popular-dest">
-							<div class="d-inline h2">
-								{{ translate('lisbon','Lisbon') }},&nbsp
+				<div class="img-container">
+					<div class="next-popular-dest">
+						<div class="text-first-popular">
+							<div class="content-first-popular-dest">
+								<div class="d-inline h2">
+									{{ translate('lisbon','Lisbon') }},&nbsp
+								</div>
+								<div class="d-inline h5">
+									{{ translate('portugal','Portugal') }}
+								</div>
 							</div>
-							<div class="d-inline h5">
-								{{ translate('portugal','Portugal') }}
-							</div>
-						</div>
 
-						<div class="sub-content-first-popular-dest">
-							<div class="p-1">
+							<div class="sub-content-first-popular-dest">
+							<span class="p-1 mr-4">
 								{{ translate('view_prices','View prices') }}
+							</span>
+								<span>
+								<img src="/images/frontend/arrow_png8.png">
+							</span>
 							</div>
 						</div>
 					</div>
-				</div>
 
+				</div>
 			</div>
 	</div>
 	</section>

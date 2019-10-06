@@ -35,7 +35,7 @@ class IndexController extends ControllerBase
 				'module'=>$this->router->getControllerName()."::".$this->router->getActionName()
 			]
 		);
-		$this->view->pick('index/index');
+
 		$this->view->data = 'System language is '.$lang;
 		$this->view->page = $page;
 	}
