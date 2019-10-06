@@ -35,10 +35,12 @@ $di->set('cacheFolder',function ($subfolder = '') use ($config){
 	} else{
 		$cacheDir = sys_get_temp_dir();
 	}
-	if ( !empty($subfolder) && !is_dir($cacheDir . DIRECTORY_SEPARATOR . $subfolder )) {
+
+		if ( !empty($subfolder) && !is_dir($cacheDir . DIRECTORY_SEPARATOR . $subfolder )) {
 		@mkdir($cacheDir . DIRECTORY_SEPARATOR . $subfolder , 0777, true);
-		return	$dir = $cacheDir . DIRECTORY_SEPARATOR . $subfolder ;
 	}
+			return  $cacheDir . DIRECTORY_SEPARATOR . $subfolder ;
+
 	return $cacheDir;
 });
 

@@ -97,16 +97,36 @@ class PageParser extends Kernel
 			$uni = UniversalPage::findFirst($this->id);
 		}
 		$uni->setHasPermanentUri($this->has_permanent_url);
+		//change modules for all locales
+		if ($uni->getId()){
+			$modules = UniversalPage::find([
+				"module_name=?0 AND id<> ?1",
+				'bind'=>[$uni->getModuleName(),$uni->getId()]
+			]);
+			if (! $modules->update(['module_name'=>$this->module_name])) {
+				$messages = $modules->getMessages();
+				foreach ($messages as $message) {
+					echo 'Message: ', $message->getMessage();
+					echo 'Field: ', $message->getField();
+					echo 'Type: ', $message->getType();
+				}
+				$this->throwWriteError($log_message);
+			}
+		}
 		$uni->setModuleName($this->module_name);
 		$uni->setUrl($this->url);
 		$uni->setLangId($this->language);
 
 		if ($uni->save()) {
 			$log_message .= "universal page saved\n";
-			if ( !$edit ||  is_null($uni->getPageId())) {
+			if (
+				!$edit
+				||
+				is_null($uni->getPageId())
+				||
+				false === ($page = Pages::findFirst($uni->getPageId()))
+			) {
 				$page = new Pages();
-			} else {
-				$page = Pages::findFirst($uni->getPageId());
 			}
 			$page->setAdditionalTitle($this->additional_title);
 			$page->setTypeId($this->page_type);

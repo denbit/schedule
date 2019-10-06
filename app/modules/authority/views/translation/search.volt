@@ -1,5 +1,9 @@
 {% extends 'layouts/translation.volt' %}
-
+{% block subhead %}
+    <div class="col" align="left">
+        <h5>S переклад</h5>
+    </div>
+{% endblock %}
 {% block content %}
 <style>
     th{
@@ -8,14 +12,21 @@
 
 </style>
     {{ super() }}
+    {{ form(url(["for": "action-auth",'controller':'translation','action':'search']),'method':'GET') }}
+    <table class="table middle_row">
+        <tr><th>S</th></tr>
+        <tr><td><label for="search">Key:</label>{{text_field('search','value':request.getQuery('key'))}}</tr>
+        <tr><td><label for="sort">sort:</label>{{select_static('sort',[
+                'key_desc':'Key desc',
+                'key_asc':'Key asc',
+                'languages':'By Languages'
+            ])}}</tr>
+        <tr><td>{{submit_button('Find')}}</tr>
+    </table>
+    {{ end_form() }}
     <table class="table middle_row" >
-
         <thead class="thead-dark">
         <tr>
-        <tr> <td>
-                {{ form(url(["for": "action-auth",'controller':'translation','action':'index']),'id':'limit_form')}}
-                {{ numeric_field('limit_input','value':limit ? limit : 25) }} {{ submit_button('Show') }}
-                {{ end_form() }} </td></tr>
             <th  scope="col"> Key </th>
             <th  scope="col">Ukrainian</th>
             <th  scope="col">English</th>
@@ -24,7 +35,7 @@
         </tr>
         </thead>
         <tbody>
-        {% if translations %}
+        {% if translations is not empty %}
             {% for key,translation in  translations %}
                 <tr id="{{ key }}">
                     <td><input type="checkbox" data-key="{{ key}}">  <i>{{ key}}</i></td>
@@ -52,16 +63,4 @@
         {% endif %}
         </tbody>
     </table>
-{% endblock %}
-{% block footer %}
-{{ super() }}
-    <script>
-        $('#limit_form').submit(function(e){
-            e.preventDefault();
-            $(this).prop('action',$(this).prop('action').concat('/',$('#limit_input').val()));
-            $(this).unbind('submit');
-            $(this).submit();
-
-        });
-    </script>
 {% endblock %}

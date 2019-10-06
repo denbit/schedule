@@ -55,7 +55,7 @@
                     <div class="card card-body local_padding">
                         <ul class="ul_all_collapse">
                             <li> {{ link_to(["for": "action-auth",'controller':'translation','action':''], 'Видалити масово','class':'btn-link') }}</li>
-                            <li> {{ link_to(["for": "action-auth",'controller':'translation','action':''], 'Знайти строку','class':'btn-link') }}</li>
+                            <li> {{ link_to(["for": "action-auth",'controller':'translation','action':'search'], 'Знайти строку','class':'btn-link') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -138,6 +138,12 @@
                         </ul>
                     </div>
                 </div>
+            </li>
+            <li> {% set link="#" %}
+               	{% if router.getControllerName()!='widget' %}
+                    {% set link=["for": "action-auth",'controller':'widgets','action':'list'] %}
+                {% endif %}
+                {{ link_to(link, 'Front page widgets','class':'btn btn-link') }}
             </li>
 
         </ul>
