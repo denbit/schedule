@@ -1,5 +1,5 @@
 .popular_destinations {
-	margin: 3rem;
+	/*margin: 3rem;*/
 	height: auto;
 
 }
@@ -9,7 +9,7 @@
 	text-align: center;
 }
 
-subhead-popular-dest {
+.subhead-popular-dest {
 	margin: 1rem;
 
 }
@@ -20,28 +20,39 @@ subhead-popular-dest {
 
 .popular_destinations .subhead-popular-dest {
 	text-align: center;
+}
+
+.sub-popular-dest {
+	color: #818181;
 	padding: 1rem;
 }
 
 .popular-dest {
-	color: #818181;
-	padding: 1rem;
+	height: 350px;
+	background-size: cover;
+	border-radius: 5px;
+	margin-right: 10px;
 }
 
 .first-popular-dest {
 	width: 400px;
 	background-image: url("../images/frontend/first-popular-dest.jpg");
-	height: 350px;
-	background-size: cover;
 }
 
-.next-popular-dest {
-	width: 200px;
-	background-image: url("../images/frontend/first-popular-dest.jpg");
-	height: 350px;
-	background-size: cover;
+.second-popular-dest {
+	width: 250px;
+	background-image: url("../images/frontend/second-popular-dest.jpg");
 }
 
+.third-popular-dest {
+	width: 250px;
+	background-image: url("../images/frontend/third-popular-dest.jpg");
+}
+
+.fourth-popular-dest {
+	width: 250px;
+	background-image: url("../images/frontend/fourth-popular-dest.jpg");
+}
 .img-container {
 	margin: 2rem 0;
 }
@@ -50,8 +61,7 @@ subhead-popular-dest {
 	padding-bottom: .5rem;
 	border-bottom: 1px solid #fff;
 }
-
 .text-first-popular {
-	padding: 265px 1rem 1rem 1rem;
+	padding: 250px 1rem 1rem 1rem;
 	color: #fff;
 }

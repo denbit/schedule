@@ -59,13 +59,13 @@
 		<div class="popular_destinations ">
 			<h2>{{ translate('popular_destinations', 'Popular destinations') }}</h2>
 			<div class="subhead-popular-dest">
-				<span class="popular-dest">{{ translate('date_popular_dest','April 2020') }}</span>
-				<span class="popular-dest">{{ translate('city_popular_dest','From: Lviv') }}</span>
+				<span class="sub-popular-dest">{{ translate('date_popular_dest','April 2020') }}</span>
+				<span class="sub-popular-dest">{{ translate('city_popular_dest','From: Lviv') }}</span>
 		</div>
 			<div class="shadow-popular"><img src="/images/frontend/st_top_bg2.png"></div>
 			<div class="d-inline-flex">
 				<div class="img-container">
-					<div class="first-popular-dest">
+					<div class="popular-dest first-popular-dest">
 						<div class="text-first-popular">
 							<div class="content-first-popular-dest">
 								<div class="d-inline h2">
@@ -76,7 +76,30 @@
 								</div>
 							</div>
 
-							<div class="sub-content-first-popular-dest">
+							<div class="pt-2">
+							<span class="p-1 mr-4">
+								{{ translate('view_prices','View prices') }}
+							</span>
+								<span>
+								<img src="/images/frontend/arrow_png24.png">
+							</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="img-container">
+					<div class="popular-dest second-popular-dest">
+						<div class="text-first-popular">
+							<div class="content-first-popular-dest">
+								<div class="d-inline h2">
+									{{ translate('vilnius','Vilnius') }},&nbsp
+								</div>
+								<div class="d-inline h5">
+									{{ translate('lithuania','Lithuania') }}
+								</div>
+							</div>
+
+							<div class="pt-2">
 							<span class="p-1 mr-4">
 								{{ translate('view_prices','View prices') }}
 							</span>
@@ -89,29 +112,55 @@
 
 				</div>
 				<div class="img-container">
-					<div class="next-popular-dest">
+					<div class="popular-dest third-popular-dest">
 						<div class="text-first-popular">
 							<div class="content-first-popular-dest">
 								<div class="d-inline h2">
-									{{ translate('lisbon','Lisbon') }},&nbsp
+									{{ translate('barcelona','Barcelona') }},&nbsp
 								</div>
 								<div class="d-inline h5">
-									{{ translate('portugal','Portugal') }}
+									{{ translate('spain','Spain') }}
 								</div>
 							</div>
 
-							<div class="sub-content-first-popular-dest">
+							<div class="pt-2">
 							<span class="p-1 mr-4">
 								{{ translate('view_prices','View prices') }}
 							</span>
 								<span>
-								<img src="/images/frontend/arrow_png8.png">
+								<img src="/images/frontend/arrow_png24.png">
 							</span>
 							</div>
 						</div>
 					</div>
 
 				</div>
+
+				<div class="img-container">
+					<div class="popular-dest fourth-popular-dest">
+						<div class="text-first-popular">
+							<div class="content-first-popular-dest">
+								<div class="d-inline h2">
+									{{ translate('prague','Prague') }},&nbsp
+								</div>
+								<div class="d-inline h5">
+									{{ translate('czech','Czech') }}
+								</div>
+							</div>
+
+							<div class="pt-2">
+							<span class="p-1 mr-4">
+								{{ translate('view_prices','View prices') }}
+							</span>
+								<span>
+								<img src="/images/frontend/arrow_png24.png">
+							</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
 			</div>
 	</div>
 	</section>
