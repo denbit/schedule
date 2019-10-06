@@ -36,6 +36,7 @@ class Translate  extends Kernel
 
 	}
 
+
 	public static function setTranslation( string $key, int $lang_id, string $value):bool
 	{
 

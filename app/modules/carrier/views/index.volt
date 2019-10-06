@@ -17,6 +17,7 @@
 {{ partial('../../shared_views/header') }}
     <h2 class="text-center my-5 text-white">Find your path! <br>{{ subtitle|default("Szlach") }}</h2>
 </header>
+
 <div class="container-fluid">
     <div class="row breadcrumbs-row">
         <div class="col-12"><i>Bradcrumps > Main</i></div>
