@@ -84,39 +84,39 @@ class PageForm extends Form
 		$content->setLabel("Content:");
 		$this->add($content);
 
+
+		$chk = ['value' =>1];
+		$unchk = ['name' => 'has_permanent_url','value' =>0 ];
 		if ($page->has_permanent_url) {
-			$chk = ['value' => 1, 'checked' => 'checked'];
+			$chk  ['checked'] = 'checked';
 		} else {
-			$chk = ['value' => 1];
+			$unchk  ['checked'] = 'checked';
 		}
 
-		$radio = new Radio('has_permanent_url', $chk);
-		$radio->setUserOption("group", 'true');
-		$radio->setLabel("Yes");
-		$this->add($radio);
-		if (!$page->has_permanent_url) {
-			$chk = ['name' => 'has_permanent_url', 'value' => 0, 'checked' => 'checked'];
-		} else {
-			$chk = ['name' => 'has_permanent_url', 'value' => 0];
-		}
-		$radio1 = new Radio('permanent_url1', $chk);
-		$radio1->setLabel("No");
-		$radio->setUserOption('h3', 'Has permanent URL:');
-		$radio1->setUserOption("group", 'true');
-		$this->add($radio1);
+		$fixed_uri_check = new Radio('has_permanent_url', $chk);
+		$fixed_uri_check->setUserOptions(["group"=> 'true', 'h3'=>'Чи має фіксований URI:'])
+			->setLabel("Так");
+
+		$fixed_uri_uncheck = new Radio('permanent_url1', $unchk);
+		$fixed_uri_uncheck->setUserOption("group", 'true')
+			->setLabel("Ні");
+		$this->add($fixed_uri_check)->add($fixed_uri_uncheck);
+
 		$seo_title = new Text('seo_title', ["class" => 'form-control']);
-		$seo_title->setLabel(" Title for SEO:");
+		$seo_title->setLabel("Meta title для SEO:");
+		$seo_desc = new Text('seo_desc', ["class" => 'form-control']);
+		$seo_desc->setLabel("Meta description для SEO:");
 
 		$seo_name = new Text('seo_name', ["class" => 'form-control']);
-		$seo_desc = new Text('seo_desc', ["class" => 'form-control']);
+		$seo_name->setLabel("Заголовок документу");
 		$seo_before_route = new Text('seo_before_route', ["class" => 'form-control']);
+		$seo_before_route->setLabel("Контент після шапки:");
 		$seo_menu_title = new Text('seo_menu_title', ["class" => 'form-control']);
-		$this->add($seo_title);
-		$this->add($seo_name);
-		$this->add($seo_desc);
-		$this->add($seo_desc);
-		$this->add($seo_before_route);
-		$this->add($seo_menu_title);
+		$seo_menu_title->setLabel("Назва в пунках меню та хлібних крошках");
+
+		$this->add($seo_title)->add($seo_name)
+			->add($seo_desc)->add($seo_desc)
+			->add($seo_before_route)->add($seo_menu_title);
 
 
 	}

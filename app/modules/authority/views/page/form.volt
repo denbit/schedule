@@ -7,6 +7,7 @@
 <div class="row">
     <div class="col-md-6 card">
         <div class="card-body">
+            {% if alias is empty %}{{ link_to(['for':'action-edit-all','controller':router.getControllerName(),'action':'clone','params':form.get('id').getValue() ],'Клонувати') }}{% endif %}
 {{ form(url.get(['for':'action-auth','controller': router.getControllerName(),'action':'create']), 'method': 'post') }}
 
 {% set group=0 %}

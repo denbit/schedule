@@ -54,7 +54,7 @@ class PageManager extends Kernel
 		 ];
 	}
 
-    public function getForm( PageParser $pageDocument = null, bool $edit = false)
+    public function getForm(PageParser $pageDocument = null, bool $edit = false)
     {
 
 		$options = $this->scanForModules();

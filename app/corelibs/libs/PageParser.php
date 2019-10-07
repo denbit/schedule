@@ -70,7 +70,7 @@ class PageParser extends Kernel
 			$seo = $page->page->seo;
 		}
 		$this->page_type = $page_inst->pagetype->id;
-		$this->additional_title = $page_inst->getAdditionalTitle();
+		$this->additional_title = $page_inst->getAdditionalContent();
 		$this->seo_title = $seo->getTitle();
 		$this->seo_name = $seo->getName();
 		$this->seo_desc = $seo->getDescription();
@@ -137,7 +137,7 @@ class PageParser extends Kernel
 			) {
 				$page = new Pages();
 			}
-			$page->setAdditionalTitle($this->additional_title);
+			$page->setAdditionalContent($this->additional_title);
 			$page->setTypeId($this->page_type);
 
 			if ($this->page_type === PageParser::STATIC_PAGE) {

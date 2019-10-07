@@ -89,17 +89,17 @@ private $content_id;
     /**
      * @return mixed
      */
-    public function getAdditionalTitle()
+    public function getAdditionalContent()
     {
-        return $this->additional_title;
+        return $this->additional_content;
     }
 
     /**
      * @param mixed $additianal_content
      */
-    public function setAdditionalTitle($additianal_content): void
+    public function setAdditionalContent($additianal_content): void
     {
-        $this->additional_title = $additianal_content;
+        $this->additional_content = $additianal_content;
     }
 
 	public function validation()
