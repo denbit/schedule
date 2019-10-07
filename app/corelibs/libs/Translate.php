@@ -72,27 +72,26 @@ class Translate  extends Kernel
 	 *
 	 * @return \Phalcon\Mvc\Model\ResultsetInterface
 	 */
-	public static function getAllTransations($limit=25, Languages $language = null)
+	public static function getAllTransations($limit=25, Languages $language = null):\stdClass
 	{
 		 $records=TranslationsCommon::find([
 		 	'limit'=>$limit,
 		    'hydration'=>Resultset::HYDRATE_OBJECTS
 		 ]);
-		$resultset =[];
-		$list = LanguageParser::ListLanguages();
-		foreach ($records as $record)
-		{
-			if (!array_key_exists($record->key,$resultset)){
-			$resultset[$record->key]=[];
-			}
-			$resultset[$record->key]=[
-				$list[$record->lang_id]=>[
-					'id'=>$record->lang_id,
-					'value'=>$record->description
-				]
-			];
-		}
-	return Kernel::toObject($resultset);
+		 return self::processTranslations($records);
+
+	}
+
+	public static function findTranslations( string $wildcard):\stdClass
+	{
+		$records=TranslationsCommon::find([
+			"key LIKE ?0",
+			"bind"=>[$wildcard."%"],
+			'hydration'=>Resultset::HYDRATE_OBJECTS
+		]);
+		return self::processTranslations($records);
+
+
 	}
 
 	public static function getByKey($key):Translate
@@ -115,6 +114,25 @@ class Translate  extends Kernel
 			'key'=> $key
 		];
 		return $self;
+	}
+
+	private static function processTranslations(Resultset $records)
+	{
+		$resultset =[];
+		$list = LanguageParser::ListLanguages();
+		foreach ($records as $record)
+		{
+			if (!array_key_exists($record->key,$resultset)){
+				$resultset[$record->key]=[];
+			}
+			$resultset[$record->key]=[
+				$list[$record->lang_id]=>[
+					'id'=>$record->lang_id,
+					'value'=>$record->description
+				]
+			];
+		}
+		return Kernel::toObject($resultset);
 	}
 
 

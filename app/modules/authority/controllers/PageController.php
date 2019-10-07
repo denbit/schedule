@@ -101,4 +101,9 @@ class PageController extends ControllerBase implements ICreatable,IEditable
 		$this->view->setVar('title','Склонована сторінка');
 		$this->view->pick('page/form');
     }
+
+	public function cloneAction()
+	{
+		
+    }
 }

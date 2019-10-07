@@ -1,24 +1,41 @@
 {% extends 'layouts/translation.volt' %}
-
+{% block subhead %}
+    <div class="col" align="left">
+        <h5>S переклад</h5>
+    </div>
+{% endblock %}
 {% block content %}
 <style>
-    .translations td:last-child{
-        width:155px;
-    }
     th{
         padding: .65rem .5rem!important;
     }
 
 </style>
     {{ super() }}
-    <table class="table middle_row translations" >
+    {{ form(url(["for": "action-auth",'controller':'translation','action':'search']),'method':'GET') }}
+    <table class="table middle_row">
+        <tr><th colspan="2">S</th></tr>
+        <tr>
+            <td>
+                <label for="search">Key:
+                {{text_field('key','value':request.getQuery('key'),'class':"form-control")}}</label>
+            </td>
+            <td>
+                <label for="sort">Sort:</label>
+                {{select_static('sort',[
+                    'key_desc':'Key desc',
+                    'key_asc':'Key asc',
+                    'languages':'By Languages'
+                ],'class':"custom-select")}}
+            </td>
+        </tr>
 
+        <tr><td class="text-right" colspan="2">{{submit_button('Find','class':"btn btn-success btn-sm px-3 mr-2")}}</tr>
+    </table>
+    {{ end_form() }}
+    <table class="table middle_row" >
         <thead class="thead-dark">
         <tr>
-        <tr> <td>
-                {{ form(url(["for": "action-auth",'controller':'translation','action':'index']),'id':'limit_form')}}
-                {{ numeric_field('limit_input','value':limit ? limit : 25) }} {{ submit_button('Show') }}
-                {{ end_form() }} </td></tr>
             <th  scope="col"> Key </th>
             <th  scope="col">Ukrainian</th>
             <th  scope="col">English</th>
@@ -27,12 +44,12 @@
         </tr>
         </thead>
         <tbody>
-        {% if translations %}
+        {% if translations is not empty %}
             {% for key,translation in  translations %}
                 <tr id="{{ key }}">
                     <td><input type="checkbox" data-key="{{ key}}">  <i>{{ key}}</i></td>
                     {% if translation.uk is not empty  %}
-                        <td data-id="{{ translation.uk.id }}">{{ crop(translation.uk.value) }}</td>
+                        <td data-id="{{ translation.uk.id }}">{{  crop(translation.uk.value) }}</td>
                     {% else %}
                         <td ></td>
                     {% endif %}
@@ -55,16 +72,4 @@
         {% endif %}
         </tbody>
     </table>
-{% endblock %}
-{% block footer %}
-{{ super() }}
-    <script>
-        $('#limit_form').submit(function(e){
-            e.preventDefault();
-            $(this).prop('action',$(this).prop('action').concat('/',$('#limit_input').val()));
-            $(this).unbind('submit');
-            $(this).submit();
-
-        });
-    </script>
 {% endblock %}

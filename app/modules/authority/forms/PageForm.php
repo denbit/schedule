@@ -40,10 +40,11 @@ class PageForm extends Form
 		$page_type->setLabel("Тип сторінки:");
 		$module = new Select(
 			'module_name', $options->modules, [
-			"emptyText" => "Оберіть назву модуля",
-			"useEmpty" => true,
-			"emptyValue" => "",
-			"class" => 'form-control',
+				"emptyText" => "Оберіть назву модуля",
+				"useEmpty" => true,
+				"emptyValue" => "",
+				"class" => 'form-control',
+				"required"=>"required"
 		]
 		);
 		$module->setLabel("Назва модуля");
@@ -62,7 +63,7 @@ class PageForm extends Form
 		]		);
 		$lang_f->setLabel("Language of page");
 		if ($options->edit) {
-			$lang_f->setAttribute('disabled', 'disabled');
+			$lang_f->setAttribute('readonly', 'readonly');
 		}
 
 		$this->add($lang_f);
