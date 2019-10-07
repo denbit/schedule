@@ -2,13 +2,16 @@
 
 {% block content %}
 <style>
+    .translations td:last-child{
+        width:155px;
+    }
     th{
         padding: .65rem .5rem!important;
     }
 
 </style>
     {{ super() }}
-    <table class="table middle_row" >
+    <table class="table middle_row translations" >
 
         <thead class="thead-dark">
         <tr>
@@ -29,17 +32,17 @@
                 <tr id="{{ key }}">
                     <td><input type="checkbox" data-key="{{ key}}">  <i>{{ key}}</i></td>
                     {% if translation.uk is not empty  %}
-                        <td data-id="{{ translation.uk.id }}">{{ translation.uk.value }}</td>
+                        <td data-id="{{ translation.uk.id }}">{{ crop(translation.uk.value) }}</td>
                     {% else %}
                         <td ></td>
                     {% endif %}
                     {% if translation.en is not empty  %}
-                        <td data-id="{{ translation.en.id }}">{{ translation.en.value }}</td>
+                        <td data-id="{{ translation.en.id }}">{{  crop(translation.en.value) }}</td>
                         {% else %}
                             <td ></td>
                     {% endif %}
                     {% if translation.ru is not  empty  %}
-                        <td data-id="{{ translation.ru.id }}">{{ translation.ru.value }}</td>
+                        <td data-id="{{ translation.ru.id }}">{{  crop(translation.ru.value) }}</td>
                     {% else %}
                         <td ></td>
                     {% endif %}

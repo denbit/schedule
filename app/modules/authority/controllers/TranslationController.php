@@ -14,9 +14,15 @@ class TranslationController extends ControllerBase implements ISearchable,IEdita
 {
 	public function searchAction()
 	{
-		$translations = Translate::getAllTransations();
+		$key = $this->request->getQuery('key','striptags');
+		if (!empty($key) ){
+			$translations = Translate::findTranslations($key);
+		}else{
+			$translations = Translate::getAllTransations();
+		}
+
 		if(count($translations)>0){
-			$this->view->translations =(object) $translations;
+			$this->view->translations = $translations;
 
 		}
 	}

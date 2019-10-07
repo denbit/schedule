@@ -1,3 +1,10 @@
+{%- macro crop(value)  %}
+    {%- if value|length>10 %}
+        {{ substr(value,0,10)~"..." }}
+    {%- else %}
+        {{ value }}
+    {%- endif  %}
+{%- endmacro  %}
 <!DOCTYPE html>
 <html>
 <head>
