@@ -34,7 +34,14 @@ class PageParser extends Kernel
 	public $seo_menu_title;
 	public $language;
 
-	public function getPage($lang, $url = '', $module = '', $uni_page_id = null)
+	/**
+	 * @param string $lang(uk|en|ru)
+	 * @param string $url
+	 * @param string $module
+	 * @param int $uni_page_id
+	 * @return $this|bool
+	 */
+	public function loadPage($lang = '', $url = '', $module = '', $uni_page_id = null)
 	{
 
 		$lang_id = Kernel::getLanguageId($lang);
@@ -44,6 +51,8 @@ class PageParser extends Kernel
 			$page = UniversalPage::findFirst(["url like '{$url}' and lang_id={$lang_id}"]);
 		}elseif (!empty($module)) {
 			$page = UniversalPage::findFirst(["module_name like '{$module}' and lang_id={$lang_id}"]);
+		}elseif (!empty($uni_page_id)){
+			$page = UniversalPage::findFirst($uni_page_id);
 		}
 		if ($page === false){
 			return false;
@@ -72,9 +81,9 @@ class PageParser extends Kernel
 
 	}
 
-	public function newPageForm()
+	public static function getPage($lang = '', $url = '', $module = '', $uni_page_id = null):self
 	{
-
+		return (new self())->loadPage($lang, $url, $module, $uni_page_id);
 	}
 
 	/**
@@ -175,9 +184,8 @@ class PageParser extends Kernel
 		} else {
 			$this->throwWriteError($log_message);
 		}
-
-
 	}
+
 
 	private function throwWriteError($m)
 	{

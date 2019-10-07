@@ -14,7 +14,7 @@ class IndexModel extends Model implements IModel
 
         $url = $input['url'] ?? '';
         $module = $input['module'] ??  '';
-        $page = $pageParser->getPage($input['lang'], $url, $module);
+        $page = PageParser::getPage($input['lang'], $url, $module);
 
         if (!$page)
         	return new PageParser();

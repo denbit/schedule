@@ -69,13 +69,13 @@ try {
     require APP_PATH . '/config/routes.php';
 
 	$debugbar = new StandardDebugBar();
-	$debugbarRenderer = $debugbar->getJavascriptRenderer();
-	(new Snowair\Debugbar\ServiceProvider())->start();
-	$profiler = new \Fabfuel\Prophiler\Profiler();
-	$toolbar = new \Fabfuel\Prophiler\Toolbar($profiler);
-	$toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());
-	$di->setShared('profiler', $profiler);
-	echo $toolbar->render();
+//	$debugbarRenderer = $debugbar->getJavascriptRenderer();
+//	(new Snowair\Debugbar\ServiceProvider())->start();
+//	$profiler = new \Fabfuel\Prophiler\Profiler();
+//	$toolbar = new \Fabfuel\Prophiler\Toolbar($profiler);
+//	$toolbar->addDataCollector(new \Fabfuel\Prophiler\DataCollector\Request());
+//	$di->setShared('profiler', $profiler);
+	//echo $toolbar->render();
     echo str_replace(["\n","\r","\t"], '', $application->handle()->getContent());
 
 } catch (\Exception $e) {

@@ -13,6 +13,24 @@ $frontend = new \Phalcon\Mvc\Router\Group(
 	]
 );
 
+$dynamic_router = \Schedule\Core\Models\UniversalPage::find(
+	[
+		'has_permanent_uri=0',
+		'columns' => 'url, module_name',
+		'group' => 'module_name',
+	]);
+
+try {
+	/**
+	 * @var \Schedule\Core\Models\UniversalPage $dynamic_route
+	 */
+	foreach ($dynamic_router as $dynamic_route) {
+		$frontend->addGet($dynamic_route->readAttribute('url'), $dynamic_route->readAttribute('module_name'));
+	}
+} catch (Exception $exception) {
+	echo $exception->getMessage();
+}
+//var_dump($frontend);
 $frontend->add(
 	'/',
 	[
@@ -47,22 +65,6 @@ $frontend->add(
 
 	]
 );
-$dynamic_router = \Schedule\Core\Models\UniversalPage::find(
-	[
-		'has_permanent_uri=0',
-		'columns' => 'url, module_name',
-		'group' => 'module_name',
-	]
-);
-try {
-	/**
-	 * @var \Schedule\Core\Models\UniversalPage $dynamic_route
-	 */
-	foreach ($dynamic_router as $dynamic_route) {
-		$frontend->addGet($dynamic_route->readAttribute('url'), $dynamic_route->readAttribute('module_name'));
-	}
-} catch (Exception $exception) {
-	echo $exception->getMessage();
-}
+
 $router->mount($frontend);
 

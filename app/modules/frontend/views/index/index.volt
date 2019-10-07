@@ -48,5 +48,17 @@
             <h2>{{data}}</h2>
         </div>
     </div>
+    <section>
+        <h2>{{ translate("popular_routes","Popular routes") }}</h2>
+        <div class="card">
+            <div class="card-body">
+                Here must be popular routes
+            </div>
+        </div>
+    </section>
+    <section>
+        And here I dump page :<br>
+        {{ dump(page) }}
+    </section>
 
 </div>

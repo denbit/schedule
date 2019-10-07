@@ -7,6 +7,7 @@ use Schedule\Core\LanguageParser;
 
 abstract class ControllerBase extends Controller implements IMainAction
 {
+	protected $dynamic_routes = [];
 	abstract public function indexAction();
 	public function onConstruct()
 	{	 $lang_q=$this->request->getQuery('lang');
@@ -15,8 +16,18 @@ abstract class ControllerBase extends Controller implements IMainAction
 			LanguageParser::SystemLanguage($lang_q);
 			$this->response->redirect($this->router->getRewriteUri());
 		}
-		if ($this->config->get('application')->development==true){
-			global $debugbarRenderer;
+
+		$this->dynamic_routes = \Schedule\Core\Models\UniversalPage::find(
+			[
+				'has_permanent_uri=?0 AND module_name LIKE ?1',
+				'bind'=>[0,$this->dispatcher->getControllerName()."%"],
+				'columns' => 'url, module_name',
+				'group' => 'module_name'
+			]
+		)->toArray();
+		global $debugbarRenderer;
+		if ($this->config->get('application')->development==true && $debugbarRenderer) {
+
 			$this->view->debugbarHEAD=$debugbarRenderer->renderHEAD();
 			$this->view->debugbar=$debugbarRenderer->render();
 		}

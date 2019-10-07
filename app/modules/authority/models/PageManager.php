@@ -35,10 +35,13 @@ class PageManager extends Kernel
 
 		$context = stream_context_create($opts);
 		if ($stream = fopen('http://'.$_SERVER['HTTP_HOST'].'/list/main', 'r', false, $context)) {
-			// вывести всю страницу начиная со смещения 10
-			$controllers = json_decode(stream_get_contents($stream));
+
+			$controllers = stream_get_contents($stream);
+
 			fclose($stream);
 		}
+
+		$controllers =json_decode($controllers);
 		$modules = [];
 		foreach ($controllers as $controller=>$actions )
 		{
@@ -51,14 +54,15 @@ class PageManager extends Kernel
 		 ];
 	}
 
-    public function getForm( PageParser $i, bool $edit = false)
+    public function getForm( PageParser $pageDocument = null, bool $edit = false)
     {
 
 		$options = $this->scanForModules();
-		$options->modules = array_combine(array_values($options->modules),array_values($options->modules));
+		$options->modules = array_combine(array_values($options->modules), array_values($options->modules));
 		$options->edit = $edit;
+		$pageDocument = $pageDocument ?? (new PageParser());
 
-       return new PageForm($i,$options);
+       return new PageForm($pageDocument, $options);
         
     }
 
@@ -86,7 +90,12 @@ class PageManager extends Kernel
 		}
 
 		return $availables;
+    }
 
-
+	public function clonePageFromExisting(int $id):PageForm
+	{
+		$page = PageParser::getPage(null,null,null, $id);
+		$page->id = null;
+		return $this->getForm($page);
     }
 }
