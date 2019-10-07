@@ -91,19 +91,17 @@ class PageController extends ControllerBase implements ICreatable,IEditable
 
 	public function cloneAction()
 	{
-		$page_to_clone = $this->dispatcher->getParam('id');
+		$page_to_clone = $this->dispatcher->getParams()[0];
 		if (!$page_to_clone)
 		{
 			$this->response->redirect($this->router->getRewriteUri());
 		}
 		$page_manager = new PageManager();
+		$title = "'Склонована сторінка id #{$page_to_clone}'";
 		$this->view->form = $page_manager->clonePageFromExisting($page_to_clone);
-		$this->view->setVar('title','Склонована сторінка');
+		$this->view->setVar('title',$title);
+		$this->view->setVar('alias',$title);
 		$this->view->pick('page/form');
     }
 
-	public function cloneAction()
-	{
-		
-    }
 }

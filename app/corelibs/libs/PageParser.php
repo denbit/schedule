@@ -58,7 +58,7 @@ class PageParser extends Kernel
 			return false;
 		}
 		$this->id = $page->getId();
-		$this->language = $lang_id;
+		$this->language = $page->getLangId();
 		$this->has_permanent_url = $page->getHasPermanentUri();//using uri else using pattern
 
 		$this->url = $page->getUrl();
@@ -112,7 +112,7 @@ class PageParser extends Kernel
 				"module_name=?0 AND id<> ?1",
 				'bind'=>[$uni->getModuleName(),$uni->getId()]
 			]);
-			if (! $modules->update(['module_name'=>$this->module_name])) {
+			if ( !$modules->update(['module_name'=>$this->module_name])) {
 				$messages = $modules->getMessages();
 				foreach ($messages as $message) {
 					echo 'Message: ', $message->getMessage();

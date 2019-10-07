@@ -12,8 +12,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    {% block title %}{% set title ='Main' %}   {% endblock %}
-    <title>Site Managing system - {{ title |default("Main") }}
+    {% block title %}{% endblock %}
+    <title>Site Managing system - {{ title | default("Main") }}
     </title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ url('/shared/favicon.ico') }}"/>
     <link rel="stylesheet" href="{{ url('/css/common.css') }}"/>

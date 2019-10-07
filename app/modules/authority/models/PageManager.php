@@ -94,7 +94,7 @@ class PageManager extends Kernel
 
 	public function clonePageFromExisting(int $id):PageForm
 	{
-		$page = PageParser::getPage(null,null,null, $id);
+		$page = PageParser::getPage('',null,null, $id);
 		$page->id = null;
 		return $this->getForm($page);
     }
