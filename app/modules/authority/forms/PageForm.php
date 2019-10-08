@@ -86,8 +86,18 @@ class PageForm extends Form
 		$this->add($content);
 
 		$fixed_uri_check = new RadioGroup('has_permanent_url', [
-			"1"=>"Tak",
-			"0"=>'Ni'
+			"1"=>"Так",
+			"0"=>'Ні'
+		],[
+			'input'=>[
+				"class" => 'form-check-input',
+				],
+			'div'=> [
+				'class' => 'form-check form-check-inline'
+			],
+			'label'=>[
+				'class'=>'form-check-label'
+			]
 		]);
 		$fixed_uri_check->setLabel('Чи має фіксований URI:');
 		$this->add($fixed_uri_check);

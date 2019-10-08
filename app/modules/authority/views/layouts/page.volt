@@ -20,6 +20,6 @@
     {% block footer %}
 </div>
 <footer class="mt-4">{{ super() }}
-    <h6 class="text-center">Managing system v1.0</h6></footer>
+    <h6 class="text-center">Система контролю сторінок v1.1</h6></footer>
 
 {% endblock %}

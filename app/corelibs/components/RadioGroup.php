@@ -11,6 +11,7 @@ namespace Schedule\Core\Components;
 
 use Phalcon\Forms\Element;
 use Phalcon\Forms\Exception;
+use Phalcon\Tag;
 
 class RadioGroup extends Element
 {
@@ -41,7 +42,9 @@ class RadioGroup extends Element
 			throw new Exception("RadioGroup must have default values",-1);
 		}
 		$this->setUserOption('values', $defaultValues);
-		parent::__construct($name, $attributes);
+		$this->setUserOption('div', $attributes['div']);
+		$this->setUserOption('label', $attributes['label']);
+		parent::__construct($name, $attributes['input']);
 	}
 
 	/**
@@ -52,13 +55,19 @@ class RadioGroup extends Element
 	 */
 	public function render($attributes = null)
 	{
-		$attributes =  $attributes;
+		$attributes =  $this->getAttributes();
+
 
 		$options = $this->getUserOption('values');
 		$result = array_reduce(array_keys($options),function ($_rendered, $key) use ($attributes, $options){
 			$radioOne = new Element\Radio($this->_name);
 			$radioOne->setDefault($key);
-			$_rendered .= "<label>".$radioOne->render($attributes) .  "{$options[$key]}</label>";
+			$div_attrs = $this->getUserOption('div')??[];
+			$label_attrs = $this->getUserOption('label')??[];
+			$_rendered .= Tag::tagHtml('div', $div_attrs,false,true) .
+							$radioOne->render($attributes) .
+							Tag::tagHtml('label', $label_attrs,false,true) .  $options[$key] . Tag::tagHtmlClose('label') .
+						Tag::tagHtmlClose('div');
 			return $_rendered;
 		},'');
 
