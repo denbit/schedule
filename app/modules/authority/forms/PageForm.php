@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\TextArea;
 use Phalcon\Forms\Form;
 
+use Schedule\Core\Components\RadioGroup;
 use Schedule\Core\Models\Languages;
 use Schedule\Core\Models\PagesTypes;
 use Schedule\Core\PageParser;
@@ -57,7 +58,7 @@ class PageForm extends Form
 				"description",
 			],
 			"useEmpty" => true,
-			"emptyText" => "оберіть мову",
+			"emptyText" => "Оберіть мову",
 			"emptyValue" => "",
 			"class" => "form-control",
 		]		);
@@ -78,43 +79,31 @@ class PageForm extends Form
 		$this->add($additional_title);
 
 		$title = new Text('title', $attrs);
-		$title->setLabel("Заголовок контенту ");
+		$title->setLabel("Заголовок static контенту ");
 		$this->add($title);
 		$content = new TextArea('content', $attrs);
-		$content->setLabel("Content:");
+		$content->setLabel(" static Content:")->setUserOption('needsEditor',true);
 		$this->add($content);
 
-
-		$chk = ['value' =>1];
-		$unchk = ['name' => 'has_permanent_url','value' =>0 ];
-		if ($page->has_permanent_url) {
-			$chk  ['checked'] = 'checked';
-		} else {
-			$unchk  ['checked'] = 'checked';
-		}
-
-		$fixed_uri_check = new Radio('has_permanent_url', $chk);
-		$fixed_uri_check->setUserOptions(["group"=> 'true', 'h3'=>'Чи має фіксований URI:'])
-			->setLabel("Так");
-
-		$fixed_uri_uncheck = new Radio('permanent_url1', $unchk);
-		$fixed_uri_uncheck->setUserOption("group", 'true')
-			->setLabel("Ні");
-		$this->add($fixed_uri_check)->add($fixed_uri_uncheck);
-
+		$fixed_uri_check = new RadioGroup('has_permanent_url', [
+			"1"=>"Tak",
+			"0"=>'Ni'
+		]);
+		$fixed_uri_check->setLabel('Чи має фіксований URI:');
+		$this->add($fixed_uri_check);
 		$seo_title = new Text('seo_title', ["class" => 'form-control']);
 		$seo_title->setLabel("Meta title для SEO:");
 		$seo_desc = new Text('seo_desc', ["class" => 'form-control']);
 		$seo_desc->setLabel("Meta description для SEO:");
 
-		$seo_name = new Text('seo_name', ["class" => 'form-control']);
-		$seo_name->setLabel("Заголовок документу");
-		$seo_before_route = new Text('seo_before_route', ["class" => 'form-control']);
-		$seo_before_route->setLabel("Контент після шапки:");
+		$document_title = new Text('title', ["class" => 'form-control']);
+		$document_title->setLabel("Заголовок документу");
+		$seo_before_route = new TextArea('seo_before_route', ["class" => 'form-control']);
+		$seo_before_route->setLabel("Контент після шапки:")->setUserOption('needsEditor',true);
 		$seo_menu_title = new Text('seo_menu_title', ["class" => 'form-control']);
 		$seo_menu_title->setLabel("Назва в пунках меню та хлібних крошках");
 
-		$this->add($seo_title)->add($seo_name)
+		$this->add($seo_title)->add($document_title)
 			->add($seo_desc)->add($seo_desc)
 			->add($seo_before_route)->add($seo_menu_title);
 

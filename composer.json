@@ -6,7 +6,8 @@
     "react/react": "^1.0",
     "maximebf/debugbar": "^1.15",
     "fabfuel/prophiler": "^1.6",
-    "amphp/amp": "^2.2"
+    "amphp/amp": "^2.2",
+    "deanblackborough/php-quill-renderer": "^3.17"
 
   },
   "require-dev": {

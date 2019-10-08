@@ -1,9 +1,11 @@
 <div class="content"> <h2 class="text-center padding_top mb-4 text-white">
-        {% if  page.seo_before_route %}
-            {{ page.seo_before_route }}
+        <h2>
+            {% if  page.seo_menu_title %}
+            {{ page.seo_menu_title }}
         {% else %}
             Bus tickets in Ukraine, Russia and Europe
-        {% endif %}</h2>
+        {% endif %}
+        </h2>
     <form class="form row">
         <div class="form_container_search col ">
             <div class="string">From</div>
@@ -43,6 +45,13 @@
             <li class="breadcrumb-item">{{ translate("path","Path") }} > </li>
         </ol>
     </div>
+    <h2>
+    {% if  page.seo_before_route %}
+        {{ page.seo_before_route }}
+    {% else %}
+        Order and view your trip
+    {% endif %}
+    </h2>
     <div class="row">
         <div class="col">
             <h2>{{data}}</h2>

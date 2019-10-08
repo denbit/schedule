@@ -27,7 +27,6 @@ class PageParser extends Kernel
 	public $additional_title;
 	public $content;
 	public $title;
-	public $seo_name;
 	public $seo_title;
 	public $seo_desc;
 	public $seo_before_route;
@@ -72,7 +71,7 @@ class PageParser extends Kernel
 		$this->page_type = $page_inst->pagetype->id;
 		$this->additional_title = $page_inst->getAdditionalContent();
 		$this->seo_title = $seo->getTitle();
-		$this->seo_name = $seo->getName();
+		$this->title = $seo->getName();
 		$this->seo_desc = $seo->getDescription();
 		$this->seo_before_route = $seo->getBeforeRoute();
 		$this->seo_menu_title = $seo->getMenuTitle();
@@ -176,7 +175,7 @@ class PageParser extends Kernel
 			$seo->setDescription($this->seo_desc);
 			$seo->setTitle($this->seo_title);
 			$seo->setMenuTitle($this->seo_menu_title);
-			$seo->setName($this->seo_name);
+			$seo->setName($this->title);
 			if (!$seo->save()) {
 				$this->throwWriteError($log_message);
 			}
