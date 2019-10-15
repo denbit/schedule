@@ -126,12 +126,13 @@ class Translate  extends Kernel
 			if (!array_key_exists($record->key,$resultset)){
 				$resultset[$record->key]=[];
 			}
-			$resultset[$record->key]=[
-				$list[$record->lang_id]=>[
-					'id'=>$record->lang_id,
-					'value'=>$record->description
-				]
-			];
+
+			$resultset[$record->key]
+						[ $list[$record->lang_id] ]=
+							[
+								'id'=>$record->lang_id,
+								'value'=>$record->description
+							];
 		}
 		return Kernel::toObject($resultset);
 	}

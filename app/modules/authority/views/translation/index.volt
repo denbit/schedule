@@ -31,6 +31,7 @@
             {% for key,translation in  translations %}
                 <tr id="{{ key }}">
                     <td><input type="checkbox" data-key="{{ key}}">  <i>{{ key}}</i></td>
+
                     {% if translation.uk is not empty  %}
                         <td data-id="{{ translation.uk.id }}">{{ crop(translation.uk.value) }}</td>
                     {% else %}
