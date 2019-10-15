@@ -78,6 +78,7 @@ class Translate  extends Kernel
 		 	'limit'=>$limit,
 		    'hydration'=>Resultset::HYDRATE_OBJECTS
 		 ]);
+
 		 return self::processTranslations($records);
 
 	}
