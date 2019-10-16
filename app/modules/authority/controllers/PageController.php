@@ -72,11 +72,7 @@ class PageController extends ControllerBase implements ICreatable,IEditable
     	$this->saveAction();
 
     }
-//        $this->dispatcher->forward([
-//              "module"     => "Authority",
-//              "controller" => "page",
-//              "action"     => "index",
-//        ]);
+
     public function formAction()
     {
         $page_sys=new PageManager();

@@ -2,11 +2,13 @@
 
 namespace Schedule\Modules\Authority\Forms;
 
+use Phalcon\Forms\Element;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Radio;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\TextArea;
+use Phalcon\Forms\Exception;
 use Phalcon\Forms\Form;
 
 use Schedule\Core\Components\RadioGroup;
@@ -81,8 +83,8 @@ class PageForm extends Form
 		$title = new Text('title', $attrs);
 		$title->setLabel("Заголовок static контенту ");
 		$this->add($title);
-		$content = new TextArea('content', $attrs);
-		$content->setLabel(" static Content:")->setUserOption('needsEditor',true);
+		$content =$this->getWYSWIGField('content', $attrs);
+		$content->setLabel(" static Content:");
 		$this->add($content);
 
 		$fixed_uri_check = new RadioGroup('has_permanent_url', [
@@ -108,7 +110,7 @@ class PageForm extends Form
 
 		$document_title = new Text('title', ["class" => 'form-control']);
 		$document_title->setLabel("Заголовок документу");
-		$seo_before_route = new TextArea('seo_before_route', ["class" => 'form-control']);
+		$seo_before_route = $this->getWYSWIGField('seo_before_route', ["class" => 'form-control']);
 		$seo_before_route->setLabel("Контент після шапки:")->setUserOption('needsEditor',true);
 		$seo_menu_title = new Text('seo_menu_title', ["class" => 'form-control']);
 		$seo_menu_title->setLabel("Назва в пунках меню та хлібних крошках");
@@ -118,5 +120,32 @@ class PageForm extends Form
 			->add($seo_before_route)->add($seo_menu_title);
 
 
+	}
+
+	private function getWYSWIGField(...$args)
+	{
+		 return new class(...$args) extends Element{
+			 public function __construct($name, $attributes = null)
+			 {
+			 	$js = "var {$name} = new Quill('.controls.{$name} .toolbar', options);";
+				 $this->setUserOption('jsInclude', $js);
+				 parent::__construct($name, $attributes);
+			 }
+			 /**
+			  * Renders the element widget
+			  *
+			  * @param array $attributes
+			  * @return string
+			  */
+			 public function render($attributes = null)
+			 {
+				$attributes =  $this->getAttributes();
+				$hidden = new Hidden($this->_name , $this->_attributes);
+				$rendered = "<div class=\"toolbar\"></div>" . $hidden->render($attributes);
+				return $rendered;
+
+			 }
+
+		 };
 	}
 }

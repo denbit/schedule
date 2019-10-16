@@ -5,6 +5,7 @@
     <h3 class="card-title">Редагування сторінки {% if alias is not empty %}{{ alias }} {% endif %}</h3>
 {% endblock %}
 {% block content %}
+     {% set jsInclude='' %}
 <div class="row">
     <div class="col-md-9 card">
         <div class="card-body">
@@ -20,8 +21,8 @@
             <div class="control-group">
                 {{ element.label(["class": "control-label"]) }}
                 <div class="controls {{ element.getName() }}">
-                 {% if element.getUserOption('needsEditor') %}
-                     <div class="toolbar"></div>
+                 {% if element.getUserOption('jsInclude')is not empty %}
+                     {% set jsInclude=jsInclude~element.getUserOption('jsInclude') %}
                  {% endif %}
                  {{ element }}
                 </div>
@@ -41,21 +42,21 @@
 {% endblock %}
 {% block footer %}
 {{ super() }}
+
     <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
         var page_types = {{ page_types }};
         var options = { theme: 'snow' };
-
-        var route = new Quill('.controls.seo_before_route ', options);
-        var content = new Quill('.toolbar', options);
+        {% if jsInclude is not empty %}
+         {{ jsInclude }}
+        {% endif %}
+        var content = new Quill('.controls.content .toolbar',  options);
 
         $(document).ready(function () {
             if ($('select#page_type').val()==page_types.static){
             /*   content.disable(); */
             }
-       });
-
-        $('select#page_type').change(function () {
+            $('select#page_type').change(function () {
             if ($(this).val()==page_types.dynamic){
                 $('#title,#content').prop('disabled',true);
            /*     content.disable();*/
@@ -63,6 +64,15 @@
                 $('#title,#content').prop('disabled',false);
            /*     content.enable();*/
             }
+
+        });
+            $('form').submit(function (e) {
+                e.preventDefault();
+              $('.controls.seo_before_route input#seo_before_route').val(route.root.innerHTML);
+              $('.controls.content input#content').val(content.root.innerHTML);
+
+
+            });
         });
     </script>
 {% endblock %}
