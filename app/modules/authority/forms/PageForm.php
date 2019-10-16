@@ -127,7 +127,7 @@ class PageForm extends Form
 		 return new class(...$args) extends Element{
 			 public function __construct($name, $attributes = null)
 			 {
-			 	$js = "var {$name} = new Quill('.controls.{$name} .toolbar', options);";
+			 	$js = "fields.push('{$name}');\nvar {$name} = new Quill('.controls.{$name} .toolbar', options);";
 				 $this->setUserOption('jsInclude', $js);
 				 parent::__construct($name, $attributes);
 			 }

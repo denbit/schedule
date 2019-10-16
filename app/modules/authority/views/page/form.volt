@@ -47,6 +47,7 @@
     <script>
         var page_types = {{ page_types }};
         var options = { theme: 'snow' };
+        var fields = [];
         {% if jsInclude is not empty %}
          {{ jsInclude }}
         {% endif %}
@@ -67,11 +68,15 @@
 
         });
             $('form').submit(function (e) {
-                e.preventDefault();
-              $('.controls.seo_before_route input#seo_before_route').val(route.root.innerHTML);
+              e.preventDefault();
+              fields.forEach(function (value) {
+                  var target = '.controls.'+value+' input#'+value;
+                  $(target).val(window[value].root.innerHTML);
+              })
+
               $('.controls.content input#content').val(content.root.innerHTML);
 
-
+$()
             });
         });
     </script>
