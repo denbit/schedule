@@ -81,11 +81,8 @@ class PageForm extends Form
 		$additional_content = new Text('additional_content', ["class" => 'form-control']);
 		$additional_content->setLabel("Вміст сторінк додатковий - Відображається навіть якщо не існує статичної сторінки");
 		$this->add($additional_content);
-		$title = new Text('title', $attrs);
-		$title->setLabel("Заголовок static контенту ");
-		$this->add($title);
 		$content =$this->getWYSWIGField('content', $attrs);
-		$content->setLabel(" static Content:");
+		$content->setLabel("Статичний контент:");
 		$this->add($content);
 
 		$fixed_uri_check = new RadioGroup('has_permanent_url', [
@@ -104,12 +101,14 @@ class PageForm extends Form
 		]);
 		$fixed_uri_check->setLabel('Чи має фіксований URI:');
 		$this->add($fixed_uri_check);
+
 		$seo_title = new Text('seo_title', ["class" => 'form-control']);
-		$seo_title->setLabel("Meta title для SEO:");
+		$seo_title->setLabel("H1 заголовок для SEO:");
 		$seo_desc = new Text('seo_desc', ["class" => 'form-control']);
 		$seo_desc->setLabel("Meta description для SEO:");
-
-
+		$keywords = new Text('keywords', ["class" => 'form-control']);
+		$keywords->setLabel("Ключові слова ");
+		$this->add($keywords);
 		$seo_before_route = $this->getWYSWIGField('seo_before_route', ["class" => 'form-control']);
 		$seo_before_route->setLabel("Контент після шапки:")->setUserOption('needsEditor',true);
 		$seo_menu_title = new Text('seo_menu_title', ["class" => 'form-control']);

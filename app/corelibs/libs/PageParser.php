@@ -33,6 +33,7 @@ class PageParser extends Kernel
 	public $seo_before_route;
 	public $seo_menu_title;
 	public $language;
+	public $keywords;
 
 	/**
 	 * @param string $lang(uk|en|ru)
@@ -75,8 +76,11 @@ class PageParser extends Kernel
 		$this->page_type = $page_inst->pagetype->id;
 		$this->additional_content = $page_inst->getAdditionalContent();
 		$this->document_title = $page_inst->getDocumentTitle();
+		/**
+		 * instert static content fields
+		 */
 		$this->seo_title = $seo->getTitle();
-		$this->title = $seo->getName();
+		$this->keywords = $seo->getKeywords();
 		$this->seo_desc = $seo->getDescription();
 		$this->seo_before_route = $seo->getBeforeRoute();
 		$this->seo_menu_title = $seo->getMenuTitle();
@@ -180,7 +184,7 @@ class PageParser extends Kernel
 			$seo->setDescription($this->seo_desc);
 			$seo->setTitle($this->seo_title);
 			$seo->setMenuTitle($this->seo_menu_title);
-			$seo->setName($this->title);
+			$seo->setKeywords($this->keywords);
 			if (!$seo->save()) {
 				$this->throwWriteError($log_message);
 			}

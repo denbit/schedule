@@ -80,17 +80,17 @@ class SEOInfo extends Model
     /**
      * @return mixed
      */
-    public function getName()
+    public function getKeywords()
     {
-        return $this->name;
+        return $this->keywords;
     }
 
     /**
-     * @param mixed $name
+     * @param mixed $keywords
      */
-    public function setName($name): void
+    public function setKeywords($keywords): void
     {
-        $this->name = $name;
+        $this->keywords = $keywords;
     }
 
     /**
@@ -113,7 +113,7 @@ private $id;
 private $to_page;
 private $title;
 private $description;
-private $name;
+private $keywords;
 private $before_route;
 private  $menu_title;
 
