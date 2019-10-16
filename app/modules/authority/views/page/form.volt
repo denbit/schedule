@@ -51,7 +51,7 @@
         {% if jsInclude is not empty %}
          {{ jsInclude }}
         {% endif %}
-        var content = new Quill('.controls.content .toolbar',  options);
+
 
         $(document).ready(function () {
 			fields.forEach(function (value) {
@@ -76,11 +76,9 @@
               fields.forEach(function (value) {
                   var target = '.controls.'+value+' input#'+value;
                   $(target).val(window[value].root.innerHTML);
-              })
+              });
 
-              $('.controls.content input#content').val(content.root.innerHTML);
 
-$()
             });
         });
     </script>

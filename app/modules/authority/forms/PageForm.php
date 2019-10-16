@@ -125,11 +125,13 @@ class PageForm extends Form
 	private function getWYSWIGField(...$args)
 	{
 		 return new class(...$args) extends Element{
+		 	private $hidden;
 			 public function __construct($name, $attributes = null)
 			 {
 			 	$js = "fields.push('{$name}');\nvar {$name} = new Quill('.controls.{$name} .toolbar', options);";
 				 $this->setUserOption('jsInclude', $js);
 				 parent::__construct($name, $attributes);
+				 $this->hidden = new Hidden($this->_name , $this->_attributes);
 			 }
 			 /**
 			  * Renders the element widget
@@ -140,8 +142,8 @@ class PageForm extends Form
 			 public function render($attributes = null)
 			 {
 				$attributes =  $this->getAttributes();
-				$hidden = new Hidden($this->_name , $this->_attributes);
-				$rendered = "<div class=\"toolbar\"></div>" . $hidden->render($attributes);
+				$this->hidden->setForm($this->getForm());
+				$rendered = "<div class=\"toolbar\"></div>" . $this->hidden->render($attributes);
 				return $rendered;
 
 			 }
