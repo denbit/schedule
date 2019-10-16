@@ -2,6 +2,7 @@
 
 use DebugBar\StandardDebugBar;
 use Phalcon\Di\FactoryDefault;
+use Phalcon\Logger\Adapter\File;
 use Phalcon\Mvc\Application;
 use Snowair\Debugbar\ServiceProvider;
 
@@ -84,10 +85,17 @@ try {
 }
 finally{
 	if ($config->get('application')->showRoute){
-		var_dump($router->getMatchedRoute());
-		echo 'Module: ', $router->getModuleName(), '<br>';
-		echo 'Controller: ', $router->getControllerName(), '<br>';
-		echo 'Action: ', $router->getActionName(), '<br>';
+		ob_start();
+		print_r($router->getMatchedRoute());
+		echo PHP_EOL,'Module: ', $router->getModuleName(), '<br>',PHP_EOL;
+		echo 'Controller: ', $router->getControllerName(), '<br>',PHP_EOL;
+		echo 'Action: ', $router->getActionName(), '<br>',PHP_EOL;
+		$log = ob_get_clean();
+		/**
+		 * @var Phalcon\Logger\Adapter\File $logger
+		 */
+		$logger = new File('route.log');
+		$logger->notice($router->getRewriteUri()." : ". $log);
 	}
 
 }

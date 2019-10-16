@@ -19,7 +19,7 @@ class RouteController extends ControllerBase implements ICreatable,ISearchable,I
     {
     	$Route= new RouteManager();
 
-	$this->view->setVar('routes',$Route->getIndex());//$this->router->getMatchedRoute()->getCompiledPattern());
+	$this->view->setVar('routes', $Route->getIndex());
 
     }
     public function formAction(){
