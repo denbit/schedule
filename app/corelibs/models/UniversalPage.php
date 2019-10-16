@@ -13,6 +13,11 @@ use Phalcon\Mvc\Model;
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\{PresenceOf,Alpha};
 
+/**
+ * Class UniversalPage
+
+ * @property Pages $page
+ */
 class UniversalPage extends CachableModel
 {
 

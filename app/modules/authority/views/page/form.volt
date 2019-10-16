@@ -58,10 +58,10 @@
 				var source = '.controls.'+value+' input#'+value;
 				window[value].root.innerHTML=$(source).val();
 			});
-            if ($('select#page_type').val()==page_types.static){
-                $('#title,#content').prop('disabled',false);
+            if ($('select#page_type').val()==page_types.dynamic){
+                $('#title,#content').prop('disabled',true);
                 if(window.content !=undefined){
-                    content.enable();
+                    content.disable();
                 }
             }
             $('select#page_type').change(function () {

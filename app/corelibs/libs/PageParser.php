@@ -24,7 +24,8 @@ class PageParser extends Kernel
 	public $url;
 	public $page_type;
 	public $has_permanent_url;
-	public $additional_title;
+	public $additional_content;
+	public $document_title;
 	public $content;
 	public $title;
 	public $seo_title;
@@ -44,6 +45,9 @@ class PageParser extends Kernel
 	{
 
 		$lang_id = Kernel::getLanguageId($lang);
+		/**
+		 * @var $page UniversalPage
+		 */
 		if (!empty($url) && !empty($module)){
 			$page = UniversalPage::findFirst(["url like '{$url}' and lang_id={$lang_id} and module_name='{$module}'"]);
 		}elseif (!empty($url)) {
@@ -69,7 +73,8 @@ class PageParser extends Kernel
 			$seo = $page->page->seo;
 		}
 		$this->page_type = $page_inst->pagetype->id;
-		$this->additional_title = $page_inst->getAdditionalContent();
+		$this->additional_content = $page_inst->getAdditionalContent();
+		$this->document_title = $page_inst->getDocumentTitle();
 		$this->seo_title = $seo->getTitle();
 		$this->title = $seo->getName();
 		$this->seo_desc = $seo->getDescription();

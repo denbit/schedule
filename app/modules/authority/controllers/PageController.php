@@ -49,7 +49,9 @@ class PageController extends ControllerBase implements ICreatable,IEditable
 			}
 			$lang = PageParser::getLanguageById($lang_id);
 			$module = $params[0];
+
 			$this->view->form = $page_manager->getForm(PageParser::getPage($lang, '', $module),true);
+
 			$this->view->setVar('title','Editing of existing page');
 			$this->view->edit = true;
 			$this->view->pick('page/form');

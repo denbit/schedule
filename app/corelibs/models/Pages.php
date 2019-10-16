@@ -17,11 +17,12 @@ use Phalcon\Validation\Validator\PresenceOf;
 class Pages  extends CachableModel
 {
 
-private $id;
-private $type_id;
-private $content_id;
+	private $id;
+	private $type_id;
+	private $content_id;
     private $seo_info_id;
-    private $additional_title;
+    private $additional_content;
+    private $document_title;
     /**
      * @return mixed
      */
@@ -93,6 +94,22 @@ private $content_id;
     {
         return $this->additional_content;
     }
+
+	/**
+	 * @return mixed
+	 */
+	public function getDocumentTitle()
+	{
+		return $this->document_title;
+	}
+
+	/**
+	 * @param mixed $document_title
+	 */
+	public function setDocumentTitle($document_title): void
+	{
+		$this->document_title = $document_title;
+	}
 
     /**
      * @param mixed $additianal_content
