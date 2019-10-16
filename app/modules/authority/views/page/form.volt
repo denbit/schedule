@@ -54,6 +54,10 @@
         var content = new Quill('.controls.content .toolbar',  options);
 
         $(document).ready(function () {
+			fields.forEach(function (value) {
+				var source = '.controls.'+value+' input#'+value;
+				window[value].root.innerHTML=$(source).val();
+			});
             if ($('select#page_type').val()==page_types.static){
             /*   content.disable(); */
             }
