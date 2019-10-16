@@ -78,6 +78,7 @@
             }
         });
             $('form').submit(function (e) {
+                $("#language").prop('disabled',false);
               e.preventDefault();
               fields.forEach(function (value) {
                   var target = '.controls.'+value+' input#'+value;

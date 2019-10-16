@@ -52,7 +52,7 @@ class PageForm extends Form
 		);
 		$module->setLabel("Назва модуля");
 		$this->add($module);
-		$lang = Languages::findFirst(['lang_code like "en"']);
+		$lang = Languages::findFirst(['lang_code like "uk"']);
 		$lang_f = new Select(
 			'language', $lang->allangs, [
 			'using' => [
@@ -64,9 +64,9 @@ class PageForm extends Form
 			"emptyValue" => "",
 			"class" => "form-control",
 		]		);
-		$lang_f->setLabel("Language of page");
+		$lang_f->setLabel("Мова стоірнки");
 		if ($options->edit) {
-			$lang_f->setAttribute('readonly', 'readonly');
+			$lang_f->setAttribute('disabled', 'disabled');
 		}
 
 		$this->add($lang_f);
@@ -80,7 +80,7 @@ class PageForm extends Form
 		$document_title->setLabel("Заголовок документу");
 		$additional_content = new Text('additional_content', ["class" => 'form-control']);
 		$additional_content->setLabel("Вміст сторінк додатковий - Відображається навіть якщо не існує статичної сторінки");
-		$this->add($additional_content);
+		$this->add($document_title)->add($additional_content);
 		$content =$this->getWYSWIGField('content', $attrs);
 		$content->setLabel("Статичний контент:");
 		$this->add($content);
@@ -114,7 +114,7 @@ class PageForm extends Form
 		$seo_menu_title = new Text('seo_menu_title', ["class" => 'form-control']);
 		$seo_menu_title->setLabel("Назва в пунках меню та хлібних крошках");
 
-		$this->add($seo_title)->add($document_title)
+		$this->add($seo_title)
 			->add($seo_desc)->add($seo_desc)
 			->add($seo_before_route)->add($seo_menu_title);
 
