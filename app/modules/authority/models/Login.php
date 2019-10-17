@@ -22,11 +22,7 @@ class Login extends Kernel
 {
 	private $login;
 	private $password;
-	private function on__construct()
-	{
 
-
-	}
 	public function getData():object {
 		/**
 		 * @var Config $local

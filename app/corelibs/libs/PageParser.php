@@ -18,7 +18,7 @@ use Schedule\Core\Models\UniversalPage;
 class PageParser extends Kernel
 {
 	const DYNAMIC_PAGE = 1;
-	const STATIC_PAGE = 2;
+	const HAS_STATIC_PAGE = 2;
 	public $id;
 	public $module_name;
 	public $url;
@@ -26,6 +26,9 @@ class PageParser extends Kernel
 	public $has_permanent_url;
 	public $additional_content;
 	public $document_title;
+	/**
+	 * @var object
+	 */
 	public $content;
 	public $title;
 	public $seo_title;
@@ -34,6 +37,19 @@ class PageParser extends Kernel
 	public $seo_menu_title;
 	public $language;
 	public $keywords;
+
+	protected function on__construct(){
+
+		$obj = [
+			'title' => null,
+			'head_ ' => null,
+			'content_title' => null,
+			'content' => null,
+			'body_' => null,
+			'footer_' => null,
+		];
+		$this->content = Kernel::toObject($obj);
+	}
 
 	/**
 	 * @param string $lang(uk|en|ru)
@@ -76,9 +92,10 @@ class PageParser extends Kernel
 		$this->page_type = $page_inst->pagetype->id;
 		$this->additional_content = $page_inst->getAdditionalContent();
 		$this->document_title = $page_inst->getDocumentTitle();
-		/**
-		 * instert static content fields
-		 */
+
+		if ($this->page_type === PageParser::HAS_STATIC_PAGE && $page_inst->getContentId()){
+			$this->content = (object) $page_inst->content->toArray(get_object_vars($this->content));
+		}
 		$this->seo_title = $seo->getTitle();
 		$this->keywords = $seo->getKeywords();
 		$this->seo_desc = $seo->getDescription();

@@ -14,6 +14,13 @@ use Phalcon\Validation;
 use Phalcon\Validation\Validator\Alpha;
 use Phalcon\Validation\Validator\PresenceOf;
 
+/**
+ * Class Pages
+ * @property Content $content
+ * @property PagesTypes $pagetype
+ * @property SEOInfo $seo
+ *
+ */
 class Pages  extends CachableModel
 {
 
@@ -136,6 +143,7 @@ class Pages  extends CachableModel
     {
         $this->hasOne('id',SEOInfo::class,'to_page',['alias'=>'seo', 'reusable' => true]);
         $this->hasOne('type_id',PagesTypes::class,'id',['alias'=>'pagetype', 'reusable' => true]);
+        $this->hasOne('content_id',Content::class,'id',['alias'=>'content','reusable' => true]);
 
     }
     public function getSource()

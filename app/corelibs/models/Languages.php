@@ -10,6 +10,7 @@ namespace Schedule\Core\Models;
 
 
 use Phalcon\Mvc\Model;
+use Phalcon\Text;
 
 class Languages extends CachableModel
 {

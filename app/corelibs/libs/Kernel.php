@@ -67,10 +67,10 @@ class Kernel
 			$this->di = self::$di_inst;
 		}
 
-	$this->on__construct();
+	static::on__construct();
 	}
 
-	private function on__construct()
+	protected function on__construct()
 	{
 
 	}
