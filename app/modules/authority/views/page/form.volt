@@ -67,7 +67,7 @@
             $('select#page_type').change(function () {
             if ($(this).val()==page_types.dynamic){
                 $('[id^="content_"]').prop('disabled',true);
-                if(window.content_content !=undefined){
+                if(window.content_content != undefined){
                     content_content.disable();
                 }
             }else  {

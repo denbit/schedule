@@ -120,18 +120,19 @@ class PageParser extends Kernel
 	{
 		$edit = false;
 		$log_message = '';
+
 		$this->db->begin();
-		if (!empty($this->id) && UniversalPage::count($this->id) > 0) {
-			$log_message .= " Page  exists  \n";
+		if (!empty($this->id) && UniversalPage::count($this->id) == 1) {
 			$edit = true;
-		}
-		if (!$edit) {
-			$uni = new UniversalPage();
-		} else {
 			$uni = UniversalPage::findFirst($this->id);
+			$log_message .= "Page  exists  \n";
+		} else {
+			$uni = new UniversalPage();
 		}
+
 		$uni->setHasPermanentUri($this->has_permanent_url);
 		//change modules for all locales
+
 		if ($uni->getId()){
 			$modules = UniversalPage::find([
 				"module_name=?0 AND id<> ?1",
@@ -148,6 +149,8 @@ class PageParser extends Kernel
 			}
 		}
 		$uni->setModuleName($this->module_name);
+
+
 		$uni->setUrl($this->url);
 		$uni->setLangId($this->language);
 
@@ -167,13 +170,16 @@ class PageParser extends Kernel
 			$page->setDocumentTitle($this->document_title);
 
 			if ($this->page_type === PageParser::HAS_STATIC_PAGE) {
-				if ( !$edit || is_null($page->getContentId() )) {
+				if (
+					!$edit
+					||
+					is_null($page->getContentId())
+				) {
 					$content = new Content();
 				} else {
 					$content = Content::findFirst($page->getContentId());
 				}
-				$content->setContent($this->content->content);
-				$content->setTitle($this->content->title);
+				$content->assign((array)$this->content);
 				if ( !$content->save()) {
 					$messages = $content->getMessages();
 
@@ -193,7 +199,11 @@ class PageParser extends Kernel
 				$log_message .= $content_message;
 			}
 
-			if (!$edit  || is_null($page->getSeoInfoId())) {
+			if (
+				!$edit
+				||
+				is_null($page->getSeoInfoId())
+			) {
 				$seo = new SEOInfo();
 			} else {
 				$seo = SEOInfo::findFirst($page->getSeoInfoId());
@@ -209,15 +219,16 @@ class PageParser extends Kernel
 			if ( !$edit || is_null($page->getSeoInfoId())) {
 				$page->setSeoInfoId($seo->getId());
 			}
+			$log_message .= "Seo info saved \n";
 
-			$log_message .= "seo info saved \n";
+			// Finalising save process
 			if ( !$page->save()) {
 				$this->throwWriteError($log_message);
 			}
 			if ( !$edit || is_null($uni->getPageId())) {
 				$uni->setPageId($page->getId());
 				$seo->setToPage($page->getId());
-				$log_message .= "seo info linked to page and page linked to unversal page \n";
+				$log_message .= "Seo info linked to page and page linked to unversal page \n";
 			}
 			$log_message .= "page saved\n";
 			if (!$seo->save() || !$uni->save()) {
@@ -225,7 +236,7 @@ class PageParser extends Kernel
 			}
 			$log_message .= "Everything is saved";
 			echo $log_message;
-			 $this->db->commit();
+			$this->db->commit();
 
 		} else {
 			$this->throwWriteError($log_message);

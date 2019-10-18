@@ -35,6 +35,11 @@ class PageController extends ControllerBase implements ICreatable,IEditable
 			}
 
 			$this->flashSession->success("The page module ".$pp->module_name." was successfully saved ");
+			$this->response->redirect($this->url->get([
+				'for'=>'action-auth',
+				'controller'=>$this->dispatcher->getControllerName(),
+				'action'=>'index'
+				]));
 		}
 	}
 
@@ -72,7 +77,7 @@ class PageController extends ControllerBase implements ICreatable,IEditable
     public function createAction()
     {
     	$this->saveAction();
-
+    	return;
     }
 
     public function formAction()
