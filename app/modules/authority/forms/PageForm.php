@@ -3,7 +3,7 @@
 namespace Schedule\Modules\Authority\Forms;
 
 use Phalcon\Forms\{Form,Element};
-use Phalcon\Forms\Element\{Hidden,Select,Text};
+use Phalcon\Forms\Element\{Hidden,Select,Text,TextArea};
 use Schedule\Core\Components\RadioGroup;
 use Schedule\Core\Models\{Languages, PagesTypes};
 use Schedule\Core\PageParser;
@@ -75,9 +75,22 @@ class PageForm extends Form
 		$this->add($document_title)->add($additional_content);
 
 
-		$content =$this->getWYSWIGField('content_content', $attrs);
+
+		$content_title = new Text('content_title', $attrs);
+		$content_title->setLabel("Статичний зоголовок:");
+		$content_head = new TextArea('content_head_', $attrs);
+		$content_head->setLabel("Блок html в шапці");
+		$content_title2 = new Text('content_content_title', $attrs);
+		$content_title2->setLabel("H2:");
+		$content = $this->getWYSWIGField('content_content', $attrs);
 		$content->setLabel("Статичний контент:");
-		$this->add($content);
+		$content_body = new TextArea('content_body_', $attrs);
+		$content_body->setLabel("Блок html в шапці");
+		$content_footer = new TextArea('content_footer_', $attrs);
+		$content_footer->setLabel("Блок html в шапці");
+		$this->add($content_title)->add($content_head)
+			->add($content_title2)->add($content)
+			->add($content_body)->add($content_footer);
 
 		$fixed_uri_check = new RadioGroup('has_permanent_url', [
 			"1"=>"Так",
