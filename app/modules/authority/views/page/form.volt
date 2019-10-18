@@ -59,21 +59,21 @@
 				window[value].root.innerHTML=$(source).val();
 			});
             if ($('select#page_type').val()==page_types.dynamic){
-                $('#title,#content').prop('disabled',true);
-                if(window.content !=undefined){
+                $('#title,#content_content').prop('disabled',true);
+                if(window.content_content !=undefined){
                     content.disable();
                 }
             }
             $('select#page_type').change(function () {
             if ($(this).val()==page_types.dynamic){
-                $('#title,#content').prop('disabled',true);
-                if(window.content !=undefined){
-                    content.disable();
+                $('#title,#content_content').prop('disabled',true);
+                if(window.content_content !=undefined){
+                    content_content.disable();
                 }
             }else  {
-                $('#title,#content').prop('disabled',false);
-                if(window.content !=undefined){
-                    content.enable();
+                $('#title,#content_content').prop('disabled',false);
+                if(window.content_content !=undefined){
+                    content_content.enable();
                 }
             }
         });

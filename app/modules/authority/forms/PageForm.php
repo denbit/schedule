@@ -32,7 +32,7 @@ class PageForm extends Form
 			"class" => 'form-control',
 		]
 		);
-		$page_type->setLabel("Тип сторінки:");
+		$page_type->setLabel("Чи має статичний контент:");
 		$module = new Select(
 			'module_name', $options->modules, [
 				"emptyText" => "Оберіть назву модуля",
@@ -73,6 +73,8 @@ class PageForm extends Form
 		$additional_content = new Text('additional_content', ["class" => 'form-control']);
 		$additional_content->setLabel("Вміст сторінк додатковий - Відображається навіть якщо не існує статичної сторінки");
 		$this->add($document_title)->add($additional_content);
+
+
 		$content =$this->getWYSWIGField('content_content', $attrs);
 		$content->setLabel("Статичний контент:");
 		$this->add($content);

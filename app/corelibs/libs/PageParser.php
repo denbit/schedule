@@ -162,17 +162,18 @@ class PageParser extends Kernel
 			) {
 				$page = new Pages();
 			}
-			$page->setAdditionalContent($this->additional_title);
+			$page->setAdditionalContent($this->additional_content);
 			$page->setTypeId($this->page_type);
+			$page->setDocumentTitle($this->document_title);
 
-			if ($this->page_type === PageParser::STATIC_PAGE) {
+			if ($this->page_type === PageParser::HAS_STATIC_PAGE) {
 				if ( !$edit || is_null($page->getContentId() )) {
 					$content = new Content();
 				} else {
 					$content = Content::findFirst($page->getContentId());
 				}
-				$content->setContent($this->content);
-				$content->setTitle($this->title);
+				$content->setContent($this->content->content);
+				$content->setTitle($this->content->title);
 				if ( !$content->save()) {
 					$messages = $content->getMessages();
 

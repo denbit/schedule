@@ -120,10 +120,9 @@ $di_inst=$this;
 		}
 		 $translation = \Schedule\Core\Translate::getTranslation($firstArgument,$lang);
 		if (!empty($translation)){
-
-			return $translation;
+			return preg_match( "/^'.+'$/", $translation) ? $translation : "'{$translation}'";
 		} else{
-			\Schedule\Core\Translate::setTranslation($firstArgument,$lang,$secondArgument);
+			\Schedule\Core\Translate::setTranslation($firstArgument, $lang, $secondArgument);
 			return $secondArgument;
 		}
 	});
