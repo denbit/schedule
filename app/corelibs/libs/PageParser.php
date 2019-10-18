@@ -42,7 +42,7 @@ class PageParser extends Kernel
 
 		$obj = [
 			'title' => null,
-			'head_ ' => null,
+			'head_' => null,
 			'content_title' => null,
 			'content' => null,
 			'body_' => null,

@@ -77,7 +77,7 @@ class PageForm extends Form
 
 
 		$content_title = new Text('content_title', $attrs);
-		$content_title->setLabel("Статичний зоголовок:");
+		$content_title->setLabel("Статичний заголовок:");
 		$content_head = new TextArea('content_head_', $attrs);
 		$content_head->setLabel("Блок html в шапці");
 		$content_title2 = new Text('content_content_title', $attrs);
@@ -85,9 +85,9 @@ class PageForm extends Form
 		$content = $this->getWYSWIGField('content_content', $attrs);
 		$content->setLabel("Статичний контент:");
 		$content_body = new TextArea('content_body_', $attrs);
-		$content_body->setLabel("Блок html в шапці");
+		$content_body->setLabel("Блок html в тілі");
 		$content_footer = new TextArea('content_footer_', $attrs);
-		$content_footer->setLabel("Блок html в шапці");
+		$content_footer->setLabel("Блок html в кінці документу");
 		$this->add($content_title)->add($content_head)
 			->add($content_title2)->add($content)
 			->add($content_body)->add($content_footer);
