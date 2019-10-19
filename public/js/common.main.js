@@ -45,3 +45,5 @@ function getObject(e) {
 	};
 
 }
+
+console.log('hi');

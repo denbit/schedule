@@ -26,6 +26,14 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="9299787d-c87b-4ff3-b7ce-2d90ace51ff1" name="elika.dev" url="http://192.168.1.6">
+        <fileTransfer host="192.168.1.6" port="22" rootFolder="/home/r_a/www/shlyah" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
     <groups>
       <group>
@@ -34,6 +42,7 @@
           <name value="access" />
           <name value="ssh" />
           <name value="s-core" />
+          <name value="elika.dev" />
         </servers>
       </group>
     </groups>
