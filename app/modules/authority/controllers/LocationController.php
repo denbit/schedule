@@ -56,6 +56,7 @@ class LocationController extends ControllerBase implements ICreatable,ISearchabl
 		$parent_category = $this->dispatcher->getParam('parent_category');
 		$parent_id = $this->dispatcher->getParam('parent_id');
 		$post_data = $this->request->getPost();
+	//	var_dump($post_data); return json_encode(["status"=>true]);
 		$locationManager = new LocationManager();
 		$parentEntity = $locationManager->getParent($parent_category, $parent_id);
 		if ($category == 'city') {

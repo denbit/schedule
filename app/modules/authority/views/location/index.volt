@@ -135,19 +135,31 @@
 		var active = 'visible';
 		var url;
 		$(document).ready(function () {
+
 			$(".contextMenuItemLink.edit").click(function (e) {
 				var editRequest = $.ajax({
 					method:"GET",
-					url:$(uri_data).attr('data-uri')
+					url: $(uri_data).attr('data-uri')
 				});
 				editRequest.done(function (data,status,xhr) {
 					$('.form_field').html(data);
 					console.log(status,xhr);
-					
 				})
 			});
-		});
-		$(document).ready(function () {
+
+			$(".contextMenuItemLink.del").click(function (e) {
+				if (confirm("Ви впевнені, що хочете видалити?")){
+					var deleteRequest = $.ajax({
+						method:"DELETE",
+						url: $(uri_data).attr('data-uri')
+					});
+					deleteRequest.done(function (data,status,xhr) {
+						$('.form_field').html(data);
+						console.log(status,xhr);
+					})
+				}
+			});
+
 			$(".contextMenuItemLink.add").click(function (e) {
 				var url =  baseLocation+'add/' + $(uri_data).attr('data-child') + '/to/'+$(uri_data).attr('data-category')+'/'+$(uri_data).attr('data-id');
 				var addRequest = $.ajax({
@@ -156,8 +168,18 @@
 				});
 				addRequest.done(function (data,status,xhr) {
 					$('.form_field').html(data);
+					$('.form_field #add_form').submit(function (e) {
+						e.preventDefault();
+console.info(e.target);
+						var data = $(e.target).serialize();
+						var addRequest = $.ajax({
+							method:"POST",
+							data: data,
+							dataType:"json",
+							url: e.target.action
+						}).done(console.info);
+					});
 					console.log(status,xhr);
-
 				})
 			});
 		});
