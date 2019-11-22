@@ -22,6 +22,12 @@ class Location extends Kernel
 		'LocalRegions'=>'local_region',
 		'Stations'=>'station'
 	];
+	public static $location_children_nodes = [
+		'state'=>'city',
+		'city'=>'local_region',
+		'local_region'=>'city',
+		'Stations'=>'station'
+	];
 	/**
 	 * @var States
 	 */

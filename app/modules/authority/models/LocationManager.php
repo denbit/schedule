@@ -45,7 +45,12 @@ class LocationManager extends Kernel
 		$closere = function ($item, $key, $closere) use (&$string) {
 			$string .= $this->getPartialTemplate(
 				'locationTree',
-				['key' => $key, 'item' => $item, 'nodeNames' => Location::$location_nodes]
+				[
+					'key' => $key,
+					'item' => $item,
+					'nodeNames' => Location::$location_nodes,
+					'nodesChildren'=> Location::$location_children_nodes
+				]
 			);
 			if (is_array($item) && is_array($item['children'])) {
 				array_walk($item['children'], $closere, $closere);
@@ -120,9 +125,9 @@ class LocationManager extends Kernel
 	{
 		if (in_array($category, Location::$location_nodes)) {
 			/**
-			 * @var $node Model|LocationNodeInterface
+			 * @var $locationNode Model|LocationNodeInterface
 			 */
-			$locationNodeName =Location::getNodeName($category);
+			$locationNodeName = Location::getNodeName($category);
 			$locationNode = new $locationNodeName();
 			$metadata = $locationNode->getModelsMetaData();
 			$dataTypes = $metadata->getDataTypes($locationNode);
@@ -142,14 +147,5 @@ class LocationManager extends Kernel
 		$node = $this->getParent($category,$id);
 		$node->delete();//make recursive delete
 }
-	private function get_template($key, $item)
-	{
-		return <<< HTML
-<li data-id=$key> 
-	<button class="btn btn-link collapsed" data-toggle="collapse" href="#{$item['name']}_collapse" role="button" aria-expanded="false" aria-controls="collapse">
-	{$item['name']}
-	</button>
-	<ul class="collapse" id="{$item['name']}_collapse">
-HTML;
-	}
+
 }

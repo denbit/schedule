@@ -137,6 +137,12 @@ class Kernel
 			'.volt' => function ($simpleView, $di) {
 				$volt = new VoltEngine($simpleView, $di);
 				$volt->setOptions(['compileAlways' => $this->di->getConfig()->application->development==true ? true:false]);
+				$compiler = $volt->getCompiler();
+				/**
+				 * @var \Closure $prepareCompiler
+				 */
+				$prepareCompiler = include APP_PATH . '/config/volt_compiler.php';
+				$prepareCompiler($compiler);
 				return $volt;
 			}
 		]);

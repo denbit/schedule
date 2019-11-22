@@ -83,7 +83,7 @@ class LocationController extends ControllerBase implements ICreatable,ISearchabl
 	public function addItemAction()
 	{
 		$this->view->disable();
-		if (!$this->request->isAjax()) {
+		if ($this->request->isAjax()) {
 			$category = $this->dispatcher->getParam('category');
 			$parent_category = $this->dispatcher->getParam('parent_category');
 			$parent_id = $this->dispatcher->getParam('parent_id');
@@ -99,7 +99,7 @@ class LocationController extends ControllerBase implements ICreatable,ISearchabl
 					'params' => (object)$this->dispatcher->getParams(),
 				]
 			);
-			$this->flash->success('Getting data');
+			$this->flash->success('Add ' . $category );
 
 			return $view;
 		}
@@ -107,6 +107,7 @@ class LocationController extends ControllerBase implements ICreatable,ISearchabl
 
 	public function editItemFormAction()
 	{
+		if ($this->request->isAjax()) {
 		$category = $this->dispatcher->getParam('category');
 		$node_id = $this->dispatcher->getParam('id');
 		$locationManager = new LocationManager();
@@ -118,8 +119,9 @@ class LocationController extends ControllerBase implements ICreatable,ISearchabl
 				'params' => (object)$this->dispatcher->getParams(),
 			]
 		);
-
+		$this->flash->success('Editing ' . $category );
 		return $view;
+		}
 	}
 
 	public function editItemAction()

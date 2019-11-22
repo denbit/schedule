@@ -126,6 +126,7 @@
 		"use strict";
 		var span = document.querySelectorAll('.location-menu');
 		var state = 0;
+		var baseLocation = '{{ url(['for':'action-auth','controller':router.getControllerName(),'action':''])}}';
 		var contextMenu = document.getElementById('contextMenu');
 		var uri_data = document.querySelector('#contextMenu #data');
 		var active = 'visible';
@@ -140,6 +141,20 @@
 					$('.form_field').html(data);
 					console.log(status,xhr);
 					
+				})
+			});
+		});
+		$(document).ready(function () {
+			$(".contextMenuItemLink.add").click(function (e) {
+				var url =  baseLocation+'add/' + $(uri_data).attr('data-child') + '/to/'+$(uri_data).attr('data-category')+'/'+$(uri_data).attr('data-id');
+				var addRequest = $.ajax({
+					method:"GET",
+					url
+				});
+				addRequest.done(function (data,status,xhr) {
+					$('.form_field').html(data);
+					console.log(status,xhr);
+
 				})
 			});
 		});
@@ -166,7 +181,11 @@
 					const parent = spanElement.parentNode.parentNode;
 					let category = parent.getAttribute('data-category');
 					let id = parent.getAttribute('data-id');
-					uri_data.setAttribute('data-uri', $(e.target).parent().data('url'));
+					let child = parent.getAttribute('data-child');
+					uri_data.setAttribute('data-edit-uri', $(e.target).parent().data('url'));
+					uri_data.setAttribute('data-id',id);
+					uri_data.setAttribute('data-category',category);
+					uri_data.setAttribute('data-child',child);
 					contextMenu.classList.add(active);
 					contextMenu.classList.remove('unvisible');
 					let scrollTop = window.pageYOffset || document.documentElement.scrollTop;

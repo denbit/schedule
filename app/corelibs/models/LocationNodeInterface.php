@@ -6,6 +6,7 @@ namespace Schedule\Core\Models;
 
 interface LocationNodeInterface
 {
+
 	/**
 	 * @param array $fields Fields of model $fieldName => Phalcon\Db\Column Dype
 	 * @return array of editable column
