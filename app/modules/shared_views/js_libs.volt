@@ -10,3 +10,4 @@
 <script 	src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
 		integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
 		crossorigin="anonymous"></script>
+<script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?flags=gated%2Calways&features=default%2Ces7%2Ces6"></script>

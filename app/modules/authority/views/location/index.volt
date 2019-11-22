@@ -99,6 +99,9 @@
 		</div>
 	</div>
 	<div class="row">
+		<div class="col form_field"></div>
+	</div>
+	<div class="row">
 		<div class="col location_tree">{{ list_tree }}</div>
 	</div>
 
@@ -107,24 +110,39 @@
 {% block footer %}
 	<nav id="contextMenu" class="unvisible">
 		<ul><span id="data"></span>
-			<li class="contextMenuItem">
+			<li class="contextMenuItem del">
 				Delete
 			</li>
 			<li class="contextMenuItem">
-				<a href="#" class="contextMenuItemLink">Edit</a>
+				<a href="#" class="contextMenuItemLink add">Add</a>
 			</li>
 			<li class="contextMenuItem">
-				<a href="#" class="contextMenuItemLink">Save</a>
+				<a href="#" class="contextMenuItemLink edit">Edit</a>
 			</li>
 		</ul>
 	</nav>
 	{{ super() }}
 	<script>
 		"use strict";
-		let span = document.querySelectorAll('.location-menu');
-		let state = 0;
-		let contextMenu = document.getElementById('contextMenu');
-		let active = 'visible';
+		var span = document.querySelectorAll('.location-menu');
+		var state = 0;
+		var contextMenu = document.getElementById('contextMenu');
+		var uri_data = document.querySelector('#contextMenu #data');
+		var active = 'visible';
+		var url;
+		$(document).ready(function () {
+			$(".contextMenuItemLink.edit").click(function (e) {
+				var editRequest = $.ajax({
+					method:"GET",
+					url:$(uri_data).attr('data-uri')
+				});
+				editRequest.done(function (data,status,xhr) {
+					$('.form_field').html(data);
+					console.log(status,xhr);
+					
+				})
+			});
+		});
 
 		function closeMenu() {
 			if (state !== 0) {
@@ -148,13 +166,9 @@
 					const parent = spanElement.parentNode.parentNode;
 					let category = parent.getAttribute('data-category');
 					let id = parent.getAttribute('data-id');
-					let data = document.getElementById('data');
-					data.setAttribute('data-uri', '/' + category + '/' + id);
-
+					uri_data.setAttribute('data-uri', $(e.target).parent().data('url'));
 					contextMenu.classList.add(active);
 					contextMenu.classList.remove('unvisible');
-
-
 					let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 					contextMenu.style.top = (e.clientY + (scrollTop) + 5) + 'px';
 					contextMenu.style.left = (e.clientX + 5) + 'px';
