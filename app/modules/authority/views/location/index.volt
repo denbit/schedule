@@ -44,15 +44,17 @@
 			background: #e2f6ceed;
 		}
 
-		.visible > ul > li {
-
+		.visible > ul > li.contextMenuItem {
 			padding: .5rem;
 			display: flex;
 			justify-content: space-between;
+			cursor: default;
 		}
 
 		.visible > ul > li > a {
 			color: #484e53;
+			cursor: inherit;
+
 		}
 
 		.location_tree > li > button {
@@ -110,15 +112,16 @@
 {% block footer %}
 	<nav id="contextMenu" class="unvisible">
 		<ul><span id="data"></span>
-			<li class="contextMenuItem del">
-				Delete
-			</li>
 			<li class="contextMenuItem">
 				<a href="#" class="contextMenuItemLink add">Add</a>
 			</li>
 			<li class="contextMenuItem">
 				<a href="#" class="contextMenuItemLink edit">Edit</a>
 			</li>
+			<li class="contextMenuItem del">
+				Delete
+			</li>
+
 		</ul>
 	</nav>
 	{{ super() }}
