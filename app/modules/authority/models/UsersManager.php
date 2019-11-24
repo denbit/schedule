@@ -23,7 +23,7 @@ class UsersManager extends Kernel
 		return $users;
 	}
 
-	public static function getUserForm( Users $i = null, bool $edit = false)
+	public static function getForm(Users $i = null, bool $edit = false)
 	{
 		$options=new \stdClass();
 		$options->edit = $edit;

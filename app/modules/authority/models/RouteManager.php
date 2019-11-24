@@ -17,9 +17,10 @@ use Schedule\Core\Models\Stations;
 use Schedule\Core\Models\TransitRoutes;
 use Schedule\Core\RouteConstructor;
 use Phalcon\Forms\Form;
+use Schedule\Modules\Authority\Forms\IDispayable;
 use Schedule\Modules\Authority\Forms\RouteForm;
 
-class RouteManager
+class RouteManager implements IDispayable
 {
 	public $id;
 	/**
@@ -49,9 +50,7 @@ class RouteManager
 
 	public static function getForm(self $instance = null, $options = [])
 	{
-		if (is_null($instance)) {
-			$instance = new self();
-		}
+		$instance = $instance ?? new self();
 		$options = ['stations' => $instance->path ? count($instance->path) : 0] + $options;
 
 		return new RouteForm($instance, $options);

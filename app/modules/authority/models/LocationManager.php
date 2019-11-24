@@ -14,9 +14,112 @@ use Schedule\Core\Models\LocalRegions;
 use Schedule\Core\Models\LocationNodeInterface;
 use Schedule\Core\Models\States;
 use Schedule\Core\Models\Stations;
+use Schedule\Modules\Authority\Forms\IDispayable;
+use Schedule\Modules\Authority\Forms\LocationForm;
 
-class LocationManager extends Kernel
+class LocationManager extends Kernel implements IDispayable
 {
+    /**
+     * @var int|null $base_id
+     */
+    private $base_id;
+    private $country_latin_name;
+    private $country_cyr_name;
+    private $country_national_name;
+
+    /**
+     * @return int|null
+     */
+    public function getBaseId():?int
+    {
+        return $this->base_id;
+    }
+
+    /**
+     * @param int|null $base_id
+     * @return LocationManager
+     */
+    public function setBaseId($base_id)
+    {
+        $this->base_id = $base_id;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCountryLatinName():?string
+    {
+        return $this->country_latin_name;
+    }
+
+    /**
+     * @param string $country_latin_name
+     * @return LocationManager
+     */
+    public function setCountryLatinName($country_latin_name)
+    {
+        $this->country_latin_name = $country_latin_name;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCountryCyrName():?int
+    {
+        return $this->country_cyr_name;
+    }
+
+    /**
+     * @param string $country_cyr_name
+     * @return LocationManager
+     */
+    public function setCountryCyrName($country_cyr_name):?string
+    {
+        $this->country_cyr_name = $country_cyr_name;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getCountryNationalName():?string
+    {
+        return $this->country_national_name;
+    }
+
+    /**
+     * @param string $country_national_name
+     * @return LocationManager
+     */
+    public function setCountryNationalName($country_national_name)
+    {
+        $this->country_national_name = $country_national_name;
+        return $this;
+    }
+
+    /**
+     * @param LocationManager|null $instance
+     * @param array|null $options
+     * @return LocationForm
+     */
+    public static function getForm(self $instance = null, $options = []):LocationForm
+    {
+        $instance = $instance ?? new self();
+        return new LocationForm($instance, $options);
+    }
+
+    public static function getBaseCountry(int $id):self
+    {
+        $state = States::findFirst($id);
+        $instance = new self();
+        $instance->base_id = $id;
+        $instance->country_cyr_name = $state->getCyrName();
+        $instance->country_latin_name = $state->getLatinName();
+        $instance->country_national_name = $state->getNationalName();
+        return  $instance;
+    }
 
 	public function getOverview(): object
 	{
@@ -95,7 +198,7 @@ class LocationManager extends Kernel
 		throw new Exception("$category is not location node");
 	}
 
-	public function getInstanceFromData(string $category, array $data, int $id = null)
+	public function getInstanceFromData(string $category, array $data, ?int $id)
 	{
 		if (in_array($category, Location::$location_nodes)) {
 			/**

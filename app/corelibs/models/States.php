@@ -16,9 +16,14 @@ use Phalcon\Mvc\Model;
  * @package Schedule\Core\Models
  * @property Cities $cities
  * @method getCities()
+ * @method static self findFirst(mixed $paramenters = [] )
  */
 class States extends CachableModel implements LocationNodeInterface
 {
+
+    /**
+     * @var
+     */
 	public $id;
 	public $latin_name;
 	public $cyr_name;

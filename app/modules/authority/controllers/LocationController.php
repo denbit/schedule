@@ -6,7 +6,10 @@ namespace Schedule\Modules\Authority\Controllers;
 use Phalcon\Mvc\Model\Exception;
 use Schedule\Core\Components\NotFound;
 use Schedule\Core\Location;
+use Schedule\Core\Models\States;
+use Schedule\Core\Models\Users;
 use Schedule\Modules\Authority\Models\LocationManager;
+use Schedule\Modules\Authority\Models\UsersManager;
 
 
 class LocationController extends ControllerBase implements ICreatable,ISearchable,IEditable
@@ -22,17 +25,80 @@ class LocationController extends ControllerBase implements ICreatable,ISearchabl
 
 	public function formAction()
 	{
-		// TODO: Implement formAction() method.
+        $action = $this->url->get(
+            [
+                'for' => "action-save",
+                'controller' => $this->dispatcher->getControllerName(),
+                'action' => 'save',
+                'id'=>''
+            ]
+        );
+		$this->view->form = LocationManager::getForm()->setAction($action);
 	}
 
 	public function saveAction()
 	{
-		// TODO: Implement saveAction() method.
-	}
+        $id = $this->dispatcher->getParam('id');
+        $location = null;
+        if ( !empty($id) && false !== (States::findFirst($id))) {
+            $location = LocationManager::getBaseCountry($id);
+        }
+        $locationForm = LocationManager::getForm($location, !empty($id));
+
+
+        if ($locationForm->isValid($this->request->getPost()) && $location->save()) {
+
+            $this->flashSession->success("The base country {$location->getCountryLatinName()} was saved succesfully");
+            $this->response->redirect($this->url->get([
+                'for' => "action-auth",
+                'controller' => $this->dispatcher->getControllerName(),
+                'action' => 'index'
+            ]));
+
+        } else {
+            $messages = '';
+            foreach ($location->getMessages() as $m) {
+                $messages .= $m;
+            }
+            $this->dispatcher->forward(
+                [
+                    'controller' => $this->dispatcher->getControllerName(),
+                    'action' => $id ? 'edit' : 'form',
+                    'id' => $id ?? ''
+                ]
+            );
+            $this->flashSession->error("System wasn't able to save country $id <br>$messages");
+
+        }
+
+
+    }
 
 	public function editAction()
 	{
-		// TODO: Implement editAction() method.
+        $id = $this->dispatcher->getParam('id');
+
+        if ($id && false !== States::findFirst($id)) {
+            $locationForm = LocationManager::getForm(LocationManager::getBaseCountry($id));
+            $action = $this->url->get(
+                [
+                    'for' => "action-save",
+                    'controller' => $this->dispatcher->getControllerName(),
+                    'action' => 'save',
+                    'id' => $id
+                ]
+            );
+            $locationForm->setAction($action);
+            $this->view->pick('users/form');
+            $this->view->form = $locationForm;
+        } else {
+            $this->dispatcher->forward(
+                [
+                    'controller' => $this->dispatcher->getControllerName(),
+                    'action' => 'index',
+                ]
+            );
+        }
 	}
 
 	public function searchAction()
