@@ -109,7 +109,8 @@ class LocationController extends ControllerBase implements ICreatable,ISearchabl
 	public function indexAction()
 	{
 		$locationManager = new LocationManager();
-		if (count($this->dispatcher->getParams()) === 1){
+		$params = $this->dispatcher->getParams();
+		if (count($params) === 1 && !empty($params[0])){
 			$this->session->set('base_country', $this->dispatcher->getParams()[0]);
 		}
 		$overview = $locationManager->getOverview();
@@ -198,9 +199,9 @@ class LocationController extends ControllerBase implements ICreatable,ISearchabl
 	{
 		$category = $this->dispatcher->getParam('category');
 		$node_id = $this->dispatcher->getParam('id');
-		$post_data = $this->request->getPost();
+		$put_data = $this->request->getPut();
 		$locationManager = new LocationManager();
-		$node = $locationManager->getInstanceFromData($category, $post_data, $node_id);
+		$node = $locationManager->getInstanceFromData($category, $put_data, $node_id);
 		if (!$node->update()) {
 			$messages = $node->getMessages();
 			throw new Exception(implode("\n", $messages));

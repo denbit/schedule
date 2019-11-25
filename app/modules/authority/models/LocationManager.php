@@ -205,7 +205,7 @@ class LocationManager extends Kernel
 			/**
 			 * @var $node Model
 			 */
-			$locationNodeName = Location::getNodeName($category);
+			 $locationNodeName = Location::getNodeName($category);
 			if ( !is_null($id)){
 				 if (false ===($locationNode = $locationNodeName::findFirst($id)))
 				 {
@@ -220,7 +220,7 @@ class LocationManager extends Kernel
 
 			$locationNode->assign($data);
 
-			return $node;
+			return $locationNode;
 		}
 		throw new Exception("$category is not location node");
 	}

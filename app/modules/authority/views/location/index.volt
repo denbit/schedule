@@ -168,6 +168,9 @@
 			$('.state-list-item').click(function () {
 				location.href = $(this).data('url');
 			});
+
+
+
 			$(".contextMenuItemLink.edit").click(function (e) {
 				var editRequest = $.ajax({
 					method:"GET",
@@ -176,8 +179,21 @@
 				editRequest.done(function (data,status,xhr) {
 					$('.form_field').html(data);
 					console.log(status,xhr);
+					$('.form_field #edit_form').submit(function (e) {
+						e.preventDefault();
+						console.info(e.target);
+						var data = $(e.target).serialize();
+						var addRequest = $.ajax({
+							method:"PUT",
+							data: data,
+							dataType:"json",
+							url: e.target.action
+						}).done(console.info);
+					});
 				})
 			});
+
+
 
 			$(".contextMenuItemLink.del").click(function (e) {
 				if (confirm("Ви впевнені, що хочете видалити?")){
