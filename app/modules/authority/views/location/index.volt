@@ -84,6 +84,24 @@
 		.location_tree > li {
 			list-style: none;
 		}
+		.states {
+			display: flex;
+			-ms-flex-direction: row;
+			flex-direction: row;
+			padding: 10px;
+			margin-bottom: 0;
+			list-style: none;
+			flex-wrap: wrap;
+			background-color:#b3b3b3;
+		}
+		.states-hidden{
+			max-height: 200px;
+			overflow: scroll;
+		}
+		.state-list-item{
+			margin: 2px auto;
+		}
+
 	</style>
 	<link rel="stylesheet" href="{{ url('/css/location.css') }}">
 	<div class="clearfix m-2  text-right ">
@@ -97,7 +115,18 @@
 					<li class="nav-link"><b>{{ item }}</b> - {{ index }}</li>
 				{% endfor %}
 			</ul>
-
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<h4>Базові країни:</h4>
+			<ul class="states states-hidden">
+		{% for state in state_names %}
+			<li class="btn btn-success btn-sm state-list-item" data-url="{{ url(['for':'action-auth','controller':router.getControllerName(),'action':'index'])~'/'~state.latin_name }}">
+				<b>{{ state.latin_name }}</b>
+			</li>
+		{% endfor %}
+			</ul>
 		</div>
 	</div>
 	<div class="row">
@@ -136,10 +165,13 @@
 		var url;
 		$(document).ready(function () {
 
+			$('.state-list-item').click(function () {
+				location.href = $(this).data('url');
+			});
 			$(".contextMenuItemLink.edit").click(function (e) {
 				var editRequest = $.ajax({
 					method:"GET",
-					url: $(uri_data).attr('data-uri')
+					url: $(uri_data).attr('data-edit-uri')
 				});
 				editRequest.done(function (data,status,xhr) {
 					$('.form_field').html(data);
@@ -151,7 +183,7 @@
 				if (confirm("Ви впевнені, що хочете видалити?")){
 					var deleteRequest = $.ajax({
 						method:"DELETE",
-						url: $(uri_data).attr('data-uri')
+						url: $(uri_data).attr('data-edit-uri')
 					});
 					deleteRequest.done(function (data,status,xhr) {
 						$('.form_field').html(data);

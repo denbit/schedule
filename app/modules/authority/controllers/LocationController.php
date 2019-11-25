@@ -109,9 +109,12 @@ class LocationController extends ControllerBase implements ICreatable,ISearchabl
 	public function indexAction()
 	{
 		$locationManager = new LocationManager();
+		if (count($this->dispatcher->getParams()) === 1){
+			$this->session->set('base_country', $this->dispatcher->getParams()[0]);
+		}
 		$overview = $locationManager->getOverview();
 
-
+		$this->view->setVar('state_names', States::find(['columns'=>'latin_name']));
 		$this->view->setVar('overview', $overview);
 		$this->view->setVar('list_tree', $overview->tree_list);
 	}

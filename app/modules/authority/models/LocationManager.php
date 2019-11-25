@@ -17,7 +17,7 @@ use Schedule\Core\Models\Stations;
 use Schedule\Modules\Authority\Forms\IDispayable;
 use Schedule\Modules\Authority\Forms\LocationForm;
 
-class LocationManager extends Kernel implements IDispayable
+class LocationManager extends Kernel
 {
     /**
      * @var int|null $base_id
@@ -130,8 +130,9 @@ class LocationManager extends Kernel implements IDispayable
 			'stations' => Stations::count(),
 		];
 		$list = array_change_key_case($list, CASE_UPPER);
+		$base_country = $this->session->get('base_country', 'Ukraine');
 		$per_state = new Location();
-		$per_state->addState(States::getOneByAnyName('Ukraine'));
+		$per_state->addState(States::getOneByAnyName($base_country));
 		$per_state_tree = $per_state->buildTree();
 		$result_set = [
 			'list' => $list,
