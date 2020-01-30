@@ -1,0 +1,11 @@
+[database]
+adapter  = Mysql
+host     = localhost
+username = #write
+password = #write
+dbname   = shlyah
+
+[application]
+controllersDir = '../app/controllers/'
+modelsDir      = '../app/models/'
+viewsDir       = '../app/views/'
